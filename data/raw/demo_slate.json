@@ -1,0 +1,22 @@
+[
+  {
+    "game_id": "2026-04-14-NYY-BOS",
+    "date": "2026-04-14",
+    "home_team": "BOS",
+    "away_team": "NYY",
+    "venue": "Fenway Park",
+    "home_starting_pitcher": "Tanner Houck",
+    "away_starting_pitcher": "Gerrit Cole",
+    "home_bullpen_era": 3.85,
+    "away_bullpen_era": 3.4,
+    "home_lineup_wrc_plus": 104.0,
+    "away_lineup_wrc_plus": 116.0,
+    "home_pitcher_era": 3.65,
+    "away_pitcher_era": 3.1,
+    "temperature_f": 56.0,
+    "wind_mph": 9.0,
+    "wind_out": false,
+    "home_moneyline": 130,
+    "away_moneyline": -145
+  }
+]

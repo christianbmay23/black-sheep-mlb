@@ -1,0 +1,12 @@
+sources:
+  moneyline:
+    - odds_api
+    - sportsdataio
+    - mlb_stats
+  totals:
+    - odds_api
+    - weather
+    - mlb_stats
+  props:
+    - lineups
+    - mlb_stats
