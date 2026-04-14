@@ -1,42 +1,27 @@
 # Black Sheep MLB
 
-Black Sheep is an MLB betting intelligence engine that combines baseball data, market odds, predictive modeling, and analyst-style reasoning.
+Production-grade starter scaffold for an MLB betting intelligence engine.
 
-## Core Goal
-
-Generate daily MLB predictions with:
-
-- moneyline probabilities
-- totals projections
-- player prop predictions
-- home run probabilities
-- fair odds
-- edge detection
-- confidence grades
-- analyst-style explanations
-
-## First Run
-
-Install dependencies:
+## Quickstart
 
 ```bash
+python -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
-```
-
-Run demo slate:
-
-```bash
+cp .env.example .env
 python scripts/run_daily_slate.py
-```
-
-Run dashboard:
-
-```bash
 streamlit run app/streamlit_app.py
 ```
 
-## Build Philosophy
+## What is included
 
-Every prediction should follow this chain:
+- Deterministic v1 data collection layer with demo data fallback
+- Pydantic schemas for games, props, and predictions
+- Feature builders for game context, pitching, bullpen, lineup, and weather/park
+- Simple moneyline model and baseline stubs for totals/HR/props
+- Confidence grading + risk flagging + natural-language explanation
+- End-to-end slate runner and Streamlit dashboard
 
-verified inputs -> normalized data -> engineered features -> model output -> confidence/risk grading -> written explanation -> display
+## Demo pipeline
+
+`python scripts/run_daily_slate.py` loads a demo slate, computes features, predicts moneyline edge, grades confidence, and writes outputs to `data/outputs/latest_predictions.json`.
