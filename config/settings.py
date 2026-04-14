@@ -1,4 +1,5 @@
 from functools import lru_cache
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -9,6 +10,8 @@ class Settings(BaseSettings):
     sportsdataio_api_key: str = ""
     weather_api_key: str = ""
     default_bankroll: float = 1000.0
+    use_live_mlb_stats: bool = True
+    use_live_odds: bool = True
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
