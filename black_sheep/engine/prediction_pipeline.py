@@ -8,37 +8,51 @@ from black_sheep.utils.odds import american_to_implied_prob
 def run_prediction_pipeline(game: dict) -> MoneylinePrediction:
     features = build_game_features(game)
     model = MoneylineModel()
-    away_prob = model.predict_away_win_probability(features)
+    model_outputs = model.predict(features)
+
+    away_prob = model_outputs["away_probability"]
+    home_prob = model_outputs["home_probability"]
 
     away_implied = american_to_implied_prob(game["away_moneyline"])
     home_implied = american_to_implied_prob(game["home_moneyline"])
 
     away_edge = away_prob - away_implied
-    home_prob = 1 - away_prob
     home_edge = home_prob - home_implied
 
     if away_edge >= home_edge:
         side = game["away_team"]
-        chosen_prob = away_prob
-        implied = away_implied
+        model_probability = away_prob
+        fair_odds = model_outputs["away_fair_odds"]
+        market_odds = game["away_moneyline"]
         edge = away_edge
     else:
         side = game["home_team"]
-        chosen_prob = home_prob
-        implied = home_implied
+        model_probability = home_prob
+        fair_odds = model_outputs["home_fair_odds"]
+        market_odds = game["home_moneyline"]
         edge = home_edge
 
-    conf = confidence_tier(edge)
-    risks = build_risk_flags(game, edge)
-    explanation = generate_moneyline_explanation(game, features, chosen_prob, edge, side)
+    confidence = confidence_tier(edge)
+    risk_flags = build_risk_flags(game, edge, features)
+    explanation = generate_moneyline_explanation(game, features, model_probability, edge, side, market_odds)
 
     return MoneylinePrediction(
         game_id=game["game_id"],
         recommended_side=side,
-        model_win_probability=chosen_prob,
-        implied_probability=implied,
+        model_probability=model_probability,
+        fair_odds=fair_odds,
+        market_odds=market_odds,
         edge=edge,
-        confidence_tier=conf,
+        confidence_tier=confidence,
+        feature_breakdown={
+            "starter_edge": features["starter_edge"],
+            "bullpen_edge": features["bullpen_edge"],
+            "lineup_edge": features["lineup_edge"],
+            "park_weather_edge": features["park_weather_edge"],
+            "volatility_score": features["volatility_score"],
+            "data_quality_score": features["data_quality_score"],
+            "feature_notes": features["feature_notes"],
+        },
         explanation=explanation,
-        risk_flags=risks,
+        risk_flags=risk_flags,
     )

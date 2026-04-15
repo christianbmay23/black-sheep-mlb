@@ -7,7 +7,7 @@ def test_prediction_pipeline_returns_valid_output() -> None:
         "date": "2026-04-14",
         "home_team": "BOS",
         "away_team": "NYY",
-        "venue": "Fenway",
+        "venue": "Fenway Park",
         "home_starting_pitcher": "A",
         "away_starting_pitcher": "B",
         "home_bullpen_era": 3.9,
@@ -24,4 +24,5 @@ def test_prediction_pipeline_returns_valid_output() -> None:
     }
     prediction = run_prediction_pipeline(game)
     assert prediction.game_id == "g1"
-    assert 0 <= prediction.model_win_probability <= 1
+    assert 0 <= prediction.model_probability <= 1
+    assert isinstance(prediction.feature_breakdown, dict)

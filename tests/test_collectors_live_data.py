@@ -114,3 +114,17 @@ def test_script_runs_demo_mode() -> None:
     result = subprocess.run(cmd, capture_output=True, text=True, check=False)
     assert result.returncode == 0
     assert "Ran slate for 2026-04-14 (demo)." in result.stdout
+
+
+def test_live_feed_extractors_fallback_when_missing() -> None:
+    collector = MLBStatsCollector()
+    collector.fetch_live_feed = lambda _gid: {}
+
+    pitcher = collector.extract_pitcher_stats("123", "Home Pitcher", "Away Pitcher")
+    context = collector.extract_team_records_or_context("123")
+
+    assert pitcher["home_pitcher_era"] == 4.0
+    assert pitcher["away_pitcher_era"] == 4.0
+    assert pitcher["home_starter_handedness"] == "U"
+    assert context["home_team_win_pct"] == 0.5
+    assert context["away_team_win_pct"] == 0.5
