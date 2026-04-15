@@ -1,10 +1,9 @@
-Black Sheep MLB intel — daily workflow
+Black Sheep MLB — quick checklist
 
-1. Open this folder in Cursor: ~/Projects/black-sheep-mlb
-2. Edit canvases/mlb-pregame-intel-apr15.canvas.tsx (source of truth for the live canvas).
-3. Canvas for the IDE: a symlink was added at
-   ~/.cursor/projects/black-sheep-mlb/canvases/mlb-pregame-intel-apr15.canvas.tsx -> repo file
-   Edit the file under ~/Projects/black-sheep-mlb/canvases/ (same content). On a new machine, recreate that symlink or copy the file into the canvases folder.
-4. Regenerate exports: python3 canvases/exports/build_ml_exports.py
-5. Commit often: git add -A && git commit -m "Describe slate update"
-6. Optional: create a private GitHub repo and: git remote add origin <url> && git push -u origin main
+1. Open ~/Projects/black-sheep-mlb in Cursor.
+2. Edit canvases/mlb-pregame-intel-apr15.canvas.tsx
+3. python3 canvases/exports/build_ml_exports.py
+4. git add -A && git commit -m "your message"
+5. Push only if you want backup or another machine — see README.md
+
+Full layout, git push explanation, and symlink path: README.md
