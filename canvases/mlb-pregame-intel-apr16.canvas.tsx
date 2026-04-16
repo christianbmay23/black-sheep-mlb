@@ -51,6 +51,19 @@ type SlateGame = {
   propsHome: PropRow[];
 };
 
+type LineupPosting = "posted" | "mixed" | "projected";
+type DecisionStatus = "bet" | "small/conditional" | "pass";
+
+type DerivedDecision = {
+  game: SlateGame;
+  flags: string[];
+  lineupPosting: LineupPosting;
+  hasLineupRisk: boolean;
+  hasManualArtifact: boolean;
+  tierRank: number;
+  status: DecisionStatus;
+};
+
 /** Mirrors games-csv + enriched UI fields. Probables / posted LUs: MLB Stats API (2026-04-16). */
 const SLATE: SlateGame[] = [
   {
@@ -729,6 +742,256 @@ const SLATE: SlateGame[] = [
   },
 ];
 
+const ACTIONABLE_EDGE_PCT = 1.5;
+const STRONG_EDGE_PCT = 4;
+
+function parseFlags(flags: string): string[] {
+  return flags
+    .split(";")
+    .map((flag) => flag.trim().toLowerCase())
+    .filter(Boolean);
+}
+
+function labelPostingStatus(label: string): LineupPosting | "unknown" {
+  const normalized = label.trim().toLowerCase();
+  if (normalized.includes("projected") || normalized.includes("not posted")) return "projected";
+  if (normalized.includes("posted")) return "posted";
+  return "unknown";
+}
+
+function hasLineupRiskFlag(flags: string[]): boolean {
+  return flags.some((flag) => {
+    const normalized = flag.replace(/_/g, " ");
+    return normalized.includes("lineup") || normalized.includes("not posted") || /\blu\b/.test(normalized);
+  });
+}
+
+function classifyLineupPosting(g: SlateGame, flags: string[]): LineupPosting {
+  const awayStatus = labelPostingStatus(g.awayLuLabel);
+  const homeStatus = labelPostingStatus(g.homeLuLabel);
+  const hasFlaggedRisk = hasLineupRiskFlag(flags);
+
+  if (awayStatus === "posted" && homeStatus === "posted" && !hasFlaggedRisk) return "posted";
+  if (awayStatus === "projected" && homeStatus === "projected") return "projected";
+  if (awayStatus === "unknown" && homeStatus === "unknown") return hasFlaggedRisk ? "mixed" : "posted";
+  if (awayStatus === "projected" || homeStatus === "projected" || hasFlaggedRisk) return "mixed";
+  return "posted";
+}
+
+function tierRank(tier: string): number {
+  const normalized = tier.trim().toUpperCase();
+  if (normalized === "PASS") return 0;
+  if (normalized.startsWith("A")) return 4;
+  if (normalized.startsWith("B")) return 3;
+  if (normalized.startsWith("C")) return 2;
+  if (normalized.startsWith("D")) return 1;
+  return 0;
+}
+
+function confidenceRank(confidence: string): number {
+  const normalized = confidence.trim().toLowerCase();
+  if (normalized === "high") return 4;
+  if (normalized === "medium-high") return 3;
+  if (normalized === "medium") return 2;
+  if (normalized === "low") return 1;
+  return 0;
+}
+
+function postingRank(posting: LineupPosting): number {
+  if (posting === "posted") return 3;
+  if (posting === "mixed") return 2;
+  return 1;
+}
+
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function rationaleSignalsTeam(rationale: string, team: string): boolean {
+  const escapedTeam = escapeRegExp(team.toLowerCase());
+  return new RegExp(
+    `\\b(?:lean|leans|leaning|edge|prefer|like)\\b[^.]{0,48}\\b${escapedTeam}\\b|\\b${escapedTeam}\\b[^.]{0,24}\\b(?:lean|edge)\\b`,
+    "i",
+  ).test(rationale.toLowerCase());
+}
+
+function hasContradictoryRationale(g: SlateGame): boolean {
+  const predicted = g.prediction.toLowerCase();
+  const opposite = predicted === g.away.toLowerCase() ? g.home : g.away;
+  return rationaleSignalsTeam(g.rationale, opposite) && !rationaleSignalsTeam(g.rationale, g.prediction);
+}
+
+function baseDecisionStatus(
+  g: SlateGame,
+  lineupPosting: LineupPosting,
+  hasManualArtifact: boolean,
+): DecisionStatus {
+  const rank = tierRank(g.decisionTier);
+  if (
+    rank >= 4 &&
+    g.edgeOnPickPct >= STRONG_EDGE_PCT &&
+    lineupPosting === "posted" &&
+    !hasManualArtifact
+  ) {
+    return "bet";
+  }
+  if (rank >= 2 && g.edgeOnPickPct >= ACTIONABLE_EDGE_PCT && lineupPosting !== "projected") {
+    return "small/conditional";
+  }
+  return "pass";
+}
+
+function deriveDecision(game: SlateGame): DerivedDecision {
+  const flags = parseFlags(game.flags);
+  const lineupPosting = classifyLineupPosting(game, flags);
+  const hasManualArtifact = hasContradictoryRationale(game);
+  const status = baseDecisionStatus(game, lineupPosting, hasManualArtifact);
+
+  return {
+    game,
+    flags,
+    lineupPosting,
+    hasLineupRisk: hasLineupRiskFlag(flags) || lineupPosting !== "posted",
+    hasManualArtifact,
+    tierRank: tierRank(game.decisionTier),
+    status,
+  };
+}
+
+function compareDecisionPriority(a: DerivedDecision, b: DerivedDecision): number {
+  const postingDelta = postingRank(b.lineupPosting) - postingRank(a.lineupPosting);
+  if (postingDelta !== 0) return postingDelta;
+
+  const lineupRiskDelta = Number(a.hasLineupRisk) - Number(b.hasLineupRisk);
+  if (lineupRiskDelta !== 0) return lineupRiskDelta;
+
+  const tierDelta = b.tierRank - a.tierRank;
+  if (tierDelta !== 0) return tierDelta;
+
+  const edgeDelta = b.game.edgeOnPickPct - a.game.edgeOnPickPct;
+  if (edgeDelta !== 0) return edgeDelta;
+
+  const manualArtifactDelta = Number(a.hasManualArtifact) - Number(b.hasManualArtifact);
+  if (manualArtifactDelta !== 0) return manualArtifactDelta;
+
+  return confidenceRank(b.game.analystConfidence) - confidenceRank(a.game.analystConfidence);
+}
+
+function formatEdge(edgePct: number): string {
+  return `${edgePct > 0 ? "+" : ""}${edgePct.toFixed(2)}%`;
+}
+
+function lineupPostingLabel(posting: LineupPosting): string {
+  if (posting === "posted") return "posted lineups";
+  if (posting === "mixed") return "mixed lineups";
+  return "projected lineups";
+}
+
+function humanizeFlag(flag: string): string | null {
+  if (flag === "approx_market_ml") return null;
+  if (flag === "lineup_not_posted_api") return "lineups not fully posted";
+  if (flag === "away lu") return "away lineup still projected";
+  if (flag === "corbin_platoons") return "platoon volatility";
+  if (flag === "oak_coliseum_env") return "park/environment uncertainty";
+  return flag.replace(/_/g, " ");
+}
+
+function firstNonMarketFlag(flags: string[]): string | null {
+  for (const flag of flags) {
+    const label = humanizeFlag(flag);
+    if (label) return label;
+  }
+  return null;
+}
+
+function extractRationaleCue(g: SlateGame, hasManualArtifact: boolean): string | null {
+  if (hasManualArtifact) return null;
+
+  const rationale = g.rationale.toLowerCase();
+  if (rationale.includes("coin flip")) return "coin-flip profile";
+  if (rationale.includes("ace duel")) return "ace-duel pricing";
+  if (rationale.includes("heavy chalk") || rationale.includes("chalk")) return "heavy chalk";
+  if (rationale.includes("price") && (rationale.includes("already") || rationale.includes("reflects"))) {
+    return "price looks efficient";
+  }
+  if (rationale.includes("props")) return "props-first setup";
+  if (rationale.includes("volatility")) return "high-volatility setup";
+  if (rationale.includes("pass")) return "rationale already points to pass";
+  return null;
+}
+
+function buildBestBetLogic(decision: DerivedDecision): string {
+  const parts = [
+    lineupPostingLabel(decision.lineupPosting),
+    `Tier ${decision.game.decisionTier}`,
+    `${formatEdge(decision.game.edgeOnPickPct)} edge`,
+    `model ${decision.game.modelConfidence.toLowerCase()}`,
+  ];
+  const flagNote = firstNonMarketFlag(decision.flags);
+  if (flagNote) parts.push(flagNote);
+  if (decision.hasManualArtifact) parts.push("stale rationale text ignored");
+  return parts.join("; ");
+}
+
+function buildPassReason(decision: DerivedDecision): string {
+  const reasons: string[] = [];
+
+  if (decision.game.edgeOnPickPct <= 0) reasons.push(`pick edge ${formatEdge(decision.game.edgeOnPickPct)}`);
+  if (decision.tierRank <= 1) reasons.push(`Tier ${decision.game.decisionTier} not actionable`);
+  if (decision.game.edgeOnPickPct > 0 && decision.game.edgeOnPickPct < ACTIONABLE_EDGE_PCT) {
+    reasons.push(`edge only ${formatEdge(decision.game.edgeOnPickPct)}`);
+  }
+  if (decision.lineupPosting !== "posted") reasons.push(lineupPostingLabel(decision.lineupPosting));
+  if (decision.game.analystConfidence === "Low") reasons.push("analyst confidence low");
+
+  const flagNote = firstNonMarketFlag(decision.flags);
+  if (flagNote) reasons.push(flagNote);
+
+  const rationaleCue = extractRationaleCue(decision.game, decision.hasManualArtifact);
+  if (rationaleCue) reasons.push(rationaleCue);
+
+  if (decision.hasManualArtifact) reasons.push("stale rationale text ignored");
+
+  return `${decision.game.gameKey} - PASS (${reasons.slice(0, 3).join("; ")})`;
+}
+
+function deriveSummaryBoard(slate: SlateGame[]): {
+  bestBets: string[][];
+  passList: string[];
+} {
+  const decisions = slate.map(deriveDecision);
+  const bestBets = decisions
+    .filter(
+      (decision) =>
+        decision.status !== "pass" &&
+        decision.lineupPosting !== "projected" &&
+        decision.game.edgeOnPickPct > 0,
+    )
+    .sort(compareDecisionPriority)
+    .slice(0, 3)
+    .map((decision) => [
+      `${decision.game.prediction} ML (${decision.status})`,
+      decision.game.gameKey,
+      decision.game.decisionTier,
+      buildBestBetLogic(decision),
+      decision.lineupPosting === "posted"
+        ? decision.game.analystConfidence
+        : `${decision.game.analystConfidence} / conditional`,
+    ]);
+
+  const passList = decisions
+    .filter((decision) => decision.status === "pass")
+    .map((decision) => buildPassReason(decision));
+
+  return {
+    bestBets:
+      bestBets.length > 0
+        ? bestBets
+        : [["No actionable side", "-", "PASS", "All sides downgraded to pass from computed slate", "-"]],
+    passList,
+  };
+}
+
 function PillTag({ label, tone }: { label: string; tone?: "success" | "warning" | "info" | "neutral" }) {
   return (
     <Pill size="sm" tone={tone} active>
@@ -898,18 +1161,7 @@ export default function Apr16Canvas() {
   const props = allPropRows();
   const topHr = [...props].sort((a, b) => b.hr - a.hr).slice(0, 8);
   const topTb = [...props].sort((a, b) => b.tb2 - a.tb2).slice(0, 8);
-  const bestBets = [
-    ["CIN ML (lean)", "SF@CIN", "B", "Best tier vs approx line; GABP run env", "Medium-High"],
-    ["DET ML (small)", "KC@DET", "C", "Largest raw edge vs approx; still modest tier", "Medium"],
-    ["TB ML (small)", "TB@CWS", "C", "Rays roster vs stretched starter", "Medium"],
-  ];
-  const passList = [
-    "LAA@NYY — ML PASS (price reflects Fried vs Suter)",
-    "TOR@MIL — ML PASS (coin flip; command volatility both sides)",
-    "TEX@ATH — ML PASS (tight market, short leashes)",
-    "COL@HOU — ML PASS (heavy chalk)",
-    "SEA@SD — ML PASS (ace duel; Petco)",
-  ];
+  const { bestBets, passList } = deriveSummaryBoard(SLATE);
 
   return (
     <Stack gap={20} style={{ maxWidth: 1120 }}>
