@@ -29,6 +29,25 @@ Edit the file **inside this repo**; the symlink keeps the side panel in sync. On
 4. Commit when the slate is stable:  
    `git add -A && git commit -m "Slate update YYYY-MM-DD"`
 
+
+## Date-Driven Export Workflow
+
+1. Create or update a daily canvas using this naming pattern:
+   - `canvases/mlb-pregame-intel-<slug>.canvas.tsx`
+   - Example slugs: `apr15`, `apr16`
+2. Add or update the two marker blocks inside that canvas:
+   - `<!-- games-csv:start --> ... <!-- games-csv:end -->`
+   - `<!-- batter-outlooks-csv:start --> ... <!-- batter-outlooks-csv:end -->`
+3. Run one of the export commands:
+   - `python canvases/exports/build_ml_exports.py --date 2026-04-16`
+   - `python canvases/exports/build_ml_exports.py --date apr16`
+4. Generated files are written automatically to `canvases/exports/` with the same slug:
+   - `mlb-pregame-intel-<slug>-games.csv`
+   - `mlb-pregame-intel-<slug>-batter-outlooks.csv`
+   - `mlb-pregame-intel-<slug>-report.html`
+
+If `--date` is omitted, exports default to slug `apr15` for backward compatibility.
+
 ## Backtesting + model performance tracker
 
 Use the backtest script to score yesterday's picks and generate a running tracker + summary notes:

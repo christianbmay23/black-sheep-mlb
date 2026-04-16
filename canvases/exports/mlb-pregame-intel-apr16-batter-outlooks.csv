@@ -1,0 +1,4 @@
+report_date,game,team,batter,opponent_pitcher,hr_prob_pct,tb2_prob_pct,fair_hr_american,fair_2tb_american,market_hr_american,edge_hr_pct,tier,data_confidence
+2026-04-16,SEA@TEX,SEA,Julio Rodriguez,Nathan Eovaldi,8.40,28.20,+1090,+255,+425,3.10,B,High
+2026-04-16,SEA@TEX,TEX,Corey Seager,Logan Gilbert,6.90,24.40,+1350,+310,+475,1.20,C,Medium
+2026-04-16,ATL@NYM,ATL,Ronald Acuna Jr.,Tylor Megill,10.80,33.50,+826,+198,+370,4.40,A,High
