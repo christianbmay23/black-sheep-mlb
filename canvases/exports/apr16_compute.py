@@ -160,23 +160,32 @@ def patch_string_field(block: str, field: str, value: str) -> str:
     return re.sub(rf'({re.escape(field)}:\s*")([^"]*)(")', rf'\1{value}\3', block, count=1)
 
 
-def patch_prop_line(block: str, batter: str, hr_pct: float, tb2_pct: float, tier: str) -> str:
-    esc = re.escape(batter)
+def patch_prop_line(
+    block: str,
+    batter: str,
+    team: str,
+    hr_pct: float,
+    tb2_pct: float,
+    tier: str,
+) -> tuple[str, bool]:
+    batter_pat = re.compile(rf'\bbatter\s*:\s*"{re.escape(batter)}"')
+    team_pat = re.compile(rf'\bteam\s*:\s*"{re.escape(team)}"')
+    matches = []
 
-    def _repl(m: re.Match[str]) -> str:
-        return (
-            f"{m.group(1)}{hr_pct:.1f}"
-            f"{m.group(2)}{tb2_pct:.1f}"
-            f"{m.group(3)}{tier}"
-            f'{m.group(5)}'
-        )
+    for m in re.finditer(r"\{[^{}]*\}", block, re.DOTALL):
+        obj = m.group(0)
+        if batter_pat.search(obj) and team_pat.search(obj):
+            matches.append(m)
 
-    return re.sub(
-        rf'(batter:\s*"{esc}"\s*,\s*team:\s*"[^"]+"\s*,\s*hrPct:\s*)[\d.]+(\s*,\s*tb2Pct:\s*)[\d.]+(\s*,\s*tier:\s*")([^"]+)(")',
-        _repl,
-        block,
-        count=1,
-    )
+    if len(matches) != 1:
+        return block, False
+
+    start, end = matches[0].span()
+    prop_obj = block[start:end]
+    updated_obj = patch_float_field(prop_obj, "hrPct", hr_pct, decimals=1)
+    updated_obj = patch_float_field(updated_obj, "tb2Pct", tb2_pct, decimals=1)
+    updated_obj = patch_string_field(updated_obj, "tier", tier)
+    return block[:start] + updated_obj + block[end:], True
 
 
 def run_apr16_pipeline(canvas_path: Path | None = None) -> None:
@@ -347,6 +356,7 @@ def run_apr16_pipeline(canvas_path: Path | None = None) -> None:
         prop_results.append(
             {
                 "gameKey": gk,
+                "team": p["team"],
                 "batter": p["batter"],
                 "hrPct": hr * 100,
                 "tb2Pct": tb2 * 100,
@@ -388,15 +398,16 @@ def run_apr16_pipeline(canvas_path: Path | None = None) -> None:
             continue
         a, b = span
         block = updated[a:b]
-        nb = patch_prop_line(
+        nb, matched = patch_prop_line(
             block,
             pr["batter"],
+            pr["team"],
             pr["hrPct"],
             pr["tb2Pct"],
             pr["tier"],
         )
-        if nb == block:
-            raise ValueError(f"Failed to patch prop for {pr['gameKey']} {pr['batter']}")
+        if not matched:
+            raise ValueError(f"Failed to patch prop for {pr['gameKey']} {pr['team']} {pr['batter']}")
         updated = updated[:a] + nb + updated[b:]
 
     path.write_text(updated, encoding="utf-8")
