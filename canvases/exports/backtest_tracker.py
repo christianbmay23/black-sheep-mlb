@@ -65,10 +65,20 @@ class BacktestRow:
     rationale_summary: str
 
 
+def slug_from_date_input(date_input: str) -> str:
+    clean = (date_input or "").strip().lower()
+    if not clean:
+        return DEFAULT_SLUG
+    try:
+        dt = datetime.strptime(clean, "%Y-%m-%d")
+        return f"{dt.strftime('%b').lower()}{dt.day}"
+    except ValueError:
+        return clean
+
+
 def normalize_team(team: str) -> str:
     value = (team or "").strip().upper()
     return MLB_TEAM_ALIASES.get(value, value)
-
 
 def fetch_completed_game_winners(date_str: str) -> dict[str, str]:
     query = urllib.parse.urlencode(
@@ -148,8 +158,8 @@ def build_backtest_rows(predictions: list[dict[str, str]], actual_winners: dict[
     return rows
 
 
-def write_tracker_csv(rows: list[BacktestRow], date_str: str) -> None:
-    with TRACKER_CSV.open("w", newline="", encoding="utf-8") as f:
+def write_tracker_csv(rows: list[BacktestRow], date_str: str, tracker_csv: Path) -> None:
+    with tracker_csv.open("w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
         writer.writerow(
             [
@@ -268,7 +278,7 @@ def recommendations(summary: dict[str, object]) -> list[str]:
     return recs
 
 
-def write_summary(date_str: str, summary: dict[str, object]) -> None:
+def write_summary(date_str: str, summary: dict[str, object], summary_md: Path) -> None:
     by_tier = summary["by_tier"]
     by_conf = summary["by_conf"]
     top_hits = summary["top_hits"]
@@ -337,11 +347,38 @@ def write_summary(date_str: str, summary: dict[str, object]) -> None:
         lines.append(f"{idx}. {rec}")
     lines.append("")
 
+    summary_md.write_text("\n".join(lines), encoding="utf-8")
     SUMMARY_MD.write_text("\n".join(lines), encoding="utf-8")
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--date",
+        default=DEFAULT_SLUG,
+        help="Date slug (apr15) or YYYY-MM-DD; controls derived file paths.",
+    )
+    parser.add_argument("--csv", type=Path, default=None, help="Predictions CSV file.")
+    parser.add_argument("--tracker", type=Path, default=None, help="Tracker CSV output path.")
+    parser.add_argument("--summary", type=Path, default=None, help="Summary markdown output path.")
+    args = parser.parse_args()
+
+    slug = slug_from_date_input(args.date)
+    csv_path = args.csv or (OUT_DIR / f"mlb-pregame-intel-{slug}-games.csv")
+    tracker_csv = args.tracker or (OUT_DIR / f"model_performance_tracker_{slug}.csv")
+    summary_md = args.summary or (OUT_DIR / f"model_performance_summary_{slug}.md")
+
+    date_str, predictions = load_predictions(csv_path)
+    actual_winners, source = resolve_actual_winners(date_str)
+    backtest_rows = build_backtest_rows(predictions, actual_winners)
+
+    write_tracker_csv(backtest_rows, date_str, tracker_csv)
+    summary = summarize(backtest_rows)
+    write_summary(date_str, summary, summary_md)
+
+    print(f"Backtest complete for {date_str} ({slug}).")
+    print(f"Tracker: {tracker_csv}")
+    print(f"Summary: {summary_md}")
     parser.add_argument("--csv", type=Path, default=DEFAULT_GAMES_CSV, help="Predictions CSV file.")
     args = parser.parse_args()
 

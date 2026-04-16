@@ -35,6 +35,10 @@ Use the backtest script to score yesterday's picks and generate a running tracke
 
 ```bash
 python3 canvases/exports/backtest_tracker.py
+# or
+python3 canvases/exports/backtest_tracker.py --date 2026-04-15
+# or
+python3 canvases/exports/backtest_tracker.py --date apr15
 ```
 
 Outputs:
@@ -42,6 +46,63 @@ Outputs:
 - `canvases/exports/model_performance_summary_apr15.md`
 
 The script will try MLB Stats API first. If the environment blocks outbound calls, it falls back to a locally maintained result map for supported dates.
+
+## Prop Backtesting Workflow
+
+Use `prop_backtest_tracker.py` to evaluate batter/pitcher prop calls while separating **target accuracy** from true **betting ROI**.
+
+### 1) Create/fill the prop results file
+
+Run:
+
+```bash
+python3 canvases/exports/prop_backtest_tracker.py
+# or
+python3 canvases/exports/prop_backtest_tracker.py --date 2026-04-15
+# or
+python3 canvases/exports/prop_backtest_tracker.py --date apr15
+```
+
+If `canvases/exports/prop_results_apr15.csv` does not exist, the script creates a template with required headers:
+
+- `date`
+- `game`
+- `player`
+- `team`
+- `prop_type` (`HR`, `2+ TB`, `K`, `OUTS`, `HIT`, `RBI`, `RUN`)
+- `line`
+- `market_odds`
+- `closing_odds`
+- `result`
+- `notes`
+
+Populate one row per tracked prop result, then rerun the same command.
+
+Date-driven paths are derived from `--date`:
+- Outlook: `mlb-pregame-intel-<slug>-batter-outlooks.csv`
+- Results: `prop_results_<slug>.csv`
+- Tracker: `model_prop_performance_tracker_<slug>.csv`
+- Summary: `model_prop_performance_summary_<slug>.md`
+
+(`<slug>` can be a short slug like `apr15` or generated from `YYYY-MM-DD`.)
+
+### 2) Run the prop backtest
+
+```bash
+python3 canvases/exports/prop_backtest_tracker.py
+```
+
+Outputs:
+- `canvases/exports/model_prop_performance_tracker_apr15.csv`
+- `canvases/exports/model_prop_performance_summary_apr15.md`
+
+### 3) Interpret target accuracy vs betting ROI
+
+- **Target accuracy**: use when market odds are missing; this answers “did the target hit?” only.
+- **Betting ROI**: only computed when market odds exist; this answers “was it profitable at that price?”
+- Do **not** label props +EV unless market odds are available.
+- A prop can be a good matchup target but still a bad bet if market price is worse than model fair odds.
+- HR props should be monitored as higher-variance; 2+ TB and pitcher K should be treated as more stable core categories.
 
 ## Git: do you need to push?
 
