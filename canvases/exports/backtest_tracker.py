@@ -9,15 +9,13 @@ import urllib.parse
 import urllib.request
 from collections import Counter, defaultdict
 from dataclasses import dataclass
-from datetime import datetime
 from pathlib import Path
 from statistics import mean
 
 OUT_DIR = Path(__file__).resolve().parent
-DEFAULT_SLUG = "apr15"
-DEFAULT_GAMES_CSV = OUT_DIR / f"mlb-pregame-intel-{DEFAULT_SLUG}-games.csv"
-TRACKER_CSV = OUT_DIR / f"model_performance_tracker_{DEFAULT_SLUG}.csv"
-SUMMARY_MD = OUT_DIR / f"model_performance_summary_{DEFAULT_SLUG}.md"
+DEFAULT_GAMES_CSV = OUT_DIR / "mlb-pregame-intel-apr15-games.csv"
+TRACKER_CSV = OUT_DIR / "model_performance_tracker_apr15.csv"
+SUMMARY_MD = OUT_DIR / "model_performance_summary_apr15.md"
 
 MLB_TEAM_ALIASES = {
     "AZ": "ARI",
@@ -81,7 +79,6 @@ def slug_from_date_input(date_input: str) -> str:
 def normalize_team(team: str) -> str:
     value = (team or "").strip().upper()
     return MLB_TEAM_ALIASES.get(value, value)
-
 
 def fetch_completed_game_winners(date_str: str) -> dict[str, str]:
     query = urllib.parse.urlencode(
@@ -351,6 +348,7 @@ def write_summary(date_str: str, summary: dict[str, object], summary_md: Path) -
     lines.append("")
 
     summary_md.write_text("\n".join(lines), encoding="utf-8")
+    SUMMARY_MD.write_text("\n".join(lines), encoding="utf-8")
 
 
 def main() -> None:
@@ -381,6 +379,20 @@ def main() -> None:
     print(f"Backtest complete for {date_str} ({slug}).")
     print(f"Tracker: {tracker_csv}")
     print(f"Summary: {summary_md}")
+    parser.add_argument("--csv", type=Path, default=DEFAULT_GAMES_CSV, help="Predictions CSV file.")
+    args = parser.parse_args()
+
+    date_str, predictions = load_predictions(args.csv)
+    actual_winners, source = resolve_actual_winners(date_str)
+    backtest_rows = build_backtest_rows(predictions, actual_winners)
+
+    write_tracker_csv(backtest_rows, date_str)
+    summary = summarize(backtest_rows)
+    write_summary(date_str, summary)
+
+    print(f"Backtest complete for {date_str}.")
+    print(f"Tracker: {TRACKER_CSV}")
+    print(f"Summary: {SUMMARY_MD}")
     print(f"Accuracy: {summary['accuracy']:.1f}% ({summary['correct']}/{summary['settled']})")
     print(f"Results source: {source}")
 
