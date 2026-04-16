@@ -1,9 +1,22 @@
-Black Sheep MLB — quick checklist
+Black Sheep MLB — Daily Date-Driven Export Workflow
 
-1. Open ~/Projects/black-sheep-mlb in Cursor.
-2. Edit canvases/mlb-pregame-intel-apr15.canvas.tsx
-3. python3 canvases/exports/build_ml_exports.py
-4. git add -A && git commit -m "your message"
-5. Push only if you want backup or another machine — see README.md
+1) Create the day-specific canvas file
+   - File pattern: canvases/mlb-pregame-intel-<slug>.canvas.tsx
+   - Example: canvases/mlb-pregame-intel-apr16.canvas.tsx
 
-Full layout, git push explanation, and symlink path: README.md
+2) Update the two export marker sections in that canvas
+   - <!-- games-csv:start --> ... <!-- games-csv:end -->
+   - <!-- batter-outlooks-csv:start --> ... <!-- batter-outlooks-csv:end -->
+
+3) Generate exports for the slate
+   - python canvases/exports/build_ml_exports.py --date 2026-04-16
+   - or: python canvases/exports/build_ml_exports.py --date apr16
+
+4) Minimal workflow for a new slate
+   - Copy prior day canvas to new slug
+   - Refresh only games-csv and batter-outlooks-csv blocks
+   - Run export command
+   - Verify three outputs in canvases/exports/
+
+5) Backward compatibility
+   - Running python canvases/exports/build_ml_exports.py with no --date still defaults to apr15
