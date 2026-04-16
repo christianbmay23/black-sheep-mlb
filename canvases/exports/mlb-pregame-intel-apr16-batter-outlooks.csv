@@ -1,31 +1,31 @@
 report_date,game,team,batter,opponent_pitcher,hr_prob_pct,tb2_prob_pct,fair_hr_american,fair_2tb_american,market_hr_american,edge_hr_pct,tier,data_confidence
-2026-04-16,WSH@PIT,WSH,James Wood,Braxton Ashcraft,7.80,26.00,+1182,+285,NA,0.00,B,High — posted LU
-2026-04-16,WSH@PIT,PIT,Oneil Cruz,Foster Griffin,6.90,24.50,+1349,+308,NA,0.00,B,High — posted LU
-2026-04-16,WSH@PIT,PIT,Marcell Ozuna,Foster Griffin,7.40,27.00,+1251,+270,NA,0.00,B,High — posted LU
-2026-04-16,SF@CIN,CIN,Elly De La Cruz,Landen Roupp,8.20,30.00,+1120,+233,NA,0.00,A,High — posted LU
-2026-04-16,SF@CIN,CIN,Spencer Steer,Landen Roupp,6.50,25.00,+1438,+300,NA,0.00,C,High — posted LU
-2026-04-16,SF@CIN,SF,Matt Chapman,Chase Burns,7.00,24.00,+1329,+317,NA,0.00,B,High — posted LU
-2026-04-16,KC@DET,DET,Gleyber Torres,Kris Bubic,6.80,25.50,+1371,+292,NA,0.00,C,High — posted LU
-2026-04-16,KC@DET,KC,Vinnie Pasquantino,Keider Montero,7.60,26.50,+1216,+277,NA,0.00,B,High — posted LU
-2026-04-16,KC@DET,KC,Bobby Witt Jr.,Keider Montero,6.20,24.00,+1513,+317,NA,0.00,B,High — posted LU
-2026-04-16,LAA@NYY,NYY,Aaron Judge,Brent Suter,11.50,34.00,+770,+194,NA,0.00,A,High — posted LU
-2026-04-16,LAA@NYY,NYY,Giancarlo Stanton,Brent Suter,8.50,28.00,+1076,+257,NA,0.00,A,High — posted LU
-2026-04-16,LAA@NYY,LAA,Mike Trout,Max Fried,7.00,25.00,+1329,+300,NA,0.00,B,High — posted LU (K watch)
-2026-04-16,TOR@MIL,TOR,Vladimir Guerrero Jr.,Brandon Sproat,8.00,29.00,+1150,+245,NA,0.00,B,High — posted LU
-2026-04-16,TOR@MIL,MIL,William Contreras,Patrick Corbin,7.10,26.50,+1308,+277,NA,0.00,B,High — posted LU
-2026-04-16,TOR@MIL,TOR,Daulton Varsho,Brandon Sproat,5.90,22.00,+1595,+355,NA,0.00,C,High — posted LU (K spot)
-2026-04-16,TB@CWS,TB,Junior Caminero,Jordan Leasure,7.80,26.00,+1182,+285,NA,0.00,B,High — posted LU
-2026-04-16,TB@CWS,TB,Yandy Díaz,Jordan Leasure,5.20,21.50,+1823,+365,NA,0.00,C,High — posted LU
-2026-04-16,TB@CWS,CWS,Andrew Benintendi,Steven Matz,4.50,18.00,+2122,+456,NA,0.00,D,High — posted LU (K spot)
-2026-04-16,TEX@ATH,TEX,Wyatt Langford,Jacob Lopez,7.00,25.00,+1329,+300,NA,0.00,B,High — posted LU
-2026-04-16,TEX@ATH,TEX,Josh Jung,Jacob Lopez,6.60,23.50,+1415,+326,NA,0.00,B,High — posted LU
-2026-04-16,TEX@ATH,ATH,Lawrence Butler,Jack Leiter,6.90,24.00,+1349,+317,NA,0.00,B,High — posted LU
-2026-04-16,BAL@CLE,BAL,Gunnar Henderson,Parker Messick,6.80,25.00,+1371,+300,NA,0.00,B,Med — active roster (LU TBD)
-2026-04-16,BAL@CLE,BAL,Coby Mayo,Parker Messick,6.20,22.00,+1513,+355,NA,0.00,C,Med — roster (K risk)
-2026-04-16,BAL@CLE,CLE,David Fry,Shane Baz,6.00,23.50,+1567,+326,NA,0.00,C,Med — active roster (LU TBD)
-2026-04-16,COL@HOU,HOU,Yordan Alvarez,Juan Mejia,9.50,31.00,+953,+223,NA,0.00,A,Med — active roster (LU TBD)
-2026-04-16,COL@HOU,HOU,Christian Walker,Juan Mejia,6.50,23.00,+1438,+335,NA,0.00,B,Med — roster
-2026-04-16,COL@HOU,COL,Hunter Goodman,Ryan Weiss,7.80,26.00,+1182,+285,NA,0.00,B,Med — roster (power path)
-2026-04-16,SEA@SD,SD,Fernando Tatis Jr.,Luis Castillo,6.50,24.00,+1438,+317,NA,0.00,C,Med — roster (ace matchup)
-2026-04-16,SEA@SD,SD,Manny Machado,Luis Castillo,5.80,22.50,+1624,+344,NA,0.00,C,Med — roster
-2026-04-16,SEA@SD,SEA,Julio Rodríguez,Walker Buehler,6.20,23.50,+1513,+326,NA,0.00,C,Med — roster (K watch)
+2026-04-16,WSH@PIT,WSH,James Wood,Braxton Ashcraft,3.81,21.83,+2525,+358,NA,0.00,C,High — model+features
+2026-04-16,WSH@PIT,PIT,Oneil Cruz,Foster Griffin,4.06,21.53,+2363,+365,NA,0.00,C,High — model+features
+2026-04-16,WSH@PIT,PIT,Marcell Ozuna,Foster Griffin,4.25,21.87,+2253,+357,NA,0.00,C,High — model+features
+2026-04-16,SF@CIN,CIN,Elly De La Cruz,Landen Roupp,5.06,23.40,+1876,+327,NA,0.00,C,High — model+features
+2026-04-16,SF@CIN,CIN,Spencer Steer,Landen Roupp,3.36,20.36,+2874,+391,NA,0.00,C,High — model+features
+2026-04-16,SF@CIN,SF,Matt Chapman,Chase Burns,2.22,20.34,+4400,+392,NA,0.00,C,High — model+features
+2026-04-16,KC@DET,DET,Gleyber Torres,Kris Bubic,2.59,19.65,+3761,+409,NA,0.00,D,High — model+features
+2026-04-16,KC@DET,KC,Vinnie Pasquantino,Keider Montero,3.71,21.44,+2595,+367,NA,0.00,C,High — model+features
+2026-04-16,KC@DET,KC,Bobby Witt Jr.,Keider Montero,2.80,20.44,+3471,+389,NA,0.00,C,High — model+features
+2026-04-16,LAA@NYY,NYY,Aaron Judge,Brent Suter,6.32,25.09,+1483,+299,NA,0.00,C,High — model+features
+2026-04-16,LAA@NYY,NYY,Giancarlo Stanton,Brent Suter,5.09,22.89,+1865,+337,NA,0.00,C,High — model+features
+2026-04-16,LAA@NYY,LAA,Mike Trout,Max Fried,2.92,21.36,+3327,+368,NA,0.00,C,High — model+features
+2026-04-16,TOR@MIL,TOR,Vladimir Guerrero Jr.,Brandon Sproat,4.02,22.62,+2388,+342,NA,0.00,C,High — model+features
+2026-04-16,TOR@MIL,TOR,Daulton Varsho,Brandon Sproat,2.11,18.58,+4639,+438,NA,0.00,D,High — model+features
+2026-04-16,TOR@MIL,MIL,William Contreras,Patrick Corbin,3.71,21.33,+2595,+369,NA,0.00,C,High — model+features
+2026-04-16,TB@CWS,TB,Junior Caminero,Jordan Leasure,3.82,21.94,+2518,+356,NA,0.00,C,High — model+features
+2026-04-16,TB@CWS,TB,Yandy Díaz,Jordan Leasure,2.76,19.42,+3523,+415,NA,0.00,D,High — model+features
+2026-04-16,TB@CWS,CWS,Andrew Benintendi,Steven Matz,0.75,17.31,+13233,+478,NA,0.00,D,High — model+features
+2026-04-16,TEX@ATH,TEX,Wyatt Langford,Jacob Lopez,2.90,20.83,+3348,+380,NA,0.00,C,High — model+features
+2026-04-16,TEX@ATH,TEX,Josh Jung,Jacob Lopez,2.71,20.49,+3590,+388,NA,0.00,C,High — model+features
+2026-04-16,TEX@ATH,ATH,Lawrence Butler,Jack Leiter,2.78,20.09,+3497,+398,NA,0.00,C,High — model+features
+2026-04-16,BAL@CLE,BAL,Gunnar Henderson,Parker Messick,3.27,21.38,+2958,+368,NA,0.00,C,High — model+features
+2026-04-16,BAL@CLE,BAL,Coby Mayo,Parker Messick,2.49,19.36,+3916,+416,NA,0.00,D,High — model+features
+2026-04-16,BAL@CLE,CLE,David Fry,Shane Baz,1.79,19.38,+5487,+416,NA,0.00,D,High — model+features
+2026-04-16,COL@HOU,HOU,Yordan Alvarez,Juan Mejia,6.38,24.57,+1466,+307,NA,0.00,C,High — model+features
+2026-04-16,COL@HOU,HOU,Christian Walker,Juan Mejia,3.95,20.85,+2429,+380,NA,0.00,C,High — model+features
+2026-04-16,COL@HOU,COL,Hunter Goodman,Ryan Weiss,3.16,20.93,+3061,+378,NA,0.00,C,High — model+features
+2026-04-16,SEA@SD,SD,Fernando Tatis Jr.,Luis Castillo,2.46,20.90,+3965,+379,NA,0.00,C,High — model+features
+2026-04-16,SEA@SD,SD,Manny Machado,Luis Castillo,1.52,19.22,+6479,+420,NA,0.00,D,High — model+features
+2026-04-16,SEA@SD,SEA,Julio Rodríguez,Walker Buehler,2.27,20.45,+4305,+389,NA,0.00,C,High — model+features
