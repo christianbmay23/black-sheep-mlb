@@ -1,0 +1,13 @@
+date,game,player,team,prop_type,line,market_odds,closing_odds,result,notes
+2026-04-15,SF@CIN,S. Stewart,CIN,HR,0.5,+430,+410,L,hard contact but no HR
+2026-04-15,SF@CIN,S. Stewart,CIN,2+ TB,1.5,+175,+165,W,doubled and singled
+2026-04-15,LAA@NYY,M. Trout,LAA,HR,0.5,+320,+300,L,warning track outs
+2026-04-15,LAA@NYY,A. Judge,NYY,2+ TB,1.5,+130,+125,W,multi-hit game
+2026-04-15,MIA@ATL,Ronald Acuña Jr.,ATL,HR,0.5,+330,+345,P,void due to scratch
+2026-04-15,TOR@MIL,G. Sanchez,MIL,HR,0.5,+500,+475,W,late homer
+2026-04-15,SEA@SD,L. Raley,SEA,2+ TB,1.5,+190,+170,L,0-for-4
+2026-04-15,NYM@LAD,F. Alvarez,NYM,2+ TB,1.5,+240,+220,W,HR cashed TB
+2026-04-15,NYM@LAD,Shohei Ohtani,LAD,K,7.5,-105,-120,W,pitcher K prop from market
+2026-04-15,TEX@ATH,J. Burger,TEX,HIT,0.5,-150,-165,L,grounded into DP
+2026-04-15,TB@CWS,M. Murakami,CWS,RBI,0.5,,,W,no market odds posted
+2026-04-15,COL@HOU,Y. Alvarez,HOU,RUN,0.5,-110,-118,W,scored twice
