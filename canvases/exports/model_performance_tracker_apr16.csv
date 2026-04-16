@@ -1,9 +1,9 @@
 report_date,matchup,predicted_winner,actual_winner,was_correct,model_confidence,decision_tier,edge_on_pick_pct,missing_data_flags
-2026-04-16,WSH@PIT,PIT,WSH,N,High,C,0.24,approx_market_ml
-2026-04-16,SF@CIN,CIN,SF,N,High,A,6.31,approx_market_ml
+2026-04-16,WSH@PIT,PIT,,N,High,C,0.24,approx_market_ml
+2026-04-16,SF@CIN,CIN,,N,High,A,6.31,approx_market_ml
 2026-04-16,KC@DET,KC,,N,High,A,5.51,approx_market_ml
 2026-04-16,LAA@NYY,NYY,,N,High,D,-0.56,approx_market_ml
-2026-04-16,TOR@MIL,MIL,MIL,Y,High,C,0.58,approx_market_ml;corbin_platoons
+2026-04-16,TOR@MIL,MIL,,N,High,C,0.58,approx_market_ml;corbin_platoons
 2026-04-16,TB@CWS,TB,,N,High,C,1.64,approx_market_ml
 2026-04-16,TEX@ATH,TEX,,N,High,D,-2.06,approx_market_ml;oak_coliseum_env
 2026-04-16,BAL@CLE,BAL,,N,High,C,1.27,approx_market_ml;lineup_not_posted_api
