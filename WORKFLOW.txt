@@ -12,6 +12,10 @@ Black Sheep MLB — Daily Date-Driven Export Workflow
    - python canvases/exports/build_ml_exports.py --date 2026-04-16
    - or: python canvases/exports/build_ml_exports.py --date apr16
 
+3b) Apr 16 only — refresh CSV marker blocks from MLB API (keeps dashboard UI)
+   - python3 canvases/exports/_gen_apr16_canvas.py
+   - (splices games-csv + batter-outlooks-csv; runs build_ml_exports for 2026-04-16)
+
 4) Minimal workflow for a new slate
    - Copy prior day canvas to new slug
    - Refresh only games-csv and batter-outlooks-csv blocks

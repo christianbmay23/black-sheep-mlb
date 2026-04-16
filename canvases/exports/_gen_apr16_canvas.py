@@ -1,14 +1,23 @@
 #!/usr/bin/env python3
-"""Generate canvases/mlb-pregame-intel-apr16.canvas.tsx from MLB Stats API + internal model priors."""
+"""Refresh Apr 16 CSV marker blocks inside the canvas (preserves React dashboard UI).
+
+Reads MLB Stats API for probables/lineups where applicable, rebuilds games + batter outlook
+CSV rows, splices them between <!-- games-csv --> and <!-- batter-outlooks-csv --> markers only,
+then runs build_ml_exports.py --date 2026-04-16. Does not overwrite the TSX component above.
+"""
 from __future__ import annotations
 
 import csv
 import json
+import re
+import subprocess
+import sys
 import urllib.request
 from io import StringIO
 from pathlib import Path
 
 CANVAS = Path(__file__).resolve().parent.parent / "mlb-pregame-intel-apr16.canvas.tsx"
+EXPORT_SCRIPT = Path(__file__).resolve().parent / "build_ml_exports.py"
 
 
 def fetch_json(url: str) -> dict:
@@ -408,40 +417,73 @@ def build_batter_rows() -> list[list[str]]:
 
 def csv_block(rows: list[list[str]]) -> str:
     buf = StringIO()
-    csv.writer(buf).writerows(rows)
+    writer = csv.writer(buf, lineterminator="\n")
+    writer.writerows(rows)
     return buf.getvalue().strip()
 
 
+def _replace_marker_region(source: str, marker_name: str, csv_text: str) -> str:
+    """Replace content between <!-- marker:start --> and <!-- marker:end --> (one occurrence)."""
+    start = f"<!-- {marker_name}:start -->"
+    end = f"<!-- {marker_name}:end -->"
+    pattern = re.compile(
+        re.escape(start) + r"\r?\n" + r".*?" + r"\r?\n" + re.escape(end),
+        re.DOTALL,
+    )
+    replacement = start + "\n" + csv_text + "\n" + end
+    new_source, n = pattern.subn(replacement, source, count=1)
+    if n != 1:
+        raise ValueError(
+            f"Expected exactly one <!-- {marker_name} --> block in {CANVAS}, found {n}. "
+            "Refusing to write."
+        )
+    return new_source
+
+
+def _assert_no_comment_breaker(text: str, label: str) -> None:
+    if "*/" in text:
+        raise ValueError(
+            f"{label} contains '*/', which would break the TS block comment wrapping the export markers. "
+            "Shorten or edit the offending field."
+        )
+
+
 def main() -> None:
+    if not CANVAS.is_file():
+        raise FileNotFoundError(f"Canvas not found: {CANVAS}")
+
     games = build_games_rows()
     batters = build_batter_rows()
     gcsv = csv_block(games)
     bcsv = csv_block(batters)
-    src = f'''import {{ H1, Text }} from "cursor/canvas";
+    _assert_no_comment_breaker(gcsv, "games CSV")
+    _assert_no_comment_breaker(bcsv, "batter outlooks CSV")
 
-export default function Apr16Canvas() {{
-  return (
-    <>
-      <H1>MLB Pregame Intel — Apr 16, 2026</H1>
-        <Text>
-        Probables and posted lineups from MLB Stats API. Moneylines are approximate modeling inputs
-        (not live scraped prices). HR/TB priors are internal Black Sheep estimates — not quoted
-        Statcast lines. Regenerate exports with python canvases/exports/build_ml_exports.py --date 2026-04-16.
-      </Text>
-    </>
-  );
-}}
+    original = CANVAS.read_text(encoding="utf-8")
+    if "<!-- games-csv:start -->" not in original or "<!-- batter-outlooks-csv:start -->" not in original:
+        raise ValueError(
+            f"{CANVAS} must contain games-csv and batter-outlooks-csv marker blocks "
+            "(see build_ml_exports.py). Refusing to write."
+        )
 
-<!-- games-csv:start -->
-{gcsv}
-<!-- games-csv:end -->
+    updated = _replace_marker_region(original, "games-csv", gcsv)
+    updated = _replace_marker_region(updated, "batter-outlooks-csv", bcsv)
 
-<!-- batter-outlooks-csv:start -->
-{bcsv}
-<!-- batter-outlooks-csv:end -->
-'''
-    CANVAS.write_text(src, encoding="utf-8")
-    print("Wrote", CANVAS)
+    CANVAS.write_text(updated, encoding="utf-8")
+    print("Updated marker blocks in:", CANVAS)
+
+    try:
+        subprocess.run(
+            [sys.executable, str(EXPORT_SCRIPT), "--date", "2026-04-16"],
+            check=True,
+        )
+        print("Ran:", EXPORT_SCRIPT, "--date 2026-04-16")
+    except subprocess.CalledProcessError as e:
+        print("Warning: export script failed:", e, file=sys.stderr)
+        print(
+            "Run manually: python3 canvases/exports/build_ml_exports.py --date 2026-04-16",
+            file=sys.stderr,
+        )
 
 
 if __name__ == "__main__":
