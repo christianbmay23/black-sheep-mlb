@@ -6,10 +6,14 @@ Research canvas + probability engine for MLB slates: implied vs model win probab
 
 | Path | Purpose |
 |------|---------|
-| `canvases/mlb-pregame-intel-apr15.canvas.tsx` | **Source of truth** — Cursor canvas (React). Edit here. |
-| `canvases/exports/build_ml_exports.py` | Regenerates CSV + standalone HTML from the same logic as the canvas export path. |
+| `canvases/mlb-pregame-intel-apr15.canvas.tsx` | Cursor canvas (React) for that slate; **dated** file pattern is the norm. |
+| `canvases/mlb-pregame-intel-apr16.canvas.tsx` | Apr 16 slate: full dashboard UI + CSV marker blocks for export. |
+| `canvases/exports/build_ml_exports.py` | Regenerates CSV + standalone HTML from marker blocks inside a dated canvas. |
+| `canvases/exports/_gen_apr16_canvas.py` | Optional: refreshes **only** the `games-csv` / `batter-outlooks-csv` markers from MLB Stats API + model rows (does **not** replace the React UI). Then runs `build_ml_exports.py --date 2026-04-16`. |
+| `canvases/canvas-types.d.ts` | Ambient typings for `cursor/canvas` (IDE / `tsc` without bundling Cursor). |
+| `tsconfig.json`, `package.json` | Local TypeScript check for `*.canvas.tsx` (`npx tsc --noEmit`). |
 | `canvases/exports/*.csv` | Game summaries + batter outlook exports (regenerate after slate updates). |
-| `canvases/exports/mlb-pregame-intel-apr15-report.html` | Printable / shareable HTML snapshot. |
+| `canvases/exports/mlb-pregame-intel-apr15-report.html` | Example printable HTML snapshot (per-slug `*-report.html` exists). |
 | `WORKFLOW.txt` | Short daily checklist (duplicate pointers; this README is canonical). |
 
 ## Cursor IDE and the live canvas
@@ -22,10 +26,11 @@ Edit the file **inside this repo**; the symlink keeps the side panel in sync. On
 
 ## Daily workflow
 
-1. Open `~/Projects/black-sheep-mlb` in Cursor.
-2. Update the slate in `canvases/mlb-pregame-intel-apr15.canvas.tsx` (or add a new dated canvas file later).
+1. Open the repo in Cursor.
+2. Edit the **dated** canvas for that day (e.g. `canvases/mlb-pregame-intel-apr16.canvas.tsx`): adjust `SLATE` / UI as needed, or refresh API-backed CSV markers (see below).
 3. Regenerate exports:  
-   `python3 canvases/exports/build_ml_exports.py`
+   `python3 canvases/exports/build_ml_exports.py --date YYYY-MM-DD`  
+   (or `--date apr16` style slug; omit `--date` only if you still use the default `apr15` canvas).
 4. Commit when the slate is stable:  
    `git add -A && git commit -m "Slate update YYYY-MM-DD"`
 
@@ -47,6 +52,17 @@ Edit the file **inside this repo**; the symlink keeps the side panel in sync. On
    - `mlb-pregame-intel-<slug>-report.html`
 
 If `--date` is omitted, exports default to slug `apr15` for backward compatibility.
+
+### Apr 16: optional API refresh of CSV markers
+
+For [`mlb-pregame-intel-apr16.canvas.tsx`](canvases/mlb-pregame-intel-apr16.canvas.tsx) only:
+
+- **Hand-edit** the dashboard: change the `SLATE` array, matchup text, lineups, etc., in the `.tsx` file as usual.
+- **Refresh marker CSV from the API + generator** (`probables`, batter rows from schedule/rosters, games table from `GAME_SPECS`):  
+  `python3 canvases/exports/_gen_apr16_canvas.py`  
+  This **splices** new CSV between `<!-- games-csv:start/end -->` and `<!-- batter-outlooks-csv:start/end -->` inside the trailing block comment and **does not** overwrite the React component. It then runs `build_ml_exports.py --date 2026-04-16`.  
+  If you change moneylines, tiers, or narrative in code only, re-run exports after editing:  
+  `python3 canvases/exports/build_ml_exports.py --date 2026-04-16`.
 
 ## Backtesting + model performance tracker
 
@@ -144,8 +160,8 @@ git push -u origin main
 
 ## Current status
 
-- **Branch:** `main`
-- **Latest commits:** initial import (canvas, exports, script), workflow/symlink notes.
+- **Default branch:** `main` (date-driven exports, backtest/prop tools, dated canvases).
+- **Feature slates:** use a branch per slate if you prefer (e.g. `mlb-intel-apr16`). Merge via PR when ready.
 - **Working tree:** should stay **clean** after each commit; run `git status` before ending a session.
 
 ## Optional cleanup
