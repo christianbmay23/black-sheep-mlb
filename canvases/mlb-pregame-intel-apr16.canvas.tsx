@@ -65,14 +65,14 @@ const SLATE: SlateGame[] = [
     homeAmerican: -132,
     impliedAwayPct: 44.64,
     impliedHomePct: 55.36,
-    modelAwayPct: 46.8,
-    modelHomePct: 53.2,
-    edgeAwayPct: 2.16,
-    edgeHomePct: -2.16,
+    modelAwayPct: 44.40,
+    modelHomePct: 55.60,
+    edgeAwayPct: -0.24,
+    edgeHomePct: 0.24,
     prediction: "PIT",
     decisionTier: "C",
-    edgeOnPickPct: -2.16,
-    modelConfidence: "Medium",
+    edgeOnPickPct: 0.24,
+    modelConfidence: "High",
     analystConfidence: "Medium",
     flags: "approx_market_ml",
     rationale:
@@ -115,11 +115,11 @@ const SLATE: SlateGame[] = [
       "HR / TB: PNC leans pitcher-friendly — downgrade pure HR equity vs GABP, but Ozuna/Cruz stay in the power conversation.",
     ],
     propsAway: [
-      { batter: "James Wood", team: "WSH", hrPct: 7.8, tb2Pct: 26.0, tier: "B", note: "LHB power vs RHP spot starter" },
+      { batter: "James Wood", team: "WSH", hrPct: 3.8, tb2Pct: 21.8, tier: "C", note: "LHB power vs RHP spot starter" },
     ],
     propsHome: [
-      { batter: "Oneil Cruz", team: "PIT", hrPct: 6.9, tb2Pct: 24.5, tier: "B", note: "Barrels vs contact-oriented arm" },
-      { batter: "Marcell Ozuna", team: "PIT", hrPct: 7.4, tb2Pct: 27.0, tier: "B", note: "Lift path vs FB-heavy approach" },
+      { batter: "Oneil Cruz", team: "PIT", hrPct: 4.1, tb2Pct: 21.5, tier: "C", note: "Barrels vs contact-oriented arm" },
+      { batter: "Marcell Ozuna", team: "PIT", hrPct: 4.2, tb2Pct: 21.9, tier: "C", note: "Lift path vs FB-heavy approach" },
     ],
   },
   {
@@ -134,14 +134,14 @@ const SLATE: SlateGame[] = [
     homeAmerican: -148,
     impliedAwayPct: 42.36,
     impliedHomePct: 57.64,
-    modelAwayPct: 41.5,
-    modelHomePct: 58.5,
-    edgeAwayPct: -0.86,
-    edgeHomePct: 0.86,
+    modelAwayPct: 36.05,
+    modelHomePct: 63.95,
+    edgeAwayPct: -6.31,
+    edgeHomePct: 6.31,
     prediction: "CIN",
-    decisionTier: "B",
-    edgeOnPickPct: 0.86,
-    modelConfidence: "Medium",
+    decisionTier: "A",
+    edgeOnPickPct: 6.31,
+    modelConfidence: "High",
     analystConfidence: "Medium-High",
     flags: "approx_market_ml",
     rationale:
@@ -184,11 +184,11 @@ const SLATE: SlateGame[] = [
       "HR / TB: Highest run-environment game on the slate — prioritize HR / 2+ TB and team-total angles over a skinny ML edge.",
     ],
     propsAway: [
-      { batter: "Matt Chapman", team: "SF", hrPct: 7.0, tb2Pct: 24.0, tier: "B", note: "Fly-ball power vs power RHP" },
+      { batter: "Matt Chapman", team: "SF", hrPct: 2.2, tb2Pct: 20.3, tier: "C", note: "Fly-ball power vs power RHP" },
     ],
     propsHome: [
-      { batter: "Elly De La Cruz", team: "CIN", hrPct: 8.2, tb2Pct: 30.0, tier: "A", note: "Elite tools + GABP" },
-      { batter: "Spencer Steer", team: "CIN", hrPct: 6.5, tb2Pct: 25.0, tier: "C", note: "Lift vs LHP" },
+      { batter: "Elly De La Cruz", team: "CIN", hrPct: 5.1, tb2Pct: 23.4, tier: "C", note: "Elite tools + GABP" },
+      { batter: "Spencer Steer", team: "CIN", hrPct: 3.4, tb2Pct: 20.4, tier: "C", note: "Lift vs LHP" },
     ],
   },
   {
@@ -203,14 +203,14 @@ const SLATE: SlateGame[] = [
     homeAmerican: -124,
     impliedAwayPct: 46.48,
     impliedHomePct: 53.52,
-    modelAwayPct: 44.2,
-    modelHomePct: 55.8,
-    edgeAwayPct: -2.28,
-    edgeHomePct: 2.28,
-    prediction: "DET",
-    decisionTier: "C",
-    edgeOnPickPct: 2.28,
-    modelConfidence: "Medium",
+    modelAwayPct: 51.99,
+    modelHomePct: 48.01,
+    edgeAwayPct: 5.51,
+    edgeHomePct: -5.51,
+    prediction: "KC",
+    decisionTier: "A",
+    edgeOnPickPct: 5.51,
+    modelConfidence: "High",
     analystConfidence: "Medium",
     flags: "approx_market_ml",
     rationale:
@@ -251,11 +251,11 @@ const SLATE: SlateGame[] = [
       "HR / TB: Comerica dampens pure HR — 2+ TB and barrels matter more than HR lottery.",
     ],
     propsAway: [
-      { batter: "Vinnie Pasquantino", team: "KC", hrPct: 7.6, tb2Pct: 26.5, tier: "B", note: "LHB power vs RHP" },
-      { batter: "Bobby Witt Jr.", team: "KC", hrPct: 6.2, tb2Pct: 24.0, tier: "B", note: "Speed + XB upside" },
+      { batter: "Vinnie Pasquantino", team: "KC", hrPct: 3.7, tb2Pct: 21.4, tier: "C", note: "LHB power vs RHP" },
+      { batter: "Bobby Witt Jr.", team: "KC", hrPct: 2.8, tb2Pct: 20.4, tier: "C", note: "Speed + XB upside" },
     ],
     propsHome: [
-      { batter: "Gleyber Torres", team: "DET", hrPct: 6.8, tb2Pct: 25.5, tier: "C", note: "RHB vs LHP" },
+      { batter: "Gleyber Torres", team: "DET", hrPct: 2.6, tb2Pct: 19.6, tier: "D", note: "RHB vs LHP" },
     ],
   },
   {
@@ -270,13 +270,13 @@ const SLATE: SlateGame[] = [
     homeAmerican: -245,
     impliedAwayPct: 31.59,
     impliedHomePct: 68.41,
-    modelAwayPct: 29.5,
-    modelHomePct: 70.5,
-    edgeAwayPct: -2.09,
-    edgeHomePct: 2.09,
+    modelAwayPct: 32.15,
+    modelHomePct: 67.85,
+    edgeAwayPct: 0.56,
+    edgeHomePct: -0.56,
     prediction: "NYY",
-    decisionTier: "PASS",
-    edgeOnPickPct: 2.09,
+    decisionTier: "D",
+    edgeOnPickPct: -0.56,
     modelConfidence: "High",
     analystConfidence: "High",
     flags: "approx_market_ml",
@@ -318,11 +318,11 @@ const SLATE: SlateGame[] = [
       "HR / TB: Top HR environment on slate — props > ML (price already steep).",
     ],
     propsAway: [
-      { batter: "Mike Trout", team: "LAA", hrPct: 7.0, tb2Pct: 25.0, tier: "B", note: "K watch vs Fried’s swing-miss" },
+      { batter: "Mike Trout", team: "LAA", hrPct: 2.9, tb2Pct: 21.4, tier: "C", note: "K watch vs Fried’s swing-miss" },
     ],
     propsHome: [
-      { batter: "Aaron Judge", team: "NYY", hrPct: 11.5, tb2Pct: 34.0, tier: "A", note: "RHB vs soft LHP" },
-      { batter: "Giancarlo Stanton", team: "NYY", hrPct: 8.5, tb2Pct: 28.0, tier: "A", note: "Short porch path" },
+      { batter: "Aaron Judge", team: "NYY", hrPct: 6.3, tb2Pct: 25.1, tier: "C", note: "RHB vs soft LHP" },
+      { batter: "Giancarlo Stanton", team: "NYY", hrPct: 5.1, tb2Pct: 22.9, tier: "C", note: "Short porch path" },
     ],
   },
   {
@@ -335,16 +335,16 @@ const SLATE: SlateGame[] = [
     homeSp: "Brandon Sproat",
     awayAmerican: -102,
     homeAmerican: -108,
-    impliedAwayPct: 49.3,
-    impliedHomePct: 50.7,
-    modelAwayPct: 48.8,
-    modelHomePct: 51.2,
-    edgeAwayPct: -0.5,
-    edgeHomePct: 0.5,
+    impliedAwayPct: 49.30,
+    impliedHomePct: 50.70,
+    modelAwayPct: 48.73,
+    modelHomePct: 51.27,
+    edgeAwayPct: -0.58,
+    edgeHomePct: 0.58,
     prediction: "MIL",
-    decisionTier: "PASS",
-    edgeOnPickPct: 0.5,
-    modelConfidence: "Low",
+    decisionTier: "C",
+    edgeOnPickPct: 0.58,
+    modelConfidence: "High",
     analystConfidence: "Low",
     flags: "approx_market_ml;corbin_platoons",
     rationale:
@@ -385,11 +385,11 @@ const SLATE: SlateGame[] = [
       "HR / TB: Dome helps keep balls in play — prefer selective props over sides.",
     ],
     propsAway: [
-      { batter: "Vladimir Guerrero Jr.", team: "TOR", hrPct: 8.0, tb2Pct: 29.0, tier: "B", note: "Hard contact vs volatile RHP" },
-      { batter: "Daulton Varsho", team: "TOR", hrPct: 5.9, tb2Pct: 22.0, tier: "C", note: "K spot — swing-and-miss risk" },
+      { batter: "Vladimir Guerrero Jr.", team: "TOR", hrPct: 4.0, tb2Pct: 22.6, tier: "C", note: "Hard contact vs volatile RHP" },
+      { batter: "Daulton Varsho", team: "TOR", hrPct: 2.1, tb2Pct: 18.6, tier: "D", note: "K spot — swing-and-miss risk" },
     ],
     propsHome: [
-      { batter: "William Contreras", team: "MIL", hrPct: 7.1, tb2Pct: 26.5, tier: "B", note: "RHB vs LHP" },
+      { batter: "William Contreras", team: "MIL", hrPct: 3.7, tb2Pct: 21.3, tier: "C", note: "RHB vs LHP" },
     ],
   },
   {
@@ -404,14 +404,14 @@ const SLATE: SlateGame[] = [
     homeAmerican: 124,
     impliedAwayPct: 56.79,
     impliedHomePct: 43.21,
-    modelAwayPct: 57.8,
-    modelHomePct: 42.2,
-    edgeAwayPct: 1.01,
-    edgeHomePct: -1.01,
+    modelAwayPct: 58.43,
+    modelHomePct: 41.57,
+    edgeAwayPct: 1.64,
+    edgeHomePct: -1.64,
     prediction: "TB",
     decisionTier: "C",
-    edgeOnPickPct: 1.01,
-    modelConfidence: "Medium",
+    edgeOnPickPct: 1.64,
+    modelConfidence: "High",
     analystConfidence: "Medium",
     flags: "approx_market_ml",
     rationale:
@@ -452,11 +452,11 @@ const SLATE: SlateGame[] = [
       "HR / TB: Caminero power vs length risk — 2+ TB more stable than HR.",
     ],
     propsAway: [
-      { batter: "Junior Caminero", team: "TB", hrPct: 7.8, tb2Pct: 26.0, tier: "B", note: "Raw power vs opener/stretched SP" },
-      { batter: "Yandy Díaz", team: "TB", hrPct: 5.2, tb2Pct: 21.5, tier: "C", note: "Contact > lift" },
+      { batter: "Junior Caminero", team: "TB", hrPct: 3.8, tb2Pct: 21.9, tier: "C", note: "Raw power vs opener/stretched SP" },
+      { batter: "Yandy Díaz", team: "TB", hrPct: 2.8, tb2Pct: 19.4, tier: "D", note: "Contact > lift" },
     ],
     propsHome: [
-      { batter: "Andrew Benintendi", team: "CWS", hrPct: 4.5, tb2Pct: 18.0, tier: "D", note: "K spot vs LHP shape" },
+      { batter: "Andrew Benintendi", team: "CWS", hrPct: 0.7, tb2Pct: 17.3, tier: "D", note: "K spot vs LHP shape" },
     ],
   },
   {
@@ -471,14 +471,14 @@ const SLATE: SlateGame[] = [
     homeAmerican: 108,
     impliedAwayPct: 52.96,
     impliedHomePct: 47.04,
-    modelAwayPct: 53.2,
-    modelHomePct: 46.8,
-    edgeAwayPct: 0.24,
-    edgeHomePct: -0.24,
+    modelAwayPct: 50.90,
+    modelHomePct: 49.10,
+    edgeAwayPct: -2.06,
+    edgeHomePct: 2.06,
     prediction: "TEX",
-    decisionTier: "PASS",
-    edgeOnPickPct: 0.24,
-    modelConfidence: "Low",
+    decisionTier: "D",
+    edgeOnPickPct: -2.06,
+    modelConfidence: "High",
     analystConfidence: "Low",
     flags: "approx_market_ml;oak_coliseum_env",
     rationale:
@@ -519,11 +519,11 @@ const SLATE: SlateGame[] = [
       "HR / TB: PASS side — only play props if you get a price; volatility cuts confidence.",
     ],
     propsAway: [
-      { batter: "Wyatt Langford", team: "TEX", hrPct: 7.0, tb2Pct: 25.0, tier: "B", note: "Lift vs RHP" },
-      { batter: "Josh Jung", team: "TEX", hrPct: 6.6, tb2Pct: 23.5, tier: "B", note: "Pull power" },
+      { batter: "Wyatt Langford", team: "TEX", hrPct: 2.9, tb2Pct: 20.8, tier: "C", note: "Lift vs RHP" },
+      { batter: "Josh Jung", team: "TEX", hrPct: 2.7, tb2Pct: 20.5, tier: "C", note: "Pull power" },
     ],
     propsHome: [
-      { batter: "Lawrence Butler", team: "ATH", hrPct: 6.9, tb2Pct: 24.0, tier: "B", note: "Athletic RH power" },
+      { batter: "Lawrence Butler", team: "ATH", hrPct: 2.8, tb2Pct: 20.1, tier: "C", note: "Athletic RH power" },
     ],
   },
   {
@@ -538,14 +538,14 @@ const SLATE: SlateGame[] = [
     homeAmerican: 118,
     impliedAwayPct: 55.03,
     impliedHomePct: 44.97,
-    modelAwayPct: 54.6,
-    modelHomePct: 45.4,
-    edgeAwayPct: -0.43,
-    edgeHomePct: 0.43,
+    modelAwayPct: 56.31,
+    modelHomePct: 43.69,
+    edgeAwayPct: 1.27,
+    edgeHomePct: -1.27,
     prediction: "BAL",
     decisionTier: "C",
-    edgeOnPickPct: -0.43,
-    modelConfidence: "Medium",
+    edgeOnPickPct: 1.27,
+    modelConfidence: "High",
     analystConfidence: "Medium",
     flags: "approx_market_ml;lineup_not_posted_api",
     rationale:
@@ -586,11 +586,11 @@ const SLATE: SlateGame[] = [
       "HR / TB: Confirm BAL lineup at lock — props carry extra variance until LU posts.",
     ],
     propsAway: [
-      { batter: "Gunnar Henderson", team: "BAL", hrPct: 6.8, tb2Pct: 25.0, tier: "B", note: "Power SS vs LHP" },
-      { batter: "Coby Mayo", team: "BAL", hrPct: 6.2, tb2Pct: 22.0, tier: "C", note: "K risk — chase profile" },
+      { batter: "Gunnar Henderson", team: "BAL", hrPct: 3.3, tb2Pct: 21.4, tier: "C", note: "Power SS vs LHP" },
+      { batter: "Coby Mayo", team: "BAL", hrPct: 2.5, tb2Pct: 19.4, tier: "D", note: "K risk — chase profile" },
     ],
     propsHome: [
-      { batter: "David Fry", team: "CLE", hrPct: 6.0, tb2Pct: 23.5, tier: "C", note: "RHB vs Baz (stuff game)" },
+      { batter: "David Fry", team: "CLE", hrPct: 1.8, tb2Pct: 19.4, tier: "D", note: "RHB vs Baz (stuff game)" },
     ],
   },
   {
@@ -605,16 +605,16 @@ const SLATE: SlateGame[] = [
     homeAmerican: -290,
     impliedAwayPct: 28.34,
     impliedHomePct: 71.66,
-    modelAwayPct: 24.0,
-    modelHomePct: 76.0,
-    edgeAwayPct: -4.34,
-    edgeHomePct: 4.34,
+    modelAwayPct: 43.33,
+    modelHomePct: 56.67,
+    edgeAwayPct: 14.98,
+    edgeHomePct: -14.98,
     prediction: "HOU",
-    decisionTier: "PASS",
-    edgeOnPickPct: 4.34,
-    modelConfidence: "High",
+    decisionTier: "D",
+    edgeOnPickPct: -14.98,
+    modelConfidence: "Medium",
     analystConfidence: "High",
-    flags: "approx_market_ml;lineup_not_posted_api",
+    flags: "approx_market_ml;lineup_not_posted_api;away LU",
     rationale:
       "Road Rockies vs Houston’s overall talent is a steep mismatch; Crawford Boxes pull-side HRs matter. Chalk is heavy — PASS unless you model innings/hooks differently.",
     awayLuLabel: "Projected (not posted — active roster)",
@@ -653,11 +653,11 @@ const SLATE: SlateGame[] = [
       "HR / TB: PASS ML — only shop props if price exists; chalk crushes edge.",
     ],
     propsAway: [
-      { batter: "Hunter Goodman", team: "COL", hrPct: 7.8, tb2Pct: 26.0, tier: "B", note: "Power path only — tough spot" },
+      { batter: "Hunter Goodman", team: "COL", hrPct: 3.2, tb2Pct: 20.9, tier: "C", note: "Power path only — tough spot" },
     ],
     propsHome: [
-      { batter: "Yordan Alvarez", team: "HOU", hrPct: 9.5, tb2Pct: 31.0, tier: "A", note: "LHB vs RHP spot starter" },
-      { batter: "Christian Walker", team: "HOU", hrPct: 6.5, tb2Pct: 23.0, tier: "B", note: "Lift vs FB" },
+      { batter: "Yordan Alvarez", team: "HOU", hrPct: 6.4, tb2Pct: 24.6, tier: "C", note: "LHB vs RHP spot starter" },
+      { batter: "Christian Walker", team: "HOU", hrPct: 4.0, tb2Pct: 20.8, tier: "C", note: "Lift vs FB" },
     ],
   },
   {
@@ -672,14 +672,14 @@ const SLATE: SlateGame[] = [
     homeAmerican: -112,
     impliedAwayPct: 49.11,
     impliedHomePct: 50.89,
-    modelAwayPct: 49.8,
-    modelHomePct: 50.2,
-    edgeAwayPct: 0.69,
-    edgeHomePct: -0.69,
-    prediction: "SD",
-    decisionTier: "PASS",
-    edgeOnPickPct: -0.69,
-    modelConfidence: "Medium",
+    modelAwayPct: 50.90,
+    modelHomePct: 49.10,
+    edgeAwayPct: 1.79,
+    edgeHomePct: -1.79,
+    prediction: "SEA",
+    decisionTier: "C",
+    edgeOnPickPct: 1.79,
+    modelConfidence: "High",
     analystConfidence: "Medium",
     flags: "approx_market_ml;lineup_not_posted_api",
     rationale:
@@ -720,11 +720,11 @@ const SLATE: SlateGame[] = [
       "HR / TB: Petco suppresses HR — lower HR prop priority; F5 / pitch props often cleaner.",
     ],
     propsAway: [
-      { batter: "Julio Rodríguez", team: "SEA", hrPct: 6.2, tb2Pct: 23.5, tier: "C", note: "K watch vs Buehler" },
+      { batter: "Julio Rodríguez", team: "SEA", hrPct: 2.3, tb2Pct: 20.4, tier: "C", note: "K watch vs Buehler" },
     ],
     propsHome: [
-      { batter: "Fernando Tatis Jr.", team: "SD", hrPct: 6.5, tb2Pct: 24.0, tier: "C", note: "Athleticism vs elite stuff" },
-      { batter: "Manny Machado", team: "SD", hrPct: 5.8, tb2Pct: 22.5, tier: "C", note: "Contact-over-HR vs Castillo" },
+      { batter: "Fernando Tatis Jr.", team: "SD", hrPct: 2.5, tb2Pct: 20.9, tier: "C", note: "Athleticism vs elite stuff" },
+      { batter: "Manny Machado", team: "SD", hrPct: 1.5, tb2Pct: 19.2, tier: "D", note: "Contact-over-HR vs Castillo" },
     ],
   },
 ];
@@ -963,49 +963,49 @@ Export marker blocks for canvases/exports/build_ml_exports.py (matched as substr
 
 <!-- games-csv:start -->
 report_date,away,home,start_time_et,away_sp,home_sp,away_american,home_american,implied_away_pct_nv,implied_home_pct_nv,model_away_win_pct,model_home_win_pct,edge_away_pct,edge_home_pct,prediction,decision_tier_vs_market,edge_on_pick_pct,model_confidence,missing_data_flags,analyst_confidence,rationale_summary
-2026-04-16,WSH,PIT,12:35 PM,Foster Griffin,Braxton Ashcraft,118,-132,44.64,55.36,46.80,53.20,2.16,-2.16,PIT,C,-2.16,Medium,approx_market_ml,Medium,Probables Griffin (WSH) and Ashcraft (PIT) look like swing/spot roles without big separator stuff. PNC is slightly pitcher-friendly; Pirates get a small home edge but the price is close to fair.
-2026-04-16,SF,CIN,12:40 PM,Landen Roupp,Chase Burns,128,-148,42.36,57.64,41.50,58.50,-0.86,0.86,CIN,B,0.86,Medium,approx_market_ml,Medium-High,"Burns at home brings premium velocity; Roupp works contact and weak barrels. GABP raises HR/TB volatility — lean Reds, but mostly a props/team-total environment."
-2026-04-16,KC,DET,1:10 PM,Kris Bubic,Keider Montero,108,-124,46.48,53.52,44.20,55.80,-2.28,2.28,DET,C,2.28,Medium,approx_market_ml,Medium,Bubic vs Montero is young-starter volatility; Comerica trims some extra-base noise. Slight DET home lean without a commanding pitching edge.
-2026-04-16,LAA,NYY,1:35 PM,Brent Suter,Max Fried,205,-245,31.59,68.41,29.50,70.50,-2.09,2.09,NYY,PASS,2.09,High,approx_market_ml,High,Suter vs Fried is a massive talent mismatch; short porch amplifies fly-ball damage. Market already prices a big NYY edge — PASS on ML unless you have a materially better number.
-2026-04-16,TOR,MIL,1:40 PM,Patrick Corbin,Brandon Sproat,-102,-108,49.30,50.70,48.80,51.20,-0.50,0.50,MIL,PASS,0.50,Low,approx_market_ml;corbin_platoons,Low,"Corbin vs Sproat is command volatility on both sides; Milwaukee navigation is a hair better at home, but this is effectively a coin flip for betting."
-2026-04-16,TB,CWS,2:10 PM,Steven Matz,Jordan Leasure,-142,124,56.79,43.21,57.80,42.20,1.01,-1.01,TB,C,1.01,Medium,approx_market_ml,Medium,Matz’s LHP shape matters against Chicago’s lefty bats; Leasure stretched as a starter adds volatility. Rays are the cleaner roster spot — edge is modest.
-2026-04-16,TEX,ATH,3:05 PM,Jack Leiter,Jacob Lopez,-118,108,52.96,47.04,53.20,46.80,0.24,-0.24,TEX,PASS,0.24,Low,approx_market_ml;oak_coliseum_env,Low,"Leiter vs Lopez profiles as short-leash, high-volatility. No compelling gap vs a tight market without a better posted price."
-2026-04-16,BAL,CLE,6:10 PM,Shane Baz,Parker Messick,-128,118,55.03,44.97,54.60,45.40,-0.43,0.43,BAL,C,-0.43,Medium,approx_market_ml;lineup_not_posted_api,Medium,Baz’s stuff plays when the heater is elevated; Messick needs to limit barrels. Small lean to Baltimore’s lineup ceiling if Baz holds a normal starter workload.
-2026-04-16,COL,HOU,8:10 PM,Juan Mejia,Ryan Weiss,240,-290,28.34,71.66,24.00,76.00,-4.34,4.34,HOU,PASS,4.34,High,approx_market_ml;lineup_not_posted_api,High,Road Rockies vs Houston’s overall talent is a steep mismatch; Crawford Boxes pull-side HRs matter. Chalk is heavy — PASS unless you model innings/hooks differently.
-2026-04-16,SEA,SD,8:40 PM,Luis Castillo,Walker Buehler,-104,-112,49.11,50.89,49.80,50.20,0.69,-0.69,SD,PASS,-0.69,Medium,approx_market_ml;lineup_not_posted_api,Medium,Castillo vs Buehler is a true ace duel; Petco suppresses offense. Side market is rightfully tight — prefer game props over ML.
+2026-04-16,WSH,PIT,12:35 PM,Foster Griffin,Braxton Ashcraft,118,-132,44.64,55.36,44.40,55.60,-0.24,0.24,PIT,C,0.24,High,approx_market_ml,Medium,Probables Griffin (WSH) and Ashcraft (PIT) look like swing/spot roles without big separator stuff. PNC is slightly pitcher-friendly; Pirates get a small home edge but the price is close to fair.
+2026-04-16,SF,CIN,12:40 PM,Landen Roupp,Chase Burns,128,-148,42.36,57.64,36.05,63.95,-6.31,6.31,CIN,A,6.31,High,approx_market_ml,Medium-High,"Burns at home brings premium velocity; Roupp works contact and weak barrels. GABP raises HR/TB volatility — lean Reds, but mostly a props/team-total environment."
+2026-04-16,KC,DET,1:10 PM,Kris Bubic,Keider Montero,108,-124,46.48,53.52,51.99,48.01,5.51,-5.51,KC,A,5.51,High,approx_market_ml,Medium,Bubic vs Montero is young-starter volatility; Comerica trims some extra-base noise. Slight DET home lean without a commanding pitching edge.
+2026-04-16,LAA,NYY,1:35 PM,Brent Suter,Max Fried,205,-245,31.59,68.41,32.15,67.85,0.56,-0.56,NYY,D,-0.56,High,approx_market_ml,High,Suter vs Fried is a massive talent mismatch; short porch amplifies fly-ball damage. Market already prices a big NYY edge — PASS on ML unless you have a materially better number.
+2026-04-16,TOR,MIL,1:40 PM,Patrick Corbin,Brandon Sproat,-102,-108,49.30,50.70,48.73,51.27,-0.58,0.58,MIL,C,0.58,High,approx_market_ml;corbin_platoons,Low,"Corbin vs Sproat is command volatility on both sides; Milwaukee navigation is a hair better at home, but this is effectively a coin flip for betting."
+2026-04-16,TB,CWS,2:10 PM,Steven Matz,Jordan Leasure,-142,124,56.79,43.21,58.43,41.57,1.64,-1.64,TB,C,1.64,High,approx_market_ml,Medium,Matz’s LHP shape matters against Chicago’s lefty bats; Leasure stretched as a starter adds volatility. Rays are the cleaner roster spot — edge is modest.
+2026-04-16,TEX,ATH,3:05 PM,Jack Leiter,Jacob Lopez,-118,108,52.96,47.04,50.90,49.10,-2.06,2.06,TEX,D,-2.06,High,approx_market_ml;oak_coliseum_env,Low,"Leiter vs Lopez profiles as short-leash, high-volatility. No compelling gap vs a tight market without a better posted price."
+2026-04-16,BAL,CLE,6:10 PM,Shane Baz,Parker Messick,-128,118,55.03,44.97,56.31,43.69,1.27,-1.27,BAL,C,1.27,High,approx_market_ml;lineup_not_posted_api,Medium,Baz’s stuff plays when the heater is elevated; Messick needs to limit barrels. Small lean to Baltimore’s lineup ceiling if Baz holds a normal starter workload.
+2026-04-16,COL,HOU,8:10 PM,Juan Mejia,Ryan Weiss,240,-290,28.34,71.66,43.33,56.67,14.98,-14.98,HOU,D,-14.98,Medium,approx_market_ml;lineup_not_posted_api;away LU,High,Road Rockies vs Houston’s overall talent is a steep mismatch; Crawford Boxes pull-side HRs matter. Chalk is heavy — PASS unless you model innings/hooks differently.
+2026-04-16,SEA,SD,8:40 PM,Luis Castillo,Walker Buehler,-104,-112,49.11,50.89,50.90,49.10,1.79,-1.79,SEA,C,1.79,High,approx_market_ml;lineup_not_posted_api,Medium,Castillo vs Buehler is a true ace duel; Petco suppresses offense. Side market is rightfully tight — prefer game props over ML.
 <!-- games-csv:end -->
 
 <!-- batter-outlooks-csv:start -->
 report_date,game,team,batter,opponent_pitcher,hr_prob_pct,tb2_prob_pct,fair_hr_american,fair_2tb_american,market_hr_american,edge_hr_pct,tier,data_confidence
-2026-04-16,WSH@PIT,WSH,James Wood,Braxton Ashcraft,7.80,26.00,+1182,+285,NA,0.00,B,High — posted LU
-2026-04-16,WSH@PIT,PIT,Oneil Cruz,Foster Griffin,6.90,24.50,+1349,+308,NA,0.00,B,High — posted LU
-2026-04-16,WSH@PIT,PIT,Marcell Ozuna,Foster Griffin,7.40,27.00,+1251,+270,NA,0.00,B,High — posted LU
-2026-04-16,SF@CIN,CIN,Elly De La Cruz,Landen Roupp,8.20,30.00,+1120,+233,NA,0.00,A,High — posted LU
-2026-04-16,SF@CIN,CIN,Spencer Steer,Landen Roupp,6.50,25.00,+1438,+300,NA,0.00,C,High — posted LU
-2026-04-16,SF@CIN,SF,Matt Chapman,Chase Burns,7.00,24.00,+1329,+317,NA,0.00,B,High — posted LU
-2026-04-16,KC@DET,DET,Gleyber Torres,Kris Bubic,6.80,25.50,+1371,+292,NA,0.00,C,High — posted LU
-2026-04-16,KC@DET,KC,Vinnie Pasquantino,Keider Montero,7.60,26.50,+1216,+277,NA,0.00,B,High — posted LU
-2026-04-16,KC@DET,KC,Bobby Witt Jr.,Keider Montero,6.20,24.00,+1513,+317,NA,0.00,B,High — posted LU
-2026-04-16,LAA@NYY,NYY,Aaron Judge,Brent Suter,11.50,34.00,+770,+194,NA,0.00,A,High — posted LU
-2026-04-16,LAA@NYY,NYY,Giancarlo Stanton,Brent Suter,8.50,28.00,+1076,+257,NA,0.00,A,High — posted LU
-2026-04-16,LAA@NYY,LAA,Mike Trout,Max Fried,7.00,25.00,+1329,+300,NA,0.00,B,High — posted LU (K watch)
-2026-04-16,TOR@MIL,TOR,Vladimir Guerrero Jr.,Brandon Sproat,8.00,29.00,+1150,+245,NA,0.00,B,High — posted LU
-2026-04-16,TOR@MIL,MIL,William Contreras,Patrick Corbin,7.10,26.50,+1308,+277,NA,0.00,B,High — posted LU
-2026-04-16,TOR@MIL,TOR,Daulton Varsho,Brandon Sproat,5.90,22.00,+1595,+355,NA,0.00,C,High — posted LU (K spot)
-2026-04-16,TB@CWS,TB,Junior Caminero,Jordan Leasure,7.80,26.00,+1182,+285,NA,0.00,B,High — posted LU
-2026-04-16,TB@CWS,TB,Yandy Díaz,Jordan Leasure,5.20,21.50,+1823,+365,NA,0.00,C,High — posted LU
-2026-04-16,TB@CWS,CWS,Andrew Benintendi,Steven Matz,4.50,18.00,+2122,+456,NA,0.00,D,High — posted LU (K spot)
-2026-04-16,TEX@ATH,TEX,Wyatt Langford,Jacob Lopez,7.00,25.00,+1329,+300,NA,0.00,B,High — posted LU
-2026-04-16,TEX@ATH,TEX,Josh Jung,Jacob Lopez,6.60,23.50,+1415,+326,NA,0.00,B,High — posted LU
-2026-04-16,TEX@ATH,ATH,Lawrence Butler,Jack Leiter,6.90,24.00,+1349,+317,NA,0.00,B,High — posted LU
-2026-04-16,BAL@CLE,BAL,Gunnar Henderson,Parker Messick,6.80,25.00,+1371,+300,NA,0.00,B,Med — active roster (LU TBD)
-2026-04-16,BAL@CLE,BAL,Coby Mayo,Parker Messick,6.20,22.00,+1513,+355,NA,0.00,C,Med — roster (K risk)
-2026-04-16,BAL@CLE,CLE,David Fry,Shane Baz,6.00,23.50,+1567,+326,NA,0.00,C,Med — active roster (LU TBD)
-2026-04-16,COL@HOU,HOU,Yordan Alvarez,Juan Mejia,9.50,31.00,+953,+223,NA,0.00,A,Med — active roster (LU TBD)
-2026-04-16,COL@HOU,HOU,Christian Walker,Juan Mejia,6.50,23.00,+1438,+335,NA,0.00,B,Med — roster
-2026-04-16,COL@HOU,COL,Hunter Goodman,Ryan Weiss,7.80,26.00,+1182,+285,NA,0.00,B,Med — roster (power path)
-2026-04-16,SEA@SD,SD,Fernando Tatis Jr.,Luis Castillo,6.50,24.00,+1438,+317,NA,0.00,C,Med — roster (ace matchup)
-2026-04-16,SEA@SD,SD,Manny Machado,Luis Castillo,5.80,22.50,+1624,+344,NA,0.00,C,Med — roster
-2026-04-16,SEA@SD,SEA,Julio Rodríguez,Walker Buehler,6.20,23.50,+1513,+326,NA,0.00,C,Med — roster (K watch)
+2026-04-16,WSH@PIT,WSH,James Wood,Braxton Ashcraft,3.81,21.83,+2525,+358,NA,0.00,C,High — model+features
+2026-04-16,WSH@PIT,PIT,Oneil Cruz,Foster Griffin,4.06,21.53,+2363,+365,NA,0.00,C,High — model+features
+2026-04-16,WSH@PIT,PIT,Marcell Ozuna,Foster Griffin,4.25,21.87,+2253,+357,NA,0.00,C,High — model+features
+2026-04-16,SF@CIN,CIN,Elly De La Cruz,Landen Roupp,5.06,23.40,+1876,+327,NA,0.00,C,High — model+features
+2026-04-16,SF@CIN,CIN,Spencer Steer,Landen Roupp,3.36,20.36,+2874,+391,NA,0.00,C,High — model+features
+2026-04-16,SF@CIN,SF,Matt Chapman,Chase Burns,2.22,20.34,+4400,+392,NA,0.00,C,High — model+features
+2026-04-16,KC@DET,DET,Gleyber Torres,Kris Bubic,2.59,19.65,+3761,+409,NA,0.00,D,High — model+features
+2026-04-16,KC@DET,KC,Vinnie Pasquantino,Keider Montero,3.71,21.44,+2595,+367,NA,0.00,C,High — model+features
+2026-04-16,KC@DET,KC,Bobby Witt Jr.,Keider Montero,2.80,20.44,+3471,+389,NA,0.00,C,High — model+features
+2026-04-16,LAA@NYY,NYY,Aaron Judge,Brent Suter,6.32,25.09,+1483,+299,NA,0.00,C,High — model+features
+2026-04-16,LAA@NYY,NYY,Giancarlo Stanton,Brent Suter,5.09,22.89,+1865,+337,NA,0.00,C,High — model+features
+2026-04-16,LAA@NYY,LAA,Mike Trout,Max Fried,2.92,21.36,+3327,+368,NA,0.00,C,High — model+features
+2026-04-16,TOR@MIL,TOR,Vladimir Guerrero Jr.,Brandon Sproat,4.02,22.62,+2388,+342,NA,0.00,C,High — model+features
+2026-04-16,TOR@MIL,TOR,Daulton Varsho,Brandon Sproat,2.11,18.58,+4639,+438,NA,0.00,D,High — model+features
+2026-04-16,TOR@MIL,MIL,William Contreras,Patrick Corbin,3.71,21.33,+2595,+369,NA,0.00,C,High — model+features
+2026-04-16,TB@CWS,TB,Junior Caminero,Jordan Leasure,3.82,21.94,+2518,+356,NA,0.00,C,High — model+features
+2026-04-16,TB@CWS,TB,Yandy Díaz,Jordan Leasure,2.76,19.42,+3523,+415,NA,0.00,D,High — model+features
+2026-04-16,TB@CWS,CWS,Andrew Benintendi,Steven Matz,0.75,17.31,+13233,+478,NA,0.00,D,High — model+features
+2026-04-16,TEX@ATH,TEX,Wyatt Langford,Jacob Lopez,2.90,20.83,+3348,+380,NA,0.00,C,High — model+features
+2026-04-16,TEX@ATH,TEX,Josh Jung,Jacob Lopez,2.71,20.49,+3590,+388,NA,0.00,C,High — model+features
+2026-04-16,TEX@ATH,ATH,Lawrence Butler,Jack Leiter,2.78,20.09,+3497,+398,NA,0.00,C,High — model+features
+2026-04-16,BAL@CLE,BAL,Gunnar Henderson,Parker Messick,3.27,21.38,+2958,+368,NA,0.00,C,High — model+features
+2026-04-16,BAL@CLE,BAL,Coby Mayo,Parker Messick,2.49,19.36,+3916,+416,NA,0.00,D,High — model+features
+2026-04-16,BAL@CLE,CLE,David Fry,Shane Baz,1.79,19.38,+5487,+416,NA,0.00,D,High — model+features
+2026-04-16,COL@HOU,HOU,Yordan Alvarez,Juan Mejia,6.38,24.57,+1466,+307,NA,0.00,C,High — model+features
+2026-04-16,COL@HOU,HOU,Christian Walker,Juan Mejia,3.95,20.85,+2429,+380,NA,0.00,C,High — model+features
+2026-04-16,COL@HOU,COL,Hunter Goodman,Ryan Weiss,3.16,20.93,+3061,+378,NA,0.00,C,High — model+features
+2026-04-16,SEA@SD,SD,Fernando Tatis Jr.,Luis Castillo,2.46,20.90,+3965,+379,NA,0.00,C,High — model+features
+2026-04-16,SEA@SD,SD,Manny Machado,Luis Castillo,1.52,19.22,+6479,+420,NA,0.00,D,High — model+features
+2026-04-16,SEA@SD,SEA,Julio Rodríguez,Walker Buehler,2.27,20.45,+4305,+389,NA,0.00,C,High — model+features
 <!-- batter-outlooks-csv:end -->
 */

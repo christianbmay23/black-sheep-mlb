@@ -6,11 +6,13 @@ import argparse
 import csv
 import html
 import re
+import sys
 from datetime import datetime
 from io import StringIO
 from pathlib import Path
 
 OUT_DIR = Path(__file__).resolve().parent
+REPO_ROOT = OUT_DIR.parent.parent
 CANVAS_DIR = OUT_DIR.parent
 DEFAULT_SLUG = "apr15"
 
@@ -63,6 +65,11 @@ def parse_args() -> argparse.Namespace:
         "--date",
         default=DEFAULT_SLUG,
         help="Date selector: YYYY-MM-DD or slug format like apr16 (default: apr15).",
+    )
+    parser.add_argument(
+        "--compute",
+        action="store_true",
+        help="Apr 16 only: run MLB Stats API + game/prop models, update canvas markers and SLATE, then export.",
     )
     return parser.parse_args()
 
@@ -153,6 +160,16 @@ def build_html(report_path: Path, slug: str, games_rows: list[list[str]], batter
 def main() -> None:
     args = parse_args()
     slug = resolve_slug(args.date)
+
+    if args.compute:
+        if slug != "apr16":
+            print("Error: --compute is only supported for the Apr 16 slate (e.g. --date 2026-04-16).", file=sys.stderr)
+            raise SystemExit(2)
+        if str(REPO_ROOT) not in sys.path:
+            sys.path.insert(0, str(REPO_ROOT))
+        from apr16_compute import run_apr16_pipeline
+
+        run_apr16_pipeline()
 
     canvas_path = CANVAS_DIR / f"mlb-pregame-intel-{slug}.canvas.tsx"
     if not canvas_path.exists():

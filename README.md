@@ -9,7 +9,9 @@ Research canvas + probability engine for MLB slates: implied vs model win probab
 | `canvases/mlb-pregame-intel-apr15.canvas.tsx` | Cursor canvas (React) for that slate; **dated** file pattern is the norm. |
 | `canvases/mlb-pregame-intel-apr16.canvas.tsx` | Apr 16 slate: full dashboard UI + CSV marker blocks for export. |
 | `canvases/exports/build_ml_exports.py` | Regenerates CSV + standalone HTML from marker blocks inside a dated canvas. |
-| `canvases/exports/_gen_apr16_canvas.py` | Optional: refreshes **only** the `games-csv` / `batter-outlooks-csv` markers from MLB Stats API + model rows (does **not** replace the React UI). Then runs `build_ml_exports.py --date 2026-04-16`. |
+| `models/game_model.py`, `models/prop_model.py`, `models/apr16_inputs.py` | Apr 15–style **win probability** and **HR / 2+ TB** logic (Python); Apr 16 slate inputs + prop features. |
+| `canvases/exports/apr16_compute.py` | Wires API lineups + models into marker CSV + SLATE numeric fields. |
+| `canvases/exports/_gen_apr16_canvas.py` | Thin wrapper: `build_ml_exports.py --date 2026-04-16 --compute`. |
 | `canvases/canvas-types.d.ts` | Ambient typings for `cursor/canvas` (IDE / `tsc` without bundling Cursor). |
 | `tsconfig.json`, `package.json` | Local TypeScript check for `*.canvas.tsx` (`npx tsc --noEmit`). |
 | `canvases/exports/*.csv` | Game summaries + batter outlook exports (regenerate after slate updates). |
@@ -53,16 +55,16 @@ Edit the file **inside this repo**; the symlink keeps the side panel in sync. On
 
 If `--date` is omitted, exports default to slug `apr15` for backward compatibility.
 
-### Apr 16: optional API refresh of CSV markers
+### Apr 16: model-driven refresh (API + Apr 15 logic)
 
 For [`mlb-pregame-intel-apr16.canvas.tsx`](canvases/mlb-pregame-intel-apr16.canvas.tsx) only:
 
-- **Hand-edit** the dashboard: change the `SLATE` array, matchup text, lineups, etc., in the `.tsx` file as usual.
-- **Refresh marker CSV from the API + generator** (`probables`, batter rows from schedule/rosters, games table from `GAME_SPECS`):  
-  `python3 canvases/exports/_gen_apr16_canvas.py`  
-  This **splices** new CSV between `<!-- games-csv:start/end -->` and `<!-- batter-outlooks-csv:start/end -->` inside the trailing block comment and **does not** overwrite the React component. It then runs `build_ml_exports.py --date 2026-04-16`.  
-  If you change moneylines, tiers, or narrative in code only, re-run exports after editing:  
-  `python3 canvases/exports/build_ml_exports.py --date 2026-04-16`.
+- **Hand-edit** narrative copy, `bestBets` / pass list, notes, and **inputs** in [`models/apr16_inputs.py`](models/apr16_inputs.py) (moneylines, xERA stubs, prop feature rows, rationale text).
+- **Regenerate** games + props from the shared model and sync markers + SLATE numbers:  
+  `python3 canvases/exports/build_ml_exports.py --date 2026-04-16 --compute`  
+  or `python3 canvases/exports/_gen_apr16_canvas.py` (same command).  
+  This pulls **probables / lineups** from MLB Stats API, runs **`win_probability_model`** and **`batter_hr_two_tb`**, updates the marker CSV blocks and **numeric** fields inside `SLATE` (same values as the CSV). It does **not** replace layout or `GameCard` structure.  
+  Export-only (no recompute): `python3 canvases/exports/build_ml_exports.py --date 2026-04-16`.
 
 ## Backtesting + model performance tracker
 
