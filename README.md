@@ -29,6 +29,20 @@ Edit the file **inside this repo**; the symlink keeps the side panel in sync. On
 4. Commit when the slate is stable:  
    `git add -A && git commit -m "Slate update YYYY-MM-DD"`
 
+## Backtesting + model performance tracker
+
+Use the backtest script to score yesterday's picks and generate a running tracker + summary notes:
+
+```bash
+python3 canvases/exports/backtest_tracker.py
+```
+
+Outputs:
+- `canvases/exports/model_performance_tracker_apr15.csv`
+- `canvases/exports/model_performance_summary_apr15.md`
+
+The script will try MLB Stats API first. If the environment blocks outbound calls, it falls back to a locally maintained result map for supported dates.
+
 ## Git: do you need to push?
 
 | Goal | What to do |
