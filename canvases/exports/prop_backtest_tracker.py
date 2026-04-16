@@ -5,16 +5,18 @@ from __future__ import annotations
 import argparse
 import csv
 import re
+import unicodedata
 from collections import Counter, defaultdict
 from dataclasses import dataclass
+from datetime import datetime
 from pathlib import Path
-from statistics import mean
 
 OUT_DIR = Path(__file__).resolve().parent
-DEFAULT_OUTLOOK_CSV = OUT_DIR / "mlb-pregame-intel-apr15-batter-outlooks.csv"
-DEFAULT_RESULTS_CSV = OUT_DIR / "prop_results_apr15.csv"
-TRACKER_CSV = OUT_DIR / "model_prop_performance_tracker_apr15.csv"
-SUMMARY_MD = OUT_DIR / "model_prop_performance_summary_apr15.md"
+DEFAULT_SLUG = "apr15"
+DEFAULT_OUTLOOK_CSV = OUT_DIR / f"mlb-pregame-intel-{DEFAULT_SLUG}-batter-outlooks.csv"
+DEFAULT_RESULTS_CSV = OUT_DIR / f"prop_results_{DEFAULT_SLUG}.csv"
+DEFAULT_TRACKER_CSV = OUT_DIR / f"model_prop_performance_tracker_{DEFAULT_SLUG}.csv"
+DEFAULT_SUMMARY_MD = OUT_DIR / f"model_prop_performance_summary_{DEFAULT_SLUG}.md"
 
 SUPPORTED_PROP_TYPES = {"HR", "2+ TB", "K", "OUTS", "HIT", "RBI", "RUN"}
 TEMPLATE_HEADERS = [
@@ -29,6 +31,20 @@ TEMPLATE_HEADERS = [
     "result",
     "notes",
 ]
+
+# alias key => canonical name (normalized and punctuation-free)
+PLAYER_ALIASES = {
+    "ronaldacunajr": "ronaldacuna",
+    "ronaldacuna": "ronaldacuna",
+    "acunajr": "ronaldacuna",
+    "jrod": "juliorodriguez",
+    "jrodriguez": "juliorodriguez",
+    "juliorodriguez": "juliorodriguez",
+    "shoheiohtani": "shoheiohtani",
+    "sotani": "shoheiohtani",  # common sportsbook truncation
+    "fernandoalvarez": "franciscoalvarez",
+    "franciscoalvarez": "franciscoalvarez",
+}
 
 
 @dataclass
@@ -67,8 +83,24 @@ class TrackerRow:
     eval_mode: str
 
 
-def normalize_name(value: str) -> str:
-    return re.sub(r"[^a-z0-9]", "", (value or "").lower())
+def slug_from_date_input(date_input: str) -> str:
+    clean = (date_input or "").strip().lower()
+    if not clean:
+        return DEFAULT_SLUG
+    try:
+        dt = datetime.strptime(clean, "%Y-%m-%d")
+        return f"{dt.strftime('%b').lower()}{dt.day}"
+    except ValueError:
+        return clean
+
+
+def strip_accents(text: str) -> str:
+    return "".join(ch for ch in unicodedata.normalize("NFKD", text or "") if not unicodedata.combining(ch))
+
+
+def alias_player_name(value: str) -> str:
+    norm = re.sub(r"[^a-z0-9]", "", strip_accents((value or "").lower()))
+    return PLAYER_ALIASES.get(norm, norm)
 
 
 def parse_american(odds_value: str) -> int | None:
@@ -133,14 +165,16 @@ def load_model_props(outlook_csv: Path) -> dict[tuple[str, str, str, str], Model
         tier = row.get("tier", "").strip()
         confidence = row.get("data_confidence", "").strip()
 
+        alias_key = alias_player_name(player)
+
         hr_prob = float(row.get("hr_prob_pct") or 0)
         hr_fair = row.get("fair_hr_american", "").strip()
-        key_hr = (game, normalize_name(player), team, "HR")
+        key_hr = (game, alias_key, team, "HR")
         model_map[key_hr] = ModelProp(date, game, player, team, "HR", hr_prob, hr_fair, tier, confidence)
 
         tb_prob = float(row.get("tb2_prob_pct") or 0)
         tb_fair = row.get("fair_2tb_american", "").strip()
-        key_tb = (game, normalize_name(player), team, "2+ TB")
+        key_tb = (game, alias_key, team, "2+ TB")
         model_map[key_tb] = ModelProp(date, game, player, team, "2+ TB", tb_prob, tb_fair, tier, confidence)
 
     return model_map
@@ -154,17 +188,16 @@ def load_results(results_csv: Path) -> tuple[list[dict[str, str]], list[str]]:
     warnings: list[str] = []
     missing_headers = [h for h in TEMPLATE_HEADERS if h not in headers]
     if missing_headers:
-        warnings.append(
-            f"results CSV missing headers: {', '.join(missing_headers)}"
-        )
+        warnings.append(f"results CSV missing headers: {', '.join(missing_headers)}")
     return rows, warnings
 
 
 def build_tracker_rows(
     results_rows: list[dict[str, str]],
     model_props: dict[tuple[str, str, str, str], ModelProp],
-) -> tuple[list[TrackerRow], list[str]]:
+) -> tuple[list[TrackerRow], list[str], list[str]]:
     warnings: list[str] = []
+    unmatched_players: list[str] = []
     output: list[TrackerRow] = []
 
     for idx, row in enumerate(results_rows, start=2):
@@ -180,7 +213,8 @@ def build_tracker_rows(
             warnings.append(f"row {idx}: unsupported prop_type '{prop_type}'")
             continue
 
-        key = (game, normalize_name(player), team, prop_type)
+        alias_key = alias_player_name(player)
+        key = (game, alias_key, team, prop_type)
         model = model_props.get(key)
 
         result_raw = (row.get("result") or "").strip()
@@ -199,9 +233,9 @@ def build_tracker_rows(
         confidence = model.confidence if model else ""
 
         if model is None and prop_type in {"HR", "2+ TB"}:
-            warnings.append(
-                f"row {idx}: could not match model row for {game} {player} {team} {prop_type}"
-            )
+            warning = f"row {idx}: unmatched model row for {game} | {player} | {team} | {prop_type}"
+            warnings.append(warning)
+            unmatched_players.append(f"{game} {player} ({team}) {prop_type}")
 
         market_implied_prob = implied_probability_from_american(market_odds)
         edge_percent = None
@@ -242,11 +276,26 @@ def build_tracker_rows(
             )
         )
 
-    return output, warnings
+    return output, warnings, unmatched_players
 
 
-def write_tracker(rows: list[TrackerRow]) -> None:
-    with TRACKER_CSV.open("w", newline="", encoding="utf-8") as f:
+def validate_rows(rows: list[TrackerRow], unmatched_players: list[str]) -> list[str]:
+    validations: list[str] = []
+    if unmatched_players:
+        validations.append(f"unmatched player mappings: {len(unmatched_players)}")
+
+    for r in rows:
+        if r.market_odds and r.eval_mode != "betting_roi":
+            validations.append(f"eval_mode mismatch (priced row set to target_accuracy): {r.game} {r.player} {r.prop_type}")
+        if not r.market_odds and r.eval_mode != "target_accuracy":
+            validations.append(f"eval_mode mismatch (unpriced row set to betting_roi): {r.game} {r.player} {r.prop_type}")
+        if r.closing_line_value is not None and abs(r.closing_line_value) > 25:
+            validations.append(f"CLV sanity check triggered (>25 pts): {r.game} {r.player} {r.prop_type} ({r.closing_line_value:.2f})")
+    return validations
+
+
+def write_tracker(rows: list[TrackerRow], tracker_csv: Path) -> None:
+    with tracker_csv.open("w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
         writer.writerow(
             [
@@ -307,8 +356,20 @@ def format_record(rows: list[TrackerRow]) -> str:
     return f"{wins}-{losses}-{pushes}"
 
 
+def hit_rate(rows: list[TrackerRow]) -> str:
+    settled = [r for r in rows if r.outcome in {"W", "L"}]
+    if not settled:
+        return "N/A"
+    wins = sum(1 for r in settled if r.outcome == "W")
+    return f"{wins / len(settled) * 100:.1f}%"
+
+
 def roi(rows: list[TrackerRow]) -> float | None:
-    bet_rows = [r for r in rows if r.eval_mode == "betting_roi" and r.profit_loss_units is not None and r.outcome in {"W", "L", "P"}]
+    bet_rows = [
+        r
+        for r in rows
+        if r.eval_mode == "betting_roi" and r.profit_loss_units is not None and r.outcome in {"W", "L", "P"}
+    ]
     if not bet_rows:
         return None
     units = sum(r.profit_loss_units or 0 for r in bet_rows)
@@ -318,16 +379,23 @@ def roi(rows: list[TrackerRow]) -> float | None:
     return units / risked * 100
 
 
-def summarize(rows: list[TrackerRow], warnings: list[str]) -> str:
-    settled = [r for r in rows if r.outcome in {"W", "L", "P"}]
+def summarize(
+    rows: list[TrackerRow],
+    warnings: list[str],
+    unmatched_players: list[str],
+    validation_warnings: list[str],
+    slug: str,
+) -> str:
     hr = [r for r in rows if r.prop_type == "HR"]
     tb = [r for r in rows if r.prop_type == "2+ TB"]
     ks = [r for r in rows if r.prop_type == "K"]
+    priced = [r for r in rows if r.eval_mode == "betting_roi"]
+    unpriced = [r for r in rows if r.eval_mode == "target_accuracy"]
 
     by_type: dict[str, list[TrackerRow]] = defaultdict(list)
     by_tier: dict[str, list[TrackerRow]] = defaultdict(list)
     by_conf: dict[str, list[TrackerRow]] = defaultdict(list)
-    for r in rows:
+    for r in priced:
         by_type[r.prop_type].append(r)
         if r.tier:
             by_tier[r.tier].append(r)
@@ -335,53 +403,51 @@ def summarize(rows: list[TrackerRow], warnings: list[str]) -> str:
             by_conf[r.confidence].append(r)
 
     best_hits = sorted(
-        [r for r in rows if r.outcome == "W" and r.edge_percent is not None],
-        key=lambda x: x.edge_percent,
+        [r for r in priced if r.outcome == "W" and (r.edge_percent or -999) > -999],
+        key=lambda x: (x.edge_percent if x.edge_percent is not None else -999),
         reverse=True,
     )[:5]
     worst_misses = sorted(
-        [r for r in rows if r.outcome == "L" and r.edge_percent is not None],
-        key=lambda x: x.edge_percent,
+        [r for r in priced if r.outcome == "L" and (r.edge_percent or -999) > -999],
+        key=lambda x: (x.edge_percent if x.edge_percent is not None else -999),
         reverse=True,
     )[:5]
 
     miss_patterns = Counter()
-    for r in rows:
+    for r in priced:
         if r.outcome == "L":
             if r.prop_type == "HR":
                 miss_patterns["HR variance"] += 1
-            if r.eval_mode == "target_accuracy":
-                miss_patterns["No market odds (target-only tracking)"] += 1
             if not r.tier:
                 miss_patterns["Missing tier/model linkage"] += 1
             if r.edge_percent is not None and r.edge_percent < 0:
                 miss_patterns["Negative edge at open"] += 1
 
     lines: list[str] = []
-    lines.append("# Model Prop Performance Summary — 2026-04-15")
-    lines.append("")
-    lines.append("## Core separation: target accuracy vs betting ROI")
-    lines.append("- **Target accuracy** = whether the prop target hit, regardless of market price.")
-    lines.append("- **Betting ROI** = unit profitability, only when market odds exist.")
-    lines.append("- Props without market odds are tracked as target accuracy only (never labeled +EV).")
+    lines.append(f"# Model Prop Performance Summary — {slug}")
     lines.append("")
 
-    lines.append("## Record snapshot")
+    lines.append("## Matchup / Target Accuracy")
     lines.append(f"- Overall prop record: **{format_record(rows)}**")
+    lines.append(f"- Overall target hit rate (W/L only): **{hit_rate(rows)}**")
     lines.append(f"- HR record: **{format_record(hr)}**")
     lines.append(f"- 2+ TB record: **{format_record(tb)}**")
     lines.append(f"- Pitcher K record: **{format_record(ks)}**")
-    lines.append(f"- Betting ROI (all priced props): **{'N/A' if roi(rows) is None else f'{roi(rows):.2f}%'}**")
-    lines.append(f"- Target-only tracked props (no odds): **{sum(1 for r in rows if r.eval_mode == 'target_accuracy')}**")
     lines.append("")
 
-    lines.append("## ROI by prop type")
+    lines.append("## Betting ROI (priced props only)")
+    lines.append(f"- Priced prop count: **{len(priced)}**")
+    lines.append(f"- Betting ROI (all priced props): **{'N/A' if roi(priced) is None else f'{roi(priced):.2f}%'}**")
+    lines.append("- **+EV classification is only valid when market odds exist.**")
+    lines.append("")
+
+    lines.append("### ROI by prop type")
     for prop in sorted(by_type):
         value = roi(by_type[prop])
         lines.append(f"- {prop}: {'N/A' if value is None else f'{value:.2f}%'}")
     lines.append("")
 
-    lines.append("## ROI by tier")
+    lines.append("### ROI by tier")
     for tier in ["A+", "A", "B", "C", "D"]:
         bucket = by_tier.get(tier, [])
         if bucket:
@@ -389,7 +455,7 @@ def summarize(rows: list[TrackerRow], warnings: list[str]) -> str:
             lines.append(f"- {tier}: {'N/A' if value is None else f'{value:.2f}%'}")
     lines.append("")
 
-    lines.append("## ROI by confidence")
+    lines.append("### ROI by confidence")
     for conf in ["High", "Medium", "Low"]:
         bucket = by_conf.get(conf, [])
         if bucket:
@@ -397,12 +463,17 @@ def summarize(rows: list[TrackerRow], warnings: list[str]) -> str:
             lines.append(f"- {conf}: {'N/A' if value is None else f'{value:.2f}%'}")
     lines.append("")
 
+    lines.append("## Unpriced Watchlist Accuracy")
+    lines.append(f"- Unpriced (target-only) count: **{len(unpriced)}**")
+    lines.append(f"- Unpriced record: **{format_record(unpriced)}**")
+    lines.append(f"- Unpriced hit rate (W/L only): **{hit_rate(unpriced)}**")
+    lines.append("")
+
     lines.append("## Best hits")
     if best_hits:
         for r in best_hits:
-            lines.append(
-                f"- {r.game} {r.player} {r.prop_type}: outcome {r.outcome}, edge {r.edge_percent:.2f}%, mode {r.eval_mode}."
-            )
+            edge = "N/A" if r.edge_percent is None else f"{r.edge_percent:.2f}%"
+            lines.append(f"- {r.game} {r.player} {r.prop_type}: outcome {r.outcome}, edge {edge}.")
     else:
         lines.append("- No priced winning edges available yet.")
     lines.append("")
@@ -410,9 +481,8 @@ def summarize(rows: list[TrackerRow], warnings: list[str]) -> str:
     lines.append("## Worst misses")
     if worst_misses:
         for r in worst_misses:
-            lines.append(
-                f"- {r.game} {r.player} {r.prop_type}: outcome {r.outcome}, edge {r.edge_percent:.2f}%, mode {r.eval_mode}."
-            )
+            edge = "N/A" if r.edge_percent is None else f"{r.edge_percent:.2f}%"
+            lines.append(f"- {r.game} {r.player} {r.prop_type}: outcome {r.outcome}, edge {edge}.")
     else:
         lines.append("- No priced losing edges available yet.")
     lines.append("")
@@ -422,59 +492,93 @@ def summarize(rows: list[TrackerRow], warnings: list[str]) -> str:
         for reason, count in miss_patterns.most_common():
             lines.append(f"- {reason}: {count}")
     else:
-        lines.append("- No settled losses available to classify.")
+        lines.append("- No settled priced losses available to classify.")
     lines.append("")
 
     lines.append("## Model improvement recommendations")
-    lines.append("1. Split evaluation dashboards by prop family: keep HR in a high-variance bucket and treat 2+ TB and K props as core stability buckets.")
-    lines.append("2. Enforce a price gate: no +EV label unless market odds are present and model probability exceeds market implied probability by a configured threshold.")
-    lines.append("3. Re-run player name normalization checks each slate and maintain alias mapping for recurring mismatches to reduce unlinked rows.")
-    lines.append("4. Add rolling 7-day ROI and hit-rate control limits per tier/confidence, and auto-downgrade buckets that underperform.")
+    lines.append("1. Keep HR in a high-variance evaluation bucket and evaluate 2+ TB/K separately as core stability props.")
+    lines.append("2. Enforce a price gate: only label +EV when market odds are present and model probability is above market implied probability.")
+    lines.append("3. Expand PLAYER_ALIASES for recurring name variants (suffixes, accents, sportsbook abbreviations).")
+    lines.append("4. Track rolling 7-day ROI and hit-rate by prop family, tier, and confidence; auto-downgrade weak buckets.")
     lines.append("")
 
+    lines.append("## Data Quality Warnings")
+    if unmatched_players:
+        lines.append("### Unmatched player names")
+        for u in unmatched_players:
+            lines.append(f"- {u}")
+        lines.append("")
+
     if warnings:
-        lines.append("## Data-quality warnings")
+        lines.append("### Parsing / mapping warnings")
         for warning in warnings:
             lines.append(f"- {warning}")
         lines.append("")
+
+    if validation_warnings:
+        lines.append("### Validation checks")
+        for warning in validation_warnings:
+            lines.append(f"- {warning}")
+        lines.append("")
+
+    if not unmatched_players and not warnings and not validation_warnings:
+        lines.append("- No data quality warnings.")
 
     return "\n".join(lines)
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--outlook", type=Path, default=DEFAULT_OUTLOOK_CSV, help="Batter outlook export CSV.")
-    parser.add_argument("--results", type=Path, default=DEFAULT_RESULTS_CSV, help="Manual prop results CSV.")
+    parser.add_argument(
+        "--date",
+        default=DEFAULT_SLUG,
+        help="Date slug (apr15) or YYYY-MM-DD; controls derived file paths.",
+    )
+    parser.add_argument("--outlook", type=Path, default=None, help="Override batter outlook export CSV path.")
+    parser.add_argument("--results", type=Path, default=None, help="Override manual prop results CSV path.")
+    parser.add_argument("--tracker", type=Path, default=None, help="Override tracker CSV output path.")
+    parser.add_argument("--summary", type=Path, default=None, help="Override summary markdown output path.")
     args = parser.parse_args()
 
-    if not args.results.exists():
-        build_template(args.results)
-        print(f"Created template: {args.results}")
+    slug = slug_from_date_input(args.date)
+    outlook_csv = args.outlook or (OUT_DIR / f"mlb-pregame-intel-{slug}-batter-outlooks.csv")
+    results_csv = args.results or (OUT_DIR / f"prop_results_{slug}.csv")
+    tracker_csv = args.tracker or (OUT_DIR / f"model_prop_performance_tracker_{slug}.csv")
+    summary_md = args.summary or (OUT_DIR / f"model_prop_performance_summary_{slug}.md")
+
+    if slug == DEFAULT_SLUG and args.outlook is None and not DEFAULT_OUTLOOK_CSV.exists() and (OUT_DIR / "mlb-pregame-intel-apr15-batter-outlooks.csv").exists():
+        outlook_csv = OUT_DIR / "mlb-pregame-intel-apr15-batter-outlooks.csv"
+
+    if not results_csv.exists():
+        build_template(results_csv)
+        print(f"Created template: {results_csv}")
         print("Fill this file with final prop results, then rerun:")
-        print("python3 canvases/exports/prop_backtest_tracker.py")
+        print(f"python3 canvases/exports/prop_backtest_tracker.py --date {args.date}")
         return
 
-    model_props = load_model_props(args.outlook)
-    results_rows, load_warnings = load_results(args.results)
+    model_props = load_model_props(outlook_csv)
+    results_rows, load_warnings = load_results(results_csv)
     if not results_rows:
-        print(f"No rows in {args.results}. Add props and rerun.")
+        print(f"No rows in {results_csv}. Add props and rerun.")
         return
 
-    tracker_rows, warnings = build_tracker_rows(results_rows, model_props)
+    tracker_rows, warnings, unmatched_players = build_tracker_rows(results_rows, model_props)
     warnings = [*load_warnings, *warnings]
-    write_tracker(tracker_rows)
+    validation_warnings = validate_rows(tracker_rows, unmatched_players)
 
-    summary = summarize(tracker_rows, warnings)
-    SUMMARY_MD.write_text(summary, encoding="utf-8")
+    write_tracker(tracker_rows, tracker_csv)
+    summary = summarize(tracker_rows, warnings, unmatched_players, validation_warnings, slug)
+    summary_md.write_text(summary, encoding="utf-8")
 
     priced = sum(1 for r in tracker_rows if r.eval_mode == "betting_roi")
     target_only = sum(1 for r in tracker_rows if r.eval_mode == "target_accuracy")
-    print(f"Backtest complete. Tracker: {TRACKER_CSV}")
-    print(f"Summary: {SUMMARY_MD}")
+    print(f"Backtest complete for {slug}.")
+    print(f"Tracker: {tracker_csv}")
+    print(f"Summary: {summary_md}")
     print(f"Rows: {len(tracker_rows)} (priced={priced}, target_only={target_only})")
-    if warnings:
+    if warnings or validation_warnings:
         print("Warnings:")
-        for w in warnings:
+        for w in [*warnings, *validation_warnings]:
             print(f"- {w}")
 
 

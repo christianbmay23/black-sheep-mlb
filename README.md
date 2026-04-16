@@ -35,6 +35,10 @@ Use the backtest script to score yesterday's picks and generate a running tracke
 
 ```bash
 python3 canvases/exports/backtest_tracker.py
+# or
+python3 canvases/exports/backtest_tracker.py --date 2026-04-15
+# or
+python3 canvases/exports/backtest_tracker.py --date apr15
 ```
 
 Outputs:
@@ -53,6 +57,10 @@ Run:
 
 ```bash
 python3 canvases/exports/prop_backtest_tracker.py
+# or
+python3 canvases/exports/prop_backtest_tracker.py --date 2026-04-15
+# or
+python3 canvases/exports/prop_backtest_tracker.py --date apr15
 ```
 
 If `canvases/exports/prop_results_apr15.csv` does not exist, the script creates a template with required headers:
@@ -69,6 +77,14 @@ If `canvases/exports/prop_results_apr15.csv` does not exist, the script creates 
 - `notes`
 
 Populate one row per tracked prop result, then rerun the same command.
+
+Date-driven paths are derived from `--date`:
+- Outlook: `mlb-pregame-intel-<slug>-batter-outlooks.csv`
+- Results: `prop_results_<slug>.csv`
+- Tracker: `model_prop_performance_tracker_<slug>.csv`
+- Summary: `model_prop_performance_summary_<slug>.md`
+
+(`<slug>` can be a short slug like `apr15` or generated from `YYYY-MM-DD`.)
 
 ### 2) Run the prop backtest
 
