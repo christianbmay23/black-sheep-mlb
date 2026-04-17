@@ -118,35 +118,168 @@ def batter_hr_two_tb(
     *,
     batter_hand: str | None = None,
     pitcher_hand: str | None = None,
+    xslg_override: float | None = None,
+    barrel_rate: float | None = None,
+    actual_slg: float | None = None,
+    hard_hit_rate: float | None = None,
+    avg_hit_speed: float | None = None,
+    est_ba: float | None = None,
+    plate_appearances: int | None = None,
+    home_runs: int | None = None,
+    opp_xera_override: float | None = None,
+    opp_est_slg: float | None = None,
+    opp_barrel_rate: float | None = None,
+    opp_hard_hit_rate: float | None = None,
+    vs_pitcher_pa: int | None = None,
+    vs_pitcher_ab: int | None = None,
+    vs_pitcher_hits: int | None = None,
+    vs_pitcher_hr: int | None = None,
+    vs_pitcher_total_bases: int | None = None,
 ) -> tuple[float, float, str, str, Tier, ModelConf]:
     row = find_lineup_row(lineup, batter)
     brl = parse_brl(row)
     xslg = parse_xslg(row)
     pk = park_factor(away, home)
-    opp_xera = parse_xera(opp_sp_profile)
-    miss = 0
-    if brl is None:
-        miss += 1
-    if xslg is None:
-        miss += 1
-    if opp_xera is None:
-        miss += 1
+    opp_xera = opp_xera_override if opp_xera_override is not None else parse_xera(opp_sp_profile)
 
-    base_hr = 0.028 + platoon_hr_bump(batter_hand, pitcher_hand)
-    brl_adj = (brl - 0.52) * 0.09 if brl is not None else -0.006
-    xslg_adj = clamp((xslg - 0.4) * 0.1, -0.02, 0.09) if xslg is not None else -0.004
-    pit_adj = clamp((opp_xera - 4.15) * 0.009, -0.018, 0.028) if opp_xera is not None else 0.0
-    hr = clamp(base_hr + brl_adj + xslg_adj + pit_adj + (pk - 1) * 0.022, 0.006, 0.24)
-
-    base2 = 0.2
-    tb2 = clamp(
-        base2
-        + ((brl - 0.5) * 0.16 if brl is not None else 0)
-        + ((xslg - 0.38) * 0.18 if xslg is not None else 0)
-        + pit_adj * 0.6,
-        0.07,
-        0.52,
+    use_real_features = any(
+        value is not None
+        for value in (
+            xslg_override,
+            barrel_rate,
+            actual_slg,
+            hard_hit_rate,
+            avg_hit_speed,
+            est_ba,
+            plate_appearances,
+            home_runs,
+            opp_xera_override,
+            opp_est_slg,
+            opp_barrel_rate,
+            opp_hard_hit_rate,
+        )
     )
+
+    if not use_real_features:
+        miss = 0
+        if brl is None:
+            miss += 1
+        if xslg is None:
+            miss += 1
+        if opp_xera is None:
+            miss += 1
+
+        base_hr = 0.028 + platoon_hr_bump(batter_hand, pitcher_hand)
+        brl_adj = (brl - 0.52) * 0.09 if brl is not None else -0.006
+        xslg_adj = clamp((xslg - 0.4) * 0.1, -0.02, 0.09) if xslg is not None else -0.004
+        pit_adj = clamp((opp_xera - 4.15) * 0.009, -0.018, 0.028) if opp_xera is not None else 0.0
+        hr = clamp(base_hr + brl_adj + xslg_adj + pit_adj + (pk - 1) * 0.022, 0.006, 0.24)
+
+        base2 = 0.2
+        tb2 = clamp(
+            base2
+            + ((brl - 0.5) * 0.16 if brl is not None else 0)
+            + ((xslg - 0.38) * 0.18 if xslg is not None else 0)
+            + pit_adj * 0.6,
+            0.07,
+            0.52,
+        )
+    else:
+        hitter_xslg = xslg_override if xslg_override is not None else xslg
+        hitter_barrel = barrel_rate
+        hitter_hr_rate = None
+        if plate_appearances and plate_appearances > 0 and home_runs is not None:
+            hitter_hr_rate = home_runs / plate_appearances
+
+        feature_slots = (
+            hitter_xslg,
+            hitter_barrel,
+            actual_slg,
+            hard_hit_rate,
+            avg_hit_speed,
+            est_ba,
+            opp_xera,
+            opp_est_slg,
+            opp_barrel_rate,
+            opp_hard_hit_rate,
+        )
+        miss = sum(value is None for value in feature_slots)
+
+        platoon = platoon_hr_bump(batter_hand, pitcher_hand)
+        hr = 0.022 + platoon
+        if hitter_barrel is not None:
+            hr += (hitter_barrel - 0.08) * 0.15
+        if hitter_xslg is not None:
+            hr += (hitter_xslg - 0.4) * 0.1
+        if actual_slg is not None:
+            hr += (actual_slg - 0.4) * 0.035
+        if hard_hit_rate is not None:
+            hr += (hard_hit_rate - 0.38) * 0.05
+        if avg_hit_speed is not None:
+            hr += (avg_hit_speed - 88.5) * 0.002
+        if hitter_hr_rate is not None:
+            hr += (hitter_hr_rate - 0.03) * 0.35
+        if opp_xera is not None:
+            hr += clamp((opp_xera - 4.1) * 0.008, -0.02, 0.03)
+        if opp_est_slg is not None:
+            hr += clamp((opp_est_slg - 0.4) * 0.07, -0.015, 0.02)
+        if opp_barrel_rate is not None:
+            hr += (opp_barrel_rate - 0.08) * 0.08
+        if opp_hard_hit_rate is not None:
+            hr += (opp_hard_hit_rate - 0.38) * 0.04
+        if vs_pitcher_pa is not None and vs_pitcher_pa >= 3:
+            sample_weight = min(vs_pitcher_pa / 20.0, 1.0)
+            if vs_pitcher_hr is not None:
+                hr += clamp(((vs_pitcher_hr / vs_pitcher_pa) - 0.03) * 0.1 * sample_weight, -0.01, 0.015)
+            if (
+                vs_pitcher_ab is not None
+                and vs_pitcher_ab > 0
+                and vs_pitcher_hits is not None
+                and vs_pitcher_total_bases is not None
+            ):
+                pvb_avg = vs_pitcher_hits / vs_pitcher_ab
+                pvb_slg = vs_pitcher_total_bases / vs_pitcher_ab
+                hr += clamp((pvb_slg - 0.4) * 0.03 * sample_weight, -0.008, 0.012)
+        hr = clamp(hr + (pk - 1) * 0.024, 0.004, 0.25)
+
+        tb2 = 0.16 + platoon * 1.5
+        if hitter_xslg is not None:
+            tb2 += (hitter_xslg - 0.4) * 0.4
+        if actual_slg is not None:
+            tb2 += (actual_slg - 0.4) * 0.18
+        if hitter_barrel is not None:
+            tb2 += (hitter_barrel - 0.08) * 0.2
+        if hard_hit_rate is not None:
+            tb2 += (hard_hit_rate - 0.38) * 0.18
+        if avg_hit_speed is not None:
+            tb2 += (avg_hit_speed - 88.5) * 0.004
+        if est_ba is not None:
+            tb2 += (est_ba - 0.245) * 0.16
+        if hitter_hr_rate is not None:
+            tb2 += (hitter_hr_rate - 0.03) * 0.1
+        if opp_xera is not None:
+            tb2 += clamp((opp_xera - 4.1) * 0.012, -0.03, 0.04)
+        if opp_est_slg is not None:
+            tb2 += clamp((opp_est_slg - 0.4) * 0.2, -0.03, 0.05)
+        if opp_barrel_rate is not None:
+            tb2 += (opp_barrel_rate - 0.08) * 0.15
+        if opp_hard_hit_rate is not None:
+            tb2 += (opp_hard_hit_rate - 0.38) * 0.1
+        if (
+            vs_pitcher_pa is not None
+            and vs_pitcher_pa >= 3
+            and vs_pitcher_ab is not None
+            and vs_pitcher_ab > 0
+            and vs_pitcher_hits is not None
+            and vs_pitcher_total_bases is not None
+        ):
+            sample_weight = min(vs_pitcher_pa / 20.0, 1.0)
+            pvb_avg = vs_pitcher_hits / vs_pitcher_ab
+            pvb_slg = vs_pitcher_total_bases / vs_pitcher_ab
+            tb2 += clamp((pvb_avg - 0.245) * 0.08 * sample_weight, -0.015, 0.02)
+            tb2 += clamp((pvb_slg - 0.4) * 0.08 * sample_weight, -0.02, 0.025)
+        tb2 = clamp(tb2 + (pk - 1) * 0.1, 0.06, 0.55)
+
     fair_hr = prob_to_american(hr)
     fair_2tb = prob_to_american(tb2)
     th = intrinsic_tier_hr(hr)
@@ -154,8 +287,8 @@ def batter_hr_two_tb(
     rank = {"A+": 5, "A": 4, "B": 3, "C": 2, "D": 1}
     tier: Tier = th if rank[th] >= rank[t2] else t2
     conf: ModelConf = "Medium"
-    if miss >= 2:
+    if miss >= 5:
         conf = "Low"
-    if miss == 0 and row:
+    elif miss == 0:
         conf = "High"
     return hr, tb2, fair_hr, fair_2tb, tier, conf
