@@ -8,10 +8,12 @@ Research canvas + probability engine for MLB slates: implied vs model win probab
 |------|---------|
 | `canvases/mlb-pregame-intel-apr15.canvas.tsx` | Cursor canvas (React) for that slate; **dated** file pattern is the norm. |
 | `canvases/mlb-pregame-intel-apr16.canvas.tsx` | Apr 16 slate: full dashboard UI + CSV marker blocks for export. |
+| `canvases/mlb-pregame-intel-apr18.canvas.tsx` | Apr 18, 2026 slate: same pattern as Apr 16; use `--date 2026-04-18 --compute` to refresh. |
 | `canvases/exports/build_ml_exports.py` | Regenerates CSV + standalone HTML from marker blocks inside a dated canvas. |
-| `models/game_model.py`, `models/prop_model.py`, `models/apr16_inputs.py` | Apr 15–style **win probability** and **HR / 2+ TB** logic (Python); Apr 16 slate inputs + prop features. |
-| `canvases/exports/apr16_compute.py` | Wires API lineups + models into marker CSV + SLATE numeric fields. |
+| `models/game_model.py`, `models/prop_model.py`, `models/apr16_inputs.py`, `models/apr18_inputs.py` | **Win probability** and **HR / 2+ TB** logic; per-slate moneylines, weather, and analyst copy. |
+| `canvases/exports/apr16_compute.py` | Wires API lineups + models into marker CSV + SLATE (supports apr16, apr18 via `models/<slug>_inputs`). |
 | `canvases/exports/_gen_apr16_canvas.py` | Thin wrapper: `build_ml_exports.py --date 2026-04-16 --compute`. |
+| `canvases/exports/_gen_apr18_canvas.py` | Thin wrapper: `build_ml_exports.py --date 2026-04-18 --compute`. |
 | `canvases/canvas-types.d.ts` | Ambient typings for `cursor/canvas` (IDE / `tsc` without bundling Cursor). |
 | `tsconfig.json`, `package.json` | Local TypeScript check for `*.canvas.tsx` (`npx tsc --noEmit`). |
 | `canvases/exports/*.csv` | Game summaries + batter outlook exports (regenerate after slate updates). |
@@ -65,6 +67,16 @@ For [`mlb-pregame-intel-apr16.canvas.tsx`](canvases/mlb-pregame-intel-apr16.canv
   or `python3 canvases/exports/_gen_apr16_canvas.py` (same command).  
   This pulls **probables / lineups** from MLB Stats API, runs **`win_probability_model`** and **`batter_hr_two_tb`**, updates the marker CSV blocks and **numeric** fields inside `SLATE` (same values as the CSV). It does **not** replace layout or `GameCard` structure.  
   Export-only (no recompute): `python3 canvases/exports/build_ml_exports.py --date 2026-04-16`.
+
+### Apr 18, 2026: same pipeline
+
+For [`mlb-pregame-intel-apr18.canvas.tsx`](canvases/mlb-pregame-intel-apr18.canvas.tsx):
+
+- Edit game metadata and approximate markets in [`models/apr18_inputs.py`](models/apr18_inputs.py).
+- Refresh models + exports:  
+  `python3 canvases/exports/build_ml_exports.py --date 2026-04-18 --compute`  
+  or `python3 canvases/exports/_gen_apr18_canvas.py`.  
+  To regenerate the canvas shell from the Apr 16 UI template (rare): `python3 canvases/exports/gen_apr18_canvas.py`.
 
 ## Backtesting + model performance tracker
 

@@ -1,12 +1,14 @@
-"""Compute Apr 16 games + props from shared models; update canvas markers + SLATE."""
+"""Compute dated slate games + props from shared models; update canvas markers + SLATE."""
 from __future__ import annotations
 
 import csv
+import importlib
 import json
 import re
 import sys
 import urllib.parse
 import urllib.request
+from collections.abc import Callable
 from io import StringIO
 from pathlib import Path
 from typing import Any
@@ -15,12 +17,6 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from models.apr16_inputs import (  # noqa: E402
-    CANVAS_SLUG,
-    GAME_SPECS,
-    REPORT_DATE,
-    make_sp_profile,
-)
 from models.game_model import (  # noqa: E402
     clamp,
     devig_two_way,
@@ -29,7 +25,17 @@ from models.game_model import (  # noqa: E402
 )
 from models.prop_model import batter_hr_two_tb, lineup_match_key  # noqa: E402
 
-CANVAS = ROOT / "canvases" / f"mlb-pregame-intel-{CANVAS_SLUG}.canvas.tsx"
+GAME_SPECS: list[dict[str, Any]] = []
+REPORT_DATE = ""
+CANVAS: Path = ROOT / "canvases" / "mlb-pregame-intel-apr16.canvas.tsx"
+
+
+def _make_sp_profile_unbound(_x: float) -> list[list[str]]:
+    raise RuntimeError("bind_slate_inputs() must run before model pipeline")
+
+
+make_sp_profile: Callable[[float], list[list[str]]] = _make_sp_profile_unbound
+
 SAVANT_HEADERS = {
     "User-Agent": "Mozilla/5.0",
     "Accept": "text/csv,text/html;q=0.9,*/*;q=0.8",
@@ -636,7 +642,27 @@ def build_data_confidence(prop_conf: str, lineup_label: str) -> str:
     return f"{prop_conf} — real stats+savant, {label}"
 
 
+def bind_slate_inputs(slug: str) -> None:
+    """Load `models.<slug>_inputs` (e.g. apr16 → models.apr16_inputs)."""
+    global GAME_SPECS, REPORT_DATE, CANVAS
+    global make_sp_profile
+    mod = importlib.import_module(f"models.{slug}_inputs")
+    GAME_SPECS = mod.GAME_SPECS
+    REPORT_DATE = mod.REPORT_DATE
+    make_sp_profile = mod.make_sp_profile
+    CANVAS = ROOT / "canvases" / f"mlb-pregame-intel-{mod.CANVAS_SLUG}.canvas.tsx"
+
+
+def run_slate_pipeline(slug: str, canvas_path: Path | None = None) -> None:
+    bind_slate_inputs(slug)
+    _run_model_pipeline(canvas_path)
+
+
 def run_apr16_pipeline(canvas_path: Path | None = None) -> None:
+    run_slate_pipeline("apr16", canvas_path)
+
+
+def _run_model_pipeline(canvas_path: Path | None = None) -> None:
     path = canvas_path or CANVAS
     if not path.is_file():
         raise FileNotFoundError(path)

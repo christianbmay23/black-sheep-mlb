@@ -69,7 +69,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--compute",
         action="store_true",
-        help="Apr 16 only: run MLB Stats API + game/prop models, update canvas markers and SLATE, then export.",
+        help="Supported slates (apr16, apr18): run MLB Stats API + models, update canvas markers and SLATE, then export.",
     )
     return parser.parse_args()
 
@@ -162,14 +162,18 @@ def main() -> None:
     slug = resolve_slug(args.date)
 
     if args.compute:
-        if slug != "apr16":
-            print("Error: --compute is only supported for the Apr 16 slate (e.g. --date 2026-04-16).", file=sys.stderr)
+        if slug not in {"apr16", "apr18"}:
+            print(
+                "Error: --compute is only supported for slates with a models/<slug>_inputs module "
+                "(e.g. --date 2026-04-16 or 2026-04-18).",
+                file=sys.stderr,
+            )
             raise SystemExit(2)
         if str(REPO_ROOT) not in sys.path:
             sys.path.insert(0, str(REPO_ROOT))
-        from apr16_compute import run_apr16_pipeline
+        from apr16_compute import run_slate_pipeline
 
-        run_apr16_pipeline()
+        run_slate_pipeline(slug)
 
     canvas_path = CANVAS_DIR / f"mlb-pregame-intel-{slug}.canvas.tsx"
     if not canvas_path.exists():
