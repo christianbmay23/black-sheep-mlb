@@ -36,6 +36,12 @@ GAMES_HEADERS = [
     "bullpen_home_score",
     "recent_form_away_score",
     "recent_form_home_score",
+    "game_status_bucket",
+    "game_state",
+    "game_state_detail",
+    "game_status_note",
+    "away_score",
+    "home_score",
     "verification_status",
     "verification_notes",
     "implied_away_pct_nv",
@@ -161,6 +167,40 @@ def table_html(rows: list[list[str]], title: str) -> str:
     return "".join(parts)
 
 
+def game_status_summary_html(games_rows: list[list[str]]) -> str:
+    if len(games_rows) < 2:
+        return ""
+
+    header = games_rows[0]
+    try:
+        bucket_idx = header.index("game_status_bucket")
+        verify_idx = header.index("verification_status")
+    except ValueError:
+        return ""
+
+    bucket_counts = {"pregame": 0, "live": 0, "final": 0, "other": 0}
+    verify_counts = {"Verified": 0, "Partial": 0}
+    for row in games_rows[1:]:
+        if bucket_idx < len(row):
+            bucket = (row[bucket_idx] or "").strip().lower()
+            if bucket in bucket_counts:
+                bucket_counts[bucket] += 1
+        if verify_idx < len(row):
+            verify = row[verify_idx].strip()
+            if verify in verify_counts:
+                verify_counts[verify] += 1
+
+    summary_bits = [
+        f"Pregame: {bucket_counts['pregame']}",
+        f"Live: {bucket_counts['live']}",
+        f"Final: {bucket_counts['final']}",
+        f"Other: {bucket_counts['other']}",
+        f"Verified: {verify_counts['Verified']}",
+        f"Partial: {verify_counts['Partial']}",
+    ]
+    return "<p class='summary'>" + " | ".join(html.escape(bit) for bit in summary_bits) + "</p>"
+
+
 def build_html(report_path: Path, slug: str, games_rows: list[list[str]], batter_rows: list[list[str]]) -> None:
     html_doc = "".join(
         [
@@ -168,11 +208,13 @@ def build_html(report_path: Path, slug: str, games_rows: list[list[str]], batter
             f"<title>MLB Pregame Intel {html.escape(slug)}</title>",
             "<style>",
             "body{font-family:system-ui,sans-serif;margin:24px;background:#0f1419;color:#e8eef5}",
+            ".summary{margin:8px 0 16px;color:#b9c7d8;font-size:13px}",
             "table{border-collapse:collapse;width:100%;margin:16px 0;font-size:12px}",
             "th,td{border:1px solid #2a3a4d;padding:6px;text-align:left}",
             "th{background:#1a2430}",
             "</style></head><body>",
             f"<h1>MLB Pregame Intel Report — {html.escape(slug)}</h1>",
+            game_status_summary_html(games_rows),
             table_html(games_rows, "Games"),
             table_html(batter_rows, "Batter Outlooks"),
             "</body></html>",

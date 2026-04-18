@@ -49,6 +49,12 @@ def emit_slate() -> str:
         parts.append(f'    away: {ts_string(away)},')
         parts.append(f'    home: {ts_string(home)},')
         parts.append(f'    timeEt: {ts_string(spec["time_et"])},')
+        parts.append('    gameStatusBucket: "pregame",')
+        parts.append('    gameState: "Yet To Begin",')
+        parts.append('    gameStateDetail: "Pre-Game",')
+        parts.append('    gameStatusNote: "Yet to begin",')
+        parts.append("    awayScore: null,")
+        parts.append("    homeScore: null,")
         parts.append('    awaySp: "TBD",')
         parts.append('    homeSp: "TBD",')
         parts.append(f'    awayAmerican: {int(spec["away_a"])},')
@@ -113,7 +119,7 @@ def main() -> None:
     marker = """
 /*
 <!-- games-csv:start -->
-report_date,away,home,start_time_et,away_sp,home_sp,away_american,home_american,market_total,market_over_american,market_under_american,weather_summary,weather_temp_f,weather_wind_mph,weather_precip_pct,bullpen_away_score,bullpen_home_score,recent_form_away_score,recent_form_home_score,verification_status,verification_notes,implied_away_pct_nv,implied_home_pct_nv,model_away_win_pct,model_home_win_pct,edge_away_pct,edge_home_pct,prediction,decision_tier_vs_market,edge_on_pick_pct,model_confidence,missing_data_flags,analyst_confidence,rationale_summary
+report_date,away,home,start_time_et,away_sp,home_sp,away_american,home_american,market_total,market_over_american,market_under_american,weather_summary,weather_temp_f,weather_wind_mph,weather_precip_pct,bullpen_away_score,bullpen_home_score,recent_form_away_score,recent_form_home_score,game_status_bucket,game_state,game_state_detail,game_status_note,away_score,home_score,verification_status,verification_notes,implied_away_pct_nv,implied_home_pct_nv,model_away_win_pct,model_home_win_pct,edge_away_pct,edge_home_pct,prediction,decision_tier_vs_market,edge_on_pick_pct,model_confidence,missing_data_flags,analyst_confidence,rationale_summary
 <!-- games-csv:end -->
 
 <!-- batter-outlooks-csv:start -->

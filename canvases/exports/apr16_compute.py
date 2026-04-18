@@ -152,6 +152,107 @@ def run_environment_label(run_factor: float | None) -> str:
     return "Medium"
 
 
+def current_inning_label(linescore: dict[str, Any]) -> str:
+    inning_state = str(linescore.get("inningState") or "").strip()
+    inning_half = str(linescore.get("inningHalf") or "").strip()
+    inning_ordinal = str(linescore.get("currentInningOrdinal") or "").strip()
+    if inning_state and inning_ordinal:
+        return f"{inning_state} {inning_ordinal}"
+    if inning_half and inning_ordinal:
+        return f"{inning_half} {inning_ordinal}"
+    if inning_state:
+        return inning_state
+    if inning_ordinal:
+        return inning_ordinal
+    inning_num = parse_int(linescore.get("currentInning"))
+    if inning_num is None:
+        return ""
+    suffix = "th" if 10 <= inning_num % 100 <= 20 else {1: "st", 2: "nd", 3: "rd"}.get(inning_num % 10, "th")
+    return f"{inning_num}{suffix}"
+
+
+def summarize_game_status(game: dict[str, Any]) -> dict[str, Any]:
+    teams = game.get("teams") or {}
+    away = str(((teams.get("away") or {}).get("team") or {}).get("abbreviation") or "")
+    home = str(((teams.get("home") or {}).get("team") or {}).get("abbreviation") or "")
+    status = game.get("status") or {}
+    linescore = game.get("linescore") or {}
+    away_score_raw = parse_int((((linescore.get("teams") or {}).get("away") or {}).get("runs")))
+    home_score_raw = parse_int((((linescore.get("teams") or {}).get("home") or {}).get("runs")))
+    inning_label = current_inning_label(linescore)
+    score_label = (
+        f"{away} {away_score_raw}, {home} {home_score_raw}"
+        if away_score_raw is not None and home_score_raw is not None
+        else ""
+    )
+
+    abstract = str(status.get("abstractGameState") or "").strip()
+    detailed = str(status.get("detailedState") or "").strip()
+    status_code = str(status.get("statusCode") or "").strip().upper()
+    abstract_lower = abstract.lower()
+    detailed_lower = detailed.lower()
+
+    if abstract_lower == "final" or detailed_lower.startswith("final") or status_code.startswith("F"):
+        note = "Final"
+        if score_label:
+            note = f"{note} — {score_label}"
+        return {
+            "game_status_bucket": "final",
+            "game_state": "Final",
+            "game_state_detail": detailed or "Final",
+            "game_status_note": note,
+            "inning_label": inning_label,
+            "away_score": away_score_raw,
+            "home_score": home_score_raw,
+        }
+
+    if abstract_lower == "live" or status_code.startswith("I"):
+        detail = detailed or "In Progress"
+        lead = detail if detail.lower() not in {"in progress", "live"} else (inning_label or "Live")
+        note_parts = [lead]
+        if lead != inning_label and inning_label:
+            note_parts.append(inning_label)
+        if score_label:
+            note_parts.append(score_label)
+        return {
+            "game_status_bucket": "live",
+            "game_state": "Live",
+            "game_state_detail": detail,
+            "game_status_note": " — ".join(part for part in note_parts if part),
+            "inning_label": inning_label,
+            "away_score": away_score_raw,
+            "home_score": home_score_raw,
+        }
+
+    if abstract_lower in {"preview", "pregame"} or status_code in {"S", "P", "PW", "PR", "PO"}:
+        detail = detailed or "Pre-Game"
+        note = detail
+        if detail.lower() in {"scheduled", "preview", "pre-game"}:
+            note = "Yet to begin"
+        return {
+            "game_status_bucket": "pregame",
+            "game_state": "Yet To Begin",
+            "game_state_detail": detail,
+            "game_status_note": note,
+            "inning_label": inning_label,
+            "away_score": None,
+            "home_score": None,
+        }
+
+    note = detailed or abstract or "Status unavailable"
+    if score_label:
+        note = f"{note} — {score_label}"
+    return {
+        "game_status_bucket": "other",
+        "game_state": abstract or "Other",
+        "game_state_detail": detailed or abstract or "Other",
+        "game_status_note": note,
+        "inning_label": inning_label,
+        "away_score": away_score_raw if abstract_lower in {"live", "final"} else None,
+        "home_score": home_score_raw if abstract_lower in {"live", "final"} else None,
+    }
+
+
 def fetch_team_meta(team_ids: dict[str, int], season: str) -> dict[str, dict[str, str]]:
     out: dict[str, dict[str, str]] = {}
     for abbr, team_id in team_ids.items():
@@ -175,7 +276,7 @@ def fetch_team_meta(team_ids: dict[str, int], season: str) -> dict[str, dict[str
 
 def fetch_schedule_lineups(date_str: str) -> dict[str, dict[str, Any]]:
     sched = fetch_json(
-        f"https://statsapi.mlb.com/api/v1/schedule?sportId=1&date={date_str}&hydrate=probablePitcher,lineups,team,venue"
+        f"https://statsapi.mlb.com/api/v1/schedule?sportId=1&date={date_str}&hydrate=probablePitcher,lineups,team,venue,linescore"
     )
     team_ids: dict[str, int] = {}
     for block in sched.get("dates", []):
@@ -217,6 +318,7 @@ def fetch_schedule_lineups(date_str: str) -> dict[str, dict[str, Any]]:
             ]
             home_meta = team_meta.get(home, {})
             away_meta = team_meta.get(away, {})
+            game_status = summarize_game_status(game)
             posted[key] = {
                 "away_team_id": away_team.get("id"),
                 "home_team_id": home_team.get("id"),
@@ -239,6 +341,7 @@ def fetch_schedule_lineups(date_str: str) -> dict[str, dict[str, Any]]:
                 "venue_name": str((game.get("venue") or {}).get("name") or home_meta.get("venue_name") or ""),
                 "roof_type": home_meta.get("roof_type") or "Open",
                 "game_date_utc": str(game.get("gameDate") or ""),
+                **game_status,
             }
     return posted
 
@@ -569,6 +672,13 @@ def write_run_snapshot(
         "team_bullpens": team_bullpen_scores,
         "lineup_context": {
             game_key: {
+                "game_status_bucket": ctx.get("game_status_bucket"),
+                "game_state": ctx.get("game_state"),
+                "game_state_detail": ctx.get("game_state_detail"),
+                "game_status_note": ctx.get("game_status_note"),
+                "inning_label": ctx.get("inning_label"),
+                "away_score": ctx.get("away_score"),
+                "home_score": ctx.get("home_score"),
                 "away_label": ctx.get("away_label"),
                 "home_label": ctx.get("home_label"),
                 "away_pitcher": ctx.get("away_pitcher"),
@@ -586,6 +696,10 @@ def write_run_snapshot(
             for game_key, ctx in lineup_context.items()
         },
         "summary": {
+            "pregame_games": sum(1 for row in rows_to_dicts(games_rows) if row.get("game_status_bucket") == "pregame"),
+            "live_games": sum(1 for row in rows_to_dicts(games_rows) if row.get("game_status_bucket") == "live"),
+            "final_games": sum(1 for row in rows_to_dicts(games_rows) if row.get("game_status_bucket") == "final"),
+            "other_games": sum(1 for row in rows_to_dicts(games_rows) if row.get("game_status_bucket") == "other"),
             "verified_games": sum(1 for row in rows_to_dicts(games_rows) if row.get("verification_status") == "Verified"),
             "partial_games": sum(1 for row in rows_to_dicts(games_rows) if row.get("verification_status") == "Partial"),
             "full_prop_markets": sum(1 for row in rows_to_dicts(batter_rows) if row.get("market_data_status") == "full"),
@@ -719,6 +833,28 @@ def patch_string_field(block: str, field: str, value: str) -> str:
     return re.sub(rf'({re.escape(field)}:\s*")([^"]*)(")', rf'\1{value}\3', block, count=1)
 
 
+def insert_field_after(block: str, after_field: str, rendered_line: str) -> str:
+    match = re.search(rf"^(\s*){re.escape(after_field)}:.*,\n", block, flags=re.MULTILINE)
+    if not match:
+        raise ValueError(f"Missing {after_field} field for insertion")
+    indent = match.group(1)
+    line = rendered_line if rendered_line.startswith(indent) else f"{indent}{rendered_line}"
+    return block[: match.end()] + line + block[match.end() :]
+
+
+def upsert_string_field(block: str, field: str, value: str, *, after_field: str) -> str:
+    if re.search(rf"^\s*{re.escape(field)}:\s*\"", block, flags=re.MULTILINE):
+        return patch_string_field(block, field, value)
+    return insert_field_after(block, after_field, f"{field}: {render_json_string(value)},\n")
+
+
+def upsert_literal_field(block: str, field: str, literal: str, *, after_field: str) -> str:
+    pattern = re.compile(rf"(^\s*{re.escape(field)}:\s*)([^,\n]+)(,?)$", flags=re.MULTILINE)
+    if pattern.search(block):
+        return pattern.sub(lambda match: f"{match.group(1)}{literal}{match.group(3)}", block, count=1)
+    return insert_field_after(block, after_field, f"{field}: {literal},\n")
+
+
 def resolve_named_players(
     team_abbr: str,
     rows: list[dict[str, Any]],
@@ -779,7 +915,7 @@ def choose_lineup_side(
     side: str,
     rosters: dict[str, dict[str, dict[str, Any]]],
     *,
-    allow_partial: bool,
+    allow_canvas_fallback: bool,
 ) -> tuple[list[dict[str, Any]], str, list[str]]:
     issues: list[str] = []
     rotowire_side = rotowire_game.away_side if rotowire_game and side == "away" else rotowire_game.home_side if rotowire_game else None
@@ -805,7 +941,7 @@ def choose_lineup_side(
         )
         return resolved, "Confirmed (RotoWire)", ["lineup_not_posted_api"]
 
-    if allow_partial and canvas_rows:
+    if allow_canvas_fallback and canvas_rows:
         resolved = resolve_named_players(team_abbr, canvas_rows, rosters)
         return resolved, canvas_label, ["lineup_projected_canvas", "lineup_not_posted_api"]
 
@@ -1230,6 +1366,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
         if schedule_game is None:
             blocking_issues.append(f"{game_key}: missing from MLB schedule")
             continue
+        is_pregame = str(schedule_game.get("game_status_bucket") or "pregame") == "pregame"
         rotowire_game = rotowire_games.get(game_key)
         canvas_ctx = canvas_games.get(game_key, {})
         away_players, away_label, away_issues = choose_lineup_side(
@@ -1240,7 +1377,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
             rotowire_game,
             "away",
             rosters,
-            allow_partial=allow_partial,
+            allow_canvas_fallback=allow_partial or not is_pregame,
         )
         home_players, home_label, home_issues = choose_lineup_side(
             str(spec["home"]),
@@ -1250,7 +1387,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
             rotowire_game,
             "home",
             rosters,
-            allow_partial=allow_partial,
+            allow_canvas_fallback=allow_partial or not is_pregame,
         )
 
         away_pitcher = dict(schedule_game.get("away_pitcher") or {"id": None, "name": "TBD"})
@@ -1268,26 +1405,26 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                 str(schedule_game.get("game_date_utc") or ""),
             )
         except Exception as exc:
-            if allow_partial:
+            if is_pregame and allow_partial:
                 issues.append("weather_live_missing")
-            else:
+            elif is_pregame:
                 blocking_issues.append(f"{game_key}: live weather unavailable ({exc})")
 
         odds = live_game_odds.get(game_key)
         away_moneyline = odds.away_moneyline if odds and odds.away_moneyline is not None else parse_int(spec["away_a"])
         home_moneyline = odds.home_moneyline if odds and odds.home_moneyline is not None else parse_int(spec["home_a"])
-        if odds is None or away_moneyline is None or home_moneyline is None:
+        if is_pregame and (odds is None or away_moneyline is None or home_moneyline is None):
             if allow_partial:
                 issues.append("approx_market_ml")
             else:
                 blocking_issues.append(f"{game_key}: live moneyline odds unavailable")
-        if odds is None or odds.total_line is None or odds.over_price is None or odds.under_price is None:
+        if is_pregame and (odds is None or odds.total_line is None or odds.over_price is None or odds.under_price is None):
             if allow_partial:
                 issues.append("market_total_missing")
             else:
                 blocking_issues.append(f"{game_key}: live totals market unavailable")
 
-        if not allow_partial:
+        if not allow_partial and is_pregame:
             critical = {
                 "lineup_not_posted_api",
                 "rotowire_missing",
@@ -1317,6 +1454,13 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
             "issues": sorted(set(issues)),
             "venue_name": schedule_game.get("venue_name", ""),
             "roof_type": schedule_game.get("roof_type", ""),
+            "game_status_bucket": schedule_game.get("game_status_bucket", "pregame"),
+            "game_state": schedule_game.get("game_state", "Yet To Begin"),
+            "game_state_detail": schedule_game.get("game_state_detail", "Pre-Game"),
+            "game_status_note": schedule_game.get("game_status_note", "Yet to begin"),
+            "inning_label": schedule_game.get("inning_label", ""),
+            "away_score": schedule_game.get("away_score"),
+            "home_score": schedule_game.get("home_score"),
         }
 
     if blocking_issues and not allow_partial:
@@ -1431,6 +1575,12 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
             "bullpen_home_score",
             "recent_form_away_score",
             "recent_form_home_score",
+            "game_status_bucket",
+            "game_state",
+            "game_state_detail",
+            "game_status_note",
+            "away_score",
+            "home_score",
             "verification_status",
             "verification_notes",
             "implied_away_pct_nv",
@@ -1486,11 +1636,12 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
         away_pitch_feats = pitcher_features.get(int(away_pitcher["id"])) if away_pitcher.get("id") else None
         home_pitch_feats = pitcher_features.get(int(home_pitcher["id"])) if home_pitcher.get("id") else None
         weather_snapshot = ctx.get("weather")
+        is_pregame = str(ctx.get("game_status_bucket") or "pregame") == "pregame"
         away_recent_score = team_recent_form_score(ctx["away_players"], batter_features)
         home_recent_score = team_recent_form_score(ctx["home_players"], batter_features)
         away_bullpen_score = team_bullpen_scores.get(str(spec["away"]), {}).get("score")
         home_bullpen_score = team_bullpen_scores.get(str(spec["home"]), {}).get("score")
-        if not allow_partial:
+        if not allow_partial and is_pregame:
             if away_recent_score is None:
                 late_blocking_issues.append(f"{key}: away recent form unavailable")
             if home_recent_score is None:
@@ -1554,6 +1705,12 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                 round_or_blank(home_bullpen_score, 3),
                 round_or_blank(away_recent_score, 3),
                 round_or_blank(home_recent_score, 3),
+                str(ctx.get("game_status_bucket") or ""),
+                str(ctx.get("game_state") or ""),
+                str(ctx.get("game_state_detail") or ""),
+                str(ctx.get("game_status_note") or ""),
+                "" if ctx.get("away_score") is None else str(ctx.get("away_score")),
+                "" if ctx.get("home_score") is None else str(ctx.get("home_score")),
                 verification_status,
                 "|".join(sorted(set(ctx["issues"]))),
                 f"{imp_a:.2f}",
@@ -1602,6 +1759,13 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                 "home_recent_form_score": home_recent_score,
                 "weather": serialize_weather(weather_snapshot if isinstance(weather_snapshot, WeatherSnapshot) else None),
                 "odds": serialize_game_odds(odds if isinstance(odds, GameOdds) else None),
+                "game_status_bucket": ctx.get("game_status_bucket"),
+                "game_state": ctx.get("game_state"),
+                "game_state_detail": ctx.get("game_state_detail"),
+                "game_status_note": ctx.get("game_status_note"),
+                "inning_label": ctx.get("inning_label"),
+                "away_score": ctx.get("away_score"),
+                "home_score": ctx.get("home_score"),
                 "away_lineup_label": ctx["away_label"],
                 "home_lineup_label": ctx["home_label"],
                 "issues": sorted(set(ctx["issues"])),
@@ -1676,7 +1840,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                     else None
                 )
                 market_status = "full" if hr_market and tb_market else "partial" if hr_market or tb_market else "none"
-                if not allow_partial:
+                if not allow_partial and is_pregame:
                     if hr_market is None or hr_market.over_price is None:
                         late_blocking_issues.append(f"{key}: missing HR market for {player['name']}")
                     if tb_market is None or tb_market.point is None or tb_market.over_price is None:
@@ -1726,6 +1890,10 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                         "vs_pitcher": vs_pitcher,
                         "weather": serialize_weather(weather_snapshot if isinstance(weather_snapshot, WeatherSnapshot) else None),
                         "opp_bullpen_score": opp_bullpen,
+                        "game_status_bucket": ctx.get("game_status_bucket"),
+                        "game_state": ctx.get("game_state"),
+                        "game_state_detail": ctx.get("game_state_detail"),
+                        "game_status_note": ctx.get("game_status_note"),
                         "market_hr": serialize_prop_market(hr_market if isinstance(hr_market, PropMarketLine) else None),
                         "market_tb": serialize_prop_market(tb_market if isinstance(tb_market, PropMarketLine) else None),
                         "hr_prob": hr,
@@ -1779,6 +1947,22 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
         block = patch_string_field(block, "modelConfidence", cg["modelConfidence"])
         block = patch_string_field(block, "flags", cg["flags"])
         ctx = lineup_context[cg["gameKey"]]
+        block = upsert_string_field(block, "gameStatusBucket", str(ctx["game_status_bucket"]), after_field="timeEt")
+        block = upsert_string_field(block, "gameState", str(ctx["game_state"]), after_field="gameStatusBucket")
+        block = upsert_string_field(block, "gameStateDetail", str(ctx["game_state_detail"]), after_field="gameState")
+        block = upsert_string_field(block, "gameStatusNote", str(ctx["game_status_note"]), after_field="gameStateDetail")
+        block = upsert_literal_field(
+            block,
+            "awayScore",
+            "null" if ctx.get("away_score") is None else str(int(ctx["away_score"])),
+            after_field="gameStatusNote",
+        )
+        block = upsert_literal_field(
+            block,
+            "homeScore",
+            "null" if ctx.get("home_score") is None else str(int(ctx["home_score"])),
+            after_field="awayScore",
+        )
         block = patch_string_field(block, "awayLuLabel", ctx["away_label"])
         block = patch_string_field(block, "homeLuLabel", ctx["home_label"])
         block = replace_array_field(block, "awayLineup", render_lineup_rows(ctx["away_players"]))

@@ -23,6 +23,12 @@ type SlateGame = {
   away: string;
   home: string;
   timeEt: string;
+  gameStatusBucket?: string;
+  gameState?: string;
+  gameStateDetail?: string;
+  gameStatusNote?: string;
+  awayScore?: number | null;
+  homeScore?: number | null;
   awaySp: string;
   homeSp: string;
   awayAmerican: number;
@@ -51,6 +57,7 @@ type SlateGame = {
   propsHome: PropRow[];
 };
 
+type GameStateBucket = "pregame" | "live" | "final" | "other";
 type LineupPosting = "posted" | "mixed" | "projected";
 type DecisionStatus = "bet" | "small/conditional" | "pass";
 
@@ -971,11 +978,36 @@ function hasContradictoryRationale(g: SlateGame): boolean {
   return rationaleSignalsTeam(g.rationale, opposite) && !rationaleSignalsTeam(g.rationale, g.prediction);
 }
 
+function normalizeGameStateBucket(bucket?: string): GameStateBucket {
+  const normalized = (bucket || "").trim().toLowerCase();
+  if (normalized === "live") return "live";
+  if (normalized === "final") return "final";
+  if (normalized === "other") return "other";
+  return "pregame";
+}
+
+function gameStatusTone(bucket: GameStateBucket): "success" | "warning" | "info" | "neutral" {
+  if (bucket === "pregame") return "info";
+  if (bucket === "live") return "warning";
+  if (bucket === "final") return "neutral";
+  return "neutral";
+}
+
+function gameStatusLabel(g: SlateGame): string {
+  return g.gameStateDetail || g.gameState || "Yet To Begin";
+}
+
+function scoreLabel(g: SlateGame): string | null {
+  if (typeof g.awayScore !== "number" || typeof g.homeScore !== "number") return null;
+  return `${g.away} ${g.awayScore}, ${g.home} ${g.homeScore}`;
+}
+
 function baseDecisionStatus(
   g: SlateGame,
   lineupPosting: LineupPosting,
   hasManualArtifact: boolean,
 ): DecisionStatus {
+  if (normalizeGameStateBucket(g.gameStatusBucket) !== "pregame") return "pass";
   const rank = tierRank(g.decisionTier);
   if (
     rank >= 4 &&
@@ -1085,6 +1117,11 @@ function buildBestBetLogic(decision: DerivedDecision): string {
 
 function buildPassReason(decision: DerivedDecision): string {
   const reasons: string[] = [];
+  const gameBucket = normalizeGameStateBucket(decision.game.gameStatusBucket);
+
+  if (gameBucket !== "pregame") {
+    reasons.push(decision.game.gameStatusNote || gameStatusLabel(decision.game));
+  }
 
   if (decision.game.edgeOnPickPct <= 0) reasons.push(`pick edge ${formatEdge(decision.game.edgeOnPickPct)}`);
   if (decision.tierRank <= 1) reasons.push(`Tier ${decision.game.decisionTier} not actionable`);
@@ -1165,6 +1202,9 @@ function confTone(c: string): "success" | "warning" | "info" | "neutral" {
 
 function GameCard({ g }: { g: SlateGame }) {
   const ml = `${g.away} ${g.awayAmerican > 0 ? `+${g.awayAmerican}` : g.awayAmerican} / ${g.home} ${g.homeAmerican > 0 ? `+${g.homeAmerican}` : g.homeAmerican}`;
+  const gameBucket = normalizeGameStateBucket(g.gameStatusBucket);
+  const statusLabel = gameStatusLabel(g);
+  const score = scoreLabel(g);
   const pickIsHome = g.prediction === g.home;
   const propsAwayRows = g.propsAway.map((p) => [
     p.batter,
@@ -1186,6 +1226,7 @@ function GameCard({ g }: { g: SlateGame }) {
       <CardHeader
         trailing={
           <Row gap={6}>
+            <PillTag label={statusLabel} tone={gameStatusTone(gameBucket)} />
             <PillTag label={ml} tone="info" />
             <PillTag label={`Tier ${g.decisionTier}`} tone={tierTone(g.decisionTier)} />
             <PillTag label={`Analyst ${g.analystConfidence}`} tone={confTone(g.analystConfidence)} />
@@ -1196,6 +1237,10 @@ function GameCard({ g }: { g: SlateGame }) {
       </CardHeader>
       <CardBody>
         <Stack gap={14}>
+          <Text size="small" tone="secondary">
+            {g.gameStatusNote || statusLabel}
+            {score ? ` · ${score}` : ""}
+          </Text>
           <H3>Game prediction</H3>
           <Grid columns={4} gap={12}>
             <Stat value={`${g.impliedAwayPct.toFixed(2)}%`} label={`${g.away} implied (no-vig)`} />
