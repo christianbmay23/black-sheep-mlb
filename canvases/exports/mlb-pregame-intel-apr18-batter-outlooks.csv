@@ -1,235 +1,262 @@
-report_date,game,team,batter,opponent_pitcher,hr_prob_pct,tb2_prob_pct,fair_hr_american,fair_2tb_american,market_hr_american,edge_hr_pct,tier,data_confidence
-2026-04-18,KC@NYY,KC,Maikel Garcia,Will Warren,2.71,18.98,+3596,+427,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,KC@NYY,KC,Bobby Witt Jr.,Will Warren,2.70,20.84,+3606,+380,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,KC@NYY,KC,Vinnie Pasquantino,Will Warren,0.40,9.46,+24900,+957,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,KC@NYY,KC,Jac Caglianone,Will Warren,2.91,19.16,+3331,+422,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,KC@NYY,KC,Carter Jensen,Will Warren,4.60,17.63,+2073,+467,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,KC@NYY,KC,Michael Massey,Will Warren,0.40,7.28,+24900,+1273,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,KC@NYY,KC,Isaac Collins,Will Warren,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,KC@NYY,KC,Lane Thomas,Will Warren,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,KC@NYY,KC,Kyle Isbel,Will Warren,0.76,11.78,+13091,+749,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,KC@NYY,NYY,Amed Rosario,Noah Cameron,9.84,32.94,+916,+204,NA,0.00,A,"Medium — real stats+savant, posted lineup"
-2026-04-18,KC@NYY,NYY,Aaron Judge,Noah Cameron,16.19,46.50,+518,+115,NA,0.00,A+,"High — real stats+savant, posted lineup"
-2026-04-18,KC@NYY,NYY,Cody Bellinger,Noah Cameron,5.92,22.65,+1591,+342,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,KC@NYY,NYY,Giancarlo Stanton,Noah Cameron,8.41,27.11,+1090,+269,NA,0.00,B,"High — real stats+savant, posted lineup"
-2026-04-18,KC@NYY,NYY,Ben Rice,Noah Cameron,17.13,52.15,+484,-109,NA,0.00,A+,"High — real stats+savant, posted lineup"
-2026-04-18,KC@NYY,NYY,Randal Grichuk,Noah Cameron,2.81,9.50,+3457,+953,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,KC@NYY,NYY,Jazz Chisholm Jr.,Noah Cameron,1.61,8.46,+6105,+1083,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,KC@NYY,NYY,José Caballero,Noah Cameron,3.13,15.09,+3090,+563,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,KC@NYY,NYY,J.C. Escarra,Noah Cameron,4.03,16.63,+2383,+501,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,CIN@MIN,CIN,TJ Friedl,Taj Bradley,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,CIN@MIN,CIN,Will Benson,Taj Bradley,0.40,6.84,+24900,+1362,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,CIN@MIN,CIN,Elly De La Cruz,Taj Bradley,8.37,31.72,+1095,+215,NA,0.00,B,"High — real stats+savant, posted lineup"
-2026-04-18,CIN@MIN,CIN,Sal Stewart,Taj Bradley,8.73,32.86,+1045,+204,NA,0.00,A,"High — real stats+savant, posted lineup"
-2026-04-18,CIN@MIN,CIN,Eugenio Suárez,Taj Bradley,2.22,13.40,+4399,+646,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,CIN@MIN,CIN,Nathaniel Lowe,Taj Bradley,0.40,9.51,+24900,+951,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,CIN@MIN,CIN,Tyler Stephenson,Taj Bradley,4.42,20.70,+2161,+383,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,CIN@MIN,CIN,Rece Hinds,Taj Bradley,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,CIN@MIN,CIN,Ke'Bryan Hayes,Taj Bradley,0.40,8.88,+24900,+1026,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,CIN@MIN,MIN,Byron Buxton,Andrew Abbott,6.40,24.14,+1461,+314,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,CIN@MIN,MIN,Austin Martin,Andrew Abbott,1.57,15.80,+6286,+533,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,CIN@MIN,MIN,Josh Bell,Andrew Abbott,5.73,25.59,+1646,+291,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,CIN@MIN,MIN,Ryan Jeffers,Andrew Abbott,5.81,25.99,+1620,+285,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,CIN@MIN,MIN,Luke Keaschall,Andrew Abbott,0.40,9.49,+24900,+954,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,CIN@MIN,MIN,Trevor Larnach,Andrew Abbott,2.85,18.88,+3408,+430,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,CIN@MIN,MIN,Brooks Lee,Andrew Abbott,2.02,11.93,+4859,+738,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,CIN@MIN,MIN,Ryan Kreidler,Andrew Abbott,11.30,40.24,+785,+149,NA,0.00,A+,"Medium — real stats+savant, posted lineup"
-2026-04-18,CIN@MIN,MIN,Tristan Gray,Andrew Abbott,5.36,25.36,+1767,+294,NA,0.00,C,"Medium — real stats+savant, posted lineup"
-2026-04-18,NYM@CHC,NYM,Carson Benge,Jameson Taillon,1.02,10.81,+9667,+825,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,NYM@CHC,NYM,Bo Bichette,Jameson Taillon,1.32,17.21,+7463,+481,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,NYM@CHC,NYM,Francisco Lindor,Jameson Taillon,3.17,17.80,+3050,+462,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,NYM@CHC,NYM,Luis Robert Jr.,Jameson Taillon,3.10,18.48,+3127,+441,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,NYM@CHC,NYM,MJ Melendez,Jameson Taillon,6.15,38.45,+1527,+160,NA,0.00,A+,"Medium — real stats+savant, posted lineup"
-2026-04-18,NYM@CHC,NYM,Francisco Alvarez,Jameson Taillon,9.95,36.17,+905,+176,NA,0.00,A,"High — real stats+savant, posted lineup"
-2026-04-18,NYM@CHC,NYM,Mark Vientos,Jameson Taillon,1.53,13.42,+6452,+645,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,NYM@CHC,NYM,Brett Baty,Jameson Taillon,1.70,12.32,+5793,+712,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,NYM@CHC,NYM,Marcus Semien,Jameson Taillon,2.11,13.90,+4645,+619,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,NYM@CHC,CHC,Nico Hoerner,Freddy Peralta,0.40,13.25,+24900,+655,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,NYM@CHC,CHC,Michael Busch,Freddy Peralta,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,NYM@CHC,CHC,Alex Bregman,Freddy Peralta,0.47,12.25,+21342,+716,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,NYM@CHC,CHC,Ian Happ,Freddy Peralta,5.98,20.72,+1573,+383,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,NYM@CHC,CHC,Seiya Suzuki,Freddy Peralta,0.40,7.15,+24900,+1299,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,NYM@CHC,CHC,Moisés Ballesteros,Freddy Peralta,8.19,32.51,+1121,+208,NA,0.00,A,"High — real stats+savant, posted lineup"
-2026-04-18,NYM@CHC,CHC,Miguel Amaya,Freddy Peralta,0.61,13.10,+16390,+663,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,NYM@CHC,CHC,Pete Crow-Armstrong,Freddy Peralta,1.26,13.34,+7867,+650,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,NYM@CHC,CHC,Dansby Swanson,Freddy Peralta,3.35,15.73,+2883,+536,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,TB@PIT,TB,Chandler Simpson,Paul Skenes,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,TB@PIT,TB,Junior Caminero,Paul Skenes,0.82,13.12,+12067,+662,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,TB@PIT,TB,Jonathan Aranda,Paul Skenes,1.77,15.81,+5564,+533,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,TB@PIT,TB,Yandy Díaz,Paul Skenes,1.83,19.28,+5377,+419,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,TB@PIT,TB,Jake Fraley,Paul Skenes,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,TB@PIT,TB,Cedric Mullins,Paul Skenes,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,TB@PIT,TB,Richie Palacios,Paul Skenes,0.40,11.30,+24900,+785,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,TB@PIT,TB,Hunter Feduccia,Paul Skenes,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,TB@PIT,TB,Taylor Walls,Paul Skenes,0.40,6.27,+24900,+1495,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,TB@PIT,PIT,Oneil Cruz,Drew Rasmussen,9.74,35.58,+927,+181,NA,0.00,A,"High — real stats+savant, posted lineup"
-2026-04-18,TB@PIT,PIT,Brandon Lowe,Drew Rasmussen,5.59,24.67,+1688,+305,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,TB@PIT,PIT,Bryan Reynolds,Drew Rasmussen,3.42,21.17,+2826,+372,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,TB@PIT,PIT,Ryan O'Hearn,Drew Rasmussen,4.20,24.78,+2281,+303,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,TB@PIT,PIT,Marcell Ozuna,Drew Rasmussen,0.40,8.86,+24900,+1029,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,TB@PIT,PIT,Nick Yorke,Drew Rasmussen,0.40,13.32,+24900,+651,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,TB@PIT,PIT,Spencer Horwitz,Drew Rasmussen,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,TB@PIT,PIT,Konnor Griffin,Drew Rasmussen,0.40,6.10,+24900,+1539,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,TB@PIT,PIT,Henry Davis,Drew Rasmussen,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,SF@WSH,SF,Willy Adames,Cade Cavalli,3.68,19.68,+2620,+408,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,SF@WSH,SF,Luis Arraez,Cade Cavalli,0.40,6.36,+24900,+1471,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,SF@WSH,SF,Matt Chapman,Cade Cavalli,0.40,11.81,+24900,+747,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,SF@WSH,SF,Rafael Devers,Cade Cavalli,3.16,16.53,+3061,+505,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,SF@WSH,SF,Casey Schmitt,Cade Cavalli,5.50,26.11,+1717,+283,NA,0.00,B,"High — real stats+savant, posted lineup"
-2026-04-18,SF@WSH,SF,Jung Hoo Lee,Cade Cavalli,0.82,13.98,+12047,+615,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,SF@WSH,SF,Heliot Ramos,Cade Cavalli,1.48,13.32,+6641,+651,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,SF@WSH,SF,Drew Gilbert,Cade Cavalli,7.32,24.14,+1266,+314,NA,0.00,C,"Medium — real stats+savant, posted lineup"
-2026-04-18,SF@WSH,SF,Patrick Bailey,Cade Cavalli,0.40,7.27,+24900,+1275,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,SF@WSH,WSH,James Wood,Adrian Houser,12.68,40.75,+689,+145,NA,0.00,A+,"High — real stats+savant, posted lineup"
-2026-04-18,SF@WSH,WSH,Luis García Jr.,Adrian Houser,3.38,19.90,+2862,+403,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,SF@WSH,WSH,José Tena,Adrian Houser,1.94,18.64,+5064,+436,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,SF@WSH,WSH,CJ Abrams,Adrian Houser,9.23,36.24,+983,+176,NA,0.00,A,"High — real stats+savant, posted lineup"
-2026-04-18,SF@WSH,WSH,Jacob Young,Adrian Houser,3.99,22.08,+2407,+353,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,SF@WSH,WSH,Daylen Lile,Adrian Houser,2.22,19.18,+4407,+421,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,SF@WSH,WSH,Nasim Nuñez,Adrian Houser,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,SF@WSH,WSH,Jorbit Vivas,Adrian Houser,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,SF@WSH,WSH,Drew Millas,Adrian Houser,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,CWS@ATH,CWS,Andrew Benintendi,Luis Severino,4.76,23.11,+2002,+333,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,CWS@ATH,CWS,Munetaka Murakami,Luis Severino,12.01,37.13,+733,+169,NA,0.00,A,"High — real stats+savant, posted lineup"
-2026-04-18,CWS@ATH,CWS,Miguel Vargas,Luis Severino,3.43,17.76,+2817,+463,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,CWS@ATH,CWS,Colson Montgomery,Luis Severino,3.14,12.76,+3082,+684,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,CWS@ATH,CWS,Everson Pereira,Luis Severino,9.24,34.39,+982,+191,NA,0.00,A,"Medium — real stats+savant, posted lineup"
-2026-04-18,CWS@ATH,CWS,Sam Antonacci,Luis Severino,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,CWS@ATH,CWS,Chase Meidroth,Luis Severino,2.16,16.38,+4537,+510,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,CWS@ATH,CWS,Tristan Peters,Luis Severino,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,CWS@ATH,CWS,Reese McGuire,Luis Severino,0.40,6.40,+24900,+1463,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,CWS@ATH,ATH,Jeff McNeil,Erick Fedde,0.40,10.10,+24900,+890,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,CWS@ATH,ATH,Shea Langeliers,Erick Fedde,6.41,27.55,+1459,+263,NA,0.00,B,"High — real stats+savant, posted lineup"
-2026-04-18,CWS@ATH,ATH,Nick Kurtz,Erick Fedde,5.37,24.00,+1762,+317,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,CWS@ATH,ATH,Tyler Soderstrom,Erick Fedde,2.13,16.01,+4604,+525,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,CWS@ATH,ATH,Jacob Wilson,Erick Fedde,0.40,6.01,+24900,+1563,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,CWS@ATH,ATH,Carlos Cortes,Erick Fedde,1.59,16.32,+6176,+513,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,CWS@ATH,ATH,Max Muncy,Erick Fedde,4.94,25.27,+1926,+296,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,CWS@ATH,ATH,Lawrence Butler,Erick Fedde,1.53,14.76,+6443,+577,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,CWS@ATH,ATH,Austin Wynns,Erick Fedde,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,DET@BOS,DET,Kevin McGonigle,Brayan Bello,5.05,26.42,+1879,+279,NA,0.00,B,"High — real stats+savant, posted lineup"
-2026-04-18,DET@BOS,DET,Gleyber Torres,Brayan Bello,0.43,12.08,+23194,+728,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,DET@BOS,DET,Colt Keith,Brayan Bello,6.10,29.09,+1540,+244,NA,0.00,B,"High — real stats+savant, posted lineup"
-2026-04-18,DET@BOS,DET,Riley Greene,Brayan Bello,6.39,29.62,+1465,+238,NA,0.00,B,"High — real stats+savant, posted lineup"
-2026-04-18,DET@BOS,DET,Spencer Torkelson,Brayan Bello,3.74,19.62,+2574,+410,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,DET@BOS,DET,Kerry Carpenter,Brayan Bello,7.94,25.18,+1159,+297,NA,0.00,B,"High — real stats+savant, posted lineup"
-2026-04-18,DET@BOS,DET,Wenceel Pérez,Brayan Bello,2.40,6.63,+4068,+1409,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,DET@BOS,DET,Javier Báez,Brayan Bello,1.32,15.19,+7452,+558,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,DET@BOS,DET,Jake Rogers,Brayan Bello,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,DET@BOS,BOS,Roman Anthony,Tarik Skubal,3.35,20.05,+2888,+399,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,DET@BOS,BOS,Andruw Monasterio,Tarik Skubal,0.51,13.38,+19355,+647,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,DET@BOS,BOS,Willson Contreras,Tarik Skubal,5.52,24.95,+1713,+301,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,DET@BOS,BOS,Trevor Story,Tarik Skubal,0.84,12.17,+11833,+722,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,DET@BOS,BOS,Wilyer Abreu,Tarik Skubal,5.27,25.48,+1798,+292,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,DET@BOS,BOS,Ceddanne Rafaela,Tarik Skubal,0.53,12.28,+18848,+714,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,DET@BOS,BOS,Caleb Durbin,Tarik Skubal,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,DET@BOS,BOS,Connor Wong,Tarik Skubal,3.40,28.12,+2837,+256,NA,0.00,B,"Medium — real stats+savant, posted lineup"
-2026-04-18,DET@BOS,BOS,Isiah Kiner-Falefa,Tarik Skubal,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,MIL@MIA,MIL,Sal Frelick,Sandy Alcantara,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,MIL@MIA,MIL,William Contreras,Sandy Alcantara,0.78,16.70,+12736,+499,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,MIL@MIA,MIL,Brice Turang,Sandy Alcantara,3.83,23.22,+2513,+331,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,MIL@MIA,MIL,Gary Sánchez,Sandy Alcantara,7.62,29.23,+1212,+242,NA,0.00,B,"High — real stats+savant, posted lineup"
-2026-04-18,MIL@MIA,MIL,Jake Bauers,Sandy Alcantara,4.91,23.06,+1937,+334,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,MIL@MIA,MIL,Luis Rengifo,Sandy Alcantara,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,MIL@MIA,MIL,Garrett Mitchell,Sandy Alcantara,4.26,23.86,+2249,+319,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,MIL@MIA,MIL,Brandon Lockridge,Sandy Alcantara,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,MIL@MIA,MIL,Joey Ortiz,Sandy Alcantara,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,MIL@MIA,MIA,Jakob Marsee,Brandon Woodruff,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,MIL@MIA,MIA,Xavier Edwards,Brandon Woodruff,1.28,18.11,+7726,+452,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,MIL@MIA,MIA,Agustín Ramírez,Brandon Woodruff,0.40,8.30,+24900,+1104,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,MIL@MIA,MIA,Liam Hicks,Brandon Woodruff,2.69,18.18,+3613,+450,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,MIL@MIA,MIA,Otto Lopez,Brandon Woodruff,5.88,28.99,+1600,+245,NA,0.00,B,"High — real stats+savant, posted lineup"
-2026-04-18,MIL@MIA,MIA,Connor Norby,Brandon Woodruff,0.53,11.72,+18893,+753,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,MIL@MIA,MIA,Owen Caissie,Brandon Woodruff,5.56,23.81,+1699,+320,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,MIL@MIA,MIA,Heriberto Hernández,Brandon Woodruff,0.40,8.22,+24900,+1116,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,MIL@MIA,MIA,Javier Sanoja,Brandon Woodruff,0.40,9.43,+24900,+960,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,BAL@CLE,BAL,Gunnar Henderson,Gavin Williams,7.29,25.74,+1272,+289,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,BAL@CLE,BAL,Taylor Ward,Gavin Williams,0.40,13.10,+24900,+664,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,BAL@CLE,BAL,Pete Alonso,Gavin Williams,3.95,20.08,+2432,+398,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,BAL@CLE,BAL,Dylan Beavers,Gavin Williams,0.58,11.44,+17137,+774,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,BAL@CLE,BAL,Colton Cowser,Gavin Williams,0.40,9.08,+24900,+1001,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,BAL@CLE,BAL,Leody Taveras,Gavin Williams,1.42,17.80,+6940,+462,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,BAL@CLE,BAL,Samuel Basallo,Gavin Williams,4.61,17.52,+2069,+471,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,BAL@CLE,BAL,Coby Mayo,Gavin Williams,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,BAL@CLE,BAL,Jeremiah Jackson,Gavin Williams,6.24,24.36,+1503,+311,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,BAL@CLE,CLE,Steven Kwan,Dean Kremer,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,BAL@CLE,CLE,Chase DeLauter,Dean Kremer,7.10,28.39,+1308,+252,NA,0.00,B,"Medium — real stats+savant, posted lineup"
-2026-04-18,BAL@CLE,CLE,José Ramírez,Dean Kremer,4.50,23.40,+2124,+327,NA,0.00,C,"Medium — real stats+savant, posted lineup"
-2026-04-18,BAL@CLE,CLE,Kyle Manzardo,Dean Kremer,1.90,13.90,+5163,+619,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,BAL@CLE,CLE,George Valera,Dean Kremer,2.96,25.79,+3281,+288,NA,0.00,C,"Low — real stats+savant, posted lineup"
-2026-04-18,BAL@CLE,CLE,Rhys Hoskins,Dean Kremer,2.58,15.01,+3783,+566,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,BAL@CLE,CLE,Daniel Schneemann,Dean Kremer,5.90,28.97,+1595,+245,NA,0.00,B,"Medium — real stats+savant, posted lineup"
-2026-04-18,BAL@CLE,CLE,Bo Naylor,Dean Kremer,2.36,17.53,+4129,+470,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,BAL@CLE,CLE,Brayan Rocchio,Dean Kremer,0.40,10.09,+24900,+891,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,STL@HOU,STL,JJ Wetherholt,Lance McCullers Jr.,3.26,16.80,+2965,+495,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,STL@HOU,STL,Iván Herrera,Lance McCullers Jr.,4.81,25.10,+1977,+298,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,STL@HOU,STL,Alec Burleson,Lance McCullers Jr.,7.49,32.37,+1235,+209,NA,0.00,A,"High — real stats+savant, posted lineup"
-2026-04-18,STL@HOU,STL,Jordan Walker,Lance McCullers Jr.,14.83,47.87,+574,+109,NA,0.00,A+,"High — real stats+savant, posted lineup"
-2026-04-18,STL@HOU,STL,Nolan Gorman,Lance McCullers Jr.,2.43,12.23,+4015,+718,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,STL@HOU,STL,Masyn Winn,Lance McCullers Jr.,0.40,6.56,+24900,+1424,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,STL@HOU,STL,Ramón Urías,Lance McCullers Jr.,5.24,23.12,+1810,+333,NA,0.00,C,"Medium — real stats+savant, posted lineup"
-2026-04-18,STL@HOU,STL,Nathan Church,Lance McCullers Jr.,0.70,9.75,+14148,+925,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,STL@HOU,STL,José Fermín,Lance McCullers Jr.,0.40,8.16,+24900,+1125,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,STL@HOU,HOU,Jose Altuve,Andre Pallante,4.41,21.92,+2169,+356,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,STL@HOU,HOU,Yordan Alvarez,Andre Pallante,15.75,53.53,+535,-115,NA,0.00,A+,"High — real stats+savant, posted lineup"
-2026-04-18,STL@HOU,HOU,Carlos Correa,Andre Pallante,5.06,24.27,+1878,+312,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,STL@HOU,HOU,Christian Walker,Andre Pallante,7.50,29.00,+1233,+245,NA,0.00,B,"High — real stats+savant, posted lineup"
-2026-04-18,STL@HOU,HOU,Isaac Paredes,Andre Pallante,0.40,6.27,+24900,+1495,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,STL@HOU,HOU,Taylor Trammell,Andre Pallante,3.02,18.46,+3210,+442,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,STL@HOU,HOU,Cam Smith,Andre Pallante,8.92,33.61,+1021,+197,NA,0.00,A,"High — real stats+savant, posted lineup"
-2026-04-18,STL@HOU,HOU,Christian Vázquez,Andre Pallante,9.96,42.36,+904,+136,NA,0.00,A+,"Medium — real stats+savant, posted lineup"
-2026-04-18,STL@HOU,HOU,Nick Allen,Andre Pallante,2.00,14.24,+4910,+602,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,TEX@SEA,TEX,Brandon Nimmo,George Kirby,3.48,20.75,+2775,+382,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,TEX@SEA,TEX,Corey Seager,George Kirby,4.80,20.97,+1982,+377,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,TEX@SEA,TEX,Wyatt Langford,George Kirby,0.40,8.33,+24900,+1100,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,TEX@SEA,TEX,Jake Burger,George Kirby,4.27,21.75,+2244,+360,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,TEX@SEA,TEX,Joc Pederson,George Kirby,0.40,6.81,+24900,+1369,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,TEX@SEA,TEX,Josh Jung,George Kirby,0.40,17.46,+24900,+473,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,TEX@SEA,TEX,Evan Carter,George Kirby,1.39,14.46,+7092,+591,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,TEX@SEA,TEX,Ezequiel Duran,George Kirby,0.40,14.59,+24900,+586,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,TEX@SEA,TEX,Kyle Higashioka,George Kirby,1.61,15.17,+6096,+559,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,TEX@SEA,SEA,J.P. Crawford,Nathan Eovaldi,0.40,9.34,+24900,+971,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,TEX@SEA,SEA,Cal Raleigh,Nathan Eovaldi,1.46,12.45,+6753,+703,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,TEX@SEA,SEA,Julio Rodríguez,Nathan Eovaldi,1.37,14.07,+7193,+611,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,TEX@SEA,SEA,Josh Naylor,Nathan Eovaldi,0.40,8.60,+24900,+1063,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,TEX@SEA,SEA,Randy Arozarena,Nathan Eovaldi,0.86,14.55,+11528,+587,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,TEX@SEA,SEA,Luke Raley,Nathan Eovaldi,10.24,39.32,+877,+154,NA,0.00,A+,"High — real stats+savant, posted lineup"
-2026-04-18,TEX@SEA,SEA,Dominic Canzone,Nathan Eovaldi,6.89,29.02,+1351,+245,NA,0.00,B,"High — real stats+savant, posted lineup"
-2026-04-18,TEX@SEA,SEA,Cole Young,Nathan Eovaldi,0.78,11.97,+12759,+735,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,TEX@SEA,SEA,Leo Rivas,Nathan Eovaldi,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,ATL@PHI,ATL,Ronald Acuña Jr.,Cristopher Sánchez,4.21,23.91,+2277,+318,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,ATL@PHI,ATL,Drake Baldwin,Cristopher Sánchez,5.90,28.00,+1594,+257,NA,0.00,B,"High — real stats+savant, posted lineup"
-2026-04-18,ATL@PHI,ATL,Ozzie Albies,Cristopher Sánchez,0.67,13.01,+14835,+669,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,ATL@PHI,ATL,Matt Olson,Cristopher Sánchez,10.10,35.91,+891,+178,NA,0.00,A,"High — real stats+savant, posted lineup"
-2026-04-18,ATL@PHI,ATL,Austin Riley,Cristopher Sánchez,4.87,23.00,+1955,+335,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,ATL@PHI,ATL,Mauricio Dubón,Cristopher Sánchez,1.94,17.73,+5053,+464,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,ATL@PHI,ATL,Eli White,Cristopher Sánchez,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,ATL@PHI,ATL,Jonah Heim,Cristopher Sánchez,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,ATL@PHI,ATL,Jorge Mateo,Cristopher Sánchez,6.71,35.43,+1391,+182,NA,0.00,A,"Medium — real stats+savant, posted lineup"
-2026-04-18,ATL@PHI,PHI,Trea Turner,Chris Sale,0.40,11.76,+24900,+750,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,ATL@PHI,PHI,Kyle Schwarber,Chris Sale,11.62,34.29,+761,+192,NA,0.00,A,"High — real stats+savant, posted lineup"
-2026-04-18,ATL@PHI,PHI,Bryce Harper,Chris Sale,6.91,31.46,+1346,+218,NA,0.00,B,"High — real stats+savant, posted lineup"
-2026-04-18,ATL@PHI,PHI,Adolis García,Chris Sale,4.39,21.12,+2176,+374,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,ATL@PHI,PHI,J.T. Realmuto,Chris Sale,0.88,14.23,+11233,+603,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,ATL@PHI,PHI,Alec Bohm,Chris Sale,0.40,7.02,+24900,+1324,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,ATL@PHI,PHI,Felix Reyes,Chris Sale,2.30,16.10,+4238,+521,NA,0.00,D,"Low — real stats+savant, posted lineup"
-2026-04-18,ATL@PHI,PHI,Edmundo Sosa,Chris Sale,2.35,16.19,+4146,+518,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,ATL@PHI,PHI,Brandon Marsh,Chris Sale,3.39,22.15,+2848,+351,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,LAD@COL,LAD,Shohei Ohtani,Ryan Feltner,16.02,46.31,+524,+116,NA,0.00,A+,"High — real stats+savant, posted lineup"
-2026-04-18,LAD@COL,LAD,Kyle Tucker,Ryan Feltner,8.05,26.26,+1143,+281,NA,0.00,B,"High — real stats+savant, posted lineup"
-2026-04-18,LAD@COL,LAD,Andy Pages,Ryan Feltner,14.05,45.93,+612,+118,NA,0.00,A+,"High — real stats+savant, posted lineup"
-2026-04-18,LAD@COL,LAD,Freddie Freeman,Ryan Feltner,14.66,49.25,+582,+103,NA,0.00,A+,"High — real stats+savant, posted lineup"
-2026-04-18,LAD@COL,LAD,Teoscar Hernández,Ryan Feltner,12.07,37.66,+728,+166,NA,0.00,A,"High — real stats+savant, posted lineup"
-2026-04-18,LAD@COL,LAD,Max Muncy,Ryan Feltner,17.09,50.03,+485,-100,NA,0.00,A+,"High — real stats+savant, posted lineup"
-2026-04-18,LAD@COL,LAD,Dalton Rushing,Ryan Feltner,25.00,55.00,+300,-122,NA,0.00,A+,"Medium — real stats+savant, posted lineup"
-2026-04-18,LAD@COL,LAD,Alex Freeland,Ryan Feltner,9.03,29.37,+1007,+241,NA,0.00,B,"High — real stats+savant, posted lineup"
-2026-04-18,LAD@COL,LAD,Miguel Rojas,Ryan Feltner,7.71,31.23,+1197,+220,NA,0.00,B,"Medium — real stats+savant, posted lineup"
-2026-04-18,LAD@COL,COL,Edouard Julien,Emmet Sheehan,5.90,25.94,+1595,+286,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,LAD@COL,COL,Mickey Moniak,Emmet Sheehan,9.82,30.86,+918,+224,NA,0.00,B,"High — real stats+savant, posted lineup"
-2026-04-18,LAD@COL,COL,TJ Rumfield,Emmet Sheehan,5.00,23.57,+1902,+324,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,LAD@COL,COL,Hunter Goodman,Emmet Sheehan,8.41,27.39,+1089,+265,NA,0.00,B,"High — real stats+savant, posted lineup"
-2026-04-18,LAD@COL,COL,Ezequiel Tovar,Emmet Sheehan,5.36,26.23,+1765,+281,NA,0.00,B,"High — real stats+savant, posted lineup"
-2026-04-18,LAD@COL,COL,Troy Johnston,Emmet Sheehan,4.70,21.88,+2027,+357,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,LAD@COL,COL,Brenton Doyle,Emmet Sheehan,2.81,14.47,+3454,+591,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,LAD@COL,COL,Kyle Karros,Emmet Sheehan,3.52,18.76,+2740,+433,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,LAD@COL,COL,Jordan Beck,Emmet Sheehan,2.06,9.70,+4763,+931,NA,0.00,D,"Medium — real stats+savant, posted lineup"
+report_date,game,team,batter,opponent_pitcher,hr_prob_pct,tb2_prob_pct,fair_hr_american,fair_2tb_american,market_hr_american,edge_hr_pct,market_tb_line,market_tb_over_american,edge_tb_pct,recent_form_score,bvp_pa,tier,data_confidence,market_data_status
+2026-04-18,KC@NYY,KC,Maikel Garcia,Will Warren,2.71,24.28,+3593,+312,NA,,1.5,250,-4.29,0.524,5,C,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,KC@NYY,KC,Bobby Witt Jr.,Will Warren,1.32,22.28,+7461,+349,NA,,1.5,150,-17.72,0.443,4,C,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,KC@NYY,KC,Vinnie Pasquantino,Will Warren,0.40,9.41,+24900,+963,NA,,1.5,150,-30.59,0.387,2,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,KC@NYY,KC,Jac Caglianone,Will Warren,1.60,20.83,+6142,+380,NA,,1.5,150,-19.17,0.416,5,C,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,KC@NYY,KC,Carter Jensen,Will Warren,5.84,25.21,+1613,+297,NA,,1.5,150,-14.79,0.647,2,C,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,KC@NYY,KC,Michael Massey,Will Warren,0.40,6.00,+24900,+1567,NA,,1.5,100,-44.00,0.295,3,D,"Medium — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,KC@NYY,KC,Isaac Collins,Will Warren,0.40,6.00,+24900,+1567,NA,,1.5,100,-44.00,0.305,0,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,KC@NYY,KC,Lane Thomas,Will Warren,0.40,6.00,+24900,+1567,NA,,1.5,100,-44.00,0.444,2,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,KC@NYY,KC,Kyle Isbel,Will Warren,0.40,6.00,+24900,+1567,NA,,1.5,100,-44.00,0.248,4,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,KC@NYY,NYY,Amed Rosario,Noah Cameron,9.47,38.68,+956,+159,NA,,1.5,450,20.50,0.672,0,A+,"Medium — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,KC@NYY,NYY,Aaron Judge,Noah Cameron,18.47,55.00,+441,-122,NA,,1.5,150,15.00,0.813,6,A+,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,KC@NYY,NYY,Cody Bellinger,Noah Cameron,4.72,22.31,+2018,+348,NA,,1.5,550,6.92,0.412,6,C,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,KC@NYY,NYY,Giancarlo Stanton,Noah Cameron,5.23,21.21,+1811,+372,NA,,1.5,100,-28.79,0.356,3,C,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,KC@NYY,NYY,Ben Rice,Noah Cameron,17.93,55.00,+458,-122,NA,,1.5,450,36.82,0.851,2,A+,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,KC@NYY,NYY,Randal Grichuk,Noah Cameron,0.40,6.00,+24900,+1567,NA,,1.5,250,-22.57,0.180,2,D,"Medium — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,KC@NYY,NYY,Jazz Chisholm Jr.,Noah Cameron,0.40,6.00,+24900,+1567,NA,,1.5,100,-44.00,0.270,3,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,KC@NYY,NYY,José Caballero,Noah Cameron,1.11,17.33,+8871,+477,NA,,1.5,200,-16.01,0.499,4,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,KC@NYY,NYY,J.C. Escarra,Noah Cameron,0.40,6.51,+24900,+1436,NA,,1.5,350,-15.71,0.180,2,D,"Medium — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,CIN@MIN,CIN,TJ Friedl,Taj Bradley,0.40,6.00,+24900,+1567,NA,,1.5,150,-34.00,0.248,48,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,CIN@MIN,CIN,Will Benson,Taj Bradley,0.40,6.00,+24900,+1567,NA,,1.5,150,-34.00,0.312,48,D,"Medium — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,CIN@MIN,CIN,Elly De La Cruz,Taj Bradley,9.26,40.01,+979,+150,NA,,1.5,150,0.01,0.705,48,A+,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,CIN@MIN,CIN,Sal Stewart,Taj Bradley,10.49,41.24,+853,+142,NA,,1.5,150,1.24,0.763,48,A+,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,CIN@MIN,CIN,Eugenio Suárez,Taj Bradley,0.40,12.93,+24900,+674,NA,,1.5,250,-15.65,0.487,48,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,CIN@MIN,CIN,Nathaniel Lowe,Taj Bradley,0.40,6.00,+24900,+1567,NA,,1.5,250,-22.57,0.310,48,D,"Medium — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,CIN@MIN,CIN,Tyler Stephenson,Taj Bradley,3.18,17.36,+3043,+476,NA,,1.5,150,-22.64,0.399,48,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,CIN@MIN,CIN,Rece Hinds,Taj Bradley,0.40,6.00,+24900,+1567,NA,,1.5,150,-34.00,0.180,48,D,"Medium — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,CIN@MIN,CIN,Ke'Bryan Hayes,Taj Bradley,0.40,6.00,+24900,+1567,NA,,1.5,100,-44.00,0.180,48,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,CIN@MIN,MIN,Byron Buxton,Andrew Abbott,9.89,38.30,+911,+161,NA,,1.5,150,-1.70,0.668,37,A+,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,CIN@MIN,MIN,Austin Martin,Andrew Abbott,5.28,32.45,+1795,+208,NA,,1.5,150,-7.55,0.667,37,A,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,CIN@MIN,MIN,Josh Bell,Andrew Abbott,8.25,35.33,+1112,+183,NA,,1.5,250,6.76,0.466,37,A,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,CIN@MIN,MIN,Ryan Jeffers,Andrew Abbott,9.31,38.48,+974,+160,NA,,1.5,350,16.26,0.655,37,A+,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,CIN@MIN,MIN,Luke Keaschall,Andrew Abbott,2.03,15.68,+4820,+538,NA,,1.5,250,-12.89,0.376,37,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,CIN@MIN,MIN,Trevor Larnach,Andrew Abbott,5.40,26.62,+1751,+276,NA,,1.5,100,-23.38,0.506,37,B,"Medium — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,CIN@MIN,MIN,Brooks Lee,Andrew Abbott,6.06,24.90,+1551,+302,NA,,1.5,150,-15.10,0.614,37,C,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,CIN@MIN,MIN,Ryan Kreidler,Andrew Abbott,16.87,54.51,+493,-120,NA,,1.5,250,25.94,0.868,37,A+,"Medium — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,CIN@MIN,MIN,Tristan Gray,Andrew Abbott,8.48,35.37,+1079,+183,NA,,1.5,150,-4.63,0.527,37,A,"Medium — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,NYM@CHC,NYM,Carson Benge,Jameson Taillon,0.40,7.83,+24900,+1177,NA,,1.5,150,-32.17,0.262,156,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,NYM@CHC,NYM,Bo Bichette,Jameson Taillon,1.57,18.85,+6288,+431,NA,,1.5,150,-21.15,0.432,156,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,NYM@CHC,NYM,Francisco Lindor,Jameson Taillon,3.04,19.33,+3187,+417,NA,,1.5,200,-14.00,0.357,156,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,NYM@CHC,NYM,Luis Robert Jr.,Jameson Taillon,2.77,20.08,+3512,+398,NA,,1.5,350,-2.15,0.422,156,C,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,NYM@CHC,NYM,MJ Melendez,Jameson Taillon,7.67,46.83,+1204,+114,NA,,1.5,100,-3.17,0.950,156,A+,"Medium — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,NYM@CHC,NYM,Francisco Alvarez,Jameson Taillon,9.62,40.08,+939,+149,NA,,1.5,150,0.08,0.550,156,A+,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,NYM@CHC,NYM,Mark Vientos,Jameson Taillon,0.90,11.07,+11005,+803,NA,,1.5,450,-7.11,0.226,156,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,NYM@CHC,NYM,Brett Baty,Jameson Taillon,0.40,8.26,+24900,+1110,NA,,1.5,100,-41.74,0.254,156,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,NYM@CHC,NYM,Marcus Semien,Jameson Taillon,0.40,11.64,+24900,+759,NA,,1.5,150,-28.36,0.306,156,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,NYM@CHC,CHC,Nico Hoerner,Freddy Peralta,0.73,20.94,+13629,+378,NA,,1.5,150,-19.06,0.761,202,C,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,NYM@CHC,CHC,Michael Busch,Freddy Peralta,0.40,6.00,+24900,+1567,NA,,1.5,150,-34.00,0.180,202,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,NYM@CHC,CHC,Alex Bregman,Freddy Peralta,0.40,7.22,+24900,+1285,NA,,1.5,150,-32.78,0.356,202,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,NYM@CHC,CHC,Ian Happ,Freddy Peralta,6.40,26.63,+1463,+275,NA,,1.5,450,8.45,0.571,202,B,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,NYM@CHC,CHC,Seiya Suzuki,Freddy Peralta,0.40,6.24,+24900,+1503,NA,,1.5,100,-43.76,0.433,202,D,"Medium — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,NYM@CHC,CHC,Moisés Ballesteros,Freddy Peralta,11.66,42.53,+758,+135,NA,,1.5,150,2.53,0.950,202,A+,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,NYM@CHC,CHC,Miguel Amaya,Freddy Peralta,0.40,6.01,+24900,+1563,NA,,1.5,150,-33.99,0.326,202,D,"Medium — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,NYM@CHC,CHC,Pete Crow-Armstrong,Freddy Peralta,0.40,6.00,+24900,+1567,NA,,1.5,100,-44.00,0.362,202,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,NYM@CHC,CHC,Dansby Swanson,Freddy Peralta,4.62,23.94,+2065,+318,NA,,1.5,100,-26.06,0.726,202,C,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,TB@PIT,TB,Chandler Simpson,Paul Skenes,0.40,6.00,+24900,+1567,2900,-2.93,0.5,-108,-45.92,0.415,2,D,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,TB@PIT,TB,Junior Caminero,Paul Skenes,1.75,19.28,+5604,+419,650,-11.58,1.5,114,-27.45,0.656,3,D,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,TB@PIT,TB,Jonathan Aranda,Paul Skenes,0.65,15.55,+15379,+543,850,-9.88,0.5,128,-28.31,0.420,3,D,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,TB@PIT,TB,Yandy Díaz,Paul Skenes,2.32,27.46,+4218,+264,1100,-6.02,0.5,117,-18.62,0.606,6,B,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,TB@PIT,TB,Jake Fraley,Paul Skenes,0.40,6.00,+24900,+1567,1700,-5.16,1.5,143,-35.15,0.373,5,D,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,TB@PIT,TB,Cedric Mullins,Paul Skenes,0.40,6.00,+24900,+1567,1050,-8.30,0.5,165,-31.74,0.370,2,D,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,TB@PIT,TB,Richie Palacios,Paul Skenes,0.40,20.93,+24900,+378,2200,-3.95,1.5,180,-14.79,0.749,5,C,"Medium — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,TB@PIT,TB,Hunter Feduccia,Paul Skenes,0.40,6.00,+24900,+1567,NA,,1.5,50,-60.67,0.301,0,D,"Medium — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,TB@PIT,TB,Taylor Walls,Paul Skenes,0.40,6.75,+24900,+1381,2400,-3.60,0.5,160,-31.71,0.440,6,D,"Medium — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,TB@PIT,PIT,Oneil Cruz,Drew Rasmussen,10.42,44.19,+860,+126,NA,,0.5,112,-2.98,0.716,2,A+,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,TB@PIT,PIT,Brandon Lowe,Drew Rasmussen,6.56,32.33,+1424,+209,NA,,0.5,125,-12.11,0.709,0,A,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,TB@PIT,PIT,Bryan Reynolds,Drew Rasmussen,2.75,27.04,+3539,+270,NA,,0.5,120,-18.42,0.588,5,B,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,TB@PIT,PIT,Ryan O'Hearn,Drew Rasmussen,5.26,32.32,+1802,+209,NA,,1.5,150,-7.68,0.518,5,A,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,TB@PIT,PIT,Marcell Ozuna,Drew Rasmussen,0.40,12.14,+24900,+724,NA,,1.5,100,-37.86,0.458,2,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,TB@PIT,PIT,Nick Yorke,Drew Rasmussen,0.40,14.82,+24900,+575,NA,,1.5,150,-25.18,0.441,0,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,TB@PIT,PIT,Spencer Horwitz,Drew Rasmussen,0.40,9.48,+24900,+955,NA,,0.5,117,-36.60,0.661,0,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,TB@PIT,PIT,Konnor Griffin,Drew Rasmussen,0.40,6.00,+24900,+1567,NA,,1.5,150,-34.00,0.351,0,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,TB@PIT,PIT,Henry Davis,Drew Rasmussen,0.40,6.00,+24900,+1567,NA,,1.5,50,-60.67,0.365,1,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,SF@WSH,SF,Willy Adames,Cade Cavalli,6.09,31.82,+1542,+214,675,-6.81,1.5,210,-0.44,0.703,0,B,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,SF@WSH,SF,Luis Arraez,Cade Cavalli,0.40,12.79,+24900,+682,2050,-4.25,2.5,-148,-46.89,0.470,0,D,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,SF@WSH,SF,Matt Chapman,Cade Cavalli,1.14,20.79,+8638,+381,800,-9.97,1.5,250,-7.78,0.551,2,C,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,SF@WSH,SF,Rafael Devers,Cade Cavalli,3.46,18.04,+2794,+454,775,-7.97,1.5,250,-10.53,0.364,0,D,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,SF@WSH,SF,Casey Schmitt,Cade Cavalli,8.72,40.64,+1046,+146,800,-2.39,1.5,110,-6.98,0.803,0,A+,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,SF@WSH,SF,Jung Hoo Lee,Cade Cavalli,2.13,22.63,+4588,+342,1775,-3.20,1.5,-105,-28.59,0.555,0,C,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,SF@WSH,SF,Heliot Ramos,Cade Cavalli,2.25,18.05,+4348,+454,1025,-6.64,2.5,120,-27.41,0.432,1,D,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,SF@WSH,SF,Drew Gilbert,Cade Cavalli,10.05,35.88,+895,+179,1325,3.03,1.5,-118,-18.25,0.756,1,A,"Medium — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,SF@WSH,SF,Patrick Bailey,Cade Cavalli,0.40,6.00,+24900,+1567,1250,-7.01,1.5,240,-23.41,0.180,0,D,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,SF@WSH,WSH,James Wood,Adrian Houser,15.77,54.81,+534,-121,NA,,1.5,450,36.63,0.858,4,A+,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,SF@WSH,WSH,Luis García Jr.,Adrian Houser,3.65,23.86,+2636,+319,NA,,1.5,-148,-35.82,0.431,6,C,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,SF@WSH,WSH,José Tena,Adrian Houser,2.74,28.95,+3548,+245,NA,,1.5,-120,-25.60,0.578,0,B,"Medium — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,SF@WSH,WSH,CJ Abrams,Adrian Houser,13.26,51.71,+654,-107,NA,,1.5,200,18.38,0.950,3,A+,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,SF@WSH,WSH,Jacob Young,Adrian Houser,4.71,27.96,+2022,+258,NA,,1.5,375,6.91,0.494,2,B,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,SF@WSH,WSH,Daylen Lile,Adrian Houser,2.35,21.81,+4147,+358,NA,,3.5,-125,-33.74,0.392,2,C,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,SF@WSH,WSH,Nasim Nuñez,Adrian Houser,0.40,6.00,+24900,+1567,NA,,1.5,375,-15.05,0.279,0,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,SF@WSH,WSH,Jorbit Vivas,Adrian Houser,0.40,6.00,+24900,+1567,NA,,1.5,450,-12.18,0.452,0,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,SF@WSH,WSH,Drew Millas,Adrian Houser,0.40,6.00,+24900,+1567,NA,,1.5,260,-21.78,0.292,2,D,"Medium — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,CWS@ATH,CWS,Andrew Benintendi,Luis Severino,6.78,32.00,+1375,+213,NA,,1.5,450,13.82,0.441,40,B,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,CWS@ATH,CWS,Munetaka Murakami,Luis Severino,13.54,42.99,+638,+133,900,3.54,1.5,450,24.81,0.551,0,A+,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,CWS@ATH,CWS,Miguel Vargas,Luis Severino,3.52,18.41,+2742,+443,1400,-3.15,0.5,185,-16.68,0.364,6,D,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,CWS@ATH,CWS,Colson Montgomery,Luis Severino,4.58,20.07,+2082,+398,NA,,1.5,450,1.88,0.534,0,C,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,CWS@ATH,CWS,Everson Pereira,Luis Severino,14.31,48.13,+599,+108,900,4.31,2.5,146,7.48,0.950,0,A+,"Medium — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,CWS@ATH,CWS,Sam Antonacci,Luis Severino,0.40,6.00,+24900,+1567,1950,-4.48,1.5,350,-16.22,0.205,0,D,"Medium — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,CWS@ATH,CWS,Chase Meidroth,Luis Severino,2.20,18.78,+4447,+432,1300,-4.94,1.5,375,-2.27,0.386,0,D,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,CWS@ATH,CWS,Tristan Peters,Luis Severino,0.40,6.00,+24900,+1567,1500,-5.85,1.5,425,-13.05,0.180,0,D,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,CWS@ATH,CWS,Reese McGuire,Luis Severino,0.40,11.61,+24900,+761,1450,-6.05,1.5,156,-27.45,0.409,7,D,"Medium — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,CWS@ATH,ATH,Jeff McNeil,Erick Fedde,0.40,17.06,+24900,+486,NA,,1.5,260,-10.72,0.559,24,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,CWS@ATH,ATH,Shea Langeliers,Erick Fedde,6.42,33.90,+1458,+195,NA,,1.5,200,0.57,0.570,0,A,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,CWS@ATH,ATH,Nick Kurtz,Erick Fedde,5.26,30.10,+1801,+232,NA,,1.5,275,3.43,0.579,0,B,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,CWS@ATH,ATH,Tyler Soderstrom,Erick Fedde,2.22,20.53,+4409,+387,NA,,1.5,325,-3.00,0.515,0,C,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,CWS@ATH,ATH,Jacob Wilson,Erick Fedde,0.40,7.70,+24900,+1199,NA,,1.5,550,-7.69,0.400,0,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,CWS@ATH,ATH,Carlos Cortes,Erick Fedde,1.24,20.06,+7983,+398,NA,,1.5,450,1.88,0.546,0,C,"Medium — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,CWS@ATH,ATH,Max Muncy,Erick Fedde,4.15,29.11,+2311,+244,NA,,1.5,375,8.06,0.469,0,B,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,CWS@ATH,ATH,Lawrence Butler,Erick Fedde,0.41,11.92,+24530,+739,NA,,1.5,450,-6.26,0.335,0,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,CWS@ATH,ATH,Austin Wynns,Erick Fedde,0.40,6.00,+24900,+1567,NA,,1.5,240,-23.41,0.180,1,D,"Medium — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,DET@BOS,DET,Kevin McGonigle,Brayan Bello,5.88,34.44,+1600,+190,2000,1.12,2.5,154,-4.93,0.574,0,A,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,DET@BOS,DET,Gleyber Torres,Brayan Bello,0.47,15.84,+21153,+531,2000,-4.29,1.5,525,-0.16,0.453,25,D,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,DET@BOS,DET,Colt Keith,Brayan Bello,5.89,33.16,+1599,+202,1400,-0.78,1.5,-1,32.17,0.438,3,A,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,DET@BOS,DET,Riley Greene,Brayan Bello,6.93,36.29,+1342,+176,900,-3.07,1.5,260,8.51,0.522,9,A,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,DET@BOS,DET,Spencer Torkelson,Brayan Bello,3.94,22.09,+2438,+353,1175,-3.90,1.5,350,-0.13,0.447,5,C,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,DET@BOS,DET,Kerry Carpenter,Brayan Bello,13.42,39.15,+645,+155,NA,,1.5,450,20.97,0.732,7,A+,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,DET@BOS,DET,Wenceel Pérez,Brayan Bello,1.96,6.00,+5001,+1567,2450,-1.96,1.5,350,-16.22,0.264,4,D,"Medium — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,DET@BOS,DET,Javier Báez,Brayan Bello,2.84,25.03,+3427,+299,1600,-3.05,2.5,125,-19.41,0.608,7,C,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,DET@BOS,DET,Jake Rogers,Brayan Bello,0.40,6.00,+24900,+1567,1200,-7.29,1.5,450,-12.18,0.180,2,D,"Medium — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,DET@BOS,BOS,Roman Anthony,Tarik Skubal,1.83,20.49,+5374,+388,NA,,1.5,375,-0.56,0.432,0,C,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,DET@BOS,BOS,Andruw Monasterio,Tarik Skubal,0.40,12.55,+24900,+697,NA,,1.5,500,-4.11,0.504,5,D,"Medium — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,DET@BOS,BOS,Willson Contreras,Tarik Skubal,5.94,33.57,+1584,+198,NA,,0.5,160,-4.89,0.735,6,A,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,DET@BOS,BOS,Trevor Story,Tarik Skubal,0.40,13.07,+24900,+665,NA,,0.5,116,-33.22,0.445,9,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,DET@BOS,BOS,Wilyer Abreu,Tarik Skubal,3.64,25.43,+2650,+293,NA,,1.5,350,3.21,0.418,1,C,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,DET@BOS,BOS,Ceddanne Rafaela,Tarik Skubal,0.40,13.31,+24900,+651,NA,,1.5,300,-11.69,0.486,6,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,DET@BOS,BOS,Caleb Durbin,Tarik Skubal,0.40,6.00,+24900,+1567,NA,,1.5,375,-15.05,0.352,0,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,DET@BOS,BOS,Connor Wong,Tarik Skubal,1.61,27.52,+6127,+263,NA,,1.5,400,7.52,0.455,5,B,"Medium — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,DET@BOS,BOS,Isiah Kiner-Falefa,Tarik Skubal,0.40,6.00,+24900,+1567,NA,,1.5,375,-15.05,0.378,6,D,"Medium — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,MIL@MIA,MIL,Sal Frelick,Sandy Alcantara,0.40,6.00,+24900,+1567,1425,-6.16,1.5,-120,-48.55,0.292,3,D,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,MIL@MIA,MIL,William Contreras,Sandy Alcantara,0.82,23.91,+12143,+318,1050,-7.88,0.5,-120,-30.64,0.594,9,C,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,MIL@MIA,MIL,Brice Turang,Sandy Alcantara,4.59,29.74,+2076,+236,1400,-2.07,0.5,-105,-21.48,0.556,3,B,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,MIL@MIA,MIL,Gary Sánchez,Sandy Alcantara,8.71,37.34,+1048,+168,825,-2.10,1.5,350,15.11,0.726,12,A,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,MIL@MIA,MIL,Jake Bauers,Sandy Alcantara,5.79,29.54,+1627,+239,850,-4.74,0.5,145,-11.28,0.670,12,B,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,MIL@MIA,MIL,Luis Rengifo,Sandy Alcantara,0.40,6.00,+24900,+1567,1400,-6.27,2.5,115,-40.51,0.296,6,D,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,MIL@MIA,MIL,Garrett Mitchell,Sandy Alcantara,4.72,32.50,+2018,+208,1700,-0.83,1.5,475,15.11,0.622,5,A,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,MIL@MIA,MIL,Brandon Lockridge,Sandy Alcantara,0.40,6.00,+24900,+1567,3000,-2.83,1.5,165,-31.74,0.288,0,D,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,MIL@MIA,MIL,Joey Ortiz,Sandy Alcantara,0.40,6.00,+24900,+1567,2500,-3.45,1.5,500,-10.67,0.180,2,D,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,MIL@MIA,MIA,Jakob Marsee,Brandon Woodruff,0.40,6.00,+24900,+1567,NA,,1.5,325,-17.53,0.302,2,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,MIL@MIA,MIA,Xavier Edwards,Brandon Woodruff,1.19,25.25,+8326,+296,NA,,1.5,375,4.20,0.543,9,C,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,MIL@MIA,MIA,Agustín Ramírez,Brandon Woodruff,0.40,13.32,+24900,+651,NA,,0.5,135,-29.23,0.501,5,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,MIL@MIA,MIA,Liam Hicks,Brandon Woodruff,2.77,23.66,+3508,+323,NA,,2.5,140,-18.01,0.458,5,C,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,MIL@MIA,MIA,Otto Lopez,Brandon Woodruff,7.08,39.31,+1313,+154,NA,,1.5,150,-0.69,0.755,7,A+,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,MIL@MIA,MIA,Connor Norby,Brandon Woodruff,1.90,21.41,+5172,+367,NA,,1.5,150,-18.59,0.672,2,C,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,MIL@MIA,MIA,Owen Caissie,Brandon Woodruff,4.24,20.09,+2257,+398,NA,,1.5,300,-4.91,0.278,2,C,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,MIL@MIA,MIA,Heriberto Hernández,Brandon Woodruff,0.40,6.00,+24900,+1567,NA,,1.5,50,-60.67,0.284,6,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,MIL@MIA,MIA,Javier Sanoja,Brandon Woodruff,0.40,8.80,+24900,+1036,NA,,1.5,100,-41.20,0.342,0,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,BAL@CLE,BAL,Gunnar Henderson,Gavin Williams,8.19,30.38,+1121,+229,575,-6.63,1.5,138,-11.64,0.568,6,B,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,BAL@CLE,BAL,Taylor Ward,Gavin Williams,0.40,15.91,+24900,+528,815,-10.53,1.5,175,-20.45,0.491,5,D,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,BAL@CLE,BAL,Pete Alonso,Gavin Williams,2.64,20.34,+3686,+392,482,-14.54,1.5,142,-20.99,0.456,4,C,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,BAL@CLE,BAL,Dylan Beavers,Gavin Williams,0.40,6.00,+24900,+1567,965,-8.99,1.5,222,-25.06,0.281,0,D,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,BAL@CLE,BAL,Colton Cowser,Gavin Williams,0.40,6.00,+24900,+1567,675,-12.50,1.5,220,-25.25,0.217,3,D,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,BAL@CLE,BAL,Leody Taveras,Gavin Williams,0.40,22.54,+24900,+344,900,-9.60,1.5,192,-11.70,0.544,5,C,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,BAL@CLE,BAL,Samuel Basallo,Gavin Williams,3.95,15.94,+2433,+528,650,-9.39,1.5,190,-18.55,0.440,0,D,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,BAL@CLE,BAL,Coby Mayo,Gavin Williams,0.40,6.00,+24900,+1567,885,-9.75,1.5,234,-23.94,0.299,2,D,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,BAL@CLE,BAL,Jeremiah Jackson,Gavin Williams,9.31,36.29,+975,+176,830,-1.45,1.5,182,0.83,0.950,0,A,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,BAL@CLE,CLE,Steven Kwan,Dean Kremer,0.40,6.00,+24900,+1567,NA,,1.5,140,-35.67,0.469,11,D,"Medium — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,BAL@CLE,CLE,Chase DeLauter,Dean Kremer,5.39,26.43,+1756,+278,NA,,1.5,136,-15.94,0.380,0,B,"Medium — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,BAL@CLE,CLE,José Ramírez,Dean Kremer,4.49,29.28,+2128,+241,NA,,1.5,130,-14.19,0.646,13,B,"Medium — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,BAL@CLE,CLE,Kyle Manzardo,Dean Kremer,1.39,17.75,+7116,+463,NA,,1.5,165,-19.99,0.542,2,D,"Medium — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,BAL@CLE,CLE,George Valera,Dean Kremer,2.67,33.02,+3644,+203,NA,,1.5,180,-2.70,0.622,0,A,"Low — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,BAL@CLE,CLE,Rhys Hoskins,Dean Kremer,2.43,17.18,+4020,+482,NA,,1.5,176,-19.06,0.451,6,D,"Medium — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,BAL@CLE,CLE,Daniel Schneemann,Dean Kremer,7.73,40.66,+1193,+146,NA,,1.5,236,10.89,0.875,2,A+,"Medium — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,BAL@CLE,CLE,Bo Naylor,Dean Kremer,0.40,9.18,+24900,+989,NA,,1.5,220,-22.07,0.211,4,D,"Medium — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,BAL@CLE,CLE,Brayan Rocchio,Dean Kremer,0.40,12.72,+24900,+686,NA,,1.5,234,-17.22,0.521,2,D,"Medium — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,STL@HOU,STL,JJ Wetherholt,Lance McCullers Jr.,3.72,20.74,+2587,+382,715,-8.55,1.5,142,-20.58,0.526,0,C,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,STL@HOU,STL,Iván Herrera,Lance McCullers Jr.,5.33,29.63,+1776,+238,662,-7.79,1.5,140,-12.04,0.551,0,B,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,STL@HOU,STL,Alec Burleson,Lance McCullers Jr.,7.92,39.06,+1162,+156,522,-8.16,1.5,119,-6.60,0.545,0,A+,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,STL@HOU,STL,Jordan Walker,Lance McCullers Jr.,19.51,55.00,+413,-122,442,1.06,1.5,130,11.52,0.950,0,A+,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,STL@HOU,STL,Nolan Gorman,Lance McCullers Jr.,2.05,11.07,+4783,+803,625,-11.74,1.5,201,-22.15,0.376,0,D,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,STL@HOU,STL,Masyn Winn,Lance McCullers Jr.,0.40,6.00,+24900,+1567,1150,-7.60,1.5,182,-29.46,0.369,0,D,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,STL@HOU,STL,Ramón Urías,Lance McCullers Jr.,6.33,31.07,+1480,+222,760,-5.30,1.5,175,-5.29,0.605,2,B,"Medium — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,STL@HOU,STL,Nathan Church,Lance McCullers Jr.,1.52,16.12,+6481,+520,1175,-6.32,1.5,196,-17.66,0.547,0,D,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,STL@HOU,STL,José Fermín,Lance McCullers Jr.,0.40,6.81,+24900,+1369,1100,-7.93,1.5,230,-23.50,0.364,0,D,"Medium — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,STL@HOU,HOU,Jose Altuve,Andre Pallante,5.03,28.75,+1887,+248,NA,,1.5,111,-18.64,0.527,4,B,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,STL@HOU,HOU,Yordan Alvarez,Andre Pallante,19.11,55.00,+423,-122,NA,,1.5,-106,3.54,0.865,2,A+,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,STL@HOU,HOU,Carlos Correa,Andre Pallante,4.88,28.48,+1948,+251,NA,,1.5,114,-18.25,0.448,3,B,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,STL@HOU,HOU,Christian Walker,Andre Pallante,9.95,39.64,+905,+152,NA,,1.5,122,-5.40,0.717,4,A+,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,STL@HOU,HOU,Isaac Paredes,Andre Pallante,0.40,6.00,+24900,+1567,NA,,1.5,165,-31.74,0.282,0,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,STL@HOU,HOU,Taylor Trammell,Andre Pallante,2.90,22.54,+3349,+344,NA,,1.5,185,-12.55,0.457,0,C,"Medium — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,STL@HOU,HOU,Cam Smith,Andre Pallante,10.47,42.51,+855,+135,NA,,1.5,146,1.86,0.620,0,A+,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,STL@HOU,HOU,Christian Vázquez,Andre Pallante,13.50,55.00,+641,-122,NA,,1.5,202,21.89,0.950,2,A+,"Medium — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,STL@HOU,HOU,Nick Allen,Andre Pallante,1.27,12.52,+7747,+699,NA,,1.5,221,-18.63,0.315,0,D,"Medium — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,TEX@SEA,TEX,Brandon Nimmo,George Kirby,3.73,26.18,+2583,+282,675,-9.18,1.5,141,-15.32,0.624,11,B,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,TEX@SEA,TEX,Corey Seager,George Kirby,4.37,23.47,+2187,+326,400,-15.63,1.5,121,-21.78,0.512,20,C,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,TEX@SEA,TEX,Wyatt Langford,George Kirby,0.40,8.58,+24900,+1065,645,-13.02,1.5,142,-32.74,0.439,14,D,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,TEX@SEA,TEX,Jake Burger,George Kirby,4.57,25.84,+2090,+287,522,-11.51,1.5,138,-16.18,0.571,6,C,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,TEX@SEA,TEX,Joc Pederson,George Kirby,0.40,11.47,+24900,+772,582,-14.26,1.5,224,-19.40,0.558,8,D,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,TEX@SEA,TEX,Josh Jung,George Kirby,1.26,28.72,+7830,+248,920,-8.54,1.5,169,-8.46,0.783,8,B,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,TEX@SEA,TEX,Evan Carter,George Kirby,0.88,13.99,+11327,+615,1020,-8.05,1.5,214,-17.86,0.448,7,D,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,TEX@SEA,TEX,Ezequiel Duran,George Kirby,0.40,14.00,+24900,+615,1020,-8.53,1.5,220,-17.25,0.366,16,D,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,TEX@SEA,TEX,Kyle Higashioka,George Kirby,2.56,22.18,+3801,+351,575,-12.25,1.5,217,-9.37,0.632,10,C,"Medium — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,TEX@SEA,SEA,J.P. Crawford,Nathan Eovaldi,0.40,6.00,+24900,+1567,NA,,1.5,176,-30.23,0.342,22,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,TEX@SEA,SEA,Cal Raleigh,Nathan Eovaldi,1.52,13.77,+6482,+626,NA,,1.5,125,-30.68,0.423,21,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,TEX@SEA,SEA,Julio Rodríguez,Nathan Eovaldi,1.54,19.46,+6383,+414,NA,,1.5,136,-22.91,0.496,21,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,TEX@SEA,SEA,Josh Naylor,Nathan Eovaldi,0.40,6.68,+24900,+1396,NA,,1.5,138,-35.33,0.412,11,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,TEX@SEA,SEA,Randy Arozarena,Nathan Eovaldi,0.40,16.66,+24900,+500,NA,,1.5,188,-18.06,0.497,31,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,TEX@SEA,SEA,Luke Raley,Nathan Eovaldi,10.82,48.30,+824,+107,NA,,1.5,195,14.40,0.657,15,A+,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,TEX@SEA,SEA,Dominic Canzone,Nathan Eovaldi,5.27,24.84,+1796,+303,NA,,1.5,179,-11.00,0.281,6,C,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,TEX@SEA,SEA,Cole Young,Nathan Eovaldi,0.40,8.28,+24900,+1108,NA,,1.5,238,-21.31,0.355,3,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,TEX@SEA,SEA,Leo Rivas,Nathan Eovaldi,0.40,6.00,+24900,+1567,NA,,1.5,315,-18.10,0.317,0,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,ATL@PHI,ATL,Ronald Acuña Jr.,Cristopher Sánchez,4.43,30.32,+2160,+230,650,-8.91,1.5,140,-11.35,0.569,9,B,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,ATL@PHI,ATL,Drake Baldwin,Cristopher Sánchez,6.29,35.59,+1491,+181,755,-5.41,1.5,151,-4.25,0.655,3,A,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,ATL@PHI,ATL,Ozzie Albies,Cristopher Sánchez,0.40,15.61,+24900,+541,750,-11.36,1.5,124,-29.03,0.456,13,D,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,ATL@PHI,ATL,Matt Olson,Cristopher Sánchez,12.31,46.44,+712,+115,526,-3.66,1.5,160,7.98,0.747,18,A+,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,ATL@PHI,ATL,Austin Riley,Cristopher Sánchez,6.17,30.63,+1520,+226,615,-7.81,1.5,140,-11.04,0.644,10,B,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,ATL@PHI,ATL,Mauricio Dubón,Cristopher Sánchez,1.80,23.47,+5448,+326,1370,-5.00,1.5,170,-13.57,0.574,2,C,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,ATL@PHI,ATL,Eli White,Cristopher Sánchez,0.40,11.24,+24900,+790,980,-8.86,1.5,193,-22.89,0.519,3,D,"Medium — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,ATL@PHI,ATL,Jonah Heim,Cristopher Sánchez,0.40,6.00,+24900,+1567,1100,-7.93,1.5,225,-24.77,0.379,0,D,"Medium — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,ATL@PHI,ATL,Jorge Mateo,Cristopher Sánchez,6.82,45.89,+1366,+118,1100,-1.51,1.5,260,18.11,0.737,2,A+,"Medium — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,ATL@PHI,PHI,Trea Turner,Chris Sale,0.40,16.36,+24900,+511,NA,,1.5,120,-29.10,0.541,15,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,ATL@PHI,PHI,Kyle Schwarber,Chris Sale,13.21,40.97,+657,+144,NA,,1.5,176,4.73,0.623,15,A+,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,ATL@PHI,PHI,Bryce Harper,Chris Sale,7.93,42.32,+1161,+136,NA,,1.5,152,2.64,0.785,9,A+,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,ATL@PHI,PHI,Adolis García,Chris Sale,3.14,19.14,+3088,+422,NA,,1.5,162,-19.03,0.391,5,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,ATL@PHI,PHI,J.T. Realmuto,Chris Sale,0.40,17.51,+24900,+471,NA,,1.5,165,-20.23,0.486,13,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,ATL@PHI,PHI,Alec Bohm,Chris Sale,0.40,6.00,+24900,+1567,NA,,1.5,148,-34.32,0.180,14,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,ATL@PHI,PHI,Felix Reyes,Chris Sale,1.91,15.23,+5139,+557,NA,,,,,,0,D,"Low — stats+savant+recent+BvP, confirmed lineup, no live markets",none
+2026-04-18,ATL@PHI,PHI,Edmundo Sosa,Chris Sale,3.35,24.88,+2886,+302,NA,,1.5,206,-7.80,0.761,12,C,"Medium — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,ATL@PHI,PHI,Brandon Marsh,Chris Sale,2.95,25.53,+3289,+292,NA,,1.5,280,-0.78,0.490,0,C,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,LAD@COL,LAD,Shohei Ohtani,Ryan Feltner,18.85,55.00,+430,-122,208,-13.61,1.5,-155,-5.78,0.764,8,A+,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,LAD@COL,LAD,Kyle Tucker,Ryan Feltner,8.42,28.92,+1088,+246,460,-9.44,1.5,-120,-25.62,0.446,0,B,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,LAD@COL,LAD,Andy Pages,Ryan Feltner,16.92,55.00,+491,-122,522,0.85,1.5,-146,-4.35,0.815,7,A+,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,LAD@COL,LAD,Freddie Freeman,Ryan Feltner,15.96,55.00,+527,-122,416,-3.42,1.5,-145,-4.18,0.607,16,A+,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,LAD@COL,LAD,Teoscar Hernández,Ryan Feltner,15.63,50.66,+540,-103,390,-4.77,1.5,-125,-4.89,0.791,8,A+,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,LAD@COL,LAD,Max Muncy,Ryan Feltner,20.39,55.00,+390,-122,375,-0.66,1.5,102,5.50,0.792,14,A+,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,LAD@COL,LAD,Dalton Rushing,Ryan Feltner,25.00,55.00,+300,-122,310,0.61,1.5,102,5.50,0.950,0,A+,"Medium — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,LAD@COL,LAD,Alex Freeland,Ryan Feltner,8.54,27.36,+1070,+266,840,-2.09,1.5,149,-12.80,0.278,0,B,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,LAD@COL,LAD,Miguel Rojas,Ryan Feltner,8.02,37.92,+1147,+164,890,-2.08,1.5,130,-5.55,0.520,5,A,"Medium — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,LAD@COL,COL,Edouard Julien,Emmet Sheehan,5.71,28.75,+1653,+248,NA,,1.5,184,-6.46,0.481,0,B,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,LAD@COL,COL,Mickey Moniak,Emmet Sheehan,12.77,41.61,+683,+140,NA,,1.5,117,-4.47,0.838,6,A+,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,LAD@COL,COL,TJ Rumfield,Emmet Sheehan,4.42,22.73,+2164,+340,NA,,1.5,128,-21.13,0.365,0,C,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,LAD@COL,COL,Hunter Goodman,Emmet Sheehan,10.66,37.14,+838,+169,NA,,1.5,129,-6.53,0.784,6,A,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,LAD@COL,COL,Ezequiel Tovar,Emmet Sheehan,4.21,26.45,+2275,+278,NA,,1.5,134,-16.28,0.370,12,B,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,LAD@COL,COL,Troy Johnston,Emmet Sheehan,4.75,26.34,+2004,+280,NA,,1.5,181,-9.25,0.499,0,B,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,LAD@COL,COL,Brenton Doyle,Emmet Sheehan,3.06,17.15,+3164,+483,NA,,1.5,166,-20.45,0.464,8,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,LAD@COL,COL,Kyle Karros,Emmet Sheehan,2.52,14.75,+3873,+578,NA,,1.5,195,-19.15,0.316,5,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,LAD@COL,COL,Jordan Beck,Emmet Sheehan,1.61,7.30,+6119,+1271,NA,,1.5,189,-27.31,0.347,3,D,"Medium — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,TOR@AZ,TOR,Nathan Lukes,Zac Gallen,0.40,6.00,+24900,+1567,800,-10.71,1.5,110,-41.62,0.180,0,D,"Medium — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,TOR@AZ,TOR,Ernie Clement,Zac Gallen,1.15,20.22,+8582,+395,1000,-7.94,1.5,115,-26.29,0.406,2,C,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,TOR@AZ,TOR,Vladimir Guerrero Jr.,Zac Gallen,8.10,40.44,+1135,+147,485,-9.00,1.5,-104,-10.54,0.612,5,A+,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,TOR@AZ,TOR,Jesús Sánchez,Zac Gallen,8.38,38.86,+1093,+157,700,-4.12,1.5,107,-9.45,0.482,9,A+,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,TOR@AZ,TOR,Eloy Jiménez,Zac Gallen,0.81,11.31,+12303,+784,760,-10.82,1.5,135,-31.24,0.345,0,D,"Medium — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,TOR@AZ,TOR,Andrés Giménez,Zac Gallen,5.68,30.82,+1660,+224,910,-4.22,1.5,150,-9.18,0.478,9,B,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,TOR@AZ,TOR,Kazuma Okamoto,Zac Gallen,3.16,14.82,+3068,+575,638,-10.39,1.5,162,-23.34,0.221,0,D,"High — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,TOR@AZ,TOR,Myles Straw,Zac Gallen,9.96,45.30,+904,+121,1370,3.15,1.5,176,9.07,0.716,5,A+,"Medium — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,TOR@AZ,TOR,Tyler Heineman,Zac Gallen,1.89,15.44,+5204,+548,1250,-5.52,1.5,231,-14.77,0.324,2,D,"Medium — stats+savant+recent+BvP, confirmed lineup, live markets matched",full
+2026-04-18,TOR@AZ,AZ,Ketel Marte,Max Scherzer,13.91,45.61,+619,+119,NA,,1.5,-114,-7.66,0.631,9,A+,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,TOR@AZ,AZ,Corbin Carroll,Max Scherzer,15.31,55.00,+553,-122,NA,,1.5,-112,2.17,0.643,3,A+,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,TOR@AZ,AZ,Geraldo Perdomo,Max Scherzer,4.20,13.73,+2280,+628,NA,,1.5,129,-29.94,0.294,3,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,TOR@AZ,AZ,Lourdes Gurriel Jr.,Max Scherzer,10.37,30.03,+865,+233,NA,,1.5,115,-16.48,,8,A,"Low — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,TOR@AZ,AZ,Adrian Del Castillo,Max Scherzer,13.81,51.98,+624,-108,NA,,1.5,135,9.43,0.696,0,A+,"Medium — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,TOR@AZ,AZ,Jose Fernandez,Max Scherzer,9.16,34.23,+992,+192,NA,,1.5,144,-6.75,0.410,0,A,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,TOR@AZ,AZ,Nolan Arenado,Max Scherzer,7.89,27.87,+1167,+259,NA,,1.5,130,-15.61,0.613,17,B,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,TOR@AZ,AZ,Ildemaro Vargas,Max Scherzer,12.03,48.90,+731,+104,NA,,1.5,170,11.86,0.662,6,A+,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,TOR@AZ,AZ,Alek Thomas,Max Scherzer,6.53,21.36,+1432,+368,NA,,1.5,152,-18.32,0.196,2,C,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,SD@LAA,LAA,Zach Neto,Germán Márquez,7.84,32.34,+1175,+209,NA,,1.5,100,-17.66,0.629,0,A,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,SD@LAA,LAA,Mike Trout,Germán Márquez,17.77,55.00,+463,-122,NA,,1.5,-114,1.73,0.784,6,A+,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,SD@LAA,LAA,Nolan Schanuel,Germán Márquez,3.15,16.86,+3070,+493,NA,,1.5,144,-24.13,0.323,3,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,SD@LAA,LAA,Jo Adell,Germán Márquez,7.67,36.22,+1204,+176,NA,,1.5,110,-11.40,0.687,3,A,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,SD@LAA,LAA,Yoán Moncada,Germán Márquez,5.19,21.17,+1826,+372,NA,,1.5,152,-18.51,0.588,6,C,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,SD@LAA,LAA,Oswald Peraza,Germán Márquez,9.49,38.32,+954,+161,NA,,1.5,158,-0.44,0.786,0,A+,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,SD@LAA,LAA,Josh Lowe,Germán Márquez,3.84,16.40,+2506,+510,NA,,1.5,165,-21.33,0.561,0,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,SD@LAA,LAA,Logan O'Hoppe,Germán Márquez,3.24,18.59,+2982,+438,NA,,1.5,147,-21.90,0.449,3,D,"High — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial
+2026-04-18,SD@LAA,LAA,Adam Frazier,Germán Márquez,7.80,42.20,+1182,+137,NA,,1.5,222,11.14,0.738,23,A+,"Medium — stats+savant+recent+BvP, confirmed lineup, limited live markets",partial

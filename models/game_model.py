@@ -87,6 +87,14 @@ def park_split(weather: str, run_env: str) -> tuple[float, float]:
     return mid - 0.012, mid + 0.012
 
 
+def park_split_from_factor(weather: str, run_env: str, weather_factor: float | None) -> tuple[float, float]:
+    away, home = park_split(weather, run_env)
+    if weather_factor is None:
+        return away, home
+    shift = clamp((weather_factor - 1.0) * 0.35, -0.02, 0.02)
+    return clamp(away + shift, 0.42, 0.58), clamp(home + shift, 0.42, 0.58)
+
+
 def variance_score(profile: Profile) -> float:
     blob = json.dumps(profile)
     if "No Savant" in blob or "UNVERIFIED" in blob:
@@ -103,6 +111,12 @@ def win_probability_model(
     home_sp_profile: Profile,
     weather: str,
     run_env: str,
+    *,
+    away_bullpen_score: float | None = None,
+    home_bullpen_score: float | None = None,
+    away_recent_form_score: float | None = None,
+    home_recent_form_score: float | None = None,
+    weather_factor: float | None = None,
 ) -> tuple[float, float, ModelConf, list[str]]:
     xa = parse_xera(away_sp_profile)
     xh = parse_xera(home_sp_profile)
@@ -115,21 +129,35 @@ def win_probability_model(
         miss.append("away LU")
     if not home_lineup:
         miss.append("home LU")
+    if away_bullpen_score is None:
+        miss.append("away bullpen")
+    if home_bullpen_score is None:
+        miss.append("home bullpen")
+    if away_recent_form_score is None:
+        miss.append("away recent form")
+    if home_recent_form_score is None:
+        miss.append("home recent form")
 
-    pa_away, pa_home = park_split(weather, run_env)
+    pa_away, pa_home = park_split_from_factor(weather, run_env, weather_factor)
+    bull_a = away_bullpen_score if away_bullpen_score is not None else 0.5
+    bull_h = home_bullpen_score if home_bullpen_score is not None else 0.5
+    recent_a = away_recent_form_score if away_recent_form_score is not None else 0.5
+    recent_h = home_recent_form_score if home_recent_form_score is not None else 0.5
     s_a = (
-        0.4 * starter_score(xa)
-        + 0.2 * 0.5
-        + 0.25 * lineup_score(away_lineup)
-        + 0.1 * pa_away
-        + 0.05 * variance_score(away_sp_profile)
+        0.33 * starter_score(xa)
+        + 0.20 * bull_a
+        + 0.22 * lineup_score(away_lineup)
+        + 0.15 * recent_a
+        + 0.07 * pa_away
+        + 0.03 * variance_score(away_sp_profile)
     )
     s_h = (
-        0.4 * starter_score(xh)
-        + 0.2 * 0.5
-        + 0.25 * lineup_score(home_lineup)
-        + 0.1 * pa_home
-        + 0.05 * variance_score(home_sp_profile)
+        0.33 * starter_score(xh)
+        + 0.20 * bull_h
+        + 0.22 * lineup_score(home_lineup)
+        + 0.15 * recent_h
+        + 0.07 * pa_home
+        + 0.03 * variance_score(home_sp_profile)
     )
     d = s_h - s_a
     p_home = 1 / (1 + math.exp(-3.1 * d))

@@ -1,6 +1,6 @@
 # Black Sheep — MLB pregame intel
 
-Research canvas + probability engine for MLB slates: implied vs model win probability, batter HR / 2+ TB fair odds, tier ladder (A+ through D). Sources of record: **MLB Stats API**, **Baseball Savant**, **RotoWire**, **Odds API** (moneylines). No FanGraphs requirement.
+Research canvas + probability engine for MLB slates: implied vs model win probability, batter HR / 2+ TB fair odds, tier ladder (A+ through D). Sources of record: **MLB Stats API**, **Baseball Savant**, **RotoWire**, **Open-Meteo**, **Odds API** (moneylines + props). No FanGraphs requirement.
 
 ## Repository layout
 
@@ -32,10 +32,15 @@ Edit the file **inside this repo**; the symlink keeps the side panel in sync. On
 
 1. Open the repo in Cursor.
 2. Edit the **dated** canvas for that day (e.g. `canvases/mlb-pregame-intel-apr16.canvas.tsx`): adjust `SLATE` / UI as needed, or refresh API-backed CSV markers (see below).
-3. Regenerate exports:  
-   `python3 canvases/exports/build_ml_exports.py --date YYYY-MM-DD`  
+3. Regenerate exports:
+   `python3 canvases/exports/build_ml_exports.py --date YYYY-MM-DD`
    (or `--date apr16` style slug; omit `--date` only if you still use the default `apr15` canvas).
-4. Commit when the slate is stable:  
+4. For a full live-data recompute, use:
+   `python3 canvases/exports/build_ml_exports.py --date YYYY-MM-DD --compute`
+   Strict mode is the default. The run fails if required live inputs are missing or unverified.
+5. If you intentionally want fallbacks, opt in:
+   `python3 canvases/exports/build_ml_exports.py --date YYYY-MM-DD --compute --allow-partial`
+6. Commit when the slate is stable:
    `git add -A && git commit -m "Slate update YYYY-MM-DD"`
 
 
@@ -57,7 +62,45 @@ Edit the file **inside this repo**; the symlink keeps the side panel in sync. On
 
 If `--date` is omitted, exports default to slug `apr15` for backward compatibility.
 
-### Apr 16: model-driven refresh (API + Apr 15 logic)
+## Strict live-data requirements
+
+Strict `--compute` requires all of the following before it writes the canvas:
+
+- MLB schedule + probable starters for every game on the slate
+- MLB posted lineups for both teams in every game
+- RotoWire confirmation without pitcher or lineup mismatches
+- Open-Meteo weather for every venue
+- Odds API moneylines and totals for every game
+- Odds API prop markets for every modeled batter row
+- Recent-form and bullpen features resolvable from MLB Stats API / Savant inputs
+
+Provider chain:
+
+- Game odds: Odds API first, then RotoWire MLB odds tables
+- HR props: Odds API first, then RotoWire lineup HR odds feed
+- TB props: Odds API first, then RotoWire MLB player props tables
+- Lineup verification: MLB Stats API plus RotoWire confirmation
+
+Required environment:
+
+- `ODDS_API_KEY` or `THE_ODDS_API_KEY` for live moneylines, totals, and batter prop markets
+
+The compute scripts auto-load repo-local `.env` and `.env.local` files if present, so this is sufficient in the repo root:
+
+```bash
+printf 'ODDS_API_KEY=%s\n' 'YOUR_REAL_KEY_HERE' > .env
+```
+
+If any of those requirements are not met, `--compute` exits with an error instead of quietly writing partial outputs. Use `--allow-partial` only for early slates, manual scaffolding, or debugging.
+
+Every `--compute` run also writes a dated snapshot under:
+
+- `canvases/exports/snapshots/<slug>/<slug>-<timestamp>.json`
+- `canvases/exports/snapshots/<slug>/<slug>-latest.json`
+
+Snapshots capture the exported rows plus the game-side and prop-side feature inputs that produced them.
+
+### Apr 16: model-driven refresh (strict by default)
 
 For [`mlb-pregame-intel-apr16.canvas.tsx`](canvases/mlb-pregame-intel-apr16.canvas.tsx) only:
 
@@ -65,17 +108,18 @@ For [`mlb-pregame-intel-apr16.canvas.tsx`](canvases/mlb-pregame-intel-apr16.canv
 - **Regenerate** games + props from the shared model and sync markers + SLATE numbers:  
   `python3 canvases/exports/build_ml_exports.py --date 2026-04-16 --compute`  
   or `python3 canvases/exports/_gen_apr16_canvas.py` (same command).  
-  This pulls **probables / lineups** from MLB Stats API, runs **`win_probability_model`** and **`batter_hr_two_tb`**, updates the marker CSV blocks and **numeric** fields inside `SLATE` (same values as the CSV). It does **not** replace layout or `GameCard` structure.  
+  This pulls **probables / lineups** from MLB Stats API, verifies against **RotoWire**, adds **Open-Meteo weather**, **recent form**, **bullpen scoring**, and **live odds / prop markets**, runs **`win_probability_model`** and **`batter_hr_two_tb`**, then updates the marker CSV blocks and **numeric** fields inside `SLATE` (same values as the CSV). It does **not** replace layout or `GameCard` structure.
   Export-only (no recompute): `python3 canvases/exports/build_ml_exports.py --date 2026-04-16`.
 
 ### Apr 18, 2026: same pipeline
 
 For [`mlb-pregame-intel-apr18.canvas.tsx`](canvases/mlb-pregame-intel-apr18.canvas.tsx):
 
-- Edit game metadata and approximate markets in [`models/apr18_inputs.py`](models/apr18_inputs.py).
+- Edit game metadata and analyst copy in [`models/apr18_inputs.py`](models/apr18_inputs.py).
 - Refresh models + exports:  
   `python3 canvases/exports/build_ml_exports.py --date 2026-04-18 --compute`  
   or `python3 canvases/exports/_gen_apr18_canvas.py`.  
+  If the slate is not fully posted yet and you want a best-effort refresh anyway, add `--allow-partial`.
   To regenerate the canvas shell from the Apr 16 UI template (rare): `python3 canvases/exports/gen_apr18_canvas.py`.
 
 ## Backtesting + model performance tracker

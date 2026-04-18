@@ -8,7 +8,9 @@ import re
 import sys
 import urllib.parse
 import urllib.request
+from collections import defaultdict
 from collections.abc import Callable
+from datetime import date, datetime, timedelta
 from io import StringIO
 from pathlib import Path
 from typing import Any
@@ -17,7 +19,21 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from live_mlb_data import (  # noqa: E402
+    GameOdds,
+    LiveDataError,
+    PropMarketLine,
+    RotoWireGame,
+    WeatherSnapshot,
+    fetch_live_game_odds,
+    fetch_rotowire_lineups,
+    fetch_slate_prop_markets,
+    fetch_weather_snapshot,
+    normalize_player_name,
+    strip_accents,
+)
 from models.game_model import (  # noqa: E402
+    american_to_implied,
     clamp,
     devig_two_way,
     tier_from_edge,
@@ -40,18 +56,19 @@ SAVANT_HEADERS = {
     "User-Agent": "Mozilla/5.0",
     "Accept": "text/csv,text/html;q=0.9,*/*;q=0.8",
 }
+SNAPSHOT_ROOT = ROOT / "canvases" / "exports" / "snapshots"
 
 
 def fetch_json(url: str) -> dict:
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-    with urllib.request.urlopen(req, timeout=60) as r:
-        return json.loads(r.read().decode("utf-8"))
+    with urllib.request.urlopen(req, timeout=60) as response:
+        return json.loads(response.read().decode("utf-8"))
 
 
 def fetch_csv_rows(url: str) -> list[dict[str, str]]:
     req = urllib.request.Request(url, headers=SAVANT_HEADERS)
-    with urllib.request.urlopen(req, timeout=60) as r:
-        text = r.read().decode("utf-8-sig", "ignore")
+    with urllib.request.urlopen(req, timeout=60) as response:
+        text = response.read().decode("utf-8-sig", "ignore")
     return list(csv.DictReader(StringIO(text)))
 
 
@@ -83,52 +100,145 @@ def parse_int(value: Any) -> int | None:
         return None
 
 
-def fetch_schedule_lineups(date: str) -> dict[str, dict[str, Any]]:
+def safe_div(num: float, den: float) -> float | None:
+    if den == 0:
+        return None
+    return num / den
+
+
+def round_or_blank(value: float | None, decimals: int = 2) -> str:
+    if value is None:
+        return ""
+    return f"{value:.{decimals}f}"
+
+
+def report_date_value() -> date:
+    return datetime.strptime(REPORT_DATE, "%Y-%m-%d").date()
+
+
+def parse_stat_date(raw: str | None) -> date | None:
+    if not raw:
+        return None
+    try:
+        return datetime.strptime(raw[:10], "%Y-%m-%d").date()
+    except ValueError:
+        return None
+
+
+def innings_text_to_outs(text: str | None) -> int:
+    raw = (text or "").strip()
+    if not raw:
+        return 0
+    if "." not in raw:
+        return int(raw) * 3
+    whole, frac = raw.split(".", 1)
+    outs = int(whole) * 3
+    if frac in {"1", "2"}:
+        outs += int(frac)
+    return outs
+
+
+def run_environment_label(run_factor: float | None) -> str:
+    if run_factor is None:
+        return "Medium"
+    if run_factor >= 1.04:
+        return "High"
+    if run_factor >= 1.01:
+        return "Medium-High"
+    if run_factor <= 0.96:
+        return "Low"
+    if run_factor <= 0.99:
+        return "Low-Medium"
+    return "Medium"
+
+
+def fetch_team_meta(team_ids: dict[str, int], season: str) -> dict[str, dict[str, str]]:
+    out: dict[str, dict[str, str]] = {}
+    for abbr, team_id in team_ids.items():
+        data = fetch_json(
+            f"https://statsapi.mlb.com/api/v1/teams/{team_id}?season={season}&hydrate=venue(fieldInfo,timeZone)"
+        )
+        teams = data.get("teams") or []
+        if not teams:
+            continue
+        team = teams[0]
+        venue = team.get("venue") or {}
+        field_info = venue.get("fieldInfo") or {}
+        out[abbr] = {
+            "location_name": str(team.get("locationName") or ""),
+            "team_name": str(team.get("name") or ""),
+            "venue_name": str(venue.get("name") or ""),
+            "roof_type": str(field_info.get("roofType") or "Open"),
+        }
+    return out
+
+
+def fetch_schedule_lineups(date_str: str) -> dict[str, dict[str, Any]]:
     sched = fetch_json(
-        f"https://statsapi.mlb.com/api/v1/schedule?sportId=1&date={date}&hydrate=probablePitcher,lineups,team"
+        f"https://statsapi.mlb.com/api/v1/schedule?sportId=1&date={date_str}&hydrate=probablePitcher,lineups,team,venue"
     )
+    team_ids: dict[str, int] = {}
+    for block in sched.get("dates", []):
+        for game in block.get("games", []):
+            away_team = game["teams"]["away"]["team"]
+            home_team = game["teams"]["home"]["team"]
+            team_ids[str(away_team["abbreviation"])] = int(away_team["id"])
+            team_ids[str(home_team["abbreviation"])] = int(home_team["id"])
+    team_meta = fetch_team_meta(team_ids, date_str[:4])
+
     posted: dict[str, dict[str, Any]] = {}
     for block in sched.get("dates", []):
-        for g in block.get("games", []):
-            away = g["teams"]["away"]["team"]["abbreviation"]
-            home = g["teams"]["home"]["team"]["abbreviation"]
+        for game in block.get("games", []):
+            away_team = game["teams"]["away"]["team"]
+            home_team = game["teams"]["home"]["team"]
+            away = str(away_team["abbreviation"])
+            home = str(home_team["abbreviation"])
             key = f"{away}@{home}"
-            away_team = g["teams"]["away"]["team"]
-            home_team = g["teams"]["home"]["team"]
-            pp_a = g["teams"]["away"].get("probablePitcher") or {}
-            pp_h = g["teams"]["home"].get("probablePitcher") or {}
-            lu = g.get("lineups") or {}
-            aw = [
+            pp_a = game["teams"]["away"].get("probablePitcher") or {}
+            pp_h = game["teams"]["home"].get("probablePitcher") or {}
+            lineups = game.get("lineups") or {}
+            away_players = [
                 {
                     "order": idx + 1,
                     "id": p.get("id"),
                     "name": p.get("fullName", ""),
                     "pos": (p.get("primaryPosition") or {}).get("abbreviation", ""),
                 }
-                for idx, p in enumerate(lu.get("awayPlayers", []))
+                for idx, p in enumerate(lineups.get("awayPlayers", []))
             ]
-            hm = [
+            home_players = [
                 {
                     "order": idx + 1,
                     "id": p.get("id"),
                     "name": p.get("fullName", ""),
                     "pos": (p.get("primaryPosition") or {}).get("abbreviation", ""),
                 }
-                for idx, p in enumerate(lu.get("homePlayers", []))
+                for idx, p in enumerate(lineups.get("homePlayers", []))
             ]
+            home_meta = team_meta.get(home, {})
+            away_meta = team_meta.get(away, {})
             posted[key] = {
                 "away_team_id": away_team.get("id"),
                 "home_team_id": home_team.get("id"),
-                "away_players": aw,
-                "home_players": hm,
+                "away_team_name": away_meta.get("team_name") or away_team.get("name", ""),
+                "home_team_name": home_meta.get("team_name") or home_team.get("name", ""),
+                "away_location_name": away_meta.get("location_name") or away_team.get("locationName", ""),
+                "home_location_name": home_meta.get("location_name") or home_team.get("locationName", ""),
+                "away_players": away_players,
+                "home_players": home_players,
                 "away_pitcher": {
                     "id": pp_a.get("id"),
                     "name": pp_a.get("fullName", "TBD"),
+                    "team": away,
                 },
                 "home_pitcher": {
                     "id": pp_h.get("id"),
                     "name": pp_h.get("fullName", "TBD"),
+                    "team": home,
                 },
+                "venue_name": str((game.get("venue") or {}).get("name") or home_meta.get("venue_name") or ""),
+                "roof_type": home_meta.get("roof_type") or "Open",
+                "game_date_utc": str(game.get("gameDate") or ""),
             }
     return posted
 
@@ -143,23 +253,29 @@ def fetch_people_map(person_ids: set[int], season: str) -> dict[int, dict[str, A
         url = (
             "https://statsapi.mlb.com/api/v1/people"
             f"?personIds={','.join(str(pid) for pid in chunk)}"
-            f"&hydrate=stats(group=[hitting,pitching],type=[season],season={season})"
+            f"&hydrate=stats(group=[hitting,pitching],type=[season,gameLog],season={season})"
         )
         data = fetch_json(url)
         for person in data.get("people", []):
-            out[person["id"]] = person
+            out[int(person["id"])] = person
     return out
 
 
-def extract_group_stats(person: dict[str, Any], group_name: str) -> dict[str, Any]:
-    want = group_name.lower()
+def extract_group_splits(person: dict[str, Any], group_name: str, type_name: str = "season") -> list[dict[str, Any]]:
+    want_group = group_name.lower()
+    want_type = type_name.lower()
     for block in person.get("stats", []):
-        group = (block.get("group") or {}).get("displayName", "").lower()
-        if group != want:
-            continue
-        splits = block.get("splits") or []
-        if splits:
-            return splits[0].get("stat") or {}
+        group = ((block.get("group") or {}).get("displayName") or "").lower()
+        stat_type = ((block.get("type") or {}).get("displayName") or "").lower()
+        if group == want_group and stat_type == want_type:
+            return list(block.get("splits") or [])
+    return []
+
+
+def extract_group_stats(person: dict[str, Any], group_name: str, type_name: str = "season") -> dict[str, Any]:
+    splits = extract_group_splits(person, group_name, type_name=type_name)
+    if splits:
+        return splits[0].get("stat") or {}
     return {}
 
 
@@ -183,9 +299,7 @@ def fetch_savant_expected_stats(kind: str, year: str) -> dict[int, dict[str, Any
 
 
 def fetch_savant_statcast(kind: str, year: str) -> dict[int, dict[str, Any]]:
-    rows = fetch_csv_rows(
-        f"https://baseballsavant.mlb.com/leaderboard/statcast?type={kind}&year={year}&csv=true"
-    )
+    rows = fetch_csv_rows(f"https://baseballsavant.mlb.com/leaderboard/statcast?type={kind}&year={year}&csv=true")
     out: dict[int, dict[str, Any]] = {}
     for row in rows:
         pid = parse_int(row.get("player_id"))
@@ -194,9 +308,15 @@ def fetch_savant_statcast(kind: str, year: str) -> dict[int, dict[str, Any]]:
         out[pid] = {
             "attempts": parse_int(row.get("attempts")),
             "avg_hit_speed": parse_float(row.get("avg_hit_speed")),
-            "ev95percent": (parse_float(row.get("ev95percent")) or 0.0) / 100 if row.get("ev95percent") not in {None, ""} else None,
-            "brl_percent": (parse_float(row.get("brl_percent")) or 0.0) / 100 if row.get("brl_percent") not in {None, ""} else None,
-            "brl_pa": (parse_float(row.get("brl_pa")) or 0.0) / 100 if row.get("brl_pa") not in {None, ""} else None,
+            "ev95percent": (parse_float(row.get("ev95percent")) or 0.0) / 100
+            if row.get("ev95percent") not in {None, ""}
+            else None,
+            "brl_percent": (parse_float(row.get("brl_percent")) or 0.0) / 100
+            if row.get("brl_percent") not in {None, ""}
+            else None,
+            "brl_pa": (parse_float(row.get("brl_pa")) or 0.0) / 100
+            if row.get("brl_pa") not in {None, ""}
+            else None,
         }
     return out
 
@@ -218,7 +338,7 @@ def fetch_team_rosters(team_ids: dict[str, int], season: str) -> dict[str, dict[
                 lookup.setdefault(
                     lineup_match_key(name),
                     {
-                        "id": pid,
+                        "id": int(pid),
                         "name": name,
                         "pos": (row.get("position") or {}).get("abbreviation", ""),
                     },
@@ -295,6 +415,7 @@ def lineup_quality_score(features: dict[str, Any]) -> float:
     xslg = features.get("xslg")
     barrel_rate = features.get("barrel_rate")
     ev95_rate = features.get("ev95_rate")
+    recent_form = features.get("recent_form_score")
     score = 0.44
     if est_ba is not None:
         score += (est_ba - 0.245) * 1.2
@@ -304,16 +425,19 @@ def lineup_quality_score(features: dict[str, Any]) -> float:
         score += (barrel_rate - 0.08) * 1.6
     if ev95_rate is not None:
         score += (ev95_rate - 0.35) * 0.5
-    return clamp(score, 0.18, 0.95)
+    score = clamp(score, 0.18, 0.95)
+    if recent_form is not None:
+        score = clamp(score * 0.75 + recent_form * 0.25, 0.18, 0.95)
+    return score
 
 
 def build_model_lineup(players: list[dict[str, Any]], batter_features: dict[int, dict[str, Any]]) -> list[list[str]]:
     out: list[list[str]] = []
     for idx, player in enumerate(players):
-        feats = batter_features.get(player["id"], {})
+        feats = batter_features.get(int(player["id"]), {})
         est_ba = feats.get("est_ba")
         xslg = feats.get("xslg")
-        obp = feats.get("obp")
+        obp = feats.get("recent_obp") if feats.get("recent_pa", 0) >= 12 else feats.get("obp")
         power_score = lineup_quality_score(feats)
         out.append(
             [
@@ -332,14 +456,11 @@ def build_model_lineup(players: list[dict[str, Any]], batter_features: dict[int,
 def replace_marker_region(source: str, marker_name: str, csv_text: str) -> str:
     start = f"<!-- {marker_name}:start -->"
     end = f"<!-- {marker_name}:end -->"
-    pattern = re.compile(
-        re.escape(start) + r"\r?\n" + r".*?" + r"\r?\n" + re.escape(end),
-        re.DOTALL,
-    )
+    pattern = re.compile(re.escape(start) + r"\r?\n" + r".*?" + r"\r?\n" + re.escape(end), re.DOTALL)
     replacement = start + "\n" + csv_text + "\n" + end
-    new_source, n = pattern.subn(replacement, source, count=1)
-    if n != 1:
-        raise ValueError(f"Expected one {marker_name} block, found {n}")
+    new_source, count = pattern.subn(replacement, source, count=1)
+    if count != 1:
+        raise ValueError(f"Expected one {marker_name} block, found {count}")
     return new_source
 
 
@@ -355,25 +476,147 @@ def csv_block(rows: list[list[str]]) -> str:
     return buf.getvalue().strip()
 
 
+def canvas_slug(path: Path) -> str:
+    return path.name.replace("mlb-pregame-intel-", "").replace(".canvas.tsx", "")
+
+
+def rows_to_dicts(rows: list[list[str]]) -> list[dict[str, str]]:
+    if not rows:
+        return []
+    header = rows[0]
+    return [dict(zip(header, row)) for row in rows[1:]]
+
+
+def serialize_game_odds(odds: GameOdds | None) -> dict[str, Any] | None:
+    if odds is None:
+        return None
+    return {
+        "event_id": odds.event_id,
+        "away_abbr": odds.away_abbr,
+        "home_abbr": odds.home_abbr,
+        "away_moneyline": odds.away_moneyline,
+        "home_moneyline": odds.home_moneyline,
+        "total_line": odds.total_line,
+        "over_price": odds.over_price,
+        "under_price": odds.under_price,
+        "bookmakers_count": odds.bookmakers_count,
+        "last_update": odds.last_update,
+        "source": odds.source,
+    }
+
+
+def serialize_prop_market(line: PropMarketLine | None) -> dict[str, Any] | None:
+    if line is None:
+        return None
+    return {
+        "event_id": line.event_id,
+        "market_key": line.market_key,
+        "player_key": line.player_key,
+        "player_name": line.player_name,
+        "point": line.point,
+        "over_price": line.over_price,
+        "under_price": line.under_price,
+        "bookmakers_count": line.bookmakers_count,
+        "last_update": line.last_update,
+        "source": line.source,
+    }
+
+
+def serialize_weather(snapshot: WeatherSnapshot | None) -> dict[str, Any] | None:
+    if snapshot is None:
+        return None
+    return {
+        "venue_name": snapshot.venue_name,
+        "source": snapshot.source,
+        "forecast_time_utc": snapshot.forecast_time_utc,
+        "roof_type": snapshot.roof_type,
+        "temperature_f": snapshot.temperature_f,
+        "wind_speed_mph": snapshot.wind_speed_mph,
+        "wind_direction_deg": snapshot.wind_direction_deg,
+        "precipitation_probability_pct": snapshot.precipitation_probability_pct,
+        "precipitation_inches": snapshot.precipitation_inches,
+        "weather_code": snapshot.weather_code,
+        "run_factor": snapshot.run_factor,
+        "summary": snapshot.summary,
+    }
+
+
+def write_run_snapshot(
+    path: Path,
+    *,
+    allow_partial: bool,
+    lineup_context: dict[str, dict[str, Any]],
+    games_rows: list[list[str]],
+    batter_rows: list[list[str]],
+    game_feature_rows: list[dict[str, Any]],
+    prop_feature_rows: list[dict[str, Any]],
+    team_bullpen_scores: dict[str, dict[str, Any]],
+) -> Path:
+    slug = canvas_slug(path)
+    snapshot_dir = SNAPSHOT_ROOT / slug
+    snapshot_dir.mkdir(parents=True, exist_ok=True)
+    run_ts = datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")
+    payload = {
+        "slug": slug,
+        "report_date": REPORT_DATE,
+        "run_timestamp_utc": run_ts,
+        "allow_partial": allow_partial,
+        "canvas_path": str(path),
+        "games": rows_to_dicts(games_rows),
+        "props": rows_to_dicts(batter_rows),
+        "game_features": game_feature_rows,
+        "prop_features": prop_feature_rows,
+        "team_bullpens": team_bullpen_scores,
+        "lineup_context": {
+            game_key: {
+                "away_label": ctx.get("away_label"),
+                "home_label": ctx.get("home_label"),
+                "away_pitcher": ctx.get("away_pitcher"),
+                "home_pitcher": ctx.get("home_pitcher"),
+                "away_moneyline": ctx.get("away_moneyline"),
+                "home_moneyline": ctx.get("home_moneyline"),
+                "odds": serialize_game_odds(ctx.get("odds") if isinstance(ctx.get("odds"), GameOdds) else None),
+                "weather": serialize_weather(ctx.get("weather") if isinstance(ctx.get("weather"), WeatherSnapshot) else None),
+                "issues": list(ctx.get("issues") or []),
+                "venue_name": ctx.get("venue_name"),
+                "roof_type": ctx.get("roof_type"),
+                "away_players": ctx.get("away_players"),
+                "home_players": ctx.get("home_players"),
+            }
+            for game_key, ctx in lineup_context.items()
+        },
+        "summary": {
+            "verified_games": sum(1 for row in rows_to_dicts(games_rows) if row.get("verification_status") == "Verified"),
+            "partial_games": sum(1 for row in rows_to_dicts(games_rows) if row.get("verification_status") == "Partial"),
+            "full_prop_markets": sum(1 for row in rows_to_dicts(batter_rows) if row.get("market_data_status") == "full"),
+            "partial_prop_markets": sum(1 for row in rows_to_dicts(batter_rows) if row.get("market_data_status") == "partial"),
+            "no_prop_markets": sum(1 for row in rows_to_dicts(batter_rows) if row.get("market_data_status") == "none"),
+        },
+    }
+    snapshot_text = json.dumps(payload, indent=2, ensure_ascii=False)
+    snapshot_path = snapshot_dir / f"{slug}-{run_ts}.json"
+    latest_path = snapshot_dir / f"{slug}-latest.json"
+    snapshot_path.write_text(snapshot_text, encoding="utf-8")
+    latest_path.write_text(snapshot_text, encoding="utf-8")
+    return snapshot_path
+
+
 def extract_game_block(text: str, game_key: str) -> tuple[int, int] | None:
     needle = f'gameKey: "{game_key}"'
-    i = text.find(needle)
-    if i < 0:
+    idx = text.find(needle)
+    if idx < 0:
         return None
-    j = i
-    while j > 0 and text[j] != "{":
-        j -= 1
-    start = j
+    start = idx
+    while start > 0 and text[start] != "{":
+        start -= 1
     depth = 0
-    k = start
-    while k < len(text):
-        if text[k] == "{":
+    for pos in range(start, len(text)):
+        if text[pos] == "{":
             depth += 1
-        elif text[k] == "}":
+        elif text[pos] == "}":
             depth -= 1
             if depth == 0:
-                return (start, k + 1)
-        k += 1
+                return start, pos + 1
     return None
 
 
@@ -401,16 +644,10 @@ def parse_lineup_rows(block: str, field: str) -> list[dict[str, Any]]:
     span = find_field_array_span(block, field)
     if not span:
         return []
-    out: list[dict[str, Any]] = []
+    rows: list[dict[str, Any]] = []
     for order, name, pos in re.findall(r'\[\s*"([^"]+)"\s*,\s*"([^"]+)"\s*,\s*"([^"]+)"\s*\]', block[span[0] : span[1]]):
-        out.append(
-            {
-                "order": parse_int(order) or (len(out) + 1),
-                "name": name,
-                "pos": pos,
-            }
-        )
-    return out
+        rows.append({"order": parse_int(order) or len(rows) + 1, "name": name, "pos": pos})
+    return rows
 
 
 def parse_canvas_games(source: str) -> dict[str, dict[str, Any]]:
@@ -482,7 +719,7 @@ def patch_string_field(block: str, field: str, value: str) -> str:
     return re.sub(rf'({re.escape(field)}:\s*")([^"]*)(")', rf'\1{value}\3', block, count=1)
 
 
-def resolve_canvas_lineup(
+def resolve_named_players(
     team_abbr: str,
     rows: list[dict[str, Any]],
     rosters: dict[str, dict[str, dict[str, Any]]],
@@ -490,21 +727,47 @@ def resolve_canvas_lineup(
     resolved: list[dict[str, Any]] = []
     roster = rosters.get(team_abbr, {})
     for idx, row in enumerate(rows):
-        key = lineup_match_key(row["name"])
+        key = lineup_match_key(str(row["name"]))
         player = roster.get(key)
         if player is None:
-            player = search_player(row["name"])
+            player = search_player(str(row["name"]))
         if player is None or not player.get("id"):
-            raise ValueError(f"Unable to resolve projected lineup player {team_abbr} {row['name']}")
+            raise ValueError(f"Unable to resolve lineup player {team_abbr} {row['name']}")
         resolved.append(
             {
                 "order": idx + 1,
-                "id": player["id"],
-                "name": player.get("name", row["name"]),
-                "pos": row.get("pos") or player.get("pos") or "DH",
+                "id": int(player["id"]),
+                "name": str(player.get("name", row["name"])),
+                "pos": str(row.get("pos") or player.get("pos") or "DH"),
             }
         )
     return resolved
+
+
+def lineup_players_match(api_players: list[dict[str, Any]], rotowire_players: list[dict[str, str]]) -> bool:
+    if len(api_players) != len(rotowire_players):
+        return False
+    api_keys = [normalize_player_name(str(player.get("name") or "")) for player in api_players]
+    rotowire_keys = [normalize_player_name(str(player.get("name") or "")) for player in rotowire_players]
+    return api_keys == rotowire_keys
+
+
+def starter_names_match(api_name: str, rotowire_name: str) -> bool:
+    api_key = normalize_player_name(api_name)
+    rotowire_key = normalize_player_name(rotowire_name)
+    if api_key and api_key == rotowire_key:
+        return True
+
+    def tokens(name: str) -> list[str]:
+        return re.findall(r"[a-z]+", strip_accents(name).lower())
+
+    api_tokens = tokens(api_name)
+    rw_tokens = tokens(rotowire_name)
+    if len(api_tokens) < 2 or len(rw_tokens) < 2:
+        return False
+    if api_tokens[-1] != rw_tokens[-1]:
+        return False
+    return api_tokens[0][:1] == rw_tokens[0][:1]
 
 
 def choose_lineup_side(
@@ -512,17 +775,177 @@ def choose_lineup_side(
     api_players: list[dict[str, Any]],
     canvas_rows: list[dict[str, Any]],
     canvas_label: str,
+    rotowire_game: RotoWireGame | None,
+    side: str,
     rosters: dict[str, dict[str, dict[str, Any]]],
-) -> tuple[list[dict[str, Any]], str]:
-    label_lower = canvas_label.lower()
-    use_canvas = "projected" in label_lower or "not posted" in label_lower
-    if api_players and not use_canvas:
-        return api_players, "Posted (MLB API)"
-    if canvas_rows:
-        return resolve_canvas_lineup(team_abbr, canvas_rows, rosters), canvas_label
+    *,
+    allow_partial: bool,
+) -> tuple[list[dict[str, Any]], str, list[str]]:
+    issues: list[str] = []
+    rotowire_side = rotowire_game.away_side if rotowire_game and side == "away" else rotowire_game.home_side if rotowire_game else None
+
     if api_players:
-        return api_players, "Posted (MLB API)"
-    return [], canvas_label
+        label = "Posted (MLB API)"
+        if rotowire_side is None:
+            issues.append("rotowire_missing")
+        else:
+            if not rotowire_side.confirmed:
+                issues.append("rotowire_unconfirmed")
+            elif not lineup_players_match(api_players, rotowire_side.players):
+                issues.append("rotowire_lineup_mismatch")
+            else:
+                label = "Confirmed (MLB API + RotoWire)"
+        return api_players, label, issues
+
+    if rotowire_side and rotowire_side.confirmed:
+        resolved = resolve_named_players(
+            team_abbr,
+            [{"name": player["name"], "pos": player["pos"]} for player in rotowire_side.players],
+            rosters,
+        )
+        return resolved, "Confirmed (RotoWire)", ["lineup_not_posted_api"]
+
+    if allow_partial and canvas_rows:
+        resolved = resolve_named_players(team_abbr, canvas_rows, rosters)
+        return resolved, canvas_label, ["lineup_projected_canvas", "lineup_not_posted_api"]
+
+    return [], "Not Posted", ["lineup_not_posted_api"]
+
+
+def starter_matches(api_pitcher: dict[str, Any], rotowire_game: RotoWireGame | None, side: str) -> list[str]:
+    if rotowire_game is None:
+        return ["rotowire_missing"]
+    rotowire_side = rotowire_game.away_side if side == "away" else rotowire_game.home_side
+    api_name = str(api_pitcher.get("name") or "")
+    rotowire_name = rotowire_side.pitcher_name
+    issues: list[str] = []
+    if not rotowire_side.confirmed:
+        issues.append("rotowire_unconfirmed")
+    if not api_name or not rotowire_name:
+        issues.append("starter_missing")
+    elif not starter_names_match(api_name, rotowire_name):
+        issues.append("starter_mismatch_rotowire")
+    return issues
+
+
+def collect_recent_splits(
+    person: dict[str, Any],
+    group_name: str,
+    *,
+    window_days: int,
+    type_name: str = "gameLog",
+    max_entries: int | None = None,
+) -> list[dict[str, Any]]:
+    end_date = report_date_value()
+    start_date = end_date - timedelta(days=window_days)
+    splits = []
+    for split in extract_group_splits(person, group_name, type_name=type_name):
+        split_date = parse_stat_date(split.get("date"))
+        if split_date is None or split_date >= end_date or split_date < start_date:
+            continue
+        splits.append(split)
+    splits.sort(key=lambda split: str(split.get("date") or ""), reverse=True)
+    if max_entries is not None:
+        return splits[:max_entries]
+    return splits
+
+
+def summarize_recent_hitter_form(person: dict[str, Any] | None) -> dict[str, Any]:
+    person = person or {}
+    splits = collect_recent_splits(person, "hitting", window_days=14)
+    ab = pa = hits = walks = hit_by_pitch = sac_flies = total_bases = home_runs = 0
+    for split in splits:
+        stat = split.get("stat") or {}
+        ab += parse_int(stat.get("atBats")) or 0
+        pa += parse_int(stat.get("plateAppearances")) or 0
+        hits += parse_int(stat.get("hits")) or 0
+        walks += parse_int(stat.get("baseOnBalls")) or 0
+        hit_by_pitch += parse_int(stat.get("hitByPitch")) or 0
+        sac_flies += parse_int(stat.get("sacFlies")) or 0
+        total_bases += parse_int(stat.get("totalBases")) or 0
+        home_runs += parse_int(stat.get("homeRuns")) or 0
+    if pa == 0 or ab == 0:
+        return {"recent_pa": 0, "recent_form_score": None}
+    obp = safe_div(hits + walks + hit_by_pitch, ab + walks + hit_by_pitch + sac_flies)
+    slg = safe_div(total_bases, ab)
+    ops = (obp or 0.0) + (slg or 0.0)
+    hr_rate = safe_div(home_runs, pa)
+    tb_rate = safe_div(total_bases, pa)
+    score = clamp(
+        0.45
+        + ((ops - 0.72) * 0.55 if ops is not None else 0.0)
+        + ((hr_rate - 0.03) * 1.5 if hr_rate is not None else 0.0)
+        + ((tb_rate - 0.17) * 0.3 if tb_rate is not None else 0.0),
+        0.18,
+        0.95,
+    )
+    return {
+        "recent_pa": pa,
+        "recent_obp": obp,
+        "recent_slg": slg,
+        "recent_ops": ops,
+        "recent_hr_rate": hr_rate,
+        "recent_tb_rate": tb_rate,
+        "recent_form_score": score,
+    }
+
+
+def summarize_recent_pitcher_form(person: dict[str, Any] | None, *, reliever: bool = False) -> dict[str, Any]:
+    person = person or {}
+    splits = collect_recent_splits(person, "pitching", window_days=21, max_entries=5 if reliever else 3)
+    outs = earned_runs = hits = walks = strikeouts = pitches = appearances_last3 = 0
+    pitched_yesterday = False
+    last_date: date | None = None
+    yesterday = report_date_value() - timedelta(days=1)
+    three_days_ago = report_date_value() - timedelta(days=3)
+    for split in splits:
+        stat = split.get("stat") or {}
+        split_date = parse_stat_date(split.get("date"))
+        if last_date is None and split_date is not None:
+            last_date = split_date
+        outs += innings_text_to_outs(str(stat.get("inningsPitched") or ""))
+        earned_runs += parse_int(stat.get("earnedRuns")) or 0
+        hits += parse_int(stat.get("hits")) or 0
+        walks += parse_int(stat.get("baseOnBalls")) or 0
+        strikeouts += parse_int(stat.get("strikeOuts")) or 0
+        pitches += parse_int(stat.get("numberOfPitches")) or 0
+        if split_date and split_date >= three_days_ago:
+            appearances_last3 += 1
+        if split_date == yesterday:
+            pitched_yesterday = True
+    if outs == 0:
+        return {
+            "recent_form_score": None,
+            "recent_appearances_last3": appearances_last3,
+            "recent_pitches_last3": pitches,
+            "pitched_yesterday": pitched_yesterday,
+            "days_since_last": None,
+        }
+    ip = outs / 3
+    era = earned_runs * 9 / ip if ip else None
+    whip = (hits + walks) / ip if ip else None
+    k9 = strikeouts * 9 / ip if ip else None
+    bb9 = walks * 9 / ip if ip else None
+    score = clamp(
+        0.55
+        + ((4.15 - (era or 4.15)) * 0.08)
+        + (((k9 or 8.0) - 8.0) * 0.015)
+        - (((bb9 or 3.0) - 3.0) * 0.02)
+        - (((whip or 1.25) - 1.25) * 0.12),
+        0.18,
+        0.95,
+    )
+    return {
+        "recent_era": era,
+        "recent_whip": whip,
+        "recent_k9": k9,
+        "recent_bb9": bb9,
+        "recent_form_score": score,
+        "recent_appearances_last3": appearances_last3,
+        "recent_pitches_last3": pitches,
+        "pitched_yesterday": pitched_yesterday,
+        "days_since_last": (report_date_value() - last_date).days if last_date else None,
+    }
 
 
 def summarize_hitter_features(
@@ -533,7 +956,8 @@ def summarize_hitter_features(
     person = person or {}
     expected = expected or {}
     statcast = statcast or {}
-    hitting = extract_group_stats(person, "hitting")
+    hitting = extract_group_stats(person, "hitting", type_name="season")
+    recent = summarize_recent_hitter_form(person)
     avg = parse_float(hitting.get("avg"))
     obp = parse_float(hitting.get("obp"))
     slg = parse_float(hitting.get("slg"))
@@ -559,6 +983,7 @@ def summarize_hitter_features(
         "ev95_rate": ev95_rate,
         "avg_hit_speed": avg_hit_speed,
         "hard_hit_rate": ev95_rate,
+        **recent,
     }
 
 
@@ -567,21 +992,107 @@ def summarize_pitcher_features(
     expected: dict[str, Any] | None,
     statcast: dict[str, Any] | None,
     fallback_xera: float,
+    *,
+    reliever: bool = False,
 ) -> dict[str, Any]:
     person = person or {}
     expected = expected or {}
     statcast = statcast or {}
-    pitching = extract_group_stats(person, "pitching")
+    pitching = extract_group_stats(person, "pitching", type_name="season")
+    recent = summarize_recent_pitcher_form(person, reliever=reliever)
     era = parse_float(pitching.get("era"))
     xera = expected.get("xera")
     if xera is None:
         xera = era if era is not None else fallback_xera
+    recent_score = recent.get("recent_form_score")
+    base_score = clamp(0.5 + ((4.15 - xera) / 2.85) * 0.45, 0.18, 0.95)
+    final_recent_score = clamp(base_score * 0.5 + (recent_score or base_score) * 0.5, 0.18, 0.95)
     return {
         "pitch_hand": ((person.get("pitchHand") or {}).get("code") or "")[:1],
         "xera": xera,
+        "season_era": era,
         "est_slg": expected.get("est_slg"),
         "barrel_rate": statcast.get("brl_percent"),
         "hard_hit_rate": statcast.get("ev95percent"),
+        "recent_form_score": final_recent_score,
+        **recent,
+    }
+
+
+def team_recent_form_score(players: list[dict[str, Any]], batter_features: dict[int, dict[str, Any]]) -> float | None:
+    scores: list[float] = []
+    for player in players:
+        feats = batter_features.get(int(player["id"]), {})
+        score = feats.get("recent_form_score")
+        if score is None:
+            score = lineup_quality_score(feats)
+        scores.append(float(score))
+    if not scores:
+        return None
+    return clamp(sum(scores) / len(scores), 0.18, 0.95)
+
+
+def summarize_team_bullpen(
+    team_abbr: str,
+    rosters: dict[str, dict[str, dict[str, Any]]],
+    people_map: dict[int, dict[str, Any]],
+    pitcher_expected: dict[int, dict[str, Any]],
+    pitcher_statcast: dict[int, dict[str, Any]],
+    excluded_pitcher_id: int | None,
+) -> dict[str, Any]:
+    weighted_scores = 0.0
+    weights = 0.0
+    available = 0
+    arms = 0
+    for player in rosters.get(team_abbr, {}).values():
+        pid = int(player["id"])
+        if excluded_pitcher_id and pid == excluded_pitcher_id:
+            continue
+        if str(player.get("pos") or "") != "P":
+            continue
+        person = people_map.get(pid)
+        if person is None:
+            continue
+        pitching = extract_group_stats(person, "pitching", type_name="season")
+        games_pitched = parse_int(pitching.get("gamesPitched")) or 0
+        games_started = parse_int(pitching.get("gamesStarted")) or 0
+        if games_pitched == 0 or games_started >= games_pitched:
+            continue
+        feats = summarize_pitcher_features(
+            person,
+            pitcher_expected.get(pid),
+            pitcher_statcast.get(pid),
+            4.15,
+            reliever=True,
+        )
+        holds = parse_int(pitching.get("holds")) or 0
+        saves = parse_int(pitching.get("saves")) or 0
+        games_finished = parse_int(pitching.get("gamesFinished")) or 0
+        role_weight = 1.0 + (holds * 0.05) + (saves * 0.08) + (games_finished * 0.015)
+        availability = 1.0
+        if feats.get("pitched_yesterday"):
+            availability -= 0.18
+        if (feats.get("recent_appearances_last3") or 0) >= 2:
+            availability -= 0.12
+        if (feats.get("recent_pitches_last3") or 0) >= 35:
+            availability -= 0.15
+        availability = clamp(availability, 0.4, 1.0)
+        quality = clamp(
+            0.55 * clamp(0.5 + ((4.15 - float(feats["xera"])) / 2.85) * 0.45, 0.18, 0.95)
+            + 0.45 * float(feats.get("recent_form_score") or 0.5),
+            0.18,
+            0.95,
+        )
+        weighted_scores += quality * availability * role_weight
+        weights += role_weight
+        available += 1 if availability >= 0.75 else 0
+        arms += 1
+    if weights == 0:
+        return {"score": None, "available_arms": 0, "total_arms": 0}
+    return {
+        "score": clamp(weighted_scores / weights, 0.18, 0.95),
+        "available_arms": available,
+        "total_arms": arms,
     }
 
 
@@ -590,7 +1101,10 @@ def build_prop_note(
     pitcher: dict[str, Any],
     away: str,
     home: str,
+    *,
     vs_pitcher: dict[str, int] | None = None,
+    weather_factor: float | None = None,
+    opp_bullpen_score: float | None = None,
 ) -> str:
     park = "favorable park" if away in {"COL", "NYY", "CIN"} or home in {"COL", "NYY", "CIN"} else ""
     hand = ""
@@ -616,12 +1130,28 @@ def build_prop_note(
     matchup = "neutral pitcher matchup"
     if (pitcher.get("xera") or 0) >= 4.7 or (pitcher.get("est_slg") or 0) >= 0.43:
         matchup = "vs vulnerable pitcher"
-    elif (pitcher.get("xera") or 9) <= 3.6 or ((pitcher.get("est_slg") or 1) <= 0.37 and pitcher.get("est_slg") is not None):
+    elif (pitcher.get("xera") or 9) <= 3.6 or (
+        (pitcher.get("est_slg") or 1) <= 0.37 and pitcher.get("est_slg") is not None
+    ):
         matchup = "vs tough pitcher"
 
-    speed = ""
-    if (batter.get("stolen_bases") or 0) >= 5 and (batter.get("barrel_rate") or 0) < 0.1:
-        speed = "speed boosts TB path"
+    recent = ""
+    if (batter.get("recent_form_score") or 0) >= 0.68:
+        recent = "hot recent form"
+    elif (batter.get("recent_form_score") or 1) <= 0.34:
+        recent = "cold recent form"
+
+    weather = ""
+    if weather_factor is not None and weather_factor >= 1.04:
+        weather = "weather boosts carry"
+    elif weather_factor is not None and weather_factor <= 0.97:
+        weather = "weather suppresses carry"
+
+    bullpen = ""
+    if opp_bullpen_score is not None and opp_bullpen_score <= 0.42:
+        bullpen = "late innings favorable"
+    elif opp_bullpen_score is not None and opp_bullpen_score >= 0.65:
+        bullpen = "late innings tougher"
 
     vs_note = ""
     if vs_pitcher and (vs_pitcher.get("pa") or 0) >= 4:
@@ -633,17 +1163,27 @@ def build_prop_note(
             if hr:
                 vs_note += f", {hr} HR"
 
-    parts = [part for part in [hand, power, matchup, vs_note or speed or park] if part]
+    parts = [part for part in [hand, power, matchup, vs_note or recent or weather or bullpen or park] if part]
     return "; ".join(parts[:3])
 
 
-def build_data_confidence(prop_conf: str, lineup_label: str) -> str:
-    label = "posted lineup" if "posted" in lineup_label.lower() and "not posted" not in lineup_label.lower() else "projected lineup"
-    return f"{prop_conf} — real stats+savant, {label}"
+def build_data_confidence(prop_conf: str, lineup_label: str, market_status: str) -> str:
+    label_lower = lineup_label.lower()
+    if "confirmed" in label_lower:
+        lineup_desc = "confirmed lineup"
+    elif "posted" in label_lower and "not posted" not in label_lower:
+        lineup_desc = "posted lineup"
+    else:
+        lineup_desc = "projected lineup"
+    market_desc = {
+        "full": "live markets matched",
+        "partial": "limited live markets",
+        "none": "no live markets",
+    }.get(market_status, "market status unknown")
+    return f"{prop_conf} — stats+savant+recent+BvP, {lineup_desc}, {market_desc}"
 
 
 def bind_slate_inputs(slug: str) -> None:
-    """Load `models.<slug>_inputs` (e.g. apr16 → models.apr16_inputs)."""
     global GAME_SPECS, REPORT_DATE, CANVAS
     global make_sp_profile
     mod = importlib.import_module(f"models.{slug}_inputs")
@@ -653,16 +1193,16 @@ def bind_slate_inputs(slug: str) -> None:
     CANVAS = ROOT / "canvases" / f"mlb-pregame-intel-{mod.CANVAS_SLUG}.canvas.tsx"
 
 
-def run_slate_pipeline(slug: str, canvas_path: Path | None = None) -> None:
+def run_slate_pipeline(slug: str, canvas_path: Path | None = None, *, allow_partial: bool = False) -> None:
     bind_slate_inputs(slug)
-    _run_model_pipeline(canvas_path)
+    _run_model_pipeline(canvas_path, allow_partial=allow_partial)
 
 
-def run_apr16_pipeline(canvas_path: Path | None = None) -> None:
-    run_slate_pipeline("apr16", canvas_path)
+def run_apr16_pipeline(canvas_path: Path | None = None, *, allow_partial: bool = False) -> None:
+    run_slate_pipeline("apr16", canvas_path, allow_partial=allow_partial)
 
 
-def _run_model_pipeline(canvas_path: Path | None = None) -> None:
+def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool = False) -> None:
     path = canvas_path or CANVAS
     if not path.is_file():
         raise FileNotFoundError(path)
@@ -671,43 +1211,98 @@ def _run_model_pipeline(canvas_path: Path | None = None) -> None:
     canvas_games = parse_canvas_games(original)
     api = fetch_schedule_lineups(REPORT_DATE)
     season = REPORT_DATE[:4]
+    rotowire_games = fetch_rotowire_lineups(REPORT_DATE)
+    live_game_odds = fetch_live_game_odds(api, REPORT_DATE, required=not allow_partial)
 
-    projected_team_ids: dict[str, int] = {}
+    team_ids: dict[str, int] = {}
     for game_key, game in api.items():
         away, home = game_key.split("@", 1)
-        canvas_ctx = canvas_games.get(game_key, {})
-        away_label = str(canvas_ctx.get("away_label", ""))
-        home_label = str(canvas_ctx.get("home_label", ""))
-        if "projected" in away_label.lower() or "not posted" in away_label.lower():
-            projected_team_ids[away] = int(game["away_team_id"])
-        if "projected" in home_label.lower() or "not posted" in home_label.lower():
-            projected_team_ids[home] = int(game["home_team_id"])
+        team_ids[away] = int(game["away_team_id"])
+        team_ids[home] = int(game["home_team_id"])
+    rosters = fetch_team_rosters(team_ids, season)
 
-    rosters = fetch_team_rosters(projected_team_ids, season)
     lineup_context: dict[str, dict[str, Any]] = {}
-    batter_ids: set[int] = set()
-    pitcher_ids: set[int] = set()
+    blocking_issues: list[str] = []
 
     for spec in GAME_SPECS:
         game_key = f"{spec['away']}@{spec['home']}"
-        schedule_game = api.get(game_key, {})
+        schedule_game = api.get(game_key)
+        if schedule_game is None:
+            blocking_issues.append(f"{game_key}: missing from MLB schedule")
+            continue
+        rotowire_game = rotowire_games.get(game_key)
         canvas_ctx = canvas_games.get(game_key, {})
-        away_players, away_label = choose_lineup_side(
+        away_players, away_label, away_issues = choose_lineup_side(
             str(spec["away"]),
             list(schedule_game.get("away_players", [])),
             list(canvas_ctx.get("away_lineup", [])),
             str(canvas_ctx.get("away_label", "Projected (canvas fallback)")),
+            rotowire_game,
+            "away",
             rosters,
+            allow_partial=allow_partial,
         )
-        home_players, home_label = choose_lineup_side(
+        home_players, home_label, home_issues = choose_lineup_side(
             str(spec["home"]),
             list(schedule_game.get("home_players", [])),
             list(canvas_ctx.get("home_lineup", [])),
             str(canvas_ctx.get("home_label", "Projected (canvas fallback)")),
+            rotowire_game,
+            "home",
             rosters,
+            allow_partial=allow_partial,
         )
+
         away_pitcher = dict(schedule_game.get("away_pitcher") or {"id": None, "name": "TBD"})
         home_pitcher = dict(schedule_game.get("home_pitcher") or {"id": None, "name": "TBD"})
+        issues = away_issues + home_issues
+        issues.extend(starter_matches(away_pitcher, rotowire_game, "away"))
+        issues.extend(starter_matches(home_pitcher, rotowire_game, "home"))
+
+        weather_snapshot: WeatherSnapshot | None = None
+        try:
+            weather_snapshot = fetch_weather_snapshot(
+                str(schedule_game.get("venue_name") or ""),
+                str(schedule_game.get("home_location_name") or ""),
+                str(schedule_game.get("roof_type") or "Open"),
+                str(schedule_game.get("game_date_utc") or ""),
+            )
+        except Exception as exc:
+            if allow_partial:
+                issues.append("weather_live_missing")
+            else:
+                blocking_issues.append(f"{game_key}: live weather unavailable ({exc})")
+
+        odds = live_game_odds.get(game_key)
+        away_moneyline = odds.away_moneyline if odds and odds.away_moneyline is not None else parse_int(spec["away_a"])
+        home_moneyline = odds.home_moneyline if odds and odds.home_moneyline is not None else parse_int(spec["home_a"])
+        if odds is None or away_moneyline is None or home_moneyline is None:
+            if allow_partial:
+                issues.append("approx_market_ml")
+            else:
+                blocking_issues.append(f"{game_key}: live moneyline odds unavailable")
+        if odds is None or odds.total_line is None or odds.over_price is None or odds.under_price is None:
+            if allow_partial:
+                issues.append("market_total_missing")
+            else:
+                blocking_issues.append(f"{game_key}: live totals market unavailable")
+
+        if not allow_partial:
+            critical = {
+                "lineup_not_posted_api",
+                "rotowire_missing",
+                "rotowire_unconfirmed",
+                "rotowire_lineup_mismatch",
+                "starter_mismatch_rotowire",
+                "starter_missing",
+                "weather_live_missing",
+                "approx_market_ml",
+                "market_total_missing",
+            }
+            hard = [issue for issue in issues if issue in critical]
+            if hard:
+                blocking_issues.append(f"{game_key}: {';'.join(sorted(set(hard)))}")
+
         lineup_context[game_key] = {
             "away_players": away_players,
             "home_players": home_players,
@@ -715,17 +1310,39 @@ def _run_model_pipeline(canvas_path: Path | None = None) -> None:
             "home_label": home_label,
             "away_pitcher": away_pitcher,
             "home_pitcher": home_pitcher,
+            "away_moneyline": away_moneyline,
+            "home_moneyline": home_moneyline,
+            "odds": odds,
+            "weather": weather_snapshot,
+            "issues": sorted(set(issues)),
+            "venue_name": schedule_game.get("venue_name", ""),
+            "roof_type": schedule_game.get("roof_type", ""),
         }
-        batter_ids.update(int(player["id"]) for player in away_players + home_players if player.get("id"))
-        if away_pitcher.get("id"):
-            pitcher_ids.add(int(away_pitcher["id"]))
-        if home_pitcher.get("id"):
-            pitcher_ids.add(int(home_pitcher["id"]))
+
+    if blocking_issues and not allow_partial:
+        raise LiveDataError("Full-data requirements not satisfied:\n- " + "\n- ".join(blocking_issues))
+
+    batter_ids: set[int] = set()
+    pitcher_ids: set[int] = set()
+    bullpen_pitcher_ids: set[int] = set()
+    for game_key, ctx in lineup_context.items():
+        batter_ids.update(int(player["id"]) for player in ctx["away_players"] + ctx["home_players"] if player.get("id"))
+        if ctx["away_pitcher"].get("id"):
+            pitcher_ids.add(int(ctx["away_pitcher"]["id"]))
+        if ctx["home_pitcher"].get("id"):
+            pitcher_ids.add(int(ctx["home_pitcher"]["id"]))
+        away, home = game_key.split("@", 1)
+        for team_abbr, excluded_id in ((away, ctx["away_pitcher"].get("id")), (home, ctx["home_pitcher"].get("id"))):
+            for player in rosters.get(team_abbr, {}).values():
+                if str(player.get("pos") or "") == "P" and player.get("id") != excluded_id:
+                    bullpen_pitcher_ids.add(int(player["id"]))
 
     matchup_pairs: dict[int, set[int]] = {}
     for spec in GAME_SPECS:
         game_key = f"{spec['away']}@{spec['home']}"
-        ctx = lineup_context[game_key]
+        ctx = lineup_context.get(game_key)
+        if not ctx:
+            continue
         if ctx["home_pitcher"].get("id"):
             matchup_pairs.setdefault(int(ctx["home_pitcher"]["id"]), set()).update(
                 int(player["id"]) for player in ctx["away_players"] if player.get("id")
@@ -735,7 +1352,7 @@ def _run_model_pipeline(canvas_path: Path | None = None) -> None:
                 int(player["id"]) for player in ctx["home_players"] if player.get("id")
             )
 
-    people_map = fetch_people_map(batter_ids | pitcher_ids, season)
+    people_map = fetch_people_map(batter_ids | pitcher_ids | bullpen_pitcher_ids, season)
     batter_expected = fetch_savant_expected_stats("batter", season)
     batter_statcast = fetch_savant_statcast("batter", season)
     pitcher_expected = fetch_savant_expected_stats("pitcher", season)
@@ -743,34 +1360,55 @@ def _run_model_pipeline(canvas_path: Path | None = None) -> None:
     vs_pitcher_stats = fetch_vs_pitcher_stats(matchup_pairs)
 
     batter_features = {
-        pid: summarize_hitter_features(
-            people_map.get(pid),
-            batter_expected.get(pid),
-            batter_statcast.get(pid),
-        )
+        pid: summarize_hitter_features(people_map.get(pid), batter_expected.get(pid), batter_statcast.get(pid))
         for pid in batter_ids
     }
     pitcher_features: dict[int, dict[str, Any]] = {}
     for spec in GAME_SPECS:
         game_key = f"{spec['away']}@{spec['home']}"
-        away_pitcher = lineup_context[game_key]["away_pitcher"]
-        home_pitcher = lineup_context[game_key]["home_pitcher"]
-        if away_pitcher.get("id"):
-            pid = int(away_pitcher["id"])
+        ctx = lineup_context.get(game_key)
+        if not ctx:
+            continue
+        if ctx["away_pitcher"].get("id"):
+            pid = int(ctx["away_pitcher"]["id"])
             pitcher_features[pid] = summarize_pitcher_features(
                 people_map.get(pid),
                 pitcher_expected.get(pid),
                 pitcher_statcast.get(pid),
                 float(spec["away_xera"]),
             )
-        if home_pitcher.get("id"):
-            pid = int(home_pitcher["id"])
+        if ctx["home_pitcher"].get("id"):
+            pid = int(ctx["home_pitcher"]["id"])
             pitcher_features[pid] = summarize_pitcher_features(
                 people_map.get(pid),
                 pitcher_expected.get(pid),
                 pitcher_statcast.get(pid),
                 float(spec["home_xera"]),
             )
+
+    starter_ids_by_team: dict[str, int | None] = {}
+    for ctx in lineup_context.values():
+        away_team = str((ctx.get("away_pitcher") or {}).get("team") or "")
+        home_team = str((ctx.get("home_pitcher") or {}).get("team") or "")
+        starter_ids_by_team[away_team] = parse_int((ctx.get("away_pitcher") or {}).get("id"))
+        starter_ids_by_team[home_team] = parse_int((ctx.get("home_pitcher") or {}).get("id"))
+
+    team_bullpen_scores: dict[str, dict[str, Any]] = {}
+    for team_abbr in rosters:
+        team_bullpen_scores[team_abbr] = summarize_team_bullpen(
+            team_abbr,
+            rosters,
+            people_map,
+            pitcher_expected,
+            pitcher_statcast,
+            starter_ids_by_team.get(team_abbr),
+        )
+
+    event_ids_by_game = {
+        game_key: (ctx["odds"].event_id if isinstance(ctx.get("odds"), GameOdds) else "")
+        for game_key, ctx in lineup_context.items()
+    }
+    prop_market_map = fetch_slate_prop_markets(REPORT_DATE, event_ids_by_game)
 
     games_rows: list[list[str]] = [
         [
@@ -782,6 +1420,19 @@ def _run_model_pipeline(canvas_path: Path | None = None) -> None:
             "home_sp",
             "away_american",
             "home_american",
+            "market_total",
+            "market_over_american",
+            "market_under_american",
+            "weather_summary",
+            "weather_temp_f",
+            "weather_wind_mph",
+            "weather_precip_pct",
+            "bullpen_away_score",
+            "bullpen_home_score",
+            "recent_form_away_score",
+            "recent_form_home_score",
+            "verification_status",
+            "verification_notes",
             "implied_away_pct_nv",
             "implied_home_pct_nv",
             "model_away_win_pct",
@@ -810,13 +1461,22 @@ def _run_model_pipeline(canvas_path: Path | None = None) -> None:
         "fair_2tb_american",
         "market_hr_american",
         "edge_hr_pct",
+        "market_tb_line",
+        "market_tb_over_american",
+        "edge_tb_pct",
+        "recent_form_score",
+        "bvp_pa",
         "tier",
         "data_confidence",
+        "market_data_status",
     ]
     batter_rows: list[list[str]] = [batter_header]
 
     computed_games: list[dict[str, Any]] = []
     prop_arrays: dict[str, dict[str, list[dict[str, Any]]]] = {}
+    late_blocking_issues: list[str] = []
+    game_feature_rows: list[dict[str, Any]] = []
+    prop_feature_rows: list[dict[str, Any]] = []
 
     for spec in GAME_SPECS:
         key = f"{spec['away']}@{spec['home']}"
@@ -825,6 +1485,21 @@ def _run_model_pipeline(canvas_path: Path | None = None) -> None:
         home_pitcher = ctx["home_pitcher"]
         away_pitch_feats = pitcher_features.get(int(away_pitcher["id"])) if away_pitcher.get("id") else None
         home_pitch_feats = pitcher_features.get(int(home_pitcher["id"])) if home_pitcher.get("id") else None
+        weather_snapshot = ctx.get("weather")
+        away_recent_score = team_recent_form_score(ctx["away_players"], batter_features)
+        home_recent_score = team_recent_form_score(ctx["home_players"], batter_features)
+        away_bullpen_score = team_bullpen_scores.get(str(spec["away"]), {}).get("score")
+        home_bullpen_score = team_bullpen_scores.get(str(spec["home"]), {}).get("score")
+        if not allow_partial:
+            if away_recent_score is None:
+                late_blocking_issues.append(f"{key}: away recent form unavailable")
+            if home_recent_score is None:
+                late_blocking_issues.append(f"{key}: home recent form unavailable")
+            if away_bullpen_score is None:
+                late_blocking_issues.append(f"{key}: away bullpen unavailable")
+            if home_bullpen_score is None:
+                late_blocking_issues.append(f"{key}: home bullpen unavailable")
+
         away_prof = make_sp_profile(float((away_pitch_feats or {}).get("xera") or spec["away_xera"]))
         home_prof = make_sp_profile(float((home_pitch_feats or {}).get("xera") or spec["home_xera"]))
         away_lu = build_model_lineup(ctx["away_players"], batter_features)
@@ -835,30 +1510,52 @@ def _run_model_pipeline(canvas_path: Path | None = None) -> None:
             home_lu,
             away_prof,
             home_prof,
-            str(spec["weather"]),
-            str(spec["run_env"]),
+            weather_snapshot.summary if weather_snapshot else str(spec["weather"]),
+            run_environment_label(weather_snapshot.run_factor if weather_snapshot else None),
+            away_bullpen_score=away_bullpen_score,
+            home_bullpen_score=home_bullpen_score,
+            away_recent_form_score=away_recent_score,
+            home_recent_form_score=home_recent_score,
+            weather_factor=weather_snapshot.run_factor if weather_snapshot else None,
         )
-        ia, ih = devig_two_way(float(spec["away_a"]), float(spec["home_a"]))
+
+        away_moneyline = int(ctx["away_moneyline"])
+        home_moneyline = int(ctx["home_moneyline"])
+        ia, ih = devig_two_way(away_moneyline, home_moneyline)
         imp_a, imp_h = ia * 100, ih * 100
         ma, mh = p_away * 100, p_home * 100
         ea, eh = ma - imp_a, mh - imp_h
         pred = spec["away"] if p_away > p_home else spec["home"]
         edge_pick = ea if pred == spec["away"] else eh
         tier = tier_from_edge(edge_pick)
-        extra = list(spec.get("extra_flags", []))
-        flag_parts = extra + miss
-        flags = ";".join(flag_parts)
+        issues = list(ctx["issues"]) + miss
+        flags = ";".join(sorted(set(filter(None, issues))))
+        verification_status = "Verified" if not ctx["issues"] else "Partial"
 
+        odds = ctx.get("odds")
         games_rows.append(
             [
                 REPORT_DATE,
-                spec["away"],
-                spec["home"],
-                spec["time_et"],
+                str(spec["away"]),
+                str(spec["home"]),
+                str(spec["time_et"]),
                 away_pitcher.get("name", "TBD"),
                 home_pitcher.get("name", "TBD"),
-                str(spec["away_a"]),
-                str(spec["home_a"]),
+                str(away_moneyline),
+                str(home_moneyline),
+                str(odds.total_line) if isinstance(odds, GameOdds) and odds.total_line is not None else "",
+                str(odds.over_price) if isinstance(odds, GameOdds) and odds.over_price is not None else "",
+                str(odds.under_price) if isinstance(odds, GameOdds) and odds.under_price is not None else "",
+                weather_snapshot.summary if weather_snapshot else str(spec["weather"]),
+                round_or_blank(weather_snapshot.temperature_f if weather_snapshot else None, 1),
+                round_or_blank(weather_snapshot.wind_speed_mph if weather_snapshot else None, 1),
+                round_or_blank(weather_snapshot.precipitation_probability_pct if weather_snapshot else None, 0),
+                round_or_blank(away_bullpen_score, 3),
+                round_or_blank(home_bullpen_score, 3),
+                round_or_blank(away_recent_score, 3),
+                round_or_blank(home_recent_score, 3),
+                verification_status,
+                "|".join(sorted(set(ctx["issues"]))),
                 f"{imp_a:.2f}",
                 f"{imp_h:.2f}",
                 f"{ma:.2f}",
@@ -890,11 +1587,37 @@ def _run_model_pipeline(canvas_path: Path | None = None) -> None:
                 "flags": flags,
             }
         )
+        game_feature_rows.append(
+            {
+                "game": key,
+                "away": str(spec["away"]),
+                "home": str(spec["home"]),
+                "away_pitcher": away_pitcher,
+                "home_pitcher": home_pitcher,
+                "away_pitcher_features": away_pitch_feats,
+                "home_pitcher_features": home_pitch_feats,
+                "away_bullpen_score": away_bullpen_score,
+                "home_bullpen_score": home_bullpen_score,
+                "away_recent_form_score": away_recent_score,
+                "home_recent_form_score": home_recent_score,
+                "weather": serialize_weather(weather_snapshot if isinstance(weather_snapshot, WeatherSnapshot) else None),
+                "odds": serialize_game_odds(odds if isinstance(odds, GameOdds) else None),
+                "away_lineup_label": ctx["away_label"],
+                "home_lineup_label": ctx["home_label"],
+                "issues": sorted(set(ctx["issues"])),
+                "missing_data_flags": flags,
+                "prediction": pred,
+                "decision_tier": tier,
+                "edge_on_pick_pct": edge_pick,
+            }
+        )
+
         away_props: list[dict[str, Any]] = []
         home_props: list[dict[str, Any]] = []
-        for team_is_away, players, opp_pitcher, opp_pitch_feats, lineup_label in (
-            (True, ctx["away_players"], home_pitcher, home_pitch_feats, ctx["away_label"]),
-            (False, ctx["home_players"], away_pitcher, away_pitch_feats, ctx["home_label"]),
+        player_markets = prop_market_map.get(key, {})
+        for team_is_away, players, opp_pitcher, opp_pitch_feats, lineup_label, opp_bullpen in (
+            (True, ctx["away_players"], home_pitcher, home_pitch_feats, ctx["away_label"], home_bullpen_score),
+            (False, ctx["home_players"], away_pitcher, away_pitch_feats, ctx["home_label"], away_bullpen_score),
         ):
             opp_prof = make_sp_profile(float((opp_pitch_feats or {}).get("xera") or 4.15))
             side_rows = away_props if team_is_away else home_props
@@ -905,7 +1628,7 @@ def _run_model_pipeline(canvas_path: Path | None = None) -> None:
                     if opp_pitcher.get("id") and player.get("id")
                     else None
                 )
-                hr, tb2, fair_hr, fair_2tb, tier, pconf = batter_hr_two_tb(
+                hr, tb2, fair_hr, fair_2tb, prop_tier, pconf = batter_hr_two_tb(
                     str(spec["away"]),
                     str(spec["home"]),
                     team_is_away,
@@ -926,20 +1649,48 @@ def _run_model_pipeline(canvas_path: Path | None = None) -> None:
                     opp_est_slg=(opp_pitch_feats or {}).get("est_slg"),
                     opp_barrel_rate=(opp_pitch_feats or {}).get("barrel_rate"),
                     opp_hard_hit_rate=(opp_pitch_feats or {}).get("hard_hit_rate"),
+                    recent_slg=feats.get("recent_slg"),
+                    recent_ops=feats.get("recent_ops"),
+                    recent_hr_rate=feats.get("recent_hr_rate"),
+                    recent_tb_rate=feats.get("recent_tb_rate"),
+                    weather_factor=weather_snapshot.run_factor if weather_snapshot else None,
+                    opp_bullpen_score=opp_bullpen,
+                    starter_recent_form_score=(opp_pitch_feats or {}).get("recent_form_score"),
                     vs_pitcher_pa=(vs_pitcher or {}).get("pa"),
                     vs_pitcher_ab=(vs_pitcher or {}).get("ab"),
                     vs_pitcher_hits=(vs_pitcher or {}).get("hits"),
                     vs_pitcher_hr=(vs_pitcher or {}).get("home_runs"),
                     vs_pitcher_total_bases=(vs_pitcher or {}).get("total_bases"),
                 )
+                player_key = normalize_player_name(player["name"])
+                hr_market = player_markets.get((player_key, "batter_home_runs"))
+                tb_market = player_markets.get((player_key, "batter_total_bases"))
+                edge_hr_pct = (
+                    (hr * 100) - (american_to_implied(hr_market.over_price) * 100)
+                    if hr_market and hr_market.over_price is not None
+                    else None
+                )
+                edge_tb_pct = (
+                    (tb2 * 100) - (american_to_implied(tb_market.over_price) * 100)
+                    if tb_market and tb_market.over_price is not None
+                    else None
+                )
+                market_status = "full" if hr_market and tb_market else "partial" if hr_market or tb_market else "none"
+                if not allow_partial:
+                    if hr_market is None or hr_market.over_price is None:
+                        late_blocking_issues.append(f"{key}: missing HR market for {player['name']}")
+                    if tb_market is None or tb_market.point is None or tb_market.over_price is None:
+                        late_blocking_issues.append(f"{key}: missing TB market for {player['name']}")
                 note = build_prop_note(
                     feats,
                     opp_pitch_feats or {},
                     str(spec["away"]),
                     str(spec["home"]),
-                    vs_pitcher,
+                    vs_pitcher=vs_pitcher,
+                    weather_factor=weather_snapshot.run_factor if weather_snapshot else None,
+                    opp_bullpen_score=opp_bullpen,
                 )
-                dc = build_data_confidence(pconf, lineup_label)
+                dc = build_data_confidence(pconf, lineup_label, market_status)
                 batter_rows.append(
                     [
                         REPORT_DATE,
@@ -951,11 +1702,41 @@ def _run_model_pipeline(canvas_path: Path | None = None) -> None:
                         f"{tb2 * 100:.2f}",
                         fair_hr,
                         fair_2tb,
-                        "NA",
-                        "0.00",
-                        tier,
+                        str(hr_market.over_price) if hr_market and hr_market.over_price is not None else "NA",
+                        round_or_blank(edge_hr_pct, 2) if edge_hr_pct is not None else "",
+                        str(tb_market.point) if tb_market and tb_market.point is not None else "",
+                        str(tb_market.over_price) if tb_market and tb_market.over_price is not None else "",
+                        round_or_blank(edge_tb_pct, 2) if edge_tb_pct is not None else "",
+                        round_or_blank(feats.get("recent_form_score"), 3),
+                        str((vs_pitcher or {}).get("pa") or 0),
+                        prop_tier,
                         dc,
+                        market_status,
                     ]
+                )
+                prop_feature_rows.append(
+                    {
+                        "game": key,
+                        "team": str(spec["away"] if team_is_away else spec["home"]),
+                        "batter": player["name"],
+                        "opponent_pitcher": opp_pitcher.get("name", "TBD"),
+                        "lineup_label": lineup_label,
+                        "batter_features": feats,
+                        "pitcher_features": opp_pitch_feats,
+                        "vs_pitcher": vs_pitcher,
+                        "weather": serialize_weather(weather_snapshot if isinstance(weather_snapshot, WeatherSnapshot) else None),
+                        "opp_bullpen_score": opp_bullpen,
+                        "market_hr": serialize_prop_market(hr_market if isinstance(hr_market, PropMarketLine) else None),
+                        "market_tb": serialize_prop_market(tb_market if isinstance(tb_market, PropMarketLine) else None),
+                        "hr_prob": hr,
+                        "tb2_prob": tb2,
+                        "fair_hr": fair_hr,
+                        "fair_2tb": fair_2tb,
+                        "tier": prop_tier,
+                        "model_confidence": pconf,
+                        "data_confidence": dc,
+                        "market_status": market_status,
+                    }
                 )
                 side_rows.append(
                     {
@@ -963,11 +1744,14 @@ def _run_model_pipeline(canvas_path: Path | None = None) -> None:
                         "team": str(spec["away"] if team_is_away else spec["home"]),
                         "hrPct": hr * 100,
                         "tb2Pct": tb2 * 100,
-                        "tier": tier,
+                        "tier": prop_tier,
                         "note": note,
                     }
                 )
         prop_arrays[key] = {"away": away_props, "home": home_props}
+
+    if late_blocking_issues and not allow_partial:
+        raise LiveDataError("Full-data requirements not satisfied:\n- " + "\n- ".join(sorted(set(late_blocking_issues))))
 
     gcsv = csv_block(games_rows)
     bcsv = csv_block(batter_rows)
@@ -981,8 +1765,8 @@ def _run_model_pipeline(canvas_path: Path | None = None) -> None:
         span = extract_game_block(updated, cg["gameKey"])
         if not span:
             raise ValueError(f"Missing SLATE game block for {cg['gameKey']}")
-        a, b = span
-        block = updated[a:b]
+        start, end = span
+        block = updated[start:end]
         block = patch_float_field(block, "impliedAwayPct", cg["impliedAwayPct"])
         block = patch_float_field(block, "impliedHomePct", cg["impliedHomePct"])
         block = patch_float_field(block, "modelAwayPct", cg["modelAwayPct"])
@@ -1001,7 +1785,18 @@ def _run_model_pipeline(canvas_path: Path | None = None) -> None:
         block = replace_array_field(block, "homeLineup", render_lineup_rows(ctx["home_players"]))
         block = replace_array_field(block, "propsAway", render_prop_rows(prop_arrays[cg["gameKey"]]["away"]))
         block = replace_array_field(block, "propsHome", render_prop_rows(prop_arrays[cg["gameKey"]]["home"]))
-        updated = updated[:a] + block + updated[b:]
+        updated = updated[:start] + block + updated[end:]
 
     path.write_text(updated, encoding="utf-8")
+    snapshot_path = write_run_snapshot(
+        path,
+        allow_partial=allow_partial,
+        lineup_context=lineup_context,
+        games_rows=games_rows,
+        batter_rows=batter_rows,
+        game_feature_rows=game_feature_rows,
+        prop_feature_rows=prop_feature_rows,
+        team_bullpen_scores=team_bullpen_scores,
+    )
     print("Updated model-driven markers + SLATE:", path)
+    print("Wrote snapshot:", snapshot_path)

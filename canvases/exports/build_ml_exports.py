@@ -25,6 +25,19 @@ GAMES_HEADERS = [
     "home_sp",
     "away_american",
     "home_american",
+    "market_total",
+    "market_over_american",
+    "market_under_american",
+    "weather_summary",
+    "weather_temp_f",
+    "weather_wind_mph",
+    "weather_precip_pct",
+    "bullpen_away_score",
+    "bullpen_home_score",
+    "recent_form_away_score",
+    "recent_form_home_score",
+    "verification_status",
+    "verification_notes",
     "implied_away_pct_nv",
     "implied_home_pct_nv",
     "model_away_win_pct",
@@ -52,8 +65,14 @@ BATTER_HEADERS = [
     "fair_2tb_american",
     "market_hr_american",
     "edge_hr_pct",
+    "market_tb_line",
+    "market_tb_over_american",
+    "edge_tb_pct",
+    "recent_form_score",
+    "bvp_pa",
     "tier",
     "data_confidence",
+    "market_data_status",
 ]
 
 
@@ -70,6 +89,11 @@ def parse_args() -> argparse.Namespace:
         "--compute",
         action="store_true",
         help="Supported slates (apr16, apr18): run MLB Stats API + models, update canvas markers and SLATE, then export.",
+    )
+    parser.add_argument(
+        "--allow-partial",
+        action="store_true",
+        help="Allow fallbacks when strict live-data requirements are not fully satisfied.",
     )
     return parser.parse_args()
 
@@ -173,7 +197,7 @@ def main() -> None:
             sys.path.insert(0, str(REPO_ROOT))
         from apr16_compute import run_slate_pipeline
 
-        run_slate_pipeline(slug)
+        run_slate_pipeline(slug, allow_partial=args.allow_partial)
 
     canvas_path = CANVAS_DIR / f"mlb-pregame-intel-{slug}.canvas.tsx"
     if not canvas_path.exists():

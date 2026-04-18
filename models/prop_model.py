@@ -130,6 +130,13 @@ def batter_hr_two_tb(
     opp_est_slg: float | None = None,
     opp_barrel_rate: float | None = None,
     opp_hard_hit_rate: float | None = None,
+    recent_slg: float | None = None,
+    recent_ops: float | None = None,
+    recent_hr_rate: float | None = None,
+    recent_tb_rate: float | None = None,
+    weather_factor: float | None = None,
+    opp_bullpen_score: float | None = None,
+    starter_recent_form_score: float | None = None,
     vs_pitcher_pa: int | None = None,
     vs_pitcher_ab: int | None = None,
     vs_pitcher_hits: int | None = None,
@@ -157,6 +164,13 @@ def batter_hr_two_tb(
             opp_est_slg,
             opp_barrel_rate,
             opp_hard_hit_rate,
+            recent_slg,
+            recent_ops,
+            recent_hr_rate,
+            recent_tb_rate,
+            weather_factor,
+            opp_bullpen_score,
+            starter_recent_form_score,
         )
     )
 
@@ -202,6 +216,13 @@ def batter_hr_two_tb(
             opp_est_slg,
             opp_barrel_rate,
             opp_hard_hit_rate,
+            recent_slg,
+            recent_ops,
+            recent_hr_rate,
+            recent_tb_rate,
+            weather_factor,
+            opp_bullpen_score,
+            starter_recent_form_score,
         )
         miss = sum(value is None for value in feature_slots)
 
@@ -219,6 +240,10 @@ def batter_hr_two_tb(
             hr += (avg_hit_speed - 88.5) * 0.002
         if hitter_hr_rate is not None:
             hr += (hitter_hr_rate - 0.03) * 0.35
+        if recent_hr_rate is not None:
+            hr += clamp((recent_hr_rate - 0.03) * 0.18, -0.02, 0.03)
+        if recent_slg is not None:
+            hr += clamp((recent_slg - 0.4) * 0.06, -0.015, 0.025)
         if opp_xera is not None:
             hr += clamp((opp_xera - 4.1) * 0.008, -0.02, 0.03)
         if opp_est_slg is not None:
@@ -227,10 +252,16 @@ def batter_hr_two_tb(
             hr += (opp_barrel_rate - 0.08) * 0.08
         if opp_hard_hit_rate is not None:
             hr += (opp_hard_hit_rate - 0.38) * 0.04
+        if weather_factor is not None:
+            hr += clamp((weather_factor - 1.0) * 0.06, -0.015, 0.02)
+        if opp_bullpen_score is not None:
+            hr += clamp((0.5 - opp_bullpen_score) * 0.03, -0.015, 0.015)
+        if starter_recent_form_score is not None:
+            hr += clamp((0.5 - starter_recent_form_score) * 0.03, -0.015, 0.015)
         if vs_pitcher_pa is not None and vs_pitcher_pa >= 3:
             sample_weight = min(vs_pitcher_pa / 20.0, 1.0)
             if vs_pitcher_hr is not None:
-                hr += clamp(((vs_pitcher_hr / vs_pitcher_pa) - 0.03) * 0.1 * sample_weight, -0.01, 0.015)
+                hr += clamp(((vs_pitcher_hr / vs_pitcher_pa) - 0.03) * 0.16 * sample_weight, -0.015, 0.02)
             if (
                 vs_pitcher_ab is not None
                 and vs_pitcher_ab > 0
@@ -239,7 +270,7 @@ def batter_hr_two_tb(
             ):
                 pvb_avg = vs_pitcher_hits / vs_pitcher_ab
                 pvb_slg = vs_pitcher_total_bases / vs_pitcher_ab
-                hr += clamp((pvb_slg - 0.4) * 0.03 * sample_weight, -0.008, 0.012)
+                hr += clamp((pvb_slg - 0.4) * 0.05 * sample_weight, -0.01, 0.016)
         hr = clamp(hr + (pk - 1) * 0.024, 0.004, 0.25)
 
         tb2 = 0.16 + platoon * 1.5
@@ -257,6 +288,12 @@ def batter_hr_two_tb(
             tb2 += (est_ba - 0.245) * 0.16
         if hitter_hr_rate is not None:
             tb2 += (hitter_hr_rate - 0.03) * 0.1
+        if recent_slg is not None:
+            tb2 += clamp((recent_slg - 0.4) * 0.16, -0.03, 0.05)
+        if recent_ops is not None:
+            tb2 += clamp((recent_ops - 0.72) * 0.10, -0.025, 0.04)
+        if recent_tb_rate is not None:
+            tb2 += clamp((recent_tb_rate - 0.17) * 0.25, -0.025, 0.045)
         if opp_xera is not None:
             tb2 += clamp((opp_xera - 4.1) * 0.012, -0.03, 0.04)
         if opp_est_slg is not None:
@@ -265,6 +302,12 @@ def batter_hr_two_tb(
             tb2 += (opp_barrel_rate - 0.08) * 0.15
         if opp_hard_hit_rate is not None:
             tb2 += (opp_hard_hit_rate - 0.38) * 0.1
+        if weather_factor is not None:
+            tb2 += clamp((weather_factor - 1.0) * 0.18, -0.03, 0.05)
+        if opp_bullpen_score is not None:
+            tb2 += clamp((0.5 - opp_bullpen_score) * 0.06, -0.03, 0.03)
+        if starter_recent_form_score is not None:
+            tb2 += clamp((0.5 - starter_recent_form_score) * 0.06, -0.03, 0.03)
         if (
             vs_pitcher_pa is not None
             and vs_pitcher_pa >= 3
@@ -276,8 +319,8 @@ def batter_hr_two_tb(
             sample_weight = min(vs_pitcher_pa / 20.0, 1.0)
             pvb_avg = vs_pitcher_hits / vs_pitcher_ab
             pvb_slg = vs_pitcher_total_bases / vs_pitcher_ab
-            tb2 += clamp((pvb_avg - 0.245) * 0.08 * sample_weight, -0.015, 0.02)
-            tb2 += clamp((pvb_slg - 0.4) * 0.08 * sample_weight, -0.02, 0.025)
+            tb2 += clamp((pvb_avg - 0.245) * 0.12 * sample_weight, -0.02, 0.025)
+            tb2 += clamp((pvb_slg - 0.4) * 0.12 * sample_weight, -0.025, 0.03)
         tb2 = clamp(tb2 + (pk - 1) * 0.1, 0.06, 0.55)
 
     fair_hr = prob_to_american(hr)
