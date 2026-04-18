@@ -78,13 +78,13 @@ const SLATE: SlateGame[] = [
     homeAmerican: -158,
     impliedAwayPct: 40.29,
     impliedHomePct: 59.71,
-    modelAwayPct: 36.98,
-    modelHomePct: 63.02,
-    edgeAwayPct: -3.31,
-    edgeHomePct: 3.31,
+    modelAwayPct: 37.11,
+    modelHomePct: 62.89,
+    edgeAwayPct: -3.18,
+    edgeHomePct: 3.18,
     prediction: "NYY",
     decisionTier: "B",
-    edgeOnPickPct: 3.31,
+    edgeOnPickPct: 3.18,
     modelConfidence: "High",
     analystConfidence: "Medium",
     flags: "approx_market_ml",
@@ -117,26 +117,26 @@ const SLATE: SlateGame[] = [
     spHomeNotes: ["Home starter matchup — verify pitch mix vs lineup handedness before staking a side."],
     matchupBullets: ["Park: Yankee Stadium. Weather/run environment from inputs: 72F / clear / Medium."],
     propsAway: [
-      { batter: "Maikel Garcia", team: "KC", hrPct: 2.9, tb2Pct: 19.8, tier: "D", note: "RHB vs RHP; above-average damage; vs tough pitcher" },
-      { batter: "Bobby Witt Jr.", team: "KC", hrPct: 2.9, tb2Pct: 21.6, tier: "C", note: "RHB vs RHP; above-average damage; vs tough pitcher" },
-      { batter: "Vinnie Pasquantino", team: "KC", hrPct: 0.8, tb2Pct: 11.0, tier: "D", note: "LHB vs RHP; contact-driven profile; vs tough pitcher" },
-      { batter: "Jac Caglianone", team: "KC", hrPct: 3.3, tb2Pct: 20.7, tier: "C", note: "LHB vs RHP; above-average damage; vs tough pitcher" },
-      { batter: "Carter Jensen", team: "KC", hrPct: 6.1, tb2Pct: 21.2, tier: "C", note: "LHB vs RHP; above-average damage; vs tough pitcher" },
-      { batter: "Michael Massey", team: "KC", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "LHB vs RHP; contact-driven profile; vs tough pitcher" },
-      { batter: "Isaac Collins", team: "KC", hrPct: 0.4, tb2Pct: 7.2, tier: "D", note: "LHB vs RHP; above-average damage; vs tough pitcher" },
+      { batter: "Maikel Garcia", team: "KC", hrPct: 2.7, tb2Pct: 19.0, tier: "D", note: "RHB vs RHP; above-average damage; vs tough pitcher" },
+      { batter: "Bobby Witt Jr.", team: "KC", hrPct: 2.7, tb2Pct: 20.8, tier: "C", note: "RHB vs RHP; above-average damage; vs tough pitcher" },
+      { batter: "Vinnie Pasquantino", team: "KC", hrPct: 0.4, tb2Pct: 9.5, tier: "D", note: "LHB vs RHP; contact-driven profile; vs tough pitcher" },
+      { batter: "Jac Caglianone", team: "KC", hrPct: 2.9, tb2Pct: 19.2, tier: "D", note: "LHB vs RHP; above-average damage; vs tough pitcher" },
+      { batter: "Carter Jensen", team: "KC", hrPct: 4.6, tb2Pct: 17.6, tier: "D", note: "LHB vs RHP; above-average damage; vs tough pitcher" },
+      { batter: "Michael Massey", team: "KC", hrPct: 0.4, tb2Pct: 7.3, tier: "D", note: "LHB vs RHP; contact-driven profile; vs tough pitcher" },
+      { batter: "Isaac Collins", team: "KC", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "LHB vs RHP; above-average damage; vs tough pitcher" },
       { batter: "Lane Thomas", team: "KC", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "RHB vs RHP; limited power profile; vs tough pitcher" },
-      { batter: "Kyle Isbel", team: "KC", hrPct: 1.2, tb2Pct: 13.3, tier: "D", note: "LHB vs RHP; contact-driven profile; vs tough pitcher" },
+      { batter: "Kyle Isbel", team: "KC", hrPct: 0.8, tb2Pct: 11.8, tier: "D", note: "LHB vs RHP; contact-driven profile; vs tough pitcher" },
     ],
     propsHome: [
-      { batter: "Amed Rosario", team: "NYY", hrPct: 7.7, tb2Pct: 30.0, tier: "B", note: "RHB vs LHP; elite power indicators; vs vulnerable pitcher" },
-      { batter: "Aaron Judge", team: "NYY", hrPct: 14.9, tb2Pct: 44.8, tier: "A+", note: "RHB vs LHP; elite power indicators; vs vulnerable pitcher" },
-      { batter: "Cody Bellinger", team: "NYY", hrPct: 3.6, tb2Pct: 18.9, tier: "D", note: "LHB vs LHP; contact-driven profile; vs vulnerable pitcher" },
-      { batter: "Giancarlo Stanton", team: "NYY", hrPct: 6.3, tb2Pct: 24.2, tier: "C", note: "RHB vs LHP; elite power indicators; vs vulnerable pitcher" },
-      { batter: "Ben Rice", team: "NYY", hrPct: 15.0, tb2Pct: 49.2, tier: "A+", note: "LHB vs LHP; elite power indicators; vs vulnerable pitcher" },
-      { batter: "Randal Grichuk", team: "NYY", hrPct: 0.7, tb2Pct: 6.6, tier: "D", note: "RHB vs LHP; contact-driven profile; vs vulnerable pitcher" },
-      { batter: "Jazz Chisholm Jr.", team: "NYY", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "LHB vs LHP; limited power profile; vs vulnerable pitcher" },
-      { batter: "José Caballero", team: "NYY", hrPct: 1.0, tb2Pct: 12.2, tier: "D", note: "RHB vs LHP; limited power profile; vs vulnerable pitcher" },
-      { batter: "J.C. Escarra", team: "NYY", hrPct: 1.9, tb2Pct: 13.7, tier: "D", note: "LHB vs LHP; contact-driven profile; vs vulnerable pitcher" },
+      { batter: "Amed Rosario", team: "NYY", hrPct: 9.8, tb2Pct: 32.9, tier: "A", note: "RHB vs LHP; elite power indicators; vs vulnerable pitcher" },
+      { batter: "Aaron Judge", team: "NYY", hrPct: 16.2, tb2Pct: 46.5, tier: "A+", note: "RHB vs LHP; elite power indicators; vs vulnerable pitcher" },
+      { batter: "Cody Bellinger", team: "NYY", hrPct: 5.9, tb2Pct: 22.6, tier: "C", note: "LHB vs LHP; contact-driven profile; vs vulnerable pitcher" },
+      { batter: "Giancarlo Stanton", team: "NYY", hrPct: 8.4, tb2Pct: 27.1, tier: "B", note: "RHB vs LHP; elite power indicators; vs vulnerable pitcher" },
+      { batter: "Ben Rice", team: "NYY", hrPct: 17.1, tb2Pct: 52.1, tier: "A+", note: "LHB vs LHP; elite power indicators; vs vulnerable pitcher" },
+      { batter: "Randal Grichuk", team: "NYY", hrPct: 2.8, tb2Pct: 9.5, tier: "D", note: "RHB vs LHP; contact-driven profile; vs vulnerable pitcher" },
+      { batter: "Jazz Chisholm Jr.", team: "NYY", hrPct: 1.6, tb2Pct: 8.5, tier: "D", note: "LHB vs LHP; limited power profile; vs vulnerable pitcher" },
+      { batter: "José Caballero", team: "NYY", hrPct: 3.1, tb2Pct: 15.1, tier: "D", note: "RHB vs LHP; limited power profile; vs vulnerable pitcher" },
+      { batter: "J.C. Escarra", team: "NYY", hrPct: 4.0, tb2Pct: 16.6, tier: "D", note: "LHB vs LHP; contact-driven profile; vs vulnerable pitcher" },
     ],
   },
   {
@@ -191,23 +191,23 @@ const SLATE: SlateGame[] = [
     matchupBullets: ["Park: Target Field. Weather/run environment from inputs: 58F / roof likely / Medium."],
     propsAway: [
       { batter: "TJ Friedl", team: "CIN", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "LHB vs RHP; limited power profile; vs tough pitcher" },
-      { batter: "Will Benson", team: "CIN", hrPct: 0.4, tb2Pct: 7.3, tier: "D", note: "LHB vs RHP; contact-driven profile; vs tough pitcher" },
+      { batter: "Will Benson", team: "CIN", hrPct: 0.4, tb2Pct: 6.8, tier: "D", note: "LHB vs RHP; contact-driven profile; vs tough pitcher" },
       { batter: "Elly De La Cruz", team: "CIN", hrPct: 8.4, tb2Pct: 31.7, tier: "B", note: "LHB vs RHP; elite power indicators; vs tough pitcher" },
       { batter: "Sal Stewart", team: "CIN", hrPct: 8.7, tb2Pct: 32.9, tier: "A", note: "RHB vs RHP; elite power indicators; vs tough pitcher" },
-      { batter: "Eugenio Suárez", team: "CIN", hrPct: 2.1, tb2Pct: 13.1, tier: "D", note: "RHB vs RHP; above-average damage; vs tough pitcher" },
-      { batter: "Nathaniel Lowe", team: "CIN", hrPct: 0.4, tb2Pct: 8.8, tier: "D", note: "LHB vs RHP; contact-driven profile; vs tough pitcher" },
+      { batter: "Eugenio Suárez", team: "CIN", hrPct: 2.2, tb2Pct: 13.4, tier: "D", note: "RHB vs RHP; above-average damage; vs tough pitcher" },
+      { batter: "Nathaniel Lowe", team: "CIN", hrPct: 0.4, tb2Pct: 9.5, tier: "D", note: "LHB vs RHP; contact-driven profile; vs tough pitcher" },
       { batter: "Tyler Stephenson", team: "CIN", hrPct: 4.4, tb2Pct: 20.7, tier: "C", note: "RHB vs RHP; above-average damage; vs tough pitcher" },
       { batter: "Rece Hinds", team: "CIN", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "RHB vs RHP; contact-driven profile; vs tough pitcher" },
       { batter: "Ke'Bryan Hayes", team: "CIN", hrPct: 0.4, tb2Pct: 8.9, tier: "D", note: "RHB vs RHP; contact-driven profile; vs tough pitcher" },
     ],
     propsHome: [
       { batter: "Byron Buxton", team: "MIN", hrPct: 6.4, tb2Pct: 24.1, tier: "C", note: "RHB vs LHP; elite power indicators; vs vulnerable pitcher" },
-      { batter: "Austin Martin", team: "MIN", hrPct: 1.8, tb2Pct: 16.8, tier: "D", note: "RHB vs LHP; contact-driven profile; vs vulnerable pitcher" },
-      { batter: "Josh Bell", team: "MIN", hrPct: 5.8, tb2Pct: 25.7, tier: "C", note: "RHB vs LHP; above-average damage; vs vulnerable pitcher" },
-      { batter: "Ryan Jeffers", team: "MIN", hrPct: 5.5, tb2Pct: 24.3, tier: "C", note: "RHB vs LHP; above-average damage; vs vulnerable pitcher" },
+      { batter: "Austin Martin", team: "MIN", hrPct: 1.6, tb2Pct: 15.8, tier: "D", note: "RHB vs LHP; contact-driven profile; vs vulnerable pitcher" },
+      { batter: "Josh Bell", team: "MIN", hrPct: 5.7, tb2Pct: 25.6, tier: "C", note: "RHB vs LHP; above-average damage; vs vulnerable pitcher" },
+      { batter: "Ryan Jeffers", team: "MIN", hrPct: 5.8, tb2Pct: 26.0, tier: "C", note: "RHB vs LHP; above-average damage; vs vulnerable pitcher" },
       { batter: "Luke Keaschall", team: "MIN", hrPct: 0.4, tb2Pct: 9.5, tier: "D", note: "RHB vs LHP; limited power profile; vs vulnerable pitcher" },
-      { batter: "Trevor Larnach", team: "MIN", hrPct: 2.8, tb2Pct: 18.7, tier: "D", note: "LHB vs LHP; contact-driven profile; vs vulnerable pitcher" },
-      { batter: "Brooks Lee", team: "MIN", hrPct: 1.9, tb2Pct: 11.7, tier: "D", note: "RHB vs LHP; limited power profile; vs vulnerable pitcher" },
+      { batter: "Trevor Larnach", team: "MIN", hrPct: 2.9, tb2Pct: 18.9, tier: "D", note: "LHB vs LHP; contact-driven profile; vs vulnerable pitcher" },
+      { batter: "Brooks Lee", team: "MIN", hrPct: 2.0, tb2Pct: 11.9, tier: "D", note: "RHB vs LHP; limited power profile; vs vulnerable pitcher" },
       { batter: "Ryan Kreidler", team: "MIN", hrPct: 11.3, tb2Pct: 40.2, tier: "A+", note: "RHB vs LHP; elite power indicators; vs vulnerable pitcher" },
       { batter: "Tristan Gray", team: "MIN", hrPct: 5.4, tb2Pct: 25.4, tier: "C", note: "LHB vs LHP; elite power indicators; vs vulnerable pitcher" },
     ],
@@ -263,26 +263,26 @@ const SLATE: SlateGame[] = [
     spHomeNotes: ["Home starter matchup — verify pitch mix vs lineup handedness before staking a side."],
     matchupBullets: ["Park: Wrigley Field. Weather/run environment from inputs: 52F / wind in / Low-Medium."],
     propsAway: [
-      { batter: "Carson Benge", team: "NYM", hrPct: 1.0, tb2Pct: 10.9, tier: "D", note: "LHB vs RHP; limited power profile; vs vulnerable pitcher" },
+      { batter: "Carson Benge", team: "NYM", hrPct: 1.0, tb2Pct: 10.8, tier: "D", note: "LHB vs RHP; limited power profile; vs vulnerable pitcher" },
       { batter: "Bo Bichette", team: "NYM", hrPct: 1.3, tb2Pct: 17.2, tier: "D", note: "RHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
       { batter: "Francisco Lindor", team: "NYM", hrPct: 3.2, tb2Pct: 17.8, tier: "D", note: "LHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
-      { batter: "Luis Robert Jr.", team: "NYM", hrPct: 3.2, tb2Pct: 18.7, tier: "D", note: "RHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
-      { batter: "MJ Melendez", team: "NYM", hrPct: 6.3, tb2Pct: 38.9, tier: "A+", note: "LHB vs RHP; elite power indicators; vs vulnerable pitcher" },
+      { batter: "Luis Robert Jr.", team: "NYM", hrPct: 3.1, tb2Pct: 18.5, tier: "D", note: "RHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
+      { batter: "MJ Melendez", team: "NYM", hrPct: 6.1, tb2Pct: 38.4, tier: "A+", note: "LHB vs RHP; elite power indicators; vs vulnerable pitcher" },
       { batter: "Francisco Alvarez", team: "NYM", hrPct: 9.9, tb2Pct: 36.2, tier: "A", note: "RHB vs RHP; elite power indicators; vs vulnerable pitcher" },
-      { batter: "Mark Vientos", team: "NYM", hrPct: 2.5, tb2Pct: 14.9, tier: "D", note: "RHB vs RHP; limited power profile; vs vulnerable pitcher" },
-      { batter: "Brett Baty", team: "NYM", hrPct: 0.7, tb2Pct: 10.6, tier: "D", note: "LHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
-      { batter: "Marcus Semien", team: "NYM", hrPct: 2.1, tb2Pct: 14.0, tier: "D", note: "RHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
+      { batter: "Mark Vientos", team: "NYM", hrPct: 1.5, tb2Pct: 13.4, tier: "D", note: "RHB vs RHP; limited power profile; vs vulnerable pitcher" },
+      { batter: "Brett Baty", team: "NYM", hrPct: 1.7, tb2Pct: 12.3, tier: "D", note: "LHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
+      { batter: "Marcus Semien", team: "NYM", hrPct: 2.1, tb2Pct: 13.9, tier: "D", note: "RHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
     ],
     propsHome: [
       { batter: "Nico Hoerner", team: "CHC", hrPct: 0.4, tb2Pct: 13.3, tier: "D", note: "RHB vs RHP; contact-driven profile; vs tough pitcher" },
       { batter: "Michael Busch", team: "CHC", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "LHB vs RHP; limited power profile; vs tough pitcher" },
-      { batter: "Alex Bregman", team: "CHC", hrPct: 0.6, tb2Pct: 12.6, tier: "D", note: "RHB vs RHP; contact-driven profile; vs tough pitcher" },
-      { batter: "Ian Happ", team: "CHC", hrPct: 6.5, tb2Pct: 21.8, tier: "C", note: "LHB vs RHP; elite power indicators; vs tough pitcher" },
+      { batter: "Alex Bregman", team: "CHC", hrPct: 0.5, tb2Pct: 12.3, tier: "D", note: "RHB vs RHP; contact-driven profile; vs tough pitcher" },
+      { batter: "Ian Happ", team: "CHC", hrPct: 6.0, tb2Pct: 20.7, tier: "C", note: "LHB vs RHP; elite power indicators; vs tough pitcher" },
       { batter: "Seiya Suzuki", team: "CHC", hrPct: 0.4, tb2Pct: 7.1, tier: "D", note: "RHB vs RHP; contact-driven profile; vs tough pitcher" },
       { batter: "Moisés Ballesteros", team: "CHC", hrPct: 8.2, tb2Pct: 32.5, tier: "A", note: "LHB vs RHP; elite power indicators; vs tough pitcher" },
       { batter: "Miguel Amaya", team: "CHC", hrPct: 0.6, tb2Pct: 13.1, tier: "D", note: "RHB vs RHP; contact-driven profile; vs tough pitcher" },
-      { batter: "Pete Crow-Armstrong", team: "CHC", hrPct: 1.3, tb2Pct: 13.4, tier: "D", note: "LHB vs RHP; hard-contact profile; vs tough pitcher" },
-      { batter: "Dansby Swanson", team: "CHC", hrPct: 3.3, tb2Pct: 15.6, tier: "D", note: "RHB vs RHP; above-average damage; vs tough pitcher" },
+      { batter: "Pete Crow-Armstrong", team: "CHC", hrPct: 1.3, tb2Pct: 13.3, tier: "D", note: "LHB vs RHP; hard-contact profile; vs tough pitcher" },
+      { batter: "Dansby Swanson", team: "CHC", hrPct: 3.4, tb2Pct: 15.7, tier: "D", note: "RHB vs RHP; above-average damage; vs tough pitcher" },
     ],
   },
   {
@@ -337,9 +337,9 @@ const SLATE: SlateGame[] = [
     matchupBullets: ["Park: PNC Park. Weather/run environment from inputs: 62F / clear / Medium."],
     propsAway: [
       { batter: "Chandler Simpson", team: "TB", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "LHB vs RHP; limited power profile; vs tough pitcher" },
-      { batter: "Junior Caminero", team: "TB", hrPct: 0.9, tb2Pct: 12.9, tier: "D", note: "RHB vs RHP; hard-contact profile; vs tough pitcher" },
-      { batter: "Jonathan Aranda", team: "TB", hrPct: 1.8, tb2Pct: 15.9, tier: "D", note: "LHB vs RHP; above-average damage; vs tough pitcher" },
-      { batter: "Yandy Díaz", team: "TB", hrPct: 1.9, tb2Pct: 19.4, tier: "D", note: "RHB vs RHP; above-average damage; vs tough pitcher" },
+      { batter: "Junior Caminero", team: "TB", hrPct: 0.8, tb2Pct: 13.1, tier: "D", note: "RHB vs RHP; hard-contact profile; vs tough pitcher" },
+      { batter: "Jonathan Aranda", team: "TB", hrPct: 1.8, tb2Pct: 15.8, tier: "D", note: "LHB vs RHP; above-average damage; vs tough pitcher" },
+      { batter: "Yandy Díaz", team: "TB", hrPct: 1.8, tb2Pct: 19.3, tier: "D", note: "RHB vs RHP; above-average damage; vs tough pitcher" },
       { batter: "Jake Fraley", team: "TB", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "LHB vs RHP; contact-driven profile; vs tough pitcher" },
       { batter: "Cedric Mullins", team: "TB", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "LHB vs RHP; limited power profile; vs tough pitcher" },
       { batter: "Richie Palacios", team: "TB", hrPct: 0.4, tb2Pct: 11.3, tier: "D", note: "LHB vs RHP; contact-driven profile; vs tough pitcher" },
@@ -349,12 +349,12 @@ const SLATE: SlateGame[] = [
     propsHome: [
       { batter: "Oneil Cruz", team: "PIT", hrPct: 9.7, tb2Pct: 35.6, tier: "A", note: "LHB vs RHP; elite power indicators; vs tough pitcher" },
       { batter: "Brandon Lowe", team: "PIT", hrPct: 5.6, tb2Pct: 24.7, tier: "C", note: "LHB vs RHP; elite power indicators; vs tough pitcher" },
-      { batter: "Bryan Reynolds", team: "PIT", hrPct: 3.5, tb2Pct: 21.2, tier: "C", note: "LHB vs RHP; above-average damage; vs tough pitcher" },
+      { batter: "Bryan Reynolds", team: "PIT", hrPct: 3.4, tb2Pct: 21.2, tier: "C", note: "LHB vs RHP; above-average damage; vs tough pitcher" },
       { batter: "Ryan O'Hearn", team: "PIT", hrPct: 4.2, tb2Pct: 24.8, tier: "C", note: "LHB vs RHP; elite power indicators; vs tough pitcher" },
       { batter: "Marcell Ozuna", team: "PIT", hrPct: 0.4, tb2Pct: 8.9, tier: "D", note: "RHB vs RHP; contact-driven profile; vs tough pitcher" },
-      { batter: "Nick Yorke", team: "PIT", hrPct: 0.4, tb2Pct: 13.4, tier: "D", note: "RHB vs RHP; hard-contact profile; vs tough pitcher" },
+      { batter: "Nick Yorke", team: "PIT", hrPct: 0.4, tb2Pct: 13.3, tier: "D", note: "RHB vs RHP; hard-contact profile; vs tough pitcher" },
       { batter: "Spencer Horwitz", team: "PIT", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "LHB vs RHP; limited power profile; vs tough pitcher" },
-      { batter: "Konnor Griffin", team: "PIT", hrPct: 0.4, tb2Pct: 6.2, tier: "D", note: "RHB vs RHP; contact-driven profile; vs tough pitcher" },
+      { batter: "Konnor Griffin", team: "PIT", hrPct: 0.4, tb2Pct: 6.1, tier: "D", note: "RHB vs RHP; contact-driven profile; vs tough pitcher" },
       { batter: "Henry Davis", team: "PIT", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "RHB vs RHP; hard-contact profile; vs tough pitcher" },
     ],
   },
@@ -409,10 +409,10 @@ const SLATE: SlateGame[] = [
     spHomeNotes: ["Home starter matchup — verify pitch mix vs lineup handedness before staking a side."],
     matchupBullets: ["Park: Nationals Park. Weather/run environment from inputs: 68F / clear / Medium."],
     propsAway: [
-      { batter: "Willy Adames", team: "SF", hrPct: 3.7, tb2Pct: 19.8, tier: "D", note: "RHB vs RHP; above-average damage; vs vulnerable pitcher" },
-      { batter: "Luis Arraez", team: "SF", hrPct: 0.4, tb2Pct: 6.2, tier: "D", note: "LHB vs RHP; limited power profile; vs vulnerable pitcher" },
-      { batter: "Matt Chapman", team: "SF", hrPct: 0.4, tb2Pct: 11.9, tier: "D", note: "RHB vs RHP; limited power profile; vs vulnerable pitcher" },
-      { batter: "Rafael Devers", team: "SF", hrPct: 3.2, tb2Pct: 16.6, tier: "D", note: "LHB vs RHP; above-average damage; vs vulnerable pitcher" },
+      { batter: "Willy Adames", team: "SF", hrPct: 3.7, tb2Pct: 19.7, tier: "D", note: "RHB vs RHP; above-average damage; vs vulnerable pitcher" },
+      { batter: "Luis Arraez", team: "SF", hrPct: 0.4, tb2Pct: 6.4, tier: "D", note: "LHB vs RHP; limited power profile; vs vulnerable pitcher" },
+      { batter: "Matt Chapman", team: "SF", hrPct: 0.4, tb2Pct: 11.8, tier: "D", note: "RHB vs RHP; limited power profile; vs vulnerable pitcher" },
+      { batter: "Rafael Devers", team: "SF", hrPct: 3.2, tb2Pct: 16.5, tier: "D", note: "LHB vs RHP; above-average damage; vs vulnerable pitcher" },
       { batter: "Casey Schmitt", team: "SF", hrPct: 5.5, tb2Pct: 26.1, tier: "B", note: "RHB vs RHP; above-average damage; vs vulnerable pitcher" },
       { batter: "Jung Hoo Lee", team: "SF", hrPct: 0.8, tb2Pct: 14.0, tier: "D", note: "LHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
       { batter: "Heliot Ramos", team: "SF", hrPct: 1.5, tb2Pct: 13.3, tier: "D", note: "RHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
@@ -420,8 +420,8 @@ const SLATE: SlateGame[] = [
       { batter: "Patrick Bailey", team: "SF", hrPct: 0.4, tb2Pct: 7.3, tier: "D", note: "LHB vs RHP; limited power profile; vs vulnerable pitcher" },
     ],
     propsHome: [
-      { batter: "James Wood", team: "WSH", hrPct: 12.2, tb2Pct: 39.9, tier: "A+", note: "LHB vs RHP; elite power indicators; vs vulnerable pitcher" },
-      { batter: "Luis García Jr.", team: "WSH", hrPct: 3.4, tb2Pct: 20.0, tier: "C", note: "LHB vs RHP; hard-contact profile; vs vulnerable pitcher" },
+      { batter: "James Wood", team: "WSH", hrPct: 12.7, tb2Pct: 40.8, tier: "A+", note: "LHB vs RHP; elite power indicators; vs vulnerable pitcher" },
+      { batter: "Luis García Jr.", team: "WSH", hrPct: 3.4, tb2Pct: 19.9, tier: "D", note: "LHB vs RHP; hard-contact profile; vs vulnerable pitcher" },
       { batter: "José Tena", team: "WSH", hrPct: 1.9, tb2Pct: 18.6, tier: "D", note: "LHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
       { batter: "CJ Abrams", team: "WSH", hrPct: 9.2, tb2Pct: 36.2, tier: "A", note: "LHB vs RHP; elite power indicators; vs vulnerable pitcher" },
       { batter: "Jacob Young", team: "WSH", hrPct: 4.0, tb2Pct: 22.1, tier: "C", note: "RHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
@@ -443,13 +443,13 @@ const SLATE: SlateGame[] = [
     homeAmerican: -124,
     impliedAwayPct: 46.48,
     impliedHomePct: 53.52,
-    modelAwayPct: 68.14,
-    modelHomePct: 31.86,
-    edgeAwayPct: 21.66,
-    edgeHomePct: -21.66,
+    modelAwayPct: 68.20,
+    modelHomePct: 31.80,
+    edgeAwayPct: 21.72,
+    edgeHomePct: -21.72,
     prediction: "CWS",
     decisionTier: "A+",
-    edgeOnPickPct: 21.66,
+    edgeOnPickPct: 21.72,
     modelConfidence: "High",
     analystConfidence: "Low",
     flags: "approx_market_ml;oak_coliseum_env",
@@ -482,20 +482,20 @@ const SLATE: SlateGame[] = [
     spHomeNotes: ["Home starter matchup — verify pitch mix vs lineup handedness before staking a side."],
     matchupBullets: ["Park: Oakland Coliseum. Weather/run environment from inputs: 66F / marine air / Low-Medium."],
     propsAway: [
-      { batter: "Andrew Benintendi", team: "CWS", hrPct: 4.8, tb2Pct: 23.2, tier: "C", note: "LHB vs RHP; above-average damage; vs vulnerable pitcher" },
+      { batter: "Andrew Benintendi", team: "CWS", hrPct: 4.8, tb2Pct: 23.1, tier: "C", note: "LHB vs RHP; above-average damage; vs vulnerable pitcher" },
       { batter: "Munetaka Murakami", team: "CWS", hrPct: 12.0, tb2Pct: 37.1, tier: "A", note: "LHB vs RHP; elite power indicators; vs vulnerable pitcher" },
-      { batter: "Miguel Vargas", team: "CWS", hrPct: 3.5, tb2Pct: 17.9, tier: "D", note: "RHB vs RHP; above-average damage; vs vulnerable pitcher" },
-      { batter: "Colson Montgomery", team: "CWS", hrPct: 2.5, tb2Pct: 11.7, tier: "D", note: "LHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
-      { batter: "Everson Pereira", team: "CWS", hrPct: 8.7, tb2Pct: 31.2, tier: "B", note: "RHB vs RHP; elite power indicators; vs vulnerable pitcher" },
+      { batter: "Miguel Vargas", team: "CWS", hrPct: 3.4, tb2Pct: 17.8, tier: "D", note: "RHB vs RHP; above-average damage; vs vulnerable pitcher" },
+      { batter: "Colson Montgomery", team: "CWS", hrPct: 3.1, tb2Pct: 12.8, tier: "D", note: "LHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
+      { batter: "Everson Pereira", team: "CWS", hrPct: 9.2, tb2Pct: 34.4, tier: "A", note: "RHB vs RHP; elite power indicators; vs vulnerable pitcher" },
       { batter: "Sam Antonacci", team: "CWS", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "LHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
       { batter: "Chase Meidroth", team: "CWS", hrPct: 2.2, tb2Pct: 16.4, tier: "D", note: "RHB vs RHP; hard-contact profile; vs vulnerable pitcher" },
       { batter: "Tristan Peters", team: "CWS", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "LHB vs RHP; limited power profile; vs vulnerable pitcher" },
       { batter: "Reese McGuire", team: "CWS", hrPct: 0.4, tb2Pct: 6.4, tier: "D", note: "LHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
     ],
     propsHome: [
-      { batter: "Jeff McNeil", team: "ATH", hrPct: 0.4, tb2Pct: 10.2, tier: "D", note: "LHB vs RHP; limited power profile; vs tough pitcher" },
-      { batter: "Shea Langeliers", team: "ATH", hrPct: 6.5, tb2Pct: 27.7, tier: "B", note: "RHB vs RHP; elite power indicators; vs tough pitcher" },
-      { batter: "Nick Kurtz", team: "ATH", hrPct: 5.4, tb2Pct: 24.1, tier: "C", note: "LHB vs RHP; elite power indicators; vs tough pitcher" },
+      { batter: "Jeff McNeil", team: "ATH", hrPct: 0.4, tb2Pct: 10.1, tier: "D", note: "LHB vs RHP; limited power profile; vs tough pitcher" },
+      { batter: "Shea Langeliers", team: "ATH", hrPct: 6.4, tb2Pct: 27.6, tier: "B", note: "RHB vs RHP; elite power indicators; vs tough pitcher" },
+      { batter: "Nick Kurtz", team: "ATH", hrPct: 5.4, tb2Pct: 24.0, tier: "C", note: "LHB vs RHP; elite power indicators; vs tough pitcher" },
       { batter: "Tyler Soderstrom", team: "ATH", hrPct: 2.1, tb2Pct: 16.0, tier: "D", note: "LHB vs RHP; above-average damage; vs tough pitcher" },
       { batter: "Jacob Wilson", team: "ATH", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "RHB vs RHP; limited power profile; vs tough pitcher" },
       { batter: "Carlos Cortes", team: "ATH", hrPct: 1.6, tb2Pct: 16.3, tier: "D", note: "LHB vs RHP; contact-driven profile; vs tough pitcher" },
@@ -555,9 +555,9 @@ const SLATE: SlateGame[] = [
     spHomeNotes: ["Home starter matchup — verify pitch mix vs lineup handedness before staking a side."],
     matchupBullets: ["Park: Fenway Park. Weather/run environment from inputs: 58F / clear / Medium."],
     propsAway: [
-      { batter: "Kevin McGonigle", team: "DET", hrPct: 5.0, tb2Pct: 26.3, tier: "B", note: "LHB vs RHP; elite power indicators; vs vulnerable pitcher" },
-      { batter: "Gleyber Torres", team: "DET", hrPct: 0.4, tb2Pct: 12.2, tier: "D", note: "RHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
-      { batter: "Colt Keith", team: "DET", hrPct: 6.1, tb2Pct: 28.9, tier: "B", note: "LHB vs RHP; above-average damage; vs vulnerable pitcher" },
+      { batter: "Kevin McGonigle", team: "DET", hrPct: 5.1, tb2Pct: 26.4, tier: "B", note: "LHB vs RHP; elite power indicators; vs vulnerable pitcher" },
+      { batter: "Gleyber Torres", team: "DET", hrPct: 0.4, tb2Pct: 12.1, tier: "D", note: "RHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
+      { batter: "Colt Keith", team: "DET", hrPct: 6.1, tb2Pct: 29.1, tier: "B", note: "LHB vs RHP; above-average damage; vs vulnerable pitcher" },
       { batter: "Riley Greene", team: "DET", hrPct: 6.4, tb2Pct: 29.6, tier: "B", note: "LHB vs RHP; elite power indicators; vs vulnerable pitcher" },
       { batter: "Spencer Torkelson", team: "DET", hrPct: 3.7, tb2Pct: 19.6, tier: "D", note: "RHB vs RHP; hard-contact profile; vs vulnerable pitcher" },
       { batter: "Kerry Carpenter", team: "DET", hrPct: 7.9, tb2Pct: 25.2, tier: "B", note: "LHB vs RHP; above-average damage; vs vulnerable pitcher" },
@@ -629,8 +629,8 @@ const SLATE: SlateGame[] = [
     matchupBullets: ["Park: loanDepot park. Weather/run environment from inputs: retractable roof / humid / Low-Medium."],
     propsAway: [
       { batter: "Sal Frelick", team: "MIL", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "LHB vs RHP; limited power profile; vs tough pitcher" },
-      { batter: "William Contreras", team: "MIL", hrPct: 0.8, tb2Pct: 16.8, tier: "D", note: "RHB vs RHP; above-average damage; vs tough pitcher" },
-      { batter: "Brice Turang", team: "MIL", hrPct: 3.9, tb2Pct: 23.4, tier: "C", note: "LHB vs RHP; elite power indicators; vs tough pitcher" },
+      { batter: "William Contreras", team: "MIL", hrPct: 0.8, tb2Pct: 16.7, tier: "D", note: "RHB vs RHP; above-average damage; vs tough pitcher" },
+      { batter: "Brice Turang", team: "MIL", hrPct: 3.8, tb2Pct: 23.2, tier: "C", note: "LHB vs RHP; elite power indicators; vs tough pitcher" },
       { batter: "Gary Sánchez", team: "MIL", hrPct: 7.6, tb2Pct: 29.2, tier: "B", note: "RHB vs RHP; elite power indicators; vs tough pitcher" },
       { batter: "Jake Bauers", team: "MIL", hrPct: 4.9, tb2Pct: 23.1, tier: "C", note: "LHB vs RHP; elite power indicators; vs tough pitcher" },
       { batter: "Luis Rengifo", team: "MIL", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "LHB vs RHP; contact-driven profile; vs tough pitcher" },
@@ -640,8 +640,8 @@ const SLATE: SlateGame[] = [
     ],
     propsHome: [
       { batter: "Jakob Marsee", team: "MIA", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "LHB vs RHP; limited power profile; vs tough pitcher" },
-      { batter: "Xavier Edwards", team: "MIA", hrPct: 1.4, tb2Pct: 18.5, tier: "D", note: "LHB vs RHP; contact-driven profile; vs tough pitcher" },
-      { batter: "Agustín Ramírez", team: "MIA", hrPct: 0.4, tb2Pct: 8.4, tier: "D", note: "RHB vs RHP; limited power profile; vs tough pitcher" },
+      { batter: "Xavier Edwards", team: "MIA", hrPct: 1.3, tb2Pct: 18.1, tier: "D", note: "LHB vs RHP; contact-driven profile; vs tough pitcher" },
+      { batter: "Agustín Ramírez", team: "MIA", hrPct: 0.4, tb2Pct: 8.3, tier: "D", note: "RHB vs RHP; limited power profile; vs tough pitcher" },
       { batter: "Liam Hicks", team: "MIA", hrPct: 2.7, tb2Pct: 18.2, tier: "D", note: "LHB vs RHP; contact-driven profile; vs tough pitcher" },
       { batter: "Otto Lopez", team: "MIA", hrPct: 5.9, tb2Pct: 29.0, tier: "B", note: "RHB vs RHP; elite power indicators; vs tough pitcher" },
       { batter: "Connor Norby", team: "MIA", hrPct: 0.5, tb2Pct: 11.7, tier: "D", note: "RHB vs RHP; contact-driven profile; vs tough pitcher" },
@@ -1553,12 +1553,12 @@ export default function Apr18Canvas() {
 /*
 <!-- games-csv:start -->
 report_date,away,home,start_time_et,away_sp,home_sp,away_american,home_american,implied_away_pct_nv,implied_home_pct_nv,model_away_win_pct,model_home_win_pct,edge_away_pct,edge_home_pct,prediction,decision_tier_vs_market,edge_on_pick_pct,model_confidence,missing_data_flags,analyst_confidence,rationale_summary
-2026-04-18,KC,NYY,1:35 PM,Noah Cameron,Will Warren,142,-158,40.29,59.71,36.98,63.02,-3.31,3.31,NYY,B,3.31,High,approx_market_ml,Medium,Yankee Stadium short porch vs contact-oriented Royals road lineup — price the chalk carefully; props and team totals often clearer than ML.
+2026-04-18,KC,NYY,1:35 PM,Noah Cameron,Will Warren,142,-158,40.29,59.71,37.11,62.89,-3.18,3.18,NYY,B,3.18,High,approx_market_ml,Medium,Yankee Stadium short porch vs contact-oriented Royals road lineup — price the chalk carefully; props and team totals often clearer than ML.
 2026-04-18,CIN,MIN,2:10 PM,Andrew Abbott,Taj Bradley,108,-124,46.48,53.52,34.63,65.37,-11.86,11.86,MIN,A+,11.86,High,approx_market_ml,Medium,Target Field leans pitcher-friendly early season; lean on probables and bullpen paths before trusting a big ML edge.
 2026-04-18,NYM,CHC,2:20 PM,Freddy Peralta,Jameson Taillon,-102,-108,49.30,50.70,57.24,42.76,7.94,-7.94,NYM,A,7.94,High,approx_market_ml,Low,Wrigley wind and cold can suppress HRs — tight market; verify probables and late lineup news.
 2026-04-18,TB,PIT,3:30 PM,Drew Rasmussen,Paul Skenes,-138,118,55.83,44.17,48.43,51.57,-7.40,7.40,PIT,A,7.40,High,approx_market_ml,Medium,Rays talent vs Pirates home spot — check opener/bulk roles; modest ML edge only if price is wrong.
 2026-04-18,SF,WSH,4:05 PM,Adrian Houser,Cade Cavalli,-112,102,51.62,48.38,53.02,46.98,1.39,-1.39,SF,C,1.39,High,approx_market_ml,Medium,Nationals Park — lean on starter shape and bullpen; avoid overpaying small favorites.
-2026-04-18,CWS,ATH,4:05 PM,Erick Fedde,Luis Severino,108,-124,46.48,53.52,68.14,31.86,21.66,-21.66,CWS,A+,21.66,High,approx_market_ml;oak_coliseum_env,Low,Oakland environment and travel spot — volatility; prefer game props unless you have a clear pitching mismatch.
+2026-04-18,CWS,ATH,4:05 PM,Erick Fedde,Luis Severino,108,-124,46.48,53.52,68.20,31.80,21.72,-21.72,CWS,A+,21.72,High,approx_market_ml;oak_coliseum_env,Low,Oakland environment and travel spot — volatility; prefer game props unless you have a clear pitching mismatch.
 2026-04-18,DET,BOS,4:10 PM,Tarik Skubal,Brayan Bello,118,-132,44.64,55.36,59.89,40.11,15.26,-15.26,DET,A+,15.26,High,approx_market_ml,Medium,Fenway doubles and wall-ball noise — model park correctly before trusting a big ML number.
 2026-04-18,MIL,MIA,4:10 PM,Brandon Woodruff,Sandy Alcantara,-118,108,52.96,47.04,43.84,56.16,-9.12,9.12,MIA,A+,9.12,High,approx_market_ml,Medium,Miami run suppression helps pitching — lean Brewers only if the price matches your starter read.
 2026-04-18,BAL,CLE,6:10 PM,Dean Kremer,Gavin Williams,-108,-102,50.70,49.30,53.24,46.76,2.54,-2.54,BAL,B,2.54,High,approx_market_ml,Low,Progressive Field — coin-flip pricing common; prioritize handedness and bullpen availability.
@@ -1572,64 +1572,64 @@ report_date,away,home,start_time_et,away_sp,home_sp,away_american,home_american,
 
 <!-- batter-outlooks-csv:start -->
 report_date,game,team,batter,opponent_pitcher,hr_prob_pct,tb2_prob_pct,fair_hr_american,fair_2tb_american,market_hr_american,edge_hr_pct,tier,data_confidence
-2026-04-18,KC@NYY,KC,Maikel Garcia,Will Warren,2.91,19.77,+3342,+406,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,KC@NYY,KC,Bobby Witt Jr.,Will Warren,2.90,21.62,+3350,+362,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,KC@NYY,KC,Vinnie Pasquantino,Will Warren,0.82,11.02,+12054,+807,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,KC@NYY,KC,Jac Caglianone,Will Warren,3.34,20.72,+2894,+383,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,KC@NYY,KC,Carter Jensen,Will Warren,6.09,21.23,+1541,+371,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,KC@NYY,KC,Michael Massey,Will Warren,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,KC@NYY,KC,Isaac Collins,Will Warren,0.40,7.16,+24900,+1296,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-18,KC@NYY,KC,Maikel Garcia,Will Warren,2.71,18.98,+3596,+427,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-18,KC@NYY,KC,Bobby Witt Jr.,Will Warren,2.70,20.84,+3606,+380,NA,0.00,C,"High — real stats+savant, posted lineup"
+2026-04-18,KC@NYY,KC,Vinnie Pasquantino,Will Warren,0.40,9.46,+24900,+957,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-18,KC@NYY,KC,Jac Caglianone,Will Warren,2.91,19.16,+3331,+422,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-18,KC@NYY,KC,Carter Jensen,Will Warren,4.60,17.63,+2073,+467,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-18,KC@NYY,KC,Michael Massey,Will Warren,0.40,7.28,+24900,+1273,NA,0.00,D,"Medium — real stats+savant, posted lineup"
+2026-04-18,KC@NYY,KC,Isaac Collins,Will Warren,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
 2026-04-18,KC@NYY,KC,Lane Thomas,Will Warren,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,KC@NYY,KC,Kyle Isbel,Will Warren,1.18,13.34,+8353,+650,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,KC@NYY,NYY,Amed Rosario,Noah Cameron,7.73,30.00,+1194,+233,NA,0.00,B,"Medium — real stats+savant, posted lineup"
-2026-04-18,KC@NYY,NYY,Aaron Judge,Noah Cameron,14.95,44.78,+569,+123,NA,0.00,A+,"High — real stats+savant, posted lineup"
-2026-04-18,KC@NYY,NYY,Cody Bellinger,Noah Cameron,3.58,18.93,+2695,+428,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,KC@NYY,NYY,Giancarlo Stanton,Noah Cameron,6.29,24.17,+1489,+314,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,KC@NYY,NYY,Ben Rice,Noah Cameron,15.02,49.21,+566,+103,NA,0.00,A+,"High — real stats+savant, posted lineup"
-2026-04-18,KC@NYY,NYY,Randal Grichuk,Noah Cameron,0.70,6.56,+14206,+1425,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,KC@NYY,NYY,Jazz Chisholm Jr.,Noah Cameron,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,KC@NYY,NYY,José Caballero,Noah Cameron,1.02,12.15,+9680,+723,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,KC@NYY,NYY,J.C. Escarra,Noah Cameron,1.91,13.69,+5122,+630,NA,0.00,D,"Medium — real stats+savant, posted lineup"
+2026-04-18,KC@NYY,KC,Kyle Isbel,Will Warren,0.76,11.78,+13091,+749,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-18,KC@NYY,NYY,Amed Rosario,Noah Cameron,9.84,32.94,+916,+204,NA,0.00,A,"Medium — real stats+savant, posted lineup"
+2026-04-18,KC@NYY,NYY,Aaron Judge,Noah Cameron,16.19,46.50,+518,+115,NA,0.00,A+,"High — real stats+savant, posted lineup"
+2026-04-18,KC@NYY,NYY,Cody Bellinger,Noah Cameron,5.92,22.65,+1591,+342,NA,0.00,C,"High — real stats+savant, posted lineup"
+2026-04-18,KC@NYY,NYY,Giancarlo Stanton,Noah Cameron,8.41,27.11,+1090,+269,NA,0.00,B,"High — real stats+savant, posted lineup"
+2026-04-18,KC@NYY,NYY,Ben Rice,Noah Cameron,17.13,52.15,+484,-109,NA,0.00,A+,"High — real stats+savant, posted lineup"
+2026-04-18,KC@NYY,NYY,Randal Grichuk,Noah Cameron,2.81,9.50,+3457,+953,NA,0.00,D,"Medium — real stats+savant, posted lineup"
+2026-04-18,KC@NYY,NYY,Jazz Chisholm Jr.,Noah Cameron,1.61,8.46,+6105,+1083,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-18,KC@NYY,NYY,José Caballero,Noah Cameron,3.13,15.09,+3090,+563,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-18,KC@NYY,NYY,J.C. Escarra,Noah Cameron,4.03,16.63,+2383,+501,NA,0.00,D,"Medium — real stats+savant, posted lineup"
 2026-04-18,CIN@MIN,CIN,TJ Friedl,Taj Bradley,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,CIN@MIN,CIN,Will Benson,Taj Bradley,0.40,7.27,+24900,+1276,NA,0.00,D,"Medium — real stats+savant, posted lineup"
+2026-04-18,CIN@MIN,CIN,Will Benson,Taj Bradley,0.40,6.84,+24900,+1362,NA,0.00,D,"Medium — real stats+savant, posted lineup"
 2026-04-18,CIN@MIN,CIN,Elly De La Cruz,Taj Bradley,8.37,31.72,+1095,+215,NA,0.00,B,"High — real stats+savant, posted lineup"
 2026-04-18,CIN@MIN,CIN,Sal Stewart,Taj Bradley,8.73,32.86,+1045,+204,NA,0.00,A,"High — real stats+savant, posted lineup"
-2026-04-18,CIN@MIN,CIN,Eugenio Suárez,Taj Bradley,2.15,13.11,+4556,+663,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,CIN@MIN,CIN,Nathaniel Lowe,Taj Bradley,0.40,8.83,+24900,+1033,NA,0.00,D,"Medium — real stats+savant, posted lineup"
+2026-04-18,CIN@MIN,CIN,Eugenio Suárez,Taj Bradley,2.22,13.40,+4399,+646,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-18,CIN@MIN,CIN,Nathaniel Lowe,Taj Bradley,0.40,9.51,+24900,+951,NA,0.00,D,"Medium — real stats+savant, posted lineup"
 2026-04-18,CIN@MIN,CIN,Tyler Stephenson,Taj Bradley,4.42,20.70,+2161,+383,NA,0.00,C,"High — real stats+savant, posted lineup"
 2026-04-18,CIN@MIN,CIN,Rece Hinds,Taj Bradley,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,CIN@MIN,CIN,Ke'Bryan Hayes,Taj Bradley,0.40,8.90,+24900,+1024,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-18,CIN@MIN,CIN,Ke'Bryan Hayes,Taj Bradley,0.40,8.88,+24900,+1026,NA,0.00,D,"High — real stats+savant, posted lineup"
 2026-04-18,CIN@MIN,MIN,Byron Buxton,Andrew Abbott,6.40,24.14,+1461,+314,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,CIN@MIN,MIN,Austin Martin,Andrew Abbott,1.84,16.75,+5347,+497,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,CIN@MIN,MIN,Josh Bell,Andrew Abbott,5.76,25.70,+1635,+289,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,CIN@MIN,MIN,Ryan Jeffers,Andrew Abbott,5.49,24.25,+1722,+312,NA,0.00,C,"High — real stats+savant, posted lineup"
+2026-04-18,CIN@MIN,MIN,Austin Martin,Andrew Abbott,1.57,15.80,+6286,+533,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-18,CIN@MIN,MIN,Josh Bell,Andrew Abbott,5.73,25.59,+1646,+291,NA,0.00,C,"High — real stats+savant, posted lineup"
+2026-04-18,CIN@MIN,MIN,Ryan Jeffers,Andrew Abbott,5.81,25.99,+1620,+285,NA,0.00,C,"High — real stats+savant, posted lineup"
 2026-04-18,CIN@MIN,MIN,Luke Keaschall,Andrew Abbott,0.40,9.49,+24900,+954,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,CIN@MIN,MIN,Trevor Larnach,Andrew Abbott,2.84,18.73,+3427,+434,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,CIN@MIN,MIN,Brooks Lee,Andrew Abbott,1.94,11.67,+5050,+757,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-18,CIN@MIN,MIN,Trevor Larnach,Andrew Abbott,2.85,18.88,+3408,+430,NA,0.00,D,"Medium — real stats+savant, posted lineup"
+2026-04-18,CIN@MIN,MIN,Brooks Lee,Andrew Abbott,2.02,11.93,+4859,+738,NA,0.00,D,"High — real stats+savant, posted lineup"
 2026-04-18,CIN@MIN,MIN,Ryan Kreidler,Andrew Abbott,11.30,40.24,+785,+149,NA,0.00,A+,"Medium — real stats+savant, posted lineup"
 2026-04-18,CIN@MIN,MIN,Tristan Gray,Andrew Abbott,5.36,25.36,+1767,+294,NA,0.00,C,"Medium — real stats+savant, posted lineup"
-2026-04-18,NYM@CHC,NYM,Carson Benge,Jameson Taillon,1.04,10.86,+9494,+820,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-18,NYM@CHC,NYM,Carson Benge,Jameson Taillon,1.02,10.81,+9667,+825,NA,0.00,D,"High — real stats+savant, posted lineup"
 2026-04-18,NYM@CHC,NYM,Bo Bichette,Jameson Taillon,1.32,17.21,+7463,+481,NA,0.00,D,"High — real stats+savant, posted lineup"
 2026-04-18,NYM@CHC,NYM,Francisco Lindor,Jameson Taillon,3.17,17.80,+3050,+462,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,NYM@CHC,NYM,Luis Robert Jr.,Jameson Taillon,3.17,18.74,+3051,+434,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,NYM@CHC,NYM,MJ Melendez,Jameson Taillon,6.31,38.95,+1486,+157,NA,0.00,A+,"Medium — real stats+savant, posted lineup"
+2026-04-18,NYM@CHC,NYM,Luis Robert Jr.,Jameson Taillon,3.10,18.48,+3127,+441,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-18,NYM@CHC,NYM,MJ Melendez,Jameson Taillon,6.15,38.45,+1527,+160,NA,0.00,A+,"Medium — real stats+savant, posted lineup"
 2026-04-18,NYM@CHC,NYM,Francisco Alvarez,Jameson Taillon,9.95,36.17,+905,+176,NA,0.00,A,"High — real stats+savant, posted lineup"
-2026-04-18,NYM@CHC,NYM,Mark Vientos,Jameson Taillon,2.48,14.90,+3939,+571,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,NYM@CHC,NYM,Brett Baty,Jameson Taillon,0.75,10.55,+13287,+848,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,NYM@CHC,NYM,Marcus Semien,Jameson Taillon,2.13,13.99,+4594,+615,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-18,NYM@CHC,NYM,Mark Vientos,Jameson Taillon,1.53,13.42,+6452,+645,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-18,NYM@CHC,NYM,Brett Baty,Jameson Taillon,1.70,12.32,+5793,+712,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-18,NYM@CHC,NYM,Marcus Semien,Jameson Taillon,2.11,13.90,+4645,+619,NA,0.00,D,"High — real stats+savant, posted lineup"
 2026-04-18,NYM@CHC,CHC,Nico Hoerner,Freddy Peralta,0.40,13.25,+24900,+655,NA,0.00,D,"High — real stats+savant, posted lineup"
 2026-04-18,NYM@CHC,CHC,Michael Busch,Freddy Peralta,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,NYM@CHC,CHC,Alex Bregman,Freddy Peralta,0.55,12.56,+18037,+696,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,NYM@CHC,CHC,Ian Happ,Freddy Peralta,6.54,21.79,+1429,+359,NA,0.00,C,"High — real stats+savant, posted lineup"
+2026-04-18,NYM@CHC,CHC,Alex Bregman,Freddy Peralta,0.47,12.25,+21342,+716,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-18,NYM@CHC,CHC,Ian Happ,Freddy Peralta,5.98,20.72,+1573,+383,NA,0.00,C,"High — real stats+savant, posted lineup"
 2026-04-18,NYM@CHC,CHC,Seiya Suzuki,Freddy Peralta,0.40,7.15,+24900,+1299,NA,0.00,D,"Medium — real stats+savant, posted lineup"
 2026-04-18,NYM@CHC,CHC,Moisés Ballesteros,Freddy Peralta,8.19,32.51,+1121,+208,NA,0.00,A,"High — real stats+savant, posted lineup"
 2026-04-18,NYM@CHC,CHC,Miguel Amaya,Freddy Peralta,0.61,13.10,+16390,+663,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,NYM@CHC,CHC,Pete Crow-Armstrong,Freddy Peralta,1.27,13.41,+7748,+646,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,NYM@CHC,CHC,Dansby Swanson,Freddy Peralta,3.29,15.59,+2941,+542,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-18,NYM@CHC,CHC,Pete Crow-Armstrong,Freddy Peralta,1.26,13.34,+7867,+650,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-18,NYM@CHC,CHC,Dansby Swanson,Freddy Peralta,3.35,15.73,+2883,+536,NA,0.00,D,"High — real stats+savant, posted lineup"
 2026-04-18,TB@PIT,TB,Chandler Simpson,Paul Skenes,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,TB@PIT,TB,Junior Caminero,Paul Skenes,0.86,12.95,+11512,+672,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,TB@PIT,TB,Jonathan Aranda,Paul Skenes,1.80,15.90,+5465,+529,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,TB@PIT,TB,Yandy Díaz,Paul Skenes,1.87,19.43,+5255,+415,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-18,TB@PIT,TB,Junior Caminero,Paul Skenes,0.82,13.12,+12067,+662,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-18,TB@PIT,TB,Jonathan Aranda,Paul Skenes,1.77,15.81,+5564,+533,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-18,TB@PIT,TB,Yandy Díaz,Paul Skenes,1.83,19.28,+5377,+419,NA,0.00,D,"High — real stats+savant, posted lineup"
 2026-04-18,TB@PIT,TB,Jake Fraley,Paul Skenes,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
 2026-04-18,TB@PIT,TB,Cedric Mullins,Paul Skenes,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
 2026-04-18,TB@PIT,TB,Richie Palacios,Paul Skenes,0.40,11.30,+24900,+785,NA,0.00,D,"Medium — real stats+savant, posted lineup"
@@ -1637,24 +1637,24 @@ report_date,game,team,batter,opponent_pitcher,hr_prob_pct,tb2_prob_pct,fair_hr_a
 2026-04-18,TB@PIT,TB,Taylor Walls,Paul Skenes,0.40,6.27,+24900,+1495,NA,0.00,D,"Medium — real stats+savant, posted lineup"
 2026-04-18,TB@PIT,PIT,Oneil Cruz,Drew Rasmussen,9.74,35.58,+927,+181,NA,0.00,A,"High — real stats+savant, posted lineup"
 2026-04-18,TB@PIT,PIT,Brandon Lowe,Drew Rasmussen,5.59,24.67,+1688,+305,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,TB@PIT,PIT,Bryan Reynolds,Drew Rasmussen,3.45,21.23,+2795,+371,NA,0.00,C,"High — real stats+savant, posted lineup"
+2026-04-18,TB@PIT,PIT,Bryan Reynolds,Drew Rasmussen,3.42,21.17,+2826,+372,NA,0.00,C,"High — real stats+savant, posted lineup"
 2026-04-18,TB@PIT,PIT,Ryan O'Hearn,Drew Rasmussen,4.20,24.78,+2281,+303,NA,0.00,C,"High — real stats+savant, posted lineup"
 2026-04-18,TB@PIT,PIT,Marcell Ozuna,Drew Rasmussen,0.40,8.86,+24900,+1029,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,TB@PIT,PIT,Nick Yorke,Drew Rasmussen,0.40,13.43,+24900,+645,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-18,TB@PIT,PIT,Nick Yorke,Drew Rasmussen,0.40,13.32,+24900,+651,NA,0.00,D,"High — real stats+savant, posted lineup"
 2026-04-18,TB@PIT,PIT,Spencer Horwitz,Drew Rasmussen,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,TB@PIT,PIT,Konnor Griffin,Drew Rasmussen,0.40,6.23,+24900,+1506,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-18,TB@PIT,PIT,Konnor Griffin,Drew Rasmussen,0.40,6.10,+24900,+1539,NA,0.00,D,"High — real stats+savant, posted lineup"
 2026-04-18,TB@PIT,PIT,Henry Davis,Drew Rasmussen,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,SF@WSH,SF,Willy Adames,Cade Cavalli,3.72,19.81,+2591,+405,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,SF@WSH,SF,Luis Arraez,Cade Cavalli,0.40,6.22,+24900,+1508,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,SF@WSH,SF,Matt Chapman,Cade Cavalli,0.40,11.90,+24900,+740,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,SF@WSH,SF,Rafael Devers,Cade Cavalli,3.18,16.58,+3040,+503,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-18,SF@WSH,SF,Willy Adames,Cade Cavalli,3.68,19.68,+2620,+408,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-18,SF@WSH,SF,Luis Arraez,Cade Cavalli,0.40,6.36,+24900,+1471,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-18,SF@WSH,SF,Matt Chapman,Cade Cavalli,0.40,11.81,+24900,+747,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-18,SF@WSH,SF,Rafael Devers,Cade Cavalli,3.16,16.53,+3061,+505,NA,0.00,D,"High — real stats+savant, posted lineup"
 2026-04-18,SF@WSH,SF,Casey Schmitt,Cade Cavalli,5.50,26.11,+1717,+283,NA,0.00,B,"High — real stats+savant, posted lineup"
 2026-04-18,SF@WSH,SF,Jung Hoo Lee,Cade Cavalli,0.82,13.98,+12047,+615,NA,0.00,D,"High — real stats+savant, posted lineup"
 2026-04-18,SF@WSH,SF,Heliot Ramos,Cade Cavalli,1.48,13.32,+6641,+651,NA,0.00,D,"High — real stats+savant, posted lineup"
 2026-04-18,SF@WSH,SF,Drew Gilbert,Cade Cavalli,7.32,24.14,+1266,+314,NA,0.00,C,"Medium — real stats+savant, posted lineup"
 2026-04-18,SF@WSH,SF,Patrick Bailey,Cade Cavalli,0.40,7.27,+24900,+1275,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,SF@WSH,WSH,James Wood,Adrian Houser,12.20,39.92,+720,+150,NA,0.00,A+,"High — real stats+savant, posted lineup"
-2026-04-18,SF@WSH,WSH,Luis García Jr.,Adrian Houser,3.40,20.01,+2837,+400,NA,0.00,C,"High — real stats+savant, posted lineup"
+2026-04-18,SF@WSH,WSH,James Wood,Adrian Houser,12.68,40.75,+689,+145,NA,0.00,A+,"High — real stats+savant, posted lineup"
+2026-04-18,SF@WSH,WSH,Luis García Jr.,Adrian Houser,3.38,19.90,+2862,+403,NA,0.00,D,"High — real stats+savant, posted lineup"
 2026-04-18,SF@WSH,WSH,José Tena,Adrian Houser,1.94,18.64,+5064,+436,NA,0.00,D,"Medium — real stats+savant, posted lineup"
 2026-04-18,SF@WSH,WSH,CJ Abrams,Adrian Houser,9.23,36.24,+983,+176,NA,0.00,A,"High — real stats+savant, posted lineup"
 2026-04-18,SF@WSH,WSH,Jacob Young,Adrian Houser,3.99,22.08,+2407,+353,NA,0.00,C,"High — real stats+savant, posted lineup"
@@ -1662,28 +1662,28 @@ report_date,game,team,batter,opponent_pitcher,hr_prob_pct,tb2_prob_pct,fair_hr_a
 2026-04-18,SF@WSH,WSH,Nasim Nuñez,Adrian Houser,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
 2026-04-18,SF@WSH,WSH,Jorbit Vivas,Adrian Houser,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
 2026-04-18,SF@WSH,WSH,Drew Millas,Adrian Houser,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,CWS@ATH,CWS,Andrew Benintendi,Luis Severino,4.78,23.22,+1993,+331,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-18,CWS@ATH,CWS,Munetaka Murakami,Luis Severino,12.04,37.14,+731,+169,NA,0.00,A,"High — real stats+savant, posted lineup"
-2026-04-18,CWS@ATH,CWS,Miguel Vargas,Luis Severino,3.46,17.85,+2793,+460,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,CWS@ATH,CWS,Colson Montgomery,Luis Severino,2.53,11.69,+3851,+756,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,CWS@ATH,CWS,Everson Pereira,Luis Severino,8.71,31.22,+1048,+220,NA,0.00,B,"Medium — real stats+savant, posted lineup"
+2026-04-18,CWS@ATH,CWS,Andrew Benintendi,Luis Severino,4.76,23.11,+2002,+333,NA,0.00,C,"High — real stats+savant, posted lineup"
+2026-04-18,CWS@ATH,CWS,Munetaka Murakami,Luis Severino,12.01,37.13,+733,+169,NA,0.00,A,"High — real stats+savant, posted lineup"
+2026-04-18,CWS@ATH,CWS,Miguel Vargas,Luis Severino,3.43,17.76,+2817,+463,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-18,CWS@ATH,CWS,Colson Montgomery,Luis Severino,3.14,12.76,+3082,+684,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-18,CWS@ATH,CWS,Everson Pereira,Luis Severino,9.24,34.39,+982,+191,NA,0.00,A,"Medium — real stats+savant, posted lineup"
 2026-04-18,CWS@ATH,CWS,Sam Antonacci,Luis Severino,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,CWS@ATH,CWS,Chase Meidroth,Luis Severino,2.16,16.38,+4525,+510,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-18,CWS@ATH,CWS,Chase Meidroth,Luis Severino,2.16,16.38,+4537,+510,NA,0.00,D,"High — real stats+savant, posted lineup"
 2026-04-18,CWS@ATH,CWS,Tristan Peters,Luis Severino,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
 2026-04-18,CWS@ATH,CWS,Reese McGuire,Luis Severino,0.40,6.40,+24900,+1463,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,CWS@ATH,ATH,Jeff McNeil,Erick Fedde,0.40,10.21,+24900,+880,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,CWS@ATH,ATH,Shea Langeliers,Erick Fedde,6.47,27.71,+1445,+261,NA,0.00,B,"High — real stats+savant, posted lineup"
-2026-04-18,CWS@ATH,ATH,Nick Kurtz,Erick Fedde,5.39,24.09,+1755,+315,NA,0.00,C,"High — real stats+savant, posted lineup"
+2026-04-18,CWS@ATH,ATH,Jeff McNeil,Erick Fedde,0.40,10.10,+24900,+890,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-18,CWS@ATH,ATH,Shea Langeliers,Erick Fedde,6.41,27.55,+1459,+263,NA,0.00,B,"High — real stats+savant, posted lineup"
+2026-04-18,CWS@ATH,ATH,Nick Kurtz,Erick Fedde,5.37,24.00,+1762,+317,NA,0.00,C,"High — real stats+savant, posted lineup"
 2026-04-18,CWS@ATH,ATH,Tyler Soderstrom,Erick Fedde,2.13,16.01,+4604,+525,NA,0.00,D,"High — real stats+savant, posted lineup"
 2026-04-18,CWS@ATH,ATH,Jacob Wilson,Erick Fedde,0.40,6.01,+24900,+1563,NA,0.00,D,"High — real stats+savant, posted lineup"
 2026-04-18,CWS@ATH,ATH,Carlos Cortes,Erick Fedde,1.59,16.32,+6176,+513,NA,0.00,D,"Medium — real stats+savant, posted lineup"
 2026-04-18,CWS@ATH,ATH,Max Muncy,Erick Fedde,4.94,25.27,+1926,+296,NA,0.00,C,"High — real stats+savant, posted lineup"
 2026-04-18,CWS@ATH,ATH,Lawrence Butler,Erick Fedde,1.53,14.76,+6443,+577,NA,0.00,D,"High — real stats+savant, posted lineup"
 2026-04-18,CWS@ATH,ATH,Austin Wynns,Erick Fedde,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-18,DET@BOS,DET,Kevin McGonigle,Brayan Bello,5.03,26.29,+1887,+280,NA,0.00,B,"High — real stats+savant, posted lineup"
-2026-04-18,DET@BOS,DET,Gleyber Torres,Brayan Bello,0.45,12.15,+22223,+723,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,DET@BOS,DET,Colt Keith,Brayan Bello,6.06,28.91,+1550,+246,NA,0.00,B,"High — real stats+savant, posted lineup"
-2026-04-18,DET@BOS,DET,Riley Greene,Brayan Bello,6.39,29.62,+1464,+238,NA,0.00,B,"High — real stats+savant, posted lineup"
+2026-04-18,DET@BOS,DET,Kevin McGonigle,Brayan Bello,5.05,26.42,+1879,+279,NA,0.00,B,"High — real stats+savant, posted lineup"
+2026-04-18,DET@BOS,DET,Gleyber Torres,Brayan Bello,0.43,12.08,+23194,+728,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-18,DET@BOS,DET,Colt Keith,Brayan Bello,6.10,29.09,+1540,+244,NA,0.00,B,"High — real stats+savant, posted lineup"
+2026-04-18,DET@BOS,DET,Riley Greene,Brayan Bello,6.39,29.62,+1465,+238,NA,0.00,B,"High — real stats+savant, posted lineup"
 2026-04-18,DET@BOS,DET,Spencer Torkelson,Brayan Bello,3.74,19.62,+2574,+410,NA,0.00,D,"High — real stats+savant, posted lineup"
 2026-04-18,DET@BOS,DET,Kerry Carpenter,Brayan Bello,7.94,25.18,+1159,+297,NA,0.00,B,"High — real stats+savant, posted lineup"
 2026-04-18,DET@BOS,DET,Wenceel Pérez,Brayan Bello,2.40,6.63,+4068,+1409,NA,0.00,D,"Medium — real stats+savant, posted lineup"
@@ -1699,8 +1699,8 @@ report_date,game,team,batter,opponent_pitcher,hr_prob_pct,tb2_prob_pct,fair_hr_a
 2026-04-18,DET@BOS,BOS,Connor Wong,Tarik Skubal,3.40,28.12,+2837,+256,NA,0.00,B,"Medium — real stats+savant, posted lineup"
 2026-04-18,DET@BOS,BOS,Isiah Kiner-Falefa,Tarik Skubal,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
 2026-04-18,MIL@MIA,MIL,Sal Frelick,Sandy Alcantara,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,MIL@MIA,MIL,William Contreras,Sandy Alcantara,0.81,16.83,+12171,+494,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,MIL@MIA,MIL,Brice Turang,Sandy Alcantara,3.87,23.37,+2483,+328,NA,0.00,C,"High — real stats+savant, posted lineup"
+2026-04-18,MIL@MIA,MIL,William Contreras,Sandy Alcantara,0.78,16.70,+12736,+499,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-18,MIL@MIA,MIL,Brice Turang,Sandy Alcantara,3.83,23.22,+2513,+331,NA,0.00,C,"High — real stats+savant, posted lineup"
 2026-04-18,MIL@MIA,MIL,Gary Sánchez,Sandy Alcantara,7.62,29.23,+1212,+242,NA,0.00,B,"High — real stats+savant, posted lineup"
 2026-04-18,MIL@MIA,MIL,Jake Bauers,Sandy Alcantara,4.91,23.06,+1937,+334,NA,0.00,C,"High — real stats+savant, posted lineup"
 2026-04-18,MIL@MIA,MIL,Luis Rengifo,Sandy Alcantara,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
@@ -1708,8 +1708,8 @@ report_date,game,team,batter,opponent_pitcher,hr_prob_pct,tb2_prob_pct,fair_hr_a
 2026-04-18,MIL@MIA,MIL,Brandon Lockridge,Sandy Alcantara,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
 2026-04-18,MIL@MIA,MIL,Joey Ortiz,Sandy Alcantara,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
 2026-04-18,MIL@MIA,MIA,Jakob Marsee,Brandon Woodruff,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,MIL@MIA,MIA,Xavier Edwards,Brandon Woodruff,1.38,18.50,+7132,+441,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-18,MIL@MIA,MIA,Agustín Ramírez,Brandon Woodruff,0.40,8.41,+24900,+1089,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-18,MIL@MIA,MIA,Xavier Edwards,Brandon Woodruff,1.28,18.11,+7726,+452,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-18,MIL@MIA,MIA,Agustín Ramírez,Brandon Woodruff,0.40,8.30,+24900,+1104,NA,0.00,D,"High — real stats+savant, posted lineup"
 2026-04-18,MIL@MIA,MIA,Liam Hicks,Brandon Woodruff,2.69,18.18,+3613,+450,NA,0.00,D,"High — real stats+savant, posted lineup"
 2026-04-18,MIL@MIA,MIA,Otto Lopez,Brandon Woodruff,5.88,28.99,+1600,+245,NA,0.00,B,"High — real stats+savant, posted lineup"
 2026-04-18,MIL@MIA,MIA,Connor Norby,Brandon Woodruff,0.53,11.72,+18893,+753,NA,0.00,D,"High — real stats+savant, posted lineup"
