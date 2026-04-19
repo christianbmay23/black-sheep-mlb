@@ -39,7 +39,7 @@ from models.game_model import (  # noqa: E402
     tier_from_edge,
     win_probability_model,
 )
-from models.prop_model import batter_hr_two_tb, lineup_match_key  # noqa: E402
+from models.prop_model import batter_hr_two_tb, lineup_match_key, stronger_tier  # noqa: E402
 
 GAME_SPECS: list[dict[str, Any]] = []
 REPORT_DATE = ""
@@ -57,6 +57,10 @@ SAVANT_HEADERS = {
     "Accept": "text/csv,text/html;q=0.9,*/*;q=0.8",
 }
 SNAPSHOT_ROOT = ROOT / "canvases" / "exports" / "snapshots"
+HR_EDGE_GATE_PCT = 2.5
+TB_EDGE_GATE_PCT = 1.5
+TB_TARGET_LINE = 1.5
+PROP_TIER_RANK = {"A+": 5, "A": 4, "B": 3, "C": 2, "D": 1}
 
 
 def fetch_json(url: str) -> dict:
@@ -98,6 +102,83 @@ def parse_int(value: Any) -> int | None:
         return int(str(value).strip())
     except ValueError:
         return None
+
+
+def prop_tier_rank(tier: str) -> int:
+    return PROP_TIER_RANK.get((tier or "").strip().upper(), 0)
+
+
+def has_hr_market_price(line: PropMarketLine | None) -> bool:
+    return bool(line and line.over_price is not None)
+
+
+def is_aligned_tb_market(line: PropMarketLine | None) -> bool:
+    return bool(
+        line
+        and line.over_price is not None
+        and line.point is not None
+        and abs(float(line.point) - TB_TARGET_LINE) < 0.001
+    )
+
+
+def has_any_tb_market(line: PropMarketLine | None) -> bool:
+    return bool(line and (line.point is not None or line.over_price is not None))
+
+
+def classify_hr_market_status(edge_hr_pct: float | None, hr_tier: str, prop_conf: str, hr_market: PropMarketLine | None) -> str:
+    if not has_hr_market_price(hr_market):
+        return "unpriced"
+    if edge_hr_pct is None or edge_hr_pct <= 0:
+        return "priced_no_edge"
+    if prop_tier_rank(hr_tier) < prop_tier_rank("A"):
+        return "priced_below_tier"
+    if prop_conf == "Low":
+        return "priced_low_conf"
+    if edge_hr_pct < HR_EDGE_GATE_PCT:
+        return "priced_below_gate"
+    return "qualified"
+
+
+def classify_tb_market_status(
+    edge_tb_pct: float | None,
+    tb2_tier: str,
+    prop_conf: str,
+    tb_market: PropMarketLine | None,
+) -> str:
+    if tb_market is None or tb_market.over_price is None:
+        return "unpriced"
+    if tb_market.point is None:
+        return "line_unknown"
+    if not is_aligned_tb_market(tb_market):
+        return f"line_mismatch_{tb_market.point:g}"
+    if edge_tb_pct is None or edge_tb_pct <= 0:
+        return "priced_no_edge"
+    if prop_tier_rank(tb2_tier) < prop_tier_rank("B"):
+        return "priced_below_tier"
+    if prop_conf == "Low":
+        return "priced_low_conf"
+    if edge_tb_pct < TB_EDGE_GATE_PCT:
+        return "priced_below_gate"
+    return "qualified"
+
+
+def choose_recommended_prop(
+    hr_status: str,
+    tb_status: str,
+    edge_hr_pct: float | None,
+    edge_tb_pct: float | None,
+    hr_tier: str,
+    tb2_tier: str,
+) -> tuple[str, str]:
+    if hr_status == "qualified" and tb_status == "qualified":
+        if edge_hr_pct is not None and edge_tb_pct is not None and edge_hr_pct >= edge_tb_pct + 1.5:
+            return "HR", hr_tier
+        return "2+ TB", tb2_tier
+    if hr_status == "qualified":
+        return "HR", hr_tier
+    if tb_status == "qualified":
+        return "2+ TB", tb2_tier
+    return "", ""
 
 
 def safe_div(num: float, den: float) -> float | None:
@@ -1290,7 +1371,7 @@ def build_prop_note(
         bullpen = "late innings tougher"
 
     vs_note = ""
-    if vs_pitcher and (vs_pitcher.get("pa") or 0) >= 4:
+    if vs_pitcher and (vs_pitcher.get("pa") or 0) >= 8:
         ab = vs_pitcher.get("ab") or 0
         hits = vs_pitcher.get("hits") or 0
         hr = vs_pitcher.get("home_runs") or 0
@@ -1313,7 +1394,7 @@ def build_data_confidence(prop_conf: str, lineup_label: str, market_status: str)
         lineup_desc = "projected lineup"
     market_desc = {
         "full": "live markets matched",
-        "partial": "limited live markets",
+        "partial": "limited or misaligned live markets",
         "none": "no live markets",
     }.get(market_status, "market status unknown")
     return f"{prop_conf} — stats+savant+recent+BvP, {lineup_desc}, {market_desc}"
@@ -1617,6 +1698,12 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
         "recent_form_score",
         "bvp_pa",
         "tier",
+        "hr_tier",
+        "tb2_tier",
+        "recommended_prop",
+        "recommended_tier",
+        "hr_market_status",
+        "tb2_market_status",
         "data_confidence",
         "market_data_status",
     ]
@@ -1792,7 +1879,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                     if opp_pitcher.get("id") and player.get("id")
                     else None
                 )
-                hr, tb2, fair_hr, fair_2tb, prop_tier, pconf = batter_hr_two_tb(
+                hr, tb2, fair_hr, fair_2tb, hr_tier, tb2_tier, pconf = batter_hr_two_tb(
                     str(spec["away"]),
                     str(spec["home"]),
                     team_is_away,
@@ -1829,22 +1916,41 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                 player_key = normalize_player_name(player["name"])
                 hr_market = player_markets.get((player_key, "batter_home_runs"))
                 tb_market = player_markets.get((player_key, "batter_total_bases"))
+                hr_market_priced = has_hr_market_price(hr_market)
+                tb_market_any = has_any_tb_market(tb_market)
+                tb_market_aligned = is_aligned_tb_market(tb_market)
                 edge_hr_pct = (
                     (hr * 100) - (american_to_implied(hr_market.over_price) * 100)
-                    if hr_market and hr_market.over_price is not None
+                    if hr_market_priced
                     else None
                 )
                 edge_tb_pct = (
                     (tb2 * 100) - (american_to_implied(tb_market.over_price) * 100)
-                    if tb_market and tb_market.over_price is not None
+                    if tb_market_aligned and tb_market and tb_market.over_price is not None
                     else None
                 )
-                market_status = "full" if hr_market and tb_market else "partial" if hr_market or tb_market else "none"
+                hr_market_status = classify_hr_market_status(edge_hr_pct, hr_tier, pconf, hr_market)
+                tb2_market_status = classify_tb_market_status(edge_tb_pct, tb2_tier, pconf, tb_market)
+                recommended_prop, recommended_tier = choose_recommended_prop(
+                    hr_market_status,
+                    tb2_market_status,
+                    edge_hr_pct,
+                    edge_tb_pct,
+                    hr_tier,
+                    tb2_tier,
+                )
+                display_tier = recommended_tier or stronger_tier(hr_tier, tb2_tier)
+                market_status = "full" if hr_market_priced and tb_market_aligned else "partial" if hr_market_priced or tb_market_any else "none"
                 if not allow_partial and is_pregame:
-                    if hr_market is None or hr_market.over_price is None:
+                    if not hr_market_priced:
                         late_blocking_issues.append(f"{key}: missing HR market for {player['name']}")
-                    if tb_market is None or tb_market.point is None or tb_market.over_price is None:
+                    if tb_market is None or tb_market.over_price is None:
                         late_blocking_issues.append(f"{key}: missing TB market for {player['name']}")
+                    elif not tb_market_aligned:
+                        point_label = f"{tb_market.point:g}" if tb_market.point is not None else "unknown"
+                        late_blocking_issues.append(
+                            f"{key}: TB market not 1.5 for {player['name']} (got {point_label})"
+                        )
                 note = build_prop_note(
                     feats,
                     opp_pitch_feats or {},
@@ -1854,6 +1960,10 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                     weather_factor=weather_snapshot.run_factor if weather_snapshot else None,
                     opp_bullpen_score=opp_bullpen,
                 )
+                if tb_market_any and not tb_market_aligned and tb_market and tb_market.point is not None:
+                    note = f"{note}; TB book at {tb_market.point:g}, not 1.5-aligned"
+                if recommended_prop and recommended_tier:
+                    note = f"{note}; priced lean: {recommended_prop} ({recommended_tier})"
                 dc = build_data_confidence(pconf, lineup_label, market_status)
                 batter_rows.append(
                     [
@@ -1873,7 +1983,13 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                         round_or_blank(edge_tb_pct, 2) if edge_tb_pct is not None else "",
                         round_or_blank(feats.get("recent_form_score"), 3),
                         str((vs_pitcher or {}).get("pa") or 0),
-                        prop_tier,
+                        display_tier,
+                        hr_tier,
+                        tb2_tier,
+                        recommended_prop,
+                        recommended_tier,
+                        hr_market_status,
+                        tb2_market_status,
                         dc,
                         market_status,
                     ]
@@ -1900,7 +2016,15 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                         "tb2_prob": tb2,
                         "fair_hr": fair_hr,
                         "fair_2tb": fair_2tb,
-                        "tier": prop_tier,
+                        "tier": display_tier,
+                        "hr_tier": hr_tier,
+                        "tb2_tier": tb2_tier,
+                        "recommended_prop": recommended_prop,
+                        "recommended_tier": recommended_tier,
+                        "edge_hr_pct": edge_hr_pct,
+                        "edge_tb_pct": edge_tb_pct,
+                        "hr_market_status": hr_market_status,
+                        "tb2_market_status": tb2_market_status,
                         "model_confidence": pconf,
                         "data_confidence": dc,
                         "market_status": market_status,
@@ -1912,7 +2036,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                         "team": str(spec["away"] if team_is_away else spec["home"]),
                         "hrPct": hr * 100,
                         "tb2Pct": tb2 * 100,
-                        "tier": prop_tier,
+                        "tier": f"HR {hr_tier} / TB {tb2_tier}",
                         "note": note,
                     }
                 )

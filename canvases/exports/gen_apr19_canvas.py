@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""One-shot: build mlb-pregame-intel-apr18.canvas.tsx from GAME_SPECS + Apr 16 UI tail."""
+"""One-shot: build mlb-pregame-intel-apr19.canvas.tsx from GAME_SPECS + Apr 16 UI tail."""
 from __future__ import annotations
 
 import json
@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from models.apr18_inputs import GAME_SPECS  # noqa: E402
+from models.apr19_inputs import GAME_SPECS  # noqa: E402
 
 VENUES: dict[str, str] = {
     "NYY": "Yankee Stadium",
@@ -18,11 +18,11 @@ VENUES: dict[str, str] = {
     "CHC": "Wrigley Field",
     "PIT": "PNC Park",
     "WSH": "Nationals Park",
-    "ATH": "Oakland Coliseum",
+    "ATH": "Sutter Health Park",
     "BOS": "Fenway Park",
     "MIA": "loanDepot park",
     "CLE": "Progressive Field",
-    "HOU": "Minute Maid Park",
+    "HOU": "Daikin Park",
     "SEA": "T-Mobile Park",
     "PHI": "Citizens Bank Park",
     "COL": "Coors Field",
@@ -78,7 +78,7 @@ def emit_slate() -> str:
         parts.append("    homeLineup: [],")
         parts.append(
             "    spAwayNotes: ["
-            '"Starter and bullpen roles — confirm at lock; run `build_ml_exports.py --date 2026-04-18 --compute` to pull API probables."'
+            '"Starter and bullpen roles — confirm at lock; run `build_ml_exports.py --date 2026-04-19 --compute --allow-partial` to pull API probables."'
             "],"
         )
         parts.append(
@@ -100,22 +100,21 @@ def emit_slate() -> str:
 
 def main() -> None:
     apr16_path = ROOT / "canvases" / "mlb-pregame-intel-apr16.canvas.tsx"
-    out_path = ROOT / "canvases" / "mlb-pregame-intel-apr18.canvas.tsx"
+    out_path = ROOT / "canvases" / "mlb-pregame-intel-apr19.canvas.tsx"
     text = apr16_path.read_text(encoding="utf-8")
     head, rest = text.split("const SLATE: SlateGame[] = [", 1)
     _old_slate, tail = rest.split("];\n\nconst ACTIONABLE_EDGE_PCT", 1)
     new_body = emit_slate() + "\n\nconst ACTIONABLE_EDGE_PCT" + tail
-    new_body = new_body.replace("Apr16Canvas", "Apr18Canvas")
-    new_body = new_body.replace("Apr 16, 2026", "Apr 18, 2026")
-    new_body = new_body.replace("2026-04-16", "2026-04-18")
+    new_body = new_body.replace("Apr16Canvas", "Apr19Canvas")
+    new_body = new_body.replace("Apr 16, 2026", "Apr 19, 2026")
+    new_body = new_body.replace("2026-04-16", "2026-04-19")
     new_body = new_body.replace(
         "Probables and posted lineups from MLB Stats API where available; late games show\n"
         "        projected orders from active roster (confirm at lock). Game moneylines are approximate modeling inputs (not live\n"
-        "        scraped). Regenerate CSV/HTML: python canvases/exports/build_ml_exports.py --date 2026-04-18",
-        "Apr 18 slate scaffold — run model refresh: python3 canvases/exports/build_ml_exports.py --date 2026-04-18 --compute\n"
+        "        scraped). Regenerate CSV/HTML: python canvases/exports/build_ml_exports.py --date 2026-04-16",
+        "Apr 19 slate scaffold — run model refresh: python3 canvases/exports/build_ml_exports.py --date 2026-04-19 --compute --allow-partial\n"
         "        (pulls probables/lineups from MLB Stats API + Savant, updates SLATE + CSV markers). Moneylines in inputs are approximate.",
     )
-    # Comment block at file end: minimal CSV markers (compute replaces)
     marker = """
 /*
 <!-- games-csv:start -->

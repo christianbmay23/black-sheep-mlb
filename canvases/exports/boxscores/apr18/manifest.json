@@ -1,0 +1,107 @@
+[
+  {
+    "report_date": "2026-04-18",
+    "game": "KC@NYY",
+    "game_pk": 823558,
+    "status": "Final",
+    "file": "/Users/christianmay/Projects/black-sheep-mlb/canvases/exports/boxscores/apr18/KC_NYY-823558.json"
+  },
+  {
+    "report_date": "2026-04-18",
+    "game": "CIN@MIN",
+    "game_pk": 823721,
+    "status": "Final",
+    "file": "/Users/christianmay/Projects/black-sheep-mlb/canvases/exports/boxscores/apr18/CIN_MIN-823721.json"
+  },
+  {
+    "report_date": "2026-04-18",
+    "game": "NYM@CHC",
+    "game_pk": 824694,
+    "status": "Final",
+    "file": "/Users/christianmay/Projects/black-sheep-mlb/canvases/exports/boxscores/apr18/NYM_CHC-824694.json"
+  },
+  {
+    "report_date": "2026-04-18",
+    "game": "TB@PIT",
+    "game_pk": 823394,
+    "status": "Final",
+    "file": "/Users/christianmay/Projects/black-sheep-mlb/canvases/exports/boxscores/apr18/TB_PIT-823394.json"
+  },
+  {
+    "report_date": "2026-04-18",
+    "game": "SF@WSH",
+    "game_pk": 822751,
+    "status": "Final",
+    "file": "/Users/christianmay/Projects/black-sheep-mlb/canvases/exports/boxscores/apr18/SF_WSH-822751.json"
+  },
+  {
+    "report_date": "2026-04-18",
+    "game": "CWS@ATH",
+    "game_pk": 825020,
+    "status": "Final",
+    "file": "/Users/christianmay/Projects/black-sheep-mlb/canvases/exports/boxscores/apr18/CWS_ATH-825020.json"
+  },
+  {
+    "report_date": "2026-04-18",
+    "game": "DET@BOS",
+    "game_pk": 824775,
+    "status": "Final",
+    "file": "/Users/christianmay/Projects/black-sheep-mlb/canvases/exports/boxscores/apr18/DET_BOS-824775.json"
+  },
+  {
+    "report_date": "2026-04-18",
+    "game": "MIL@MIA",
+    "game_pk": 823882,
+    "status": "Final",
+    "file": "/Users/christianmay/Projects/black-sheep-mlb/canvases/exports/boxscores/apr18/MIL_MIA-823882.json"
+  },
+  {
+    "report_date": "2026-04-18",
+    "game": "BAL@CLE",
+    "game_pk": 824451,
+    "status": "Final",
+    "file": "/Users/christianmay/Projects/black-sheep-mlb/canvases/exports/boxscores/apr18/BAL_CLE-824451.json"
+  },
+  {
+    "report_date": "2026-04-18",
+    "game": "STL@HOU",
+    "game_pk": 824206,
+    "status": "Final",
+    "file": "/Users/christianmay/Projects/black-sheep-mlb/canvases/exports/boxscores/apr18/STL_HOU-824206.json"
+  },
+  {
+    "report_date": "2026-04-18",
+    "game": "TEX@SEA",
+    "game_pk": 823151,
+    "status": "Final",
+    "file": "/Users/christianmay/Projects/black-sheep-mlb/canvases/exports/boxscores/apr18/TEX_SEA-823151.json"
+  },
+  {
+    "report_date": "2026-04-18",
+    "game": "ATL@PHI",
+    "game_pk": 823474,
+    "status": "Final",
+    "file": "/Users/christianmay/Projects/black-sheep-mlb/canvases/exports/boxscores/apr18/ATL_PHI-823474.json"
+  },
+  {
+    "report_date": "2026-04-18",
+    "game": "LAD@COL",
+    "game_pk": 824372,
+    "status": "Final",
+    "file": "/Users/christianmay/Projects/black-sheep-mlb/canvases/exports/boxscores/apr18/LAD_COL-824372.json"
+  },
+  {
+    "report_date": "2026-04-18",
+    "game": "TOR@AZ",
+    "game_pk": 825098,
+    "status": "Final",
+    "file": "/Users/christianmay/Projects/black-sheep-mlb/canvases/exports/boxscores/apr18/TOR_AZ-825098.json"
+  },
+  {
+    "report_date": "2026-04-18",
+    "game": "SD@LAA",
+    "game_pk": 824049,
+    "status": "Final",
+    "file": "/Users/christianmay/Projects/black-sheep-mlb/canvases/exports/boxscores/apr18/SD_LAA-824049.json"
+  }
+]

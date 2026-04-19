@@ -1194,6 +1194,26 @@ function tierTone(t: string): "success" | "warning" | "info" | "neutral" {
   return "info";
 }
 
+function hrTierFromPct(pct: number): string {
+  if (pct >= 13.2) return "A+";
+  if (pct >= 10.2) return "A";
+  if (pct >= 7.8) return "B";
+  if (pct >= 5.8) return "C";
+  return "D";
+}
+
+function tbTierFromPct(pct: number): string {
+  if (pct >= 38) return "A+";
+  if (pct >= 32) return "A";
+  if (pct >= 26) return "B";
+  if (pct >= 20) return "C";
+  return "D";
+}
+
+function formatPropTier(p: PropRow): string {
+  return `HR ${hrTierFromPct(p.hrPct)} / TB ${tbTierFromPct(p.tb2Pct)}`;
+}
+
 function confTone(c: string): "success" | "warning" | "info" | "neutral" {
   if (c === "High") return "success";
   if (c === "Medium" || c === "Medium-High") return "warning";
@@ -1210,14 +1230,14 @@ function GameCard({ g }: { g: SlateGame }) {
     p.batter,
     `${p.hrPct.toFixed(1)}%`,
     `${p.tb2Pct.toFixed(1)}%`,
-    p.tier,
+    formatPropTier(p),
     p.note,
   ]);
   const propsHomeRows = g.propsHome.map((p) => [
     p.batter,
     `${p.hrPct.toFixed(1)}%`,
     `${p.tb2Pct.toFixed(1)}%`,
-    p.tier,
+    formatPropTier(p),
     p.note,
   ]);
 
@@ -1322,7 +1342,7 @@ function GameCard({ g }: { g: SlateGame }) {
             <Stack gap={4}>
               <Text weight="semibold">{g.away}</Text>
               <Table
-                headers={["Batter", "HR%", "2+ TB%", "Tier", "Notes"]}
+                headers={["Batter", "HR%", "2+ TB%", "HR/TB Tier", "Notes"]}
                 rows={propsAwayRows}
                 framed={false}
               />
@@ -1330,7 +1350,7 @@ function GameCard({ g }: { g: SlateGame }) {
             <Stack gap={4}>
               <Text weight="semibold">{g.home}</Text>
               <Table
-                headers={["Batter", "HR%", "2+ TB%", "Tier", "Notes"]}
+                headers={["Batter", "HR%", "2+ TB%", "HR/TB Tier", "Notes"]}
                 rows={propsHomeRows}
                 framed={false}
               />
@@ -1342,11 +1362,18 @@ function GameCard({ g }: { g: SlateGame }) {
   );
 }
 
-function allPropRows(): { batter: string; game: string; hr: number; tb2: number; tier: string }[] {
-  const out: { batter: string; game: string; hr: number; tb2: number; tier: string }[] = [];
+function allPropRows(): { batter: string; game: string; hr: number; tb2: number; hrTier: string; tbTier: string }[] {
+  const out: { batter: string; game: string; hr: number; tb2: number; hrTier: string; tbTier: string }[] = [];
   for (const g of SLATE) {
     for (const p of [...g.propsAway, ...g.propsHome]) {
-      out.push({ batter: p.batter, game: g.gameKey, hr: p.hrPct, tb2: p.tb2Pct, tier: p.tier });
+      out.push({
+        batter: p.batter,
+        game: g.gameKey,
+        hr: p.hrPct,
+        tb2: p.tb2Pct,
+        hrTier: hrTierFromPct(p.hrPct),
+        tbTier: tbTierFromPct(p.tb2Pct),
+      });
     }
   }
   return out;
@@ -1373,13 +1400,13 @@ export default function Apr16Canvas() {
       <H3>Top HR targets (model)</H3>
       <Table
         headers={["Rank", "Batter", "Game", "HR%", "Tier"]}
-        rows={topHr.map((r, i) => [String(i + 1), r.batter, r.game, `${r.hr.toFixed(1)}%`, r.tier])}
+        rows={topHr.map((r, i) => [String(i + 1), r.batter, r.game, `${r.hr.toFixed(1)}%`, r.hrTier])}
       />
 
       <H3>Top 2+ TB targets (model)</H3>
       <Table
         headers={["Rank", "Batter", "Game", "2+ TB%", "Tier"]}
-        rows={topTb.map((r, i) => [String(i + 1), r.batter, r.game, `${r.tb2.toFixed(1)}%`, r.tier])}
+        rows={topTb.map((r, i) => [String(i + 1), r.batter, r.game, `${r.tb2.toFixed(1)}%`, r.tbTier])}
       />
 
       <H3>Best game bets (process — verify price)</H3>

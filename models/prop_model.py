@@ -108,6 +108,11 @@ def platoon_hr_bump(batter_hand: str | None, pitcher_hand: str | None) -> float:
     return -0.001
 
 
+def stronger_tier(left: Tier, right: Tier) -> Tier:
+    rank = {"A+": 5, "A": 4, "B": 3, "C": 2, "D": 1}
+    return left if rank[left] >= rank[right] else right
+
+
 def batter_hr_two_tb(
     away: str,
     home: str,
@@ -142,7 +147,7 @@ def batter_hr_two_tb(
     vs_pitcher_hits: int | None = None,
     vs_pitcher_hr: int | None = None,
     vs_pitcher_total_bases: int | None = None,
-) -> tuple[float, float, str, str, Tier, ModelConf]:
+) -> tuple[float, float, str, str, Tier, Tier, ModelConf]:
     row = find_lineup_row(lineup, batter)
     brl = parse_brl(row)
     xslg = parse_xslg(row)
@@ -258,10 +263,10 @@ def batter_hr_two_tb(
             hr += clamp((0.5 - opp_bullpen_score) * 0.03, -0.015, 0.015)
         if starter_recent_form_score is not None:
             hr += clamp((0.5 - starter_recent_form_score) * 0.03, -0.015, 0.015)
-        if vs_pitcher_pa is not None and vs_pitcher_pa >= 3:
-            sample_weight = min(vs_pitcher_pa / 20.0, 1.0)
+        if vs_pitcher_pa is not None and vs_pitcher_pa >= 10:
+            sample_weight = min(vs_pitcher_pa / 30.0, 1.0)
             if vs_pitcher_hr is not None:
-                hr += clamp(((vs_pitcher_hr / vs_pitcher_pa) - 0.03) * 0.16 * sample_weight, -0.015, 0.02)
+                hr += clamp(((vs_pitcher_hr / vs_pitcher_pa) - 0.03) * 0.12 * sample_weight, -0.012, 0.015)
             if (
                 vs_pitcher_ab is not None
                 and vs_pitcher_ab > 0
@@ -270,7 +275,7 @@ def batter_hr_two_tb(
             ):
                 pvb_avg = vs_pitcher_hits / vs_pitcher_ab
                 pvb_slg = vs_pitcher_total_bases / vs_pitcher_ab
-                hr += clamp((pvb_slg - 0.4) * 0.05 * sample_weight, -0.01, 0.016)
+                hr += clamp((pvb_slg - 0.4) * 0.04 * sample_weight, -0.008, 0.012)
         hr = clamp(hr + (pk - 1) * 0.024, 0.004, 0.25)
 
         tb2 = 0.16 + platoon * 1.5
@@ -310,28 +315,26 @@ def batter_hr_two_tb(
             tb2 += clamp((0.5 - starter_recent_form_score) * 0.06, -0.03, 0.03)
         if (
             vs_pitcher_pa is not None
-            and vs_pitcher_pa >= 3
+            and vs_pitcher_pa >= 6
             and vs_pitcher_ab is not None
             and vs_pitcher_ab > 0
             and vs_pitcher_hits is not None
             and vs_pitcher_total_bases is not None
         ):
-            sample_weight = min(vs_pitcher_pa / 20.0, 1.0)
+            sample_weight = min(vs_pitcher_pa / 24.0, 1.0)
             pvb_avg = vs_pitcher_hits / vs_pitcher_ab
             pvb_slg = vs_pitcher_total_bases / vs_pitcher_ab
-            tb2 += clamp((pvb_avg - 0.245) * 0.12 * sample_weight, -0.02, 0.025)
-            tb2 += clamp((pvb_slg - 0.4) * 0.12 * sample_weight, -0.025, 0.03)
+            tb2 += clamp((pvb_avg - 0.245) * 0.10 * sample_weight, -0.018, 0.022)
+            tb2 += clamp((pvb_slg - 0.4) * 0.10 * sample_weight, -0.02, 0.028)
         tb2 = clamp(tb2 + (pk - 1) * 0.1, 0.06, 0.55)
 
     fair_hr = prob_to_american(hr)
     fair_2tb = prob_to_american(tb2)
     th = intrinsic_tier_hr(hr)
     t2 = intrinsic_tier_2tb(tb2)
-    rank = {"A+": 5, "A": 4, "B": 3, "C": 2, "D": 1}
-    tier: Tier = th if rank[th] >= rank[t2] else t2
     conf: ModelConf = "Medium"
     if miss >= 5:
         conf = "Low"
     elif miss == 0:
         conf = "High"
-    return hr, tb2, fair_hr, fair_2tb, tier, conf
+    return hr, tb2, fair_hr, fair_2tb, th, t2, conf

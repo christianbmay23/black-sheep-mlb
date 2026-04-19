@@ -162,20 +162,22 @@ def load_model_props(outlook_csv: Path) -> dict[tuple[str, str, str, str], Model
         game = row.get("game", "").strip().upper()
         player = row.get("batter", "").strip()
         team = row.get("team", "").strip().upper()
-        tier = row.get("tier", "").strip()
         confidence = row.get("data_confidence", "").strip()
+        legacy_tier = row.get("tier", "").strip()
+        hr_tier = row.get("hr_tier", "").strip() or legacy_tier
+        tb2_tier = row.get("tb2_tier", "").strip() or legacy_tier
 
         alias_key = alias_player_name(player)
 
         hr_prob = float(row.get("hr_prob_pct") or 0)
         hr_fair = row.get("fair_hr_american", "").strip()
         key_hr = (game, alias_key, team, "HR")
-        model_map[key_hr] = ModelProp(date, game, player, team, "HR", hr_prob, hr_fair, tier, confidence)
+        model_map[key_hr] = ModelProp(date, game, player, team, "HR", hr_prob, hr_fair, hr_tier, confidence)
 
         tb_prob = float(row.get("tb2_prob_pct") or 0)
         tb_fair = row.get("fair_2tb_american", "").strip()
         key_tb = (game, alias_key, team, "2+ TB")
-        model_map[key_tb] = ModelProp(date, game, player, team, "2+ TB", tb_prob, tb_fair, tier, confidence)
+        model_map[key_tb] = ModelProp(date, game, player, team, "2+ TB", tb_prob, tb_fair, tb2_tier, confidence)
 
     return model_map
 

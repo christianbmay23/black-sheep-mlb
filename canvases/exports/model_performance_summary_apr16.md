@@ -1,23 +1,35 @@
 # Model Performance Backtest — 2026-04-16
 
 ## Headline
-- Settled picks: **0** / 10
-- Record: **0-0**
-- Accuracy: **0.0%**
-- Avg model edge on picks: **0.00%**
+- Settled picks: **10** / 10
+- Record: **5-5**
+- Accuracy: **50.0%**
+- Avg model edge on picks: **7.19%**
 
 ## Tracker by tier
+- A+: 4-2 (66.7%)
+- C: 0-1 (0.0%)
+- D: 1-2 (33.3%)
 
 ## Tracker by confidence
+- High: 5-5 (50.0%)
 
 ## Where the model performed well
-- No winning picks were recorded.
+- BAL@CLE: picked **CLE**, result **CLE**, edge 22.11% (A+ / High).
+- SF@CIN: picked **SF**, result **SF**, edge 20.66% (A+ / High).
+- KC@DET: picked **DET**, result **DET**, edge 18.90% (A+ / High).
 
 ## Where the model performed poorly
-- No misses were recorded.
+- WSH@PIT: picked **PIT**, actual **WSH**, edge 17.31% (A+ / High), missing-data flags: approx_market_ml.
+- TEX@ATH: picked **ATH**, actual **TEX**, edge 11.99% (A+ / High), missing-data flags: approx_market_ml;oak_coliseum_env.
+- TOR@MIL: picked **TOR**, actual **MIL**, edge 1.40% (C / High), missing-data flags: approx_market_ml;corbin_platoons.
 
 ## Miss-pattern diagnostics
-- No misses to diagnose.
+- approx_market_ml: 5 misses
+- corbin_platoons: 1 misses
+- oak_coliseum_env: 1 misses
+- lineup_not_posted_api: 1 misses
 
 ## Steps going forward
-1. Track results daily by tier/confidence and pause any segment (tier or confidence bucket) that falls below 45% over a rolling 7-day window.
+1. Add a post-lineup re-score pass that updates win probabilities using confirmed batting orders and bullpen availability to reduce late-information misses.
+2. Track results daily by tier/confidence and pause any segment (tier or confidence bucket) that falls below 45% over a rolling 7-day window.
