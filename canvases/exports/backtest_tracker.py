@@ -12,6 +12,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 from statistics import mean
+import math
 
 OUT_DIR = Path(__file__).resolve().parent
 DEFAULT_SLUG = "apr15"
@@ -64,6 +65,7 @@ class BacktestRow:
     edge_on_pick_pct: float
     missing_data_flags: str
     rationale_summary: str
+    predicted_win_prob: float
 
 
 def slug_from_date_input(date_input: str) -> str:
@@ -183,6 +185,16 @@ def build_backtest_rows(predictions: list[dict[str, str]], actual_winners: dict[
         predicted_winner = normalize_team(pred["prediction"])
         market_favorite = market_favorite_pick(pred)
         actual_winner = actual_winners.get(matchup, "")
+        final_away = parse_float(pred.get("final_away_win_pct", ""))
+        final_home = parse_float(pred.get("final_home_win_pct", ""))
+        if final_away is None:
+            final_away = parse_float(pred.get("model_away_win_pct", ""))
+        if final_home is None:
+            final_home = parse_float(pred.get("model_home_win_pct", ""))
+        p_away = (final_away / 100.0) if final_away is not None and final_away > 1 else (final_away or 0.0)
+        p_home = (final_home / 100.0) if final_home is not None and final_home > 1 else (final_home or 0.0)
+        predicted_win_prob = p_away if predicted_winner == away else p_home if predicted_winner == home else max(p_away, p_home)
+        predicted_win_prob = min(max(predicted_win_prob, 0.001), 0.999)
         was_correct = predicted_winner == actual_winner if actual_winner else False
         baseline_was_correct = market_favorite == actual_winner if actual_winner and market_favorite else False
         rows.append(
@@ -198,6 +210,7 @@ def build_backtest_rows(predictions: list[dict[str, str]], actual_winners: dict[
                 edge_on_pick_pct=parse_float(pred.get("edge_on_pick_pct", "")) or 0.0,
                 missing_data_flags=pred["missing_data_flags"],
                 rationale_summary=pred["rationale_summary"],
+                predicted_win_prob=predicted_win_prob,
             )
         )
     return rows
@@ -258,6 +271,17 @@ def summarize(rows: list[BacktestRow]) -> dict[str, object]:
             clean.append(r)
 
     misses = [r for r in settled if not r.was_correct]
+    brier = mean((r.predicted_win_prob - (1.0 if r.was_correct else 0.0)) ** 2 for r in settled) if settled else 0.0
+    log_loss = (
+        mean(
+            -math.log(min(max(r.predicted_win_prob, 1e-6), 1 - 1e-6))
+            if r.was_correct
+            else -math.log(min(max(1.0 - r.predicted_win_prob, 1e-6), 1 - 1e-6))
+            for r in settled
+        )
+        if settled
+        else 0.0
+    )
     top_hits = sorted(correct, key=lambda r: r.edge_on_pick_pct, reverse=True)[:3]
     top_misses = sorted(misses, key=lambda r: r.edge_on_pick_pct, reverse=True)[:3]
 
@@ -269,6 +293,22 @@ def summarize(rows: list[BacktestRow]) -> dict[str, object]:
         for f in flags:
             miss_reasons[f] += 1
 
+    by_tier_calibration: dict[str, dict[str, float]] = {}
+    for tier, tier_rows in by_tier.items():
+        if not tier_rows:
+            continue
+        tier_brier = mean((r.predicted_win_prob - (1.0 if r.was_correct else 0.0)) ** 2 for r in tier_rows)
+        tier_log_loss = mean(
+            -math.log(min(max(r.predicted_win_prob, 1e-6), 1 - 1e-6))
+            if r.was_correct
+            else -math.log(min(max(1.0 - r.predicted_win_prob, 1e-6), 1 - 1e-6))
+            for r in tier_rows
+        )
+        by_tier_calibration[tier] = {
+            "brier": tier_brier,
+            "log_loss": tier_log_loss,
+        }
+
     return {
         "total": len(rows),
         "settled": len(settled),
@@ -279,7 +319,10 @@ def summarize(rows: list[BacktestRow]) -> dict[str, object]:
         "accuracy_vs_baseline_pct": ((len(correct) - len(baseline_correct)) / len(settled) * 100) if settled else 0,
         "avg_edge_all": mean(r.edge_on_pick_pct for r in settled) if settled else 0,
         "avg_edge_correct": mean(r.edge_on_pick_pct for r in correct) if correct else 0,
+        "brier": brier,
+        "log_loss": log_loss,
         "by_tier": by_tier,
+        "by_tier_calibration": by_tier_calibration,
         "by_conf": by_conf,
         "flagged": flagged,
         "clean": clean,
@@ -338,6 +381,7 @@ def recommendations(summary: dict[str, object]) -> list[str]:
 
 def write_summary(date_str: str, summary: dict[str, object], summary_md: Path) -> None:
     by_tier = summary["by_tier"]
+    by_tier_calibration = summary["by_tier_calibration"]
     by_conf = summary["by_conf"]
     top_hits = summary["top_hits"]
     top_misses = summary["top_misses"]
@@ -359,6 +403,8 @@ def write_summary(date_str: str, summary: dict[str, object], summary_md: Path) -
     )
     lines.append(f"- Delta vs baseline: **{summary['accuracy_vs_baseline_pct']:+.1f} pts**")
     lines.append(f"- Avg model edge on picks: **{summary['avg_edge_all']:.2f}%**")
+    lines.append(f"- Brier score (lower is better): **{summary['brier']:.4f}**")
+    lines.append(f"- Log loss (lower is better): **{summary['log_loss']:.4f}**")
     lines.append("- Standard: current model performance must beat the market-favorite baseline before improvement claims are credible.")
     lines.append("")
 
@@ -366,7 +412,10 @@ def write_summary(date_str: str, summary: dict[str, object], summary_md: Path) -
     for tier in ["A+", "A", "B", "C", "D"]:
         rows = by_tier.get(tier, [])
         if rows:
-            lines.append(f"- {tier}: {format_record(rows)}")
+            cal = by_tier_calibration.get(tier, {})
+            lines.append(
+                f"- {tier}: {format_record(rows)} | Brier {cal.get('brier', 0.0):.4f} | Log loss {cal.get('log_loss', 0.0):.4f}"
+            )
     lines.append("")
 
     lines.append("## Tracker by confidence")
@@ -444,6 +493,8 @@ def main() -> None:
     print(f"Scored rows considered: {len(predictions)} / {total_rows}")
     print(f"Model accuracy: {summary['accuracy']:.1f}% ({summary['correct']}/{summary['settled']})")
     print(f"Baseline accuracy: {summary['baseline_accuracy']:.1f}% ({summary['baseline_correct']}/{summary['settled']})")
+    print(f"Brier score: {summary['brier']:.4f}")
+    print(f"Log loss: {summary['log_loss']:.4f}")
     print(f"Results source: {source}")
 
 

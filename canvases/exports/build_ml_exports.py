@@ -48,8 +48,10 @@ GAMES_HEADERS = [
     "verification_notes",
     "implied_away_pct_nv",
     "implied_home_pct_nv",
-    "model_away_win_pct",
-    "model_home_win_pct",
+    "raw_model_away_win_pct",
+    "raw_model_home_win_pct",
+    "final_away_win_pct",
+    "final_home_win_pct",
     "edge_away_pct",
     "edge_home_pct",
     "prediction",
@@ -327,6 +329,24 @@ def format_model_pct(value: object, digits: int = 2) -> str:
     if -1.0 <= number <= 1.0:
         number *= 100
     return f"{number:.{digits}f}%"
+
+
+def model_row_probabilities(row: dict[str, str]) -> tuple[str, str, str, str]:
+    raw_away = format_pct(row.get("raw_model_away_win_pct"))
+    raw_home = format_pct(row.get("raw_model_home_win_pct"))
+    final_away = format_pct(row.get("final_away_win_pct"))
+    final_home = format_pct(row.get("final_home_win_pct"))
+
+    # Backward compatibility for older exports.
+    if raw_away == "NA":
+        raw_away = format_pct(row.get("model_away_win_pct"))
+    if raw_home == "NA":
+        raw_home = format_pct(row.get("model_home_win_pct"))
+    if final_away == "NA":
+        final_away = format_pct(row.get("model_away_win_pct"))
+    if final_home == "NA":
+        final_home = format_pct(row.get("model_home_win_pct"))
+    return raw_away, raw_home, final_away, final_home
 
 
 def format_signed_pct(value: str | None, digits: int = 2) -> str:
@@ -805,6 +825,7 @@ def game_card_html(
     scored = is_scored_row(row)
     reason_text = game_reason_summary(row, game_feature)
     reason_badges = reason_badges_html(game_reason_badges(row, game_feature))
+    raw_away_pct, raw_home_pct, final_away_pct, final_home_pct = model_row_probabilities(row)
 
     header_bits = [
         render_pill(bucket_title(row.get("game_status_bucket", "")), "info"),
@@ -827,7 +848,12 @@ def game_card_html(
             render_stat("Market", f"{away} {format_american(row.get('away_american'))} / {home} {format_american(row.get('home_american'))}"),
             render_stat(
                 "Model",
-                f"{away} {format_pct(row.get('model_away_win_pct'))} / {home} {format_pct(row.get('model_home_win_pct'))}" if scored else "Not scored",
+                (
+                    f"Raw {away} {raw_away_pct} / {home} {raw_home_pct}; "
+                    f"Final {away} {final_away_pct} / {home} {final_home_pct}"
+                )
+                if scored
+                else "Not scored",
             ),
             render_stat("Edge On Pick", format_signed_pct(row.get("edge_on_pick_pct")) if scored else "Not scored"),
             render_stat("Weather", row.get("weather_summary", "NA")),

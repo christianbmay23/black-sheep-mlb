@@ -34,6 +34,7 @@ from live_mlb_data import (  # noqa: E402
 )
 from models.game_model import (  # noqa: E402
     american_to_implied,
+    blend_with_market_probability,
     clamp,
     devig_two_way,
     tier_from_edge,
@@ -63,6 +64,7 @@ TB_TARGET_LINE = 1.5
 PROP_TIER_RANK = {"A+": 5, "A": 4, "B": 3, "C": 2, "D": 1}
 SCORING_STATUS_SCORED = "scored"
 SCORING_STATUS_NOT_SCORED = "not_scored"
+GAME_BLEND_ALPHA = 0.25
 
 
 def fetch_json(url: str) -> dict:
@@ -1716,8 +1718,10 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
             "verification_notes",
             "implied_away_pct_nv",
             "implied_home_pct_nv",
-            "model_away_win_pct",
-            "model_home_win_pct",
+            "raw_model_away_win_pct",
+            "raw_model_home_win_pct",
+            "final_away_win_pct",
+            "final_home_win_pct",
             "edge_away_pct",
             "edge_home_pct",
             "prediction",
@@ -1802,8 +1806,10 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
         home_moneyline = int(ctx["home_moneyline"])
         ia, ih = devig_two_way(away_moneyline, home_moneyline)
         imp_a, imp_h = ia * 100, ih * 100
-        ma: float | None = None
-        mh: float | None = None
+        raw_ma: float | None = None
+        raw_mh: float | None = None
+        final_ma: float | None = None
+        final_mh: float | None = None
         ea: float | None = None
         eh: float | None = None
         edge_pick: float | None = None
@@ -1825,9 +1831,12 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                 home_recent_form_score=home_recent_score,
                 weather_factor=weather_snapshot.run_factor if weather_snapshot else None,
             )
-            ma, mh = p_away * 100, p_home * 100
-            ea, eh = ma - imp_a, mh - imp_h
-            pred = spec["away"] if p_away > p_home else spec["home"]
+            raw_ma, raw_mh = p_away * 100, p_home * 100
+            final_p_away = blend_with_market_probability(p_away, ia, GAME_BLEND_ALPHA)
+            final_p_home = blend_with_market_probability(p_home, ih, GAME_BLEND_ALPHA)
+            final_ma, final_mh = final_p_away * 100, final_p_home * 100
+            ea, eh = final_ma - imp_a, final_mh - imp_h
+            pred = spec["away"] if final_p_away > final_p_home else spec["home"]
             edge_pick = ea if pred == spec["away"] else eh
             tier = tier_from_edge(edge_pick)
         issues = list(ctx["issues"]) + miss
@@ -1866,8 +1875,10 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                 "|".join(sorted(set(ctx["issues"]))),
                 f"{imp_a:.2f}",
                 f"{imp_h:.2f}",
-                round_or_blank(ma, 2),
-                round_or_blank(mh, 2),
+                round_or_blank(raw_ma, 2),
+                round_or_blank(raw_mh, 2),
+                round_or_blank(final_ma, 2),
+                round_or_blank(final_mh, 2),
                 round_or_blank(ea, 2),
                 round_or_blank(eh, 2),
                 pred,
@@ -1885,8 +1896,8 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                 "gameKey": key,
                 "impliedAwayPct": imp_a,
                 "impliedHomePct": imp_h,
-                "modelAwayPct": ma if ma is not None else 0.0,
-                "modelHomePct": mh if mh is not None else 0.0,
+                "modelAwayPct": final_ma if final_ma is not None else 0.0,
+                "modelHomePct": final_mh if final_mh is not None else 0.0,
                 "edgeAwayPct": ea if ea is not None else 0.0,
                 "edgeHomePct": eh if eh is not None else 0.0,
                 "prediction": pred if is_scored else "Not Scored",
@@ -1927,6 +1938,11 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                 "prediction": pred,
                 "decision_tier": tier,
                 "edge_on_pick_pct": edge_pick,
+                "raw_model_away_win_pct": raw_ma,
+                "raw_model_home_win_pct": raw_mh,
+                "final_away_win_pct": final_ma,
+                "final_home_win_pct": final_mh,
+                "game_blend_alpha": GAME_BLEND_ALPHA,
             }
         )
 

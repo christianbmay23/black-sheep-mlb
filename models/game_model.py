@@ -171,14 +171,21 @@ def win_probability_model(
     return p_away, p_home, model_conf, miss
 
 
-def tier_from_edge(edge_pct: float) -> DecisionTier:
-    if edge_pct >= 8:
+def blend_with_market_probability(raw_prob: float, market_prob: float, alpha: float = 0.25) -> float:
+    a = clamp(alpha, 0.0, 1.0)
+    raw = clamp(raw_prob, 0.0, 1.0)
+    market = clamp(market_prob, 0.0, 1.0)
+    return clamp((a * raw) + ((1.0 - a) * market), 0.0, 1.0)
+
+
+def tier_from_edge(edge_pct: float, *, allow_a_plus: bool = False) -> DecisionTier:
+    if allow_a_plus and edge_pct >= 12:
         return "A+"
-    if edge_pct >= 5:
+    if edge_pct >= 8:
         return "A"
-    if edge_pct >= 2:
+    if edge_pct >= 4:
         return "B"
-    if edge_pct > 0:
+    if edge_pct > 1:
         return "C"
     return "D"
 

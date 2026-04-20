@@ -79,22 +79,28 @@ const SLATE: SlateGame[] = [
     away: "WSH",
     home: "PIT",
     timeEt: "12:35 PM",
+    gameStatusBucket: "final",
+    gameState: "Final",
+    gameStateDetail: "Final",
+    gameStatusNote: "Final — WSH 8, PIT 7",
+    awayScore: 8,
+    homeScore: 7,
     awaySp: "Foster Griffin",
     homeSp: "Braxton Ashcraft",
     awayAmerican: 118,
     homeAmerican: -132,
     impliedAwayPct: 44.64,
     impliedHomePct: 55.36,
-    modelAwayPct: 27.32,
-    modelHomePct: 72.68,
-    edgeAwayPct: -17.31,
-    edgeHomePct: 17.31,
-    prediction: "PIT",
-    decisionTier: "A+",
-    edgeOnPickPct: 17.31,
-    modelConfidence: "High",
+    modelAwayPct: 0.00,
+    modelHomePct: 0.00,
+    edgeAwayPct: 0.00,
+    edgeHomePct: 0.00,
+    prediction: "Not Scored",
+    decisionTier: "Not Scored",
+    edgeOnPickPct: 0.00,
+    modelConfidence: "Not Scored",
     analystConfidence: "Medium",
-    flags: "approx_market_ml",
+    flags: "rotowire_missing;not_scored_non_pregame",
     rationale:
       "Probables Griffin (WSH) and Ashcraft (PIT) look like swing/spot roles without big separator stuff. PNC is slightly pitcher-friendly; Pirates get a small home edge but the price is close to fair.",
     awayLuLabel: "Posted (MLB API)",
@@ -135,26 +141,26 @@ const SLATE: SlateGame[] = [
       "HR / TB: PNC leans pitcher-friendly — downgrade pure HR equity vs GABP, but Ozuna/Cruz stay in the power conversation.",
     ],
     propsAway: [
-      { batter: "James Wood", team: "WSH", hrPct: 8.2, tb2Pct: 32.0, tier: "A", note: "LHB vs RHP; elite power indicators; vs tough pitcher" },
-      { batter: "Luis García Jr.", team: "WSH", hrPct: 0.4, tb2Pct: 12.1, tier: "D", note: "LHB vs RHP; hard-contact profile; vs tough pitcher" },
-      { batter: "Brady House", team: "WSH", hrPct: 0.4, tb2Pct: 6.6, tier: "D", note: "RHB vs RHP; contact-driven profile; vs tough pitcher" },
-      { batter: "Daylen Lile", team: "WSH", hrPct: 0.4, tb2Pct: 10.2, tier: "D", note: "LHB vs RHP; contact-driven profile; vs tough pitcher" },
-      { batter: "CJ Abrams", team: "WSH", hrPct: 5.0, tb2Pct: 27.3, tier: "B", note: "LHB vs RHP; elite power indicators; vs tough pitcher" },
-      { batter: "Jacob Young", team: "WSH", hrPct: 0.4, tb2Pct: 13.1, tier: "D", note: "RHB vs RHP; contact-driven profile; vs tough pitcher" },
-      { batter: "Jorbit Vivas", team: "WSH", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "LHB vs RHP; limited power profile; vs tough pitcher" },
-      { batter: "Drew Millas", team: "WSH", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "LHB vs RHP; contact-driven profile; vs tough pitcher" },
-      { batter: "Nasim Nuñez", team: "WSH", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "LHB vs RHP; limited power profile; vs tough pitcher" },
+      { batter: "James Wood", team: "WSH", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — WSH 8, PIT 7" },
+      { batter: "Luis García Jr.", team: "WSH", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — WSH 8, PIT 7" },
+      { batter: "Brady House", team: "WSH", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — WSH 8, PIT 7" },
+      { batter: "Daylen Lile", team: "WSH", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — WSH 8, PIT 7" },
+      { batter: "CJ Abrams", team: "WSH", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — WSH 8, PIT 7" },
+      { batter: "Jacob Young", team: "WSH", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — WSH 8, PIT 7" },
+      { batter: "Jorbit Vivas", team: "WSH", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — WSH 8, PIT 7" },
+      { batter: "Drew Millas", team: "WSH", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — WSH 8, PIT 7" },
+      { batter: "Nasim Nuñez", team: "WSH", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — WSH 8, PIT 7" },
     ],
     propsHome: [
-      { batter: "Jake Mangum", team: "PIT", hrPct: 0.4, tb2Pct: 10.3, tier: "D", note: "RHB vs LHP; limited power profile; vs vulnerable pitcher" },
-      { batter: "Nick Gonzales", team: "PIT", hrPct: 0.4, tb2Pct: 12.6, tier: "D", note: "RHB vs LHP; limited power profile; vs vulnerable pitcher" },
-      { batter: "Oneil Cruz", team: "PIT", hrPct: 11.6, tb2Pct: 39.9, tier: "A+", note: "LHB vs LHP; elite power indicators; vs vulnerable pitcher" },
-      { batter: "Marcell Ozuna", team: "PIT", hrPct: 2.6, tb2Pct: 15.2, tier: "D", note: "RHB vs LHP; contact-driven profile; vs vulnerable pitcher" },
-      { batter: "Nick Yorke", team: "PIT", hrPct: 1.9, tb2Pct: 17.6, tier: "D", note: "RHB vs LHP; hard-contact profile; vs vulnerable pitcher" },
-      { batter: "Brandon Lowe", team: "PIT", hrPct: 7.0, tb2Pct: 27.0, tier: "B", note: "LHB vs LHP; elite power indicators; vs vulnerable pitcher" },
-      { batter: "Joey Bart", team: "PIT", hrPct: 1.3, tb2Pct: 8.2, tier: "D", note: "RHB vs LHP; contact-driven profile; vs vulnerable pitcher" },
-      { batter: "Konnor Griffin", team: "PIT", hrPct: 0.4, tb2Pct: 10.4, tier: "D", note: "RHB vs LHP; contact-driven profile; vs vulnerable pitcher" },
-      { batter: "Billy Cook", team: "PIT", hrPct: 1.2, tb2Pct: 15.1, tier: "D", note: "RHB vs LHP; contact-driven profile; vs vulnerable pitcher" },
+      { batter: "Jake Mangum", team: "PIT", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — WSH 8, PIT 7" },
+      { batter: "Nick Gonzales", team: "PIT", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — WSH 8, PIT 7" },
+      { batter: "Oneil Cruz", team: "PIT", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — WSH 8, PIT 7" },
+      { batter: "Marcell Ozuna", team: "PIT", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — WSH 8, PIT 7" },
+      { batter: "Nick Yorke", team: "PIT", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — WSH 8, PIT 7" },
+      { batter: "Brandon Lowe", team: "PIT", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — WSH 8, PIT 7" },
+      { batter: "Joey Bart", team: "PIT", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — WSH 8, PIT 7" },
+      { batter: "Konnor Griffin", team: "PIT", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — WSH 8, PIT 7" },
+      { batter: "Billy Cook", team: "PIT", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — WSH 8, PIT 7" },
     ],
   },
   {
@@ -163,22 +169,28 @@ const SLATE: SlateGame[] = [
     away: "SF",
     home: "CIN",
     timeEt: "12:40 PM",
+    gameStatusBucket: "final",
+    gameState: "Final",
+    gameStateDetail: "Final",
+    gameStatusNote: "Final — SF 3, CIN 0",
+    awayScore: 3,
+    homeScore: 0,
     awaySp: "Landen Roupp",
     homeSp: "Chase Burns",
     awayAmerican: 128,
     homeAmerican: -148,
     impliedAwayPct: 42.36,
     impliedHomePct: 57.64,
-    modelAwayPct: 63.03,
-    modelHomePct: 36.97,
-    edgeAwayPct: 20.66,
-    edgeHomePct: -20.66,
-    prediction: "SF",
-    decisionTier: "A+",
-    edgeOnPickPct: 20.66,
-    modelConfidence: "High",
+    modelAwayPct: 0.00,
+    modelHomePct: 0.00,
+    edgeAwayPct: 0.00,
+    edgeHomePct: 0.00,
+    prediction: "Not Scored",
+    decisionTier: "Not Scored",
+    edgeOnPickPct: 0.00,
+    modelConfidence: "Not Scored",
     analystConfidence: "Medium-High",
-    flags: "approx_market_ml",
+    flags: "rotowire_missing;not_scored_non_pregame",
     rationale:
       "Burns at home brings premium velocity; Roupp works contact and weak barrels. GABP raises HR/TB volatility — lean Reds, but mostly a props/team-total environment.",
     awayLuLabel: "Posted (MLB API)",
@@ -219,26 +231,26 @@ const SLATE: SlateGame[] = [
       "HR / TB: Highest run-environment game on the slate — prioritize HR / 2+ TB and team-total angles over a skinny ML edge.",
     ],
     propsAway: [
-      { batter: "Luis Arraez", team: "SF", hrPct: 0.4, tb2Pct: 8.5, tier: "D", note: "LHB vs RHP; limited power profile; neutral pitcher matchup" },
-      { batter: "Willy Adames", team: "SF", hrPct: 4.2, tb2Pct: 22.1, tier: "C", note: "RHB vs RHP; above-average damage; neutral pitcher matchup" },
-      { batter: "Rafael Devers", team: "SF", hrPct: 3.7, tb2Pct: 18.9, tier: "D", note: "LHB vs RHP; above-average damage; neutral pitcher matchup" },
-      { batter: "Matt Chapman", team: "SF", hrPct: 0.8, tb2Pct: 14.2, tier: "D", note: "RHB vs RHP; limited power profile; neutral pitcher matchup" },
-      { batter: "Jung Hoo Lee", team: "SF", hrPct: 1.4, tb2Pct: 16.3, tier: "D", note: "LHB vs RHP; contact-driven profile; neutral pitcher matchup" },
-      { batter: "Will Brennan", team: "SF", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "LHB vs RHP; contact-driven profile; neutral pitcher matchup" },
-      { batter: "Casey Schmitt", team: "SF", hrPct: 6.0, tb2Pct: 28.4, tier: "B", note: "RHB vs RHP; above-average damage; neutral pitcher matchup" },
-      { batter: "Drew Gilbert", team: "SF", hrPct: 7.9, tb2Pct: 26.4, tier: "B", note: "LHB vs RHP; elite power indicators; neutral pitcher matchup" },
-      { batter: "Patrick Bailey", team: "SF", hrPct: 0.4, tb2Pct: 9.6, tier: "D", note: "LHB vs RHP; limited power profile; neutral pitcher matchup" },
+      { batter: "Luis Arraez", team: "SF", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — SF 3, CIN 0" },
+      { batter: "Willy Adames", team: "SF", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — SF 3, CIN 0" },
+      { batter: "Rafael Devers", team: "SF", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — SF 3, CIN 0" },
+      { batter: "Matt Chapman", team: "SF", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — SF 3, CIN 0" },
+      { batter: "Jung Hoo Lee", team: "SF", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — SF 3, CIN 0" },
+      { batter: "Will Brennan", team: "SF", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — SF 3, CIN 0" },
+      { batter: "Casey Schmitt", team: "SF", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — SF 3, CIN 0" },
+      { batter: "Drew Gilbert", team: "SF", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — SF 3, CIN 0" },
+      { batter: "Patrick Bailey", team: "SF", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — SF 3, CIN 0" },
     ],
     propsHome: [
-      { batter: "TJ Friedl", team: "CIN", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "LHB vs RHP; limited power profile; vs tough pitcher" },
-      { batter: "Matt McLain", team: "CIN", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "RHB vs RHP; contact-driven profile; vs tough pitcher" },
-      { batter: "Elly De La Cruz", team: "CIN", hrPct: 5.7, tb2Pct: 25.3, tier: "C", note: "LHB vs RHP; elite power indicators; vs tough pitcher" },
-      { batter: "Sal Stewart", team: "CIN", hrPct: 6.5, tb2Pct: 28.0, tier: "B", note: "RHB vs RHP; elite power indicators; vs tough pitcher" },
-      { batter: "Eugenio Suárez", team: "CIN", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "RHB vs RHP; above-average damage; vs tough pitcher" },
-      { batter: "Spencer Steer", team: "CIN", hrPct: 1.4, tb2Pct: 14.1, tier: "D", note: "RHB vs RHP; elite power indicators; vs tough pitcher" },
-      { batter: "Rece Hinds", team: "CIN", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "RHB vs RHP; contact-driven profile; vs tough pitcher" },
-      { batter: "Ke'Bryan Hayes", team: "CIN", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "RHB vs RHP; contact-driven profile; vs tough pitcher" },
-      { batter: "P.J. Higgins", team: "CIN", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "RHB vs RHP; contact-driven profile; vs tough pitcher" },
+      { batter: "TJ Friedl", team: "CIN", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — SF 3, CIN 0" },
+      { batter: "Matt McLain", team: "CIN", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — SF 3, CIN 0" },
+      { batter: "Elly De La Cruz", team: "CIN", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — SF 3, CIN 0" },
+      { batter: "Sal Stewart", team: "CIN", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — SF 3, CIN 0" },
+      { batter: "Eugenio Suárez", team: "CIN", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — SF 3, CIN 0" },
+      { batter: "Spencer Steer", team: "CIN", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — SF 3, CIN 0" },
+      { batter: "Rece Hinds", team: "CIN", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — SF 3, CIN 0" },
+      { batter: "Ke'Bryan Hayes", team: "CIN", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — SF 3, CIN 0" },
+      { batter: "P.J. Higgins", team: "CIN", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — SF 3, CIN 0" },
     ],
   },
   {
@@ -247,22 +259,28 @@ const SLATE: SlateGame[] = [
     away: "KC",
     home: "DET",
     timeEt: "1:10 PM",
+    gameStatusBucket: "final",
+    gameState: "Final",
+    gameStateDetail: "Final",
+    gameStatusNote: "Final — KC 9, DET 10",
+    awayScore: 9,
+    homeScore: 10,
     awaySp: "Kris Bubic",
     homeSp: "Keider Montero",
     awayAmerican: 108,
     homeAmerican: -124,
     impliedAwayPct: 46.48,
     impliedHomePct: 53.52,
-    modelAwayPct: 27.58,
-    modelHomePct: 72.42,
-    edgeAwayPct: -18.90,
-    edgeHomePct: 18.90,
-    prediction: "DET",
-    decisionTier: "A+",
-    edgeOnPickPct: 18.90,
-    modelConfidence: "High",
+    modelAwayPct: 0.00,
+    modelHomePct: 0.00,
+    edgeAwayPct: 0.00,
+    edgeHomePct: 0.00,
+    prediction: "Not Scored",
+    decisionTier: "Not Scored",
+    edgeOnPickPct: 0.00,
+    modelConfidence: "Not Scored",
     analystConfidence: "Medium",
-    flags: "approx_market_ml",
+    flags: "rotowire_missing;not_scored_non_pregame",
     rationale:
       "Bubic vs Montero is young-starter volatility; Comerica trims some extra-base noise. Slight DET home lean without a commanding pitching edge.",
     awayLuLabel: "Posted (MLB API)",
@@ -301,26 +319,26 @@ const SLATE: SlateGame[] = [
       "HR / TB: Comerica dampens pure HR — 2+ TB and barrels matter more than HR lottery.",
     ],
     propsAway: [
-      { batter: "Maikel Garcia", team: "KC", hrPct: 0.4, tb2Pct: 14.6, tier: "D", note: "RHB vs RHP; above-average damage; vs tough pitcher" },
-      { batter: "Bobby Witt Jr.", team: "KC", hrPct: 1.0, tb2Pct: 19.0, tier: "D", note: "RHB vs RHP; above-average damage; vs tough pitcher" },
-      { batter: "Vinnie Pasquantino", team: "KC", hrPct: 0.4, tb2Pct: 7.1, tier: "D", note: "LHB vs RHP; contact-driven profile; vs tough pitcher" },
-      { batter: "Salvador Perez", team: "KC", hrPct: 0.4, tb2Pct: 8.1, tier: "D", note: "RHB vs RHP; above-average damage; vs tough pitcher" },
-      { batter: "Carter Jensen", team: "KC", hrPct: 2.5, tb2Pct: 14.1, tier: "D", note: "LHB vs RHP; above-average damage; vs tough pitcher" },
-      { batter: "Jonathan India", team: "KC", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "RHB vs RHP; limited power profile; vs tough pitcher" },
-      { batter: "Jac Caglianone", team: "KC", hrPct: 0.8, tb2Pct: 15.7, tier: "D", note: "LHB vs RHP; above-average damage; vs tough pitcher" },
-      { batter: "Michael Massey", team: "KC", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "LHB vs RHP; contact-driven profile; vs tough pitcher" },
-      { batter: "Kyle Isbel", team: "KC", hrPct: 0.4, tb2Pct: 7.2, tier: "D", note: "LHB vs RHP; contact-driven profile; vs tough pitcher" },
+      { batter: "Maikel Garcia", team: "KC", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — KC 9, DET 10" },
+      { batter: "Bobby Witt Jr.", team: "KC", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — KC 9, DET 10" },
+      { batter: "Vinnie Pasquantino", team: "KC", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — KC 9, DET 10" },
+      { batter: "Salvador Perez", team: "KC", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — KC 9, DET 10" },
+      { batter: "Carter Jensen", team: "KC", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — KC 9, DET 10" },
+      { batter: "Jonathan India", team: "KC", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — KC 9, DET 10" },
+      { batter: "Jac Caglianone", team: "KC", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — KC 9, DET 10" },
+      { batter: "Michael Massey", team: "KC", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — KC 9, DET 10" },
+      { batter: "Kyle Isbel", team: "KC", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — KC 9, DET 10" },
     ],
     propsHome: [
-      { batter: "Gleyber Torres", team: "DET", hrPct: 0.4, tb2Pct: 8.9, tier: "D", note: "RHB vs LHP; contact-driven profile; neutral pitcher matchup" },
-      { batter: "Kevin McGonigle", team: "DET", hrPct: 3.7, tb2Pct: 24.0, tier: "C", note: "LHB vs LHP; elite power indicators; neutral pitcher matchup" },
-      { batter: "Jahmai Jones", team: "DET", hrPct: 0.4, tb2Pct: 7.2, tier: "D", note: "RHB vs LHP; contact-driven profile; neutral pitcher matchup" },
-      { batter: "Dillon Dingler", team: "DET", hrPct: 11.7, tb2Pct: 42.4, tier: "A+", note: "RHB vs LHP; elite power indicators; neutral pitcher matchup" },
-      { batter: "Riley Greene", team: "DET", hrPct: 5.9, tb2Pct: 30.0, tier: "B", note: "LHB vs LHP; elite power indicators; neutral pitcher matchup" },
-      { batter: "Matt Vierling", team: "DET", hrPct: 2.6, tb2Pct: 14.7, tier: "D", note: "RHB vs LHP; contact-driven profile; neutral pitcher matchup" },
-      { batter: "Spencer Torkelson", team: "DET", hrPct: 2.2, tb2Pct: 17.2, tier: "D", note: "RHB vs LHP; hard-contact profile; neutral pitcher matchup" },
-      { batter: "Wenceel Pérez", team: "DET", hrPct: 1.6, tb2Pct: 6.0, tier: "D", note: "RHB vs LHP; contact-driven profile; neutral pitcher matchup" },
-      { batter: "Javier Báez", team: "DET", hrPct: 1.0, tb2Pct: 15.7, tier: "D", note: "RHB vs LHP; contact-driven profile; neutral pitcher matchup" },
+      { batter: "Gleyber Torres", team: "DET", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — KC 9, DET 10" },
+      { batter: "Kevin McGonigle", team: "DET", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — KC 9, DET 10" },
+      { batter: "Jahmai Jones", team: "DET", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — KC 9, DET 10" },
+      { batter: "Dillon Dingler", team: "DET", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — KC 9, DET 10" },
+      { batter: "Riley Greene", team: "DET", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — KC 9, DET 10" },
+      { batter: "Matt Vierling", team: "DET", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — KC 9, DET 10" },
+      { batter: "Spencer Torkelson", team: "DET", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — KC 9, DET 10" },
+      { batter: "Wenceel Pérez", team: "DET", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — KC 9, DET 10" },
+      { batter: "Javier Báez", team: "DET", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — KC 9, DET 10" },
     ],
   },
   {
@@ -329,22 +347,28 @@ const SLATE: SlateGame[] = [
     away: "LAA",
     home: "NYY",
     timeEt: "1:35 PM",
+    gameStatusBucket: "final",
+    gameState: "Final",
+    gameStateDetail: "Final",
+    gameStatusNote: "Final — LAA 11, NYY 4",
+    awayScore: 11,
+    homeScore: 4,
     awaySp: "Brent Suter",
     homeSp: "Max Fried",
     awayAmerican: 205,
     homeAmerican: -245,
     impliedAwayPct: 31.59,
     impliedHomePct: 68.41,
-    modelAwayPct: 36.05,
-    modelHomePct: 63.95,
-    edgeAwayPct: 4.46,
-    edgeHomePct: -4.46,
-    prediction: "NYY",
-    decisionTier: "D",
-    edgeOnPickPct: -4.46,
-    modelConfidence: "High",
+    modelAwayPct: 0.00,
+    modelHomePct: 0.00,
+    edgeAwayPct: 0.00,
+    edgeHomePct: 0.00,
+    prediction: "Not Scored",
+    decisionTier: "Not Scored",
+    edgeOnPickPct: 0.00,
+    modelConfidence: "Not Scored",
     analystConfidence: "High",
-    flags: "approx_market_ml",
+    flags: "rotowire_missing;not_scored_non_pregame",
     rationale:
       "Suter vs Fried is a massive talent mismatch; short porch amplifies fly-ball damage. Market already prices a big NYY edge — PASS on ML unless you have a materially better number.",
     awayLuLabel: "Posted (MLB API)",
@@ -383,26 +407,26 @@ const SLATE: SlateGame[] = [
       "HR / TB: Top HR environment on slate — props > ML (price already steep).",
     ],
     propsAway: [
-      { batter: "Zach Neto", team: "LAA", hrPct: 0.8, tb2Pct: 11.8, tier: "D", note: "RHB vs LHP; above-average damage; vs tough pitcher" },
-      { batter: "Mike Trout", team: "LAA", hrPct: 9.2, tb2Pct: 35.3, tier: "A", note: "RHB vs LHP; elite power indicators; vs tough pitcher" },
-      { batter: "Jo Adell", team: "LAA", hrPct: 0.9, tb2Pct: 16.8, tier: "D", note: "RHB vs LHP; above-average damage; vs tough pitcher" },
-      { batter: "Oswald Peraza", team: "LAA", hrPct: 2.5, tb2Pct: 17.3, tier: "D", note: "RHB vs LHP; contact-driven profile; vs tough pitcher" },
-      { batter: "Vaughn Grissom", team: "LAA", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "RHB vs LHP; contact-driven profile; vs tough pitcher" },
-      { batter: "Nolan Schanuel", team: "LAA", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "LHB vs LHP; contact-driven profile; vs tough pitcher" },
-      { batter: "Travis d'Arnaud", team: "LAA", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "RHB vs LHP; contact-driven profile; vs tough pitcher" },
-      { batter: "Josh Lowe", team: "LAA", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "LHB vs LHP; contact-driven profile; vs tough pitcher" },
-      { batter: "Bryce Teodosio", team: "LAA", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "RHB vs LHP; contact-driven profile; vs tough pitcher" },
+      { batter: "Zach Neto", team: "LAA", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — LAA 11, NYY 4" },
+      { batter: "Mike Trout", team: "LAA", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — LAA 11, NYY 4" },
+      { batter: "Jo Adell", team: "LAA", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — LAA 11, NYY 4" },
+      { batter: "Oswald Peraza", team: "LAA", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — LAA 11, NYY 4" },
+      { batter: "Vaughn Grissom", team: "LAA", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — LAA 11, NYY 4" },
+      { batter: "Nolan Schanuel", team: "LAA", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — LAA 11, NYY 4" },
+      { batter: "Travis d'Arnaud", team: "LAA", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — LAA 11, NYY 4" },
+      { batter: "Josh Lowe", team: "LAA", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — LAA 11, NYY 4" },
+      { batter: "Bryce Teodosio", team: "LAA", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — LAA 11, NYY 4" },
     ],
     propsHome: [
-      { batter: "Trent Grisham", team: "NYY", hrPct: 3.0, tb2Pct: 18.2, tier: "D", note: "LHB vs LHP; above-average damage; vs tough pitcher" },
-      { batter: "Aaron Judge", team: "NYY", hrPct: 12.8, tb2Pct: 41.3, tier: "A+", note: "RHB vs LHP; elite power indicators; vs tough pitcher" },
-      { batter: "Cody Bellinger", team: "NYY", hrPct: 1.4, tb2Pct: 15.2, tier: "D", note: "LHB vs LHP; contact-driven profile; vs tough pitcher" },
-      { batter: "Giancarlo Stanton", team: "NYY", hrPct: 3.8, tb2Pct: 19.2, tier: "D", note: "RHB vs LHP; elite power indicators; vs tough pitcher" },
-      { batter: "Ben Rice", team: "NYY", hrPct: 12.6, tb2Pct: 44.2, tier: "A+", note: "LHB vs LHP; elite power indicators; vs tough pitcher" },
-      { batter: "Amed Rosario", team: "NYY", hrPct: 5.1, tb2Pct: 24.3, tier: "C", note: "RHB vs LHP; elite power indicators; vs tough pitcher" },
-      { batter: "Jazz Chisholm Jr.", team: "NYY", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "LHB vs LHP; limited power profile; vs tough pitcher" },
-      { batter: "José Caballero", team: "NYY", hrPct: 0.4, tb2Pct: 7.2, tier: "D", note: "RHB vs LHP; limited power profile; vs tough pitcher" },
-      { batter: "J.C. Escarra", team: "NYY", hrPct: 0.4, tb2Pct: 8.7, tier: "D", note: "LHB vs LHP; contact-driven profile; vs tough pitcher" },
+      { batter: "Trent Grisham", team: "NYY", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — LAA 11, NYY 4" },
+      { batter: "Aaron Judge", team: "NYY", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — LAA 11, NYY 4" },
+      { batter: "Cody Bellinger", team: "NYY", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — LAA 11, NYY 4" },
+      { batter: "Giancarlo Stanton", team: "NYY", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — LAA 11, NYY 4" },
+      { batter: "Ben Rice", team: "NYY", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — LAA 11, NYY 4" },
+      { batter: "Amed Rosario", team: "NYY", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — LAA 11, NYY 4" },
+      { batter: "Jazz Chisholm Jr.", team: "NYY", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — LAA 11, NYY 4" },
+      { batter: "José Caballero", team: "NYY", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — LAA 11, NYY 4" },
+      { batter: "J.C. Escarra", team: "NYY", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — LAA 11, NYY 4" },
     ],
   },
   {
@@ -411,22 +435,28 @@ const SLATE: SlateGame[] = [
     away: "TOR",
     home: "MIL",
     timeEt: "1:40 PM",
+    gameStatusBucket: "final",
+    gameState: "Final",
+    gameStateDetail: "Final",
+    gameStatusNote: "Final — TOR 1, MIL 2",
+    awayScore: 1,
+    homeScore: 2,
     awaySp: "Patrick Corbin",
     homeSp: "Brandon Sproat",
     awayAmerican: -102,
     homeAmerican: -108,
     impliedAwayPct: 49.30,
     impliedHomePct: 50.70,
-    modelAwayPct: 50.70,
-    modelHomePct: 49.30,
-    edgeAwayPct: 1.40,
-    edgeHomePct: -1.40,
-    prediction: "TOR",
-    decisionTier: "C",
-    edgeOnPickPct: 1.40,
-    modelConfidence: "High",
+    modelAwayPct: 0.00,
+    modelHomePct: 0.00,
+    edgeAwayPct: 0.00,
+    edgeHomePct: 0.00,
+    prediction: "Not Scored",
+    decisionTier: "Not Scored",
+    edgeOnPickPct: 0.00,
+    modelConfidence: "Not Scored",
     analystConfidence: "Low",
-    flags: "approx_market_ml;corbin_platoons",
+    flags: "rotowire_missing;not_scored_non_pregame",
     rationale:
       "Corbin vs Sproat is command volatility on both sides; Milwaukee navigation is a hair better at home, but this is effectively a coin flip for betting.",
     awayLuLabel: "Posted (MLB API)",
@@ -465,26 +495,26 @@ const SLATE: SlateGame[] = [
       "HR / TB: Dome helps keep balls in play — prefer selective props over sides.",
     ],
     propsAway: [
-      { batter: "Davis Schneider", team: "TOR", hrPct: 3.2, tb2Pct: 15.7, tier: "D", note: "RHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
-      { batter: "Daulton Varsho", team: "TOR", hrPct: 3.6, tb2Pct: 18.8, tier: "D", note: "LHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
-      { batter: "Vladimir Guerrero Jr.", team: "TOR", hrPct: 6.0, tb2Pct: 27.4, tier: "B", note: "RHB vs RHP; above-average damage; vs vulnerable pitcher" },
-      { batter: "Jesús Sánchez", team: "TOR", hrPct: 6.1, tb2Pct: 27.1, tier: "B", note: "LHB vs RHP; above-average damage; vs vulnerable pitcher" },
-      { batter: "Lenyn Sosa", team: "TOR", hrPct: 1.9, tb2Pct: 16.9, tier: "D", note: "RHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
-      { batter: "Kazuma Okamoto", team: "TOR", hrPct: 3.7, tb2Pct: 17.1, tier: "D", note: "RHB vs RHP; hard-contact profile; vs vulnerable pitcher" },
-      { batter: "Andrés Giménez", team: "TOR", hrPct: 3.9, tb2Pct: 19.0, tier: "D", note: "LHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
-      { batter: "Ernie Clement", team: "TOR", hrPct: 0.9, tb2Pct: 15.2, tier: "D", note: "RHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
-      { batter: "Tyler Heineman", team: "TOR", hrPct: 2.2, tb2Pct: 15.5, tier: "D", note: "LHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
+      { batter: "Davis Schneider", team: "TOR", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TOR 1, MIL 2" },
+      { batter: "Daulton Varsho", team: "TOR", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TOR 1, MIL 2" },
+      { batter: "Vladimir Guerrero Jr.", team: "TOR", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TOR 1, MIL 2" },
+      { batter: "Jesús Sánchez", team: "TOR", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TOR 1, MIL 2" },
+      { batter: "Lenyn Sosa", team: "TOR", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TOR 1, MIL 2" },
+      { batter: "Kazuma Okamoto", team: "TOR", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TOR 1, MIL 2" },
+      { batter: "Andrés Giménez", team: "TOR", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TOR 1, MIL 2" },
+      { batter: "Ernie Clement", team: "TOR", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TOR 1, MIL 2" },
+      { batter: "Tyler Heineman", team: "TOR", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TOR 1, MIL 2" },
     ],
     propsHome: [
-      { batter: "Brandon Lockridge", team: "MIL", hrPct: 3.2, tb2Pct: 14.4, tier: "D", note: "RHB vs LHP; limited power profile; vs vulnerable pitcher" },
-      { batter: "Brice Turang", team: "MIL", hrPct: 12.0, tb2Pct: 39.6, tier: "A+", note: "LHB vs LHP; elite power indicators; vs vulnerable pitcher" },
-      { batter: "William Contreras", team: "MIL", hrPct: 9.5, tb2Pct: 34.5, tier: "A", note: "RHB vs LHP; above-average damage; vs vulnerable pitcher" },
-      { batter: "Gary Sánchez", team: "MIL", hrPct: 17.6, tb2Pct: 49.1, tier: "A+", note: "RHB vs LHP; elite power indicators; vs vulnerable pitcher" },
-      { batter: "Luis Rengifo", team: "MIL", hrPct: 4.2, tb2Pct: 17.1, tier: "D", note: "RHB vs LHP; contact-driven profile; vs vulnerable pitcher" },
-      { batter: "Luis Matos", team: "MIL", hrPct: 4.6, tb2Pct: 15.6, tier: "D", note: "RHB vs LHP; contact-driven profile; vs vulnerable pitcher" },
-      { batter: "Greg Jones", team: "MIL", hrPct: 3.6, tb2Pct: 10.4, tier: "D", note: "RHB vs LHP; contact-driven profile; vs vulnerable pitcher" },
-      { batter: "David Hamilton", team: "MIL", hrPct: 1.6, tb2Pct: 8.8, tier: "D", note: "LHB vs LHP; limited power profile; vs vulnerable pitcher" },
-      { batter: "Joey Ortiz", team: "MIL", hrPct: 4.0, tb2Pct: 15.2, tier: "D", note: "RHB vs LHP; limited power profile; vs vulnerable pitcher" },
+      { batter: "Brandon Lockridge", team: "MIL", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TOR 1, MIL 2" },
+      { batter: "Brice Turang", team: "MIL", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TOR 1, MIL 2" },
+      { batter: "William Contreras", team: "MIL", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TOR 1, MIL 2" },
+      { batter: "Gary Sánchez", team: "MIL", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TOR 1, MIL 2" },
+      { batter: "Luis Rengifo", team: "MIL", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TOR 1, MIL 2" },
+      { batter: "Luis Matos", team: "MIL", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TOR 1, MIL 2" },
+      { batter: "Greg Jones", team: "MIL", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TOR 1, MIL 2" },
+      { batter: "David Hamilton", team: "MIL", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TOR 1, MIL 2" },
+      { batter: "Joey Ortiz", team: "MIL", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TOR 1, MIL 2" },
     ],
   },
   {
@@ -493,22 +523,28 @@ const SLATE: SlateGame[] = [
     away: "TB",
     home: "CWS",
     timeEt: "2:10 PM",
+    gameStatusBucket: "final",
+    gameState: "Final",
+    gameStateDetail: "Final",
+    gameStatusNote: "Final — TB 5, CWS 3",
+    awayScore: 5,
+    homeScore: 3,
     awaySp: "Steven Matz",
     homeSp: "Jordan Leasure",
     awayAmerican: -142,
     homeAmerican: 124,
     impliedAwayPct: 56.79,
     impliedHomePct: 43.21,
-    modelAwayPct: 51.28,
-    modelHomePct: 48.72,
-    edgeAwayPct: -5.51,
-    edgeHomePct: 5.51,
-    prediction: "TB",
-    decisionTier: "D",
-    edgeOnPickPct: -5.51,
-    modelConfidence: "High",
+    modelAwayPct: 0.00,
+    modelHomePct: 0.00,
+    edgeAwayPct: 0.00,
+    edgeHomePct: 0.00,
+    prediction: "Not Scored",
+    decisionTier: "Not Scored",
+    edgeOnPickPct: 0.00,
+    modelConfidence: "Not Scored",
     analystConfidence: "Medium",
-    flags: "approx_market_ml",
+    flags: "rotowire_missing;not_scored_non_pregame",
     rationale:
       "Matz’s LHP shape matters against Chicago’s lefty bats; Leasure stretched as a starter adds volatility. Rays are the cleaner roster spot — edge is modest.",
     awayLuLabel: "Posted (MLB API)",
@@ -547,26 +583,26 @@ const SLATE: SlateGame[] = [
       "HR / TB: Caminero power vs length risk — 2+ TB more stable than HR.",
     ],
     propsAway: [
-      { batter: "Chandler Simpson", team: "TB", hrPct: 0.4, tb2Pct: 9.7, tier: "D", note: "LHB vs RHP; limited power profile; vs vulnerable pitcher" },
-      { batter: "Junior Caminero", team: "TB", hrPct: 5.5, tb2Pct: 23.2, tier: "C", note: "RHB vs RHP; hard-contact profile; vs vulnerable pitcher" },
-      { batter: "Cedric Mullins", team: "TB", hrPct: 0.5, tb2Pct: 8.0, tier: "D", note: "LHB vs RHP; limited power profile; vs vulnerable pitcher" },
-      { batter: "Yandy Díaz", team: "TB", hrPct: 5.4, tb2Pct: 26.8, tier: "B", note: "RHB vs RHP; above-average damage; vs vulnerable pitcher" },
-      { batter: "Ryan Vilade", team: "TB", hrPct: 1.2, tb2Pct: 11.8, tier: "D", note: "RHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
-      { batter: "Ben Williamson", team: "TB", hrPct: 0.4, tb2Pct: 9.1, tier: "D", note: "RHB vs RHP; limited power profile; vs vulnerable pitcher" },
-      { batter: "Jonny DeLuca", team: "TB", hrPct: 6.1, tb2Pct: 26.3, tier: "B", note: "RHB vs RHP; elite power indicators; vs vulnerable pitcher" },
-      { batter: "Nick Fortes", team: "TB", hrPct: 2.9, tb2Pct: 20.9, tier: "C", note: "RHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
-      { batter: "Taylor Walls", team: "TB", hrPct: 2.5, tb2Pct: 17.8, tier: "D", note: "LHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
+      { batter: "Chandler Simpson", team: "TB", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TB 5, CWS 3" },
+      { batter: "Junior Caminero", team: "TB", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TB 5, CWS 3" },
+      { batter: "Cedric Mullins", team: "TB", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TB 5, CWS 3" },
+      { batter: "Yandy Díaz", team: "TB", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TB 5, CWS 3" },
+      { batter: "Ryan Vilade", team: "TB", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TB 5, CWS 3" },
+      { batter: "Ben Williamson", team: "TB", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TB 5, CWS 3" },
+      { batter: "Jonny DeLuca", team: "TB", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TB 5, CWS 3" },
+      { batter: "Nick Fortes", team: "TB", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TB 5, CWS 3" },
+      { batter: "Taylor Walls", team: "TB", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TB 5, CWS 3" },
     ],
     propsHome: [
-      { batter: "Miguel Vargas", team: "CWS", hrPct: 4.3, tb2Pct: 18.9, tier: "D", note: "RHB vs LHP; above-average damage; vs vulnerable pitcher" },
-      { batter: "Chase Meidroth", team: "CWS", hrPct: 2.2, tb2Pct: 17.3, tier: "D", note: "RHB vs LHP; hard-contact profile; vs vulnerable pitcher" },
-      { batter: "Munetaka Murakami", team: "CWS", hrPct: 11.0, tb2Pct: 35.3, tier: "A", note: "LHB vs LHP; elite power indicators; vs vulnerable pitcher" },
-      { batter: "Everson Pereira", team: "CWS", hrPct: 8.6, tb2Pct: 31.6, tier: "B", note: "RHB vs LHP; elite power indicators; vs vulnerable pitcher" },
-      { batter: "Edgar Quero", team: "CWS", hrPct: 0.4, tb2Pct: 6.2, tier: "D", note: "RHB vs LHP; limited power profile; vs vulnerable pitcher" },
-      { batter: "Tanner Murray", team: "CWS", hrPct: 4.3, tb2Pct: 20.1, tier: "C", note: "RHB vs LHP; contact-driven profile; vs vulnerable pitcher" },
-      { batter: "Andrew Benintendi", team: "CWS", hrPct: 2.9, tb2Pct: 19.9, tier: "D", note: "LHB vs LHP; above-average damage; vs vulnerable pitcher" },
-      { batter: "Derek Hill", team: "CWS", hrPct: 0.6, tb2Pct: 11.9, tier: "D", note: "RHB vs LHP; contact-driven profile; vs vulnerable pitcher" },
-      { batter: "Sam Antonacci", team: "CWS", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "LHB vs LHP; contact-driven profile; vs vulnerable pitcher" },
+      { batter: "Miguel Vargas", team: "CWS", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TB 5, CWS 3" },
+      { batter: "Chase Meidroth", team: "CWS", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TB 5, CWS 3" },
+      { batter: "Munetaka Murakami", team: "CWS", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TB 5, CWS 3" },
+      { batter: "Everson Pereira", team: "CWS", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TB 5, CWS 3" },
+      { batter: "Edgar Quero", team: "CWS", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TB 5, CWS 3" },
+      { batter: "Tanner Murray", team: "CWS", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TB 5, CWS 3" },
+      { batter: "Andrew Benintendi", team: "CWS", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TB 5, CWS 3" },
+      { batter: "Derek Hill", team: "CWS", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TB 5, CWS 3" },
+      { batter: "Sam Antonacci", team: "CWS", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TB 5, CWS 3" },
     ],
   },
   {
@@ -575,22 +611,28 @@ const SLATE: SlateGame[] = [
     away: "TEX",
     home: "ATH",
     timeEt: "3:05 PM",
+    gameStatusBucket: "final",
+    gameState: "Final",
+    gameStateDetail: "Final",
+    gameStatusNote: "Final — TEX 9, ATH 6",
+    awayScore: 9,
+    homeScore: 6,
     awaySp: "Jack Leiter",
     homeSp: "Jacob Lopez",
     awayAmerican: -118,
     homeAmerican: 108,
     impliedAwayPct: 52.96,
     impliedHomePct: 47.04,
-    modelAwayPct: 40.97,
-    modelHomePct: 59.03,
-    edgeAwayPct: -11.99,
-    edgeHomePct: 11.99,
-    prediction: "ATH",
-    decisionTier: "A+",
-    edgeOnPickPct: 11.99,
-    modelConfidence: "High",
+    modelAwayPct: 0.00,
+    modelHomePct: 0.00,
+    edgeAwayPct: 0.00,
+    edgeHomePct: 0.00,
+    prediction: "Not Scored",
+    decisionTier: "Not Scored",
+    edgeOnPickPct: 0.00,
+    modelConfidence: "Not Scored",
     analystConfidence: "Low",
-    flags: "approx_market_ml;oak_coliseum_env",
+    flags: "rotowire_missing;not_scored_non_pregame",
     rationale:
       "Leiter vs Lopez profiles as short-leash, high-volatility. No compelling gap vs a tight market without a better posted price.",
     awayLuLabel: "Posted (MLB API)",
@@ -629,26 +671,26 @@ const SLATE: SlateGame[] = [
       "HR / TB: PASS side — only play props if you get a price; volatility cuts confidence.",
     ],
     propsAway: [
-      { batter: "Brandon Nimmo", team: "TEX", hrPct: 4.1, tb2Pct: 22.5, tier: "C", note: "LHB vs LHP; above-average damage; vs tough pitcher" },
-      { batter: "Wyatt Langford", team: "TEX", hrPct: 0.4, tb2Pct: 8.6, tier: "D", note: "RHB vs LHP; limited power profile; vs tough pitcher" },
-      { batter: "Jake Burger", team: "TEX", hrPct: 5.2, tb2Pct: 23.6, tier: "C", note: "RHB vs LHP; above-average damage; vs tough pitcher" },
-      { batter: "Josh Jung", team: "TEX", hrPct: 2.3, tb2Pct: 20.6, tier: "C", note: "RHB vs LHP; hard-contact profile; vs tough pitcher" },
-      { batter: "Kyle Higashioka", team: "TEX", hrPct: 1.0, tb2Pct: 12.6, tier: "D", note: "RHB vs LHP; contact-driven profile; vs tough pitcher" },
-      { batter: "Andrew McCutchen", team: "TEX", hrPct: 1.2, tb2Pct: 12.0, tier: "D", note: "RHB vs LHP; contact-driven profile; vs tough pitcher" },
-      { batter: "Sam Haggerty", team: "TEX", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "RHB vs LHP; contact-driven profile; vs tough pitcher" },
-      { batter: "Josh Smith", team: "TEX", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "LHB vs LHP; contact-driven profile; vs tough pitcher" },
-      { batter: "Ezequiel Duran", team: "TEX", hrPct: 0.6, tb2Pct: 12.2, tier: "D", note: "RHB vs LHP; hard-contact profile; vs tough pitcher" },
+      { batter: "Brandon Nimmo", team: "TEX", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TEX 9, ATH 6" },
+      { batter: "Wyatt Langford", team: "TEX", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TEX 9, ATH 6" },
+      { batter: "Jake Burger", team: "TEX", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TEX 9, ATH 6" },
+      { batter: "Josh Jung", team: "TEX", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TEX 9, ATH 6" },
+      { batter: "Kyle Higashioka", team: "TEX", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TEX 9, ATH 6" },
+      { batter: "Andrew McCutchen", team: "TEX", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TEX 9, ATH 6" },
+      { batter: "Sam Haggerty", team: "TEX", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TEX 9, ATH 6" },
+      { batter: "Josh Smith", team: "TEX", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TEX 9, ATH 6" },
+      { batter: "Ezequiel Duran", team: "TEX", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TEX 9, ATH 6" },
     ],
     propsHome: [
-      { batter: "Jeff McNeil", team: "ATH", hrPct: 1.5, tb2Pct: 15.7, tier: "D", note: "LHB vs RHP; limited power profile; vs vulnerable pitcher" },
-      { batter: "Shea Langeliers", team: "ATH", hrPct: 11.2, tb2Pct: 37.3, tier: "A", note: "RHB vs RHP; elite power indicators; vs vulnerable pitcher" },
-      { batter: "Nick Kurtz", team: "ATH", hrPct: 10.6, tb2Pct: 34.8, tier: "A", note: "LHB vs RHP; elite power indicators; vs vulnerable pitcher" },
-      { batter: "Tyler Soderstrom", team: "ATH", hrPct: 6.8, tb2Pct: 25.6, tier: "C", note: "LHB vs RHP; above-average damage; vs vulnerable pitcher" },
-      { batter: "Jacob Wilson", team: "ATH", hrPct: 0.6, tb2Pct: 12.7, tier: "D", note: "RHB vs RHP; limited power profile; vs vulnerable pitcher" },
-      { batter: "Carlos Cortes", team: "ATH", hrPct: 5.5, tb2Pct: 24.6, tier: "C", note: "LHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
-      { batter: "Lawrence Butler", team: "ATH", hrPct: 5.2, tb2Pct: 22.6, tier: "C", note: "LHB vs RHP; hard-contact profile; vs vulnerable pitcher" },
-      { batter: "Austin Wynns", team: "ATH", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "RHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
-      { batter: "Darell Hernaiz", team: "ATH", hrPct: 1.0, tb2Pct: 8.6, tier: "D", note: "RHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
+      { batter: "Jeff McNeil", team: "ATH", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TEX 9, ATH 6" },
+      { batter: "Shea Langeliers", team: "ATH", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TEX 9, ATH 6" },
+      { batter: "Nick Kurtz", team: "ATH", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TEX 9, ATH 6" },
+      { batter: "Tyler Soderstrom", team: "ATH", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TEX 9, ATH 6" },
+      { batter: "Jacob Wilson", team: "ATH", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TEX 9, ATH 6" },
+      { batter: "Carlos Cortes", team: "ATH", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TEX 9, ATH 6" },
+      { batter: "Lawrence Butler", team: "ATH", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TEX 9, ATH 6" },
+      { batter: "Austin Wynns", team: "ATH", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TEX 9, ATH 6" },
+      { batter: "Darell Hernaiz", team: "ATH", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — TEX 9, ATH 6" },
     ],
   },
   {
@@ -657,36 +699,42 @@ const SLATE: SlateGame[] = [
     away: "BAL",
     home: "CLE",
     timeEt: "6:10 PM",
+    gameStatusBucket: "final",
+    gameState: "Final",
+    gameStateDetail: "Final",
+    gameStatusNote: "Final — BAL 2, CLE 4",
+    awayScore: 2,
+    homeScore: 4,
     awaySp: "Shane Baz",
     homeSp: "Parker Messick",
     awayAmerican: -128,
     homeAmerican: 118,
     impliedAwayPct: 55.03,
     impliedHomePct: 44.97,
-    modelAwayPct: 32.92,
-    modelHomePct: 67.08,
-    edgeAwayPct: -22.11,
-    edgeHomePct: 22.11,
-    prediction: "CLE",
-    decisionTier: "A+",
-    edgeOnPickPct: 22.11,
-    modelConfidence: "High",
+    modelAwayPct: 0.00,
+    modelHomePct: 0.00,
+    edgeAwayPct: 0.00,
+    edgeHomePct: 0.00,
+    prediction: "Not Scored",
+    decisionTier: "Not Scored",
+    edgeOnPickPct: 0.00,
+    modelConfidence: "Not Scored",
     analystConfidence: "Medium",
-    flags: "approx_market_ml;lineup_not_posted_api",
+    flags: "rotowire_missing;not_scored_non_pregame",
     rationale:
       "Baz’s stuff plays when the heater is elevated; Messick needs to limit barrels. Small lean to Baltimore’s lineup ceiling if Baz holds a normal starter workload.",
-    awayLuLabel: "Projected (away not posted — active roster)",
+    awayLuLabel: "Posted (MLB API)",
     homeLuLabel: "Posted (MLB API)",
     awayLineup: [
-      ["1", "Gunnar Henderson", "SS"],
-      ["2", "Colton Cowser", "LF"],
+      ["1", "Taylor Ward", "LF"],
+      ["2", "Gunnar Henderson", "DH"],
       ["3", "Pete Alonso", "1B"],
-      ["4", "Coby Mayo", "3B"],
-      ["5", "Leody Taveras", "CF"],
-      ["6", "Taylor Ward", "DH"],
-      ["7", "Samuel Basallo", "C"],
-      ["8", "Dylan Beavers", "RF"],
-      ["9", "Jeremiah Jackson", "2B"],
+      ["4", "Johnathan Rodríguez", "RF"],
+      ["5", "Samuel Basallo", "C"],
+      ["6", "Jeremiah Jackson", "2B"],
+      ["7", "Coby Mayo", "3B"],
+      ["8", "Leody Taveras", "CF"],
+      ["9", "Blaze Alexander", "SS"],
     ],
     homeLineup: [
       ["1", "Steven Kwan", "CF"],
@@ -711,26 +759,26 @@ const SLATE: SlateGame[] = [
       "HR / TB: Confirm BAL lineup at lock — props carry extra variance until LU posts.",
     ],
     propsAway: [
-      { batter: "Gunnar Henderson", team: "BAL", hrPct: 2.8, tb2Pct: 16.6, tier: "D", note: "LHB vs LHP; above-average damage; vs tough pitcher" },
-      { batter: "Colton Cowser", team: "BAL", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "LHB vs LHP; contact-driven profile; vs tough pitcher" },
-      { batter: "Pete Alonso", team: "BAL", hrPct: 1.4, tb2Pct: 14.8, tier: "D", note: "RHB vs LHP; hard-contact profile; vs tough pitcher" },
-      { batter: "Coby Mayo", team: "BAL", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "RHB vs LHP; limited power profile; vs tough pitcher" },
-      { batter: "Leody Taveras", team: "BAL", hrPct: 0.4, tb2Pct: 12.0, tier: "D", note: "RHB vs LHP; contact-driven profile; vs tough pitcher" },
-      { batter: "Taylor Ward", team: "BAL", hrPct: 0.4, tb2Pct: 8.1, tier: "D", note: "RHB vs LHP; contact-driven profile; vs tough pitcher" },
-      { batter: "Samuel Basallo", team: "BAL", hrPct: 1.0, tb2Pct: 10.2, tier: "D", note: "LHB vs LHP; above-average damage; vs tough pitcher" },
-      { batter: "Dylan Beavers", team: "BAL", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "LHB vs LHP; limited power profile; vs tough pitcher" },
-      { batter: "Jeremiah Jackson", team: "BAL", hrPct: 3.4, tb2Pct: 18.1, tier: "D", note: "RHB vs LHP; above-average damage; vs tough pitcher" },
+      { batter: "Taylor Ward", team: "BAL", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — BAL 2, CLE 4" },
+      { batter: "Gunnar Henderson", team: "BAL", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — BAL 2, CLE 4" },
+      { batter: "Pete Alonso", team: "BAL", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — BAL 2, CLE 4" },
+      { batter: "Johnathan Rodríguez", team: "BAL", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — BAL 2, CLE 4" },
+      { batter: "Samuel Basallo", team: "BAL", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — BAL 2, CLE 4" },
+      { batter: "Jeremiah Jackson", team: "BAL", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — BAL 2, CLE 4" },
+      { batter: "Coby Mayo", team: "BAL", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — BAL 2, CLE 4" },
+      { batter: "Leody Taveras", team: "BAL", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — BAL 2, CLE 4" },
+      { batter: "Blaze Alexander", team: "BAL", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — BAL 2, CLE 4" },
     ],
     propsHome: [
-      { batter: "Steven Kwan", team: "CLE", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "LHB vs RHP; limited power profile; neutral pitcher matchup" },
-      { batter: "Chase DeLauter", team: "CLE", hrPct: 7.2, tb2Pct: 27.9, tier: "B", note: "LHB vs RHP; elite power indicators; neutral pitcher matchup" },
-      { batter: "José Ramírez", team: "CLE", hrPct: 6.3, tb2Pct: 26.3, tier: "B", note: "LHB vs RHP; elite power indicators; neutral pitcher matchup" },
-      { batter: "Kyle Manzardo", team: "CLE", hrPct: 2.0, tb2Pct: 14.0, tier: "D", note: "LHB vs RHP; above-average damage; neutral pitcher matchup" },
-      { batter: "George Valera", team: "CLE", hrPct: 3.1, tb2Pct: 26.2, tier: "B", note: "LHB vs RHP; elite power indicators; neutral pitcher matchup" },
-      { batter: "Angel Martínez", team: "CLE", hrPct: 2.8, tb2Pct: 18.1, tier: "D", note: "LHB vs RHP; contact-driven profile; neutral pitcher matchup" },
-      { batter: "Juan Brito", team: "CLE", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "LHB vs RHP; contact-driven profile; neutral pitcher matchup" },
-      { batter: "Austin Hedges", team: "CLE", hrPct: 0.4, tb2Pct: 13.8, tier: "D", note: "RHB vs RHP; contact-driven profile; neutral pitcher matchup" },
-      { batter: "Brayan Rocchio", team: "CLE", hrPct: 0.5, tb2Pct: 11.4, tier: "D", note: "LHB vs RHP; limited power profile; neutral pitcher matchup" },
+      { batter: "Steven Kwan", team: "CLE", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — BAL 2, CLE 4" },
+      { batter: "Chase DeLauter", team: "CLE", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — BAL 2, CLE 4" },
+      { batter: "José Ramírez", team: "CLE", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — BAL 2, CLE 4" },
+      { batter: "Kyle Manzardo", team: "CLE", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — BAL 2, CLE 4" },
+      { batter: "George Valera", team: "CLE", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — BAL 2, CLE 4" },
+      { batter: "Angel Martínez", team: "CLE", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — BAL 2, CLE 4" },
+      { batter: "Juan Brito", team: "CLE", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — BAL 2, CLE 4" },
+      { batter: "Austin Hedges", team: "CLE", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — BAL 2, CLE 4" },
+      { batter: "Brayan Rocchio", team: "CLE", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — BAL 2, CLE 4" },
     ],
   },
   {
@@ -739,47 +787,53 @@ const SLATE: SlateGame[] = [
     away: "COL",
     home: "HOU",
     timeEt: "8:10 PM",
+    gameStatusBucket: "final",
+    gameState: "Final",
+    gameStateDetail: "Final",
+    gameStatusNote: "Final — COL 3, HOU 2",
+    awayScore: 3,
+    homeScore: 2,
     awaySp: "Juan Mejia",
     homeSp: "Ryan Weiss",
     awayAmerican: 240,
     homeAmerican: -290,
     impliedAwayPct: 28.34,
     impliedHomePct: 71.66,
-    modelAwayPct: 48.46,
-    modelHomePct: 51.54,
-    edgeAwayPct: 20.12,
-    edgeHomePct: -20.12,
-    prediction: "HOU",
-    decisionTier: "D",
-    edgeOnPickPct: -20.12,
-    modelConfidence: "High",
+    modelAwayPct: 0.00,
+    modelHomePct: 0.00,
+    edgeAwayPct: 0.00,
+    edgeHomePct: 0.00,
+    prediction: "Not Scored",
+    decisionTier: "Not Scored",
+    edgeOnPickPct: 0.00,
+    modelConfidence: "Not Scored",
     analystConfidence: "High",
-    flags: "approx_market_ml;lineup_not_posted_api",
+    flags: "rotowire_missing;not_scored_non_pregame",
     rationale:
       "Road Rockies vs Houston’s overall talent is a steep mismatch; Crawford Boxes pull-side HRs matter. Chalk is heavy — PASS unless you model innings/hooks differently.",
-    awayLuLabel: "Projected (not posted — active roster)",
-    homeLuLabel: "Projected (not posted — active roster)",
+    awayLuLabel: "Posted (MLB API)",
+    homeLuLabel: "Posted (MLB API)",
     awayLineup: [
-      ["1", "Brenton Doyle", "CF"],
-      ["2", "Ezequiel Tovar", "SS"],
-      ["3", "Hunter Goodman", "1B"],
-      ["4", "Jordan Beck", "RF"],
+      ["1", "Edouard Julien", "2B"],
+      ["2", "Tyler Freeman", "RF"],
+      ["3", "TJ Rumfield", "1B"],
+      ["4", "Hunter Goodman", "C"],
       ["5", "Mickey Moniak", "LF"],
-      ["6", "Edouard Julien", "DH"],
-      ["7", "Willi Castro", "3B"],
-      ["8", "Tyler Freeman", "2B"],
-      ["9", "Brett Sullivan", "C"],
+      ["6", "Ezequiel Tovar", "SS"],
+      ["7", "Troy Johnston", "DH"],
+      ["8", "Kyle Karros", "3B"],
+      ["9", "Brenton Doyle", "CF"],
     ],
     homeLineup: [
       ["1", "Jose Altuve", "2B"],
       ["2", "Yordan Alvarez", "DH"],
-      ["3", "Christian Walker", "1B"],
-      ["4", "Isaac Paredes", "3B"],
-      ["5", "Carlos Correa", "SS"],
-      ["6", "Yainer Diaz", "C"],
+      ["3", "Isaac Paredes", "3B"],
+      ["4", "Carlos Correa", "SS"],
+      ["5", "Christian Walker", "1B"],
+      ["6", "Joey Loperfido", "LF"],
       ["7", "Cam Smith", "RF"],
-      ["8", "Joey Loperfido", "LF"],
-      ["9", "Taylor Trammell", "CF"],
+      ["8", "Taylor Trammell", "CF"],
+      ["9", "Yainer Diaz", "C"],
     ],
     spAwayNotes: [
       "Road spot starter profile for Colorado — thin margin for mistakes vs Houston’s lineup.",
@@ -793,26 +847,26 @@ const SLATE: SlateGame[] = [
       "HR / TB: PASS ML — only shop props if price exists; chalk crushes edge.",
     ],
     propsAway: [
-      { batter: "Brenton Doyle", team: "COL", hrPct: 2.3, tb2Pct: 13.7, tier: "D", note: "RHB vs RHP; limited power profile; vs vulnerable pitcher" },
-      { batter: "Ezequiel Tovar", team: "COL", hrPct: 6.4, tb2Pct: 28.5, tier: "B", note: "RHB vs RHP; above-average damage; vs vulnerable pitcher" },
-      { batter: "Hunter Goodman", team: "COL", hrPct: 10.5, tb2Pct: 32.4, tier: "A", note: "RHB vs RHP; above-average damage; vs vulnerable pitcher" },
-      { batter: "Jordan Beck", team: "COL", hrPct: 2.7, tb2Pct: 11.2, tier: "D", note: "RHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
-      { batter: "Mickey Moniak", team: "COL", hrPct: 10.5, tb2Pct: 32.9, tier: "A", note: "LHB vs RHP; elite power indicators; vs vulnerable pitcher" },
-      { batter: "Edouard Julien", team: "COL", hrPct: 6.2, tb2Pct: 26.7, tier: "B", note: "LHB vs RHP; above-average damage; vs vulnerable pitcher" },
-      { batter: "Willi Castro", team: "COL", hrPct: 4.1, tb2Pct: 18.6, tier: "D", note: "LHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
-      { batter: "Tyler Freeman", team: "COL", hrPct: 2.7, tb2Pct: 17.3, tier: "D", note: "RHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
-      { batter: "Brett Sullivan", team: "COL", hrPct: 3.6, tb2Pct: 19.5, tier: "D", note: "LHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
+      { batter: "Edouard Julien", team: "COL", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — COL 3, HOU 2" },
+      { batter: "Tyler Freeman", team: "COL", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — COL 3, HOU 2" },
+      { batter: "TJ Rumfield", team: "COL", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — COL 3, HOU 2" },
+      { batter: "Hunter Goodman", team: "COL", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — COL 3, HOU 2" },
+      { batter: "Mickey Moniak", team: "COL", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — COL 3, HOU 2" },
+      { batter: "Ezequiel Tovar", team: "COL", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — COL 3, HOU 2" },
+      { batter: "Troy Johnston", team: "COL", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — COL 3, HOU 2" },
+      { batter: "Kyle Karros", team: "COL", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — COL 3, HOU 2" },
+      { batter: "Brenton Doyle", team: "COL", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — COL 3, HOU 2" },
     ],
     propsHome: [
-      { batter: "Jose Altuve", team: "HOU", hrPct: 4.7, tb2Pct: 23.3, tier: "C", note: "RHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
-      { batter: "Yordan Alvarez", team: "HOU", hrPct: 15.9, tb2Pct: 54.3, tier: "A+", note: "LHB vs RHP; elite power indicators; vs vulnerable pitcher" },
-      { batter: "Christian Walker", team: "HOU", hrPct: 7.6, tb2Pct: 29.9, tier: "B", note: "RHB vs RHP; above-average damage; vs vulnerable pitcher" },
-      { batter: "Isaac Paredes", team: "HOU", hrPct: 0.4, tb2Pct: 7.0, tier: "D", note: "RHB vs RHP; limited power profile; vs vulnerable pitcher" },
-      { batter: "Carlos Correa", team: "HOU", hrPct: 5.2, tb2Pct: 25.5, tier: "C", note: "RHB vs RHP; above-average damage; vs vulnerable pitcher" },
-      { batter: "Yainer Diaz", team: "HOU", hrPct: 0.4, tb2Pct: 7.6, tier: "D", note: "RHB vs RHP; limited power profile; vs vulnerable pitcher" },
-      { batter: "Cam Smith", team: "HOU", hrPct: 9.3, tb2Pct: 35.2, tier: "A", note: "RHB vs RHP; elite power indicators; vs vulnerable pitcher" },
-      { batter: "Joey Loperfido", team: "HOU", hrPct: 2.6, tb2Pct: 16.5, tier: "D", note: "LHB vs RHP; limited power profile; vs vulnerable pitcher" },
-      { batter: "Taylor Trammell", team: "HOU", hrPct: 3.2, tb2Pct: 19.2, tier: "D", note: "LHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
+      { batter: "Jose Altuve", team: "HOU", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — COL 3, HOU 2" },
+      { batter: "Yordan Alvarez", team: "HOU", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — COL 3, HOU 2" },
+      { batter: "Isaac Paredes", team: "HOU", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — COL 3, HOU 2" },
+      { batter: "Carlos Correa", team: "HOU", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — COL 3, HOU 2" },
+      { batter: "Christian Walker", team: "HOU", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — COL 3, HOU 2" },
+      { batter: "Joey Loperfido", team: "HOU", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — COL 3, HOU 2" },
+      { batter: "Cam Smith", team: "HOU", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — COL 3, HOU 2" },
+      { batter: "Taylor Trammell", team: "HOU", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — COL 3, HOU 2" },
+      { batter: "Yainer Diaz", team: "HOU", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — COL 3, HOU 2" },
     ],
   },
   {
@@ -821,47 +875,53 @@ const SLATE: SlateGame[] = [
     away: "SEA",
     home: "SD",
     timeEt: "8:40 PM",
+    gameStatusBucket: "final",
+    gameState: "Final",
+    gameStateDetail: "Final",
+    gameStatusNote: "Final — SEA 2, SD 5",
+    awayScore: 2,
+    homeScore: 5,
     awaySp: "Luis Castillo",
     homeSp: "Walker Buehler",
     awayAmerican: -104,
     homeAmerican: -112,
     impliedAwayPct: 49.11,
     impliedHomePct: 50.89,
-    modelAwayPct: 39.47,
-    modelHomePct: 60.53,
-    edgeAwayPct: -9.64,
-    edgeHomePct: 9.64,
-    prediction: "SD",
-    decisionTier: "A+",
-    edgeOnPickPct: 9.64,
-    modelConfidence: "High",
+    modelAwayPct: 0.00,
+    modelHomePct: 0.00,
+    edgeAwayPct: 0.00,
+    edgeHomePct: 0.00,
+    prediction: "Not Scored",
+    decisionTier: "Not Scored",
+    edgeOnPickPct: 0.00,
+    modelConfidence: "Not Scored",
     analystConfidence: "Medium",
-    flags: "approx_market_ml;lineup_not_posted_api",
+    flags: "rotowire_missing;not_scored_non_pregame",
     rationale:
       "Castillo vs Buehler is a true ace duel; Petco suppresses offense. Side market is rightfully tight — prefer game props over ML.",
-    awayLuLabel: "Projected (not posted — active roster)",
-    homeLuLabel: "Projected (not posted — active roster)",
+    awayLuLabel: "Posted (MLB API)",
+    homeLuLabel: "Posted (MLB API)",
     awayLineup: [
-      ["1", "J.P. Crawford", "SS"],
-      ["2", "Julio Rodríguez", "CF"],
-      ["3", "Cal Raleigh", "C"],
+      ["1", "Brendan Donovan", "3B"],
+      ["2", "Cal Raleigh", "C"],
+      ["3", "Julio Rodríguez", "CF"],
       ["4", "Josh Naylor", "1B"],
       ["5", "Randy Arozarena", "LF"],
-      ["6", "Dominic Canzone", "DH"],
-      ["7", "Luke Raley", "RF"],
-      ["8", "Brendan Donovan", "2B"],
-      ["9", "Connor Joe", "3B"],
+      ["6", "Luke Raley", "RF"],
+      ["7", "J.P. Crawford", "SS"],
+      ["8", "Dominic Canzone", "DH"],
+      ["9", "Cole Young", "2B"],
     ],
     homeLineup: [
-      ["1", "Fernando Tatis Jr.", "RF"],
-      ["2", "Xander Bogaerts", "SS"],
-      ["3", "Manny Machado", "3B"],
-      ["4", "Jackson Merrill", "CF"],
-      ["5", "Jake Cronenworth", "2B"],
-      ["6", "Ty France", "1B"],
-      ["7", "Luis Campusano", "C"],
-      ["8", "Nick Castellanos", "LF"],
-      ["9", "Miguel Andujar", "DH"],
+      ["1", "Ramón Laureano", "LF"],
+      ["2", "Fernando Tatis Jr.", "RF"],
+      ["3", "Jackson Merrill", "CF"],
+      ["4", "Manny Machado", "3B"],
+      ["5", "Xander Bogaerts", "SS"],
+      ["6", "Gavin Sheets", "1B"],
+      ["7", "Miguel Andujar", "DH"],
+      ["8", "Luis Campusano", "C"],
+      ["9", "Jake Cronenworth", "2B"],
     ],
     spAwayNotes: [
       "RHP Castillo: elite stuff — Petco helps, but swing-miss plays anywhere.",
@@ -875,26 +935,26 @@ const SLATE: SlateGame[] = [
       "HR / TB: Petco suppresses HR — lower HR prop priority; F5 / pitch props often cleaner.",
     ],
     propsAway: [
-      { batter: "J.P. Crawford", team: "SEA", hrPct: 0.4, tb2Pct: 7.4, tier: "D", note: "LHB vs RHP; contact-driven profile; neutral pitcher matchup" },
-      { batter: "Julio Rodríguez", team: "SEA", hrPct: 0.4, tb2Pct: 7.4, tier: "D", note: "RHB vs RHP; contact-driven profile; neutral pitcher matchup" },
-      { batter: "Cal Raleigh", team: "SEA", hrPct: 1.6, tb2Pct: 13.3, tier: "D", note: "LHB vs RHP; contact-driven profile; neutral pitcher matchup" },
-      { batter: "Josh Naylor", team: "SEA", hrPct: 0.4, tb2Pct: 8.0, tier: "D", note: "LHB vs RHP; contact-driven profile; neutral pitcher matchup" },
-      { batter: "Randy Arozarena", team: "SEA", hrPct: 0.5, tb2Pct: 13.7, tier: "D", note: "RHB vs RHP; contact-driven profile; neutral pitcher matchup" },
-      { batter: "Dominic Canzone", team: "SEA", hrPct: 6.3, tb2Pct: 27.8, tier: "B", note: "LHB vs RHP; elite power indicators; neutral pitcher matchup" },
-      { batter: "Luke Raley", team: "SEA", hrPct: 9.3, tb2Pct: 36.0, tier: "A", note: "LHB vs RHP; elite power indicators; neutral pitcher matchup" },
-      { batter: "Brendan Donovan", team: "SEA", hrPct: 1.2, tb2Pct: 13.2, tier: "D", note: "LHB vs RHP; limited power profile; neutral pitcher matchup" },
-      { batter: "Connor Joe", team: "SEA", hrPct: 0.4, tb2Pct: 6.0, tier: "D", note: "RHB vs RHP; contact-driven profile; neutral pitcher matchup" },
+      { batter: "Brendan Donovan", team: "SEA", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — SEA 2, SD 5" },
+      { batter: "Cal Raleigh", team: "SEA", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — SEA 2, SD 5" },
+      { batter: "Julio Rodríguez", team: "SEA", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — SEA 2, SD 5" },
+      { batter: "Josh Naylor", team: "SEA", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — SEA 2, SD 5" },
+      { batter: "Randy Arozarena", team: "SEA", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — SEA 2, SD 5" },
+      { batter: "Luke Raley", team: "SEA", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — SEA 2, SD 5" },
+      { batter: "J.P. Crawford", team: "SEA", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — SEA 2, SD 5" },
+      { batter: "Dominic Canzone", team: "SEA", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — SEA 2, SD 5" },
+      { batter: "Cole Young", team: "SEA", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — SEA 2, SD 5" },
     ],
     propsHome: [
-      { batter: "Fernando Tatis Jr.", team: "SD", hrPct: 6.7, tb2Pct: 28.6, tier: "B", note: "RHB vs RHP; above-average damage; vs vulnerable pitcher" },
-      { batter: "Xander Bogaerts", team: "SD", hrPct: 5.2, tb2Pct: 24.3, tier: "C", note: "RHB vs RHP; above-average damage; vs vulnerable pitcher" },
-      { batter: "Manny Machado", team: "SD", hrPct: 2.0, tb2Pct: 14.5, tier: "D", note: "RHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
-      { batter: "Jackson Merrill", team: "SD", hrPct: 7.0, tb2Pct: 27.8, tier: "B", note: "LHB vs RHP; elite power indicators; vs vulnerable pitcher" },
-      { batter: "Jake Cronenworth", team: "SD", hrPct: 2.2, tb2Pct: 13.6, tier: "D", note: "LHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
-      { batter: "Ty France", team: "SD", hrPct: 4.9, tb2Pct: 23.2, tier: "C", note: "RHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
-      { batter: "Luis Campusano", team: "SD", hrPct: 6.0, tb2Pct: 28.8, tier: "B", note: "RHB vs RHP; elite power indicators; vs vulnerable pitcher" },
-      { batter: "Nick Castellanos", team: "SD", hrPct: 2.4, tb2Pct: 17.2, tier: "D", note: "RHB vs RHP; contact-driven profile; vs vulnerable pitcher" },
-      { batter: "Miguel Andujar", team: "SD", hrPct: 2.7, tb2Pct: 21.2, tier: "C", note: "RHB vs RHP; hard-contact profile; vs vulnerable pitcher" },
+      { batter: "Ramón Laureano", team: "SD", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — SEA 2, SD 5" },
+      { batter: "Fernando Tatis Jr.", team: "SD", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — SEA 2, SD 5" },
+      { batter: "Jackson Merrill", team: "SD", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — SEA 2, SD 5" },
+      { batter: "Manny Machado", team: "SD", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — SEA 2, SD 5" },
+      { batter: "Xander Bogaerts", team: "SD", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — SEA 2, SD 5" },
+      { batter: "Gavin Sheets", team: "SD", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — SEA 2, SD 5" },
+      { batter: "Miguel Andujar", team: "SD", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — SEA 2, SD 5" },
+      { batter: "Luis Campusano", team: "SD", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — SEA 2, SD 5" },
+      { batter: "Jake Cronenworth", team: "SD", hrPct: 0.0, tb2Pct: 0.0, tier: "Not Scored", note: "Not scored — Final — SEA 2, SD 5" },
     ],
   },
 ];
@@ -1436,200 +1496,200 @@ export default function Apr16Canvas() {
 Export marker blocks for canvases/exports/build_ml_exports.py (matched as substrings in this file).
 
 <!-- games-csv:start -->
-report_date,away,home,start_time_et,away_sp,home_sp,away_american,home_american,implied_away_pct_nv,implied_home_pct_nv,model_away_win_pct,model_home_win_pct,edge_away_pct,edge_home_pct,prediction,decision_tier_vs_market,edge_on_pick_pct,model_confidence,missing_data_flags,analyst_confidence,rationale_summary
-2026-04-16,WSH,PIT,12:35 PM,Foster Griffin,Braxton Ashcraft,118,-132,44.64,55.36,27.32,72.68,-17.31,17.31,PIT,A+,17.31,High,approx_market_ml,Medium,Probables Griffin (WSH) and Ashcraft (PIT) look like swing/spot roles without big separator stuff. PNC is slightly pitcher-friendly; Pirates get a small home edge but the price is close to fair.
-2026-04-16,SF,CIN,12:40 PM,Landen Roupp,Chase Burns,128,-148,42.36,57.64,63.03,36.97,20.66,-20.66,SF,A+,20.66,High,approx_market_ml,Medium-High,"Burns at home brings premium velocity; Roupp works contact and weak barrels. GABP raises HR/TB volatility — lean Reds, but mostly a props/team-total environment."
-2026-04-16,KC,DET,1:10 PM,Kris Bubic,Keider Montero,108,-124,46.48,53.52,27.58,72.42,-18.90,18.90,DET,A+,18.90,High,approx_market_ml,Medium,Bubic vs Montero is young-starter volatility; Comerica trims some extra-base noise. Slight DET home lean without a commanding pitching edge.
-2026-04-16,LAA,NYY,1:35 PM,Brent Suter,Max Fried,205,-245,31.59,68.41,36.05,63.95,4.46,-4.46,NYY,D,-4.46,High,approx_market_ml,High,Suter vs Fried is a massive talent mismatch; short porch amplifies fly-ball damage. Market already prices a big NYY edge — PASS on ML unless you have a materially better number.
-2026-04-16,TOR,MIL,1:40 PM,Patrick Corbin,Brandon Sproat,-102,-108,49.30,50.70,50.70,49.30,1.40,-1.40,TOR,C,1.40,High,approx_market_ml;corbin_platoons,Low,"Corbin vs Sproat is command volatility on both sides; Milwaukee navigation is a hair better at home, but this is effectively a coin flip for betting."
-2026-04-16,TB,CWS,2:10 PM,Steven Matz,Jordan Leasure,-142,124,56.79,43.21,51.28,48.72,-5.51,5.51,TB,D,-5.51,High,approx_market_ml,Medium,Matz’s LHP shape matters against Chicago’s lefty bats; Leasure stretched as a starter adds volatility. Rays are the cleaner roster spot — edge is modest.
-2026-04-16,TEX,ATH,3:05 PM,Jack Leiter,Jacob Lopez,-118,108,52.96,47.04,40.97,59.03,-11.99,11.99,ATH,A+,11.99,High,approx_market_ml;oak_coliseum_env,Low,"Leiter vs Lopez profiles as short-leash, high-volatility. No compelling gap vs a tight market without a better posted price."
-2026-04-16,BAL,CLE,6:10 PM,Shane Baz,Parker Messick,-128,118,55.03,44.97,32.92,67.08,-22.11,22.11,CLE,A+,22.11,High,approx_market_ml;lineup_not_posted_api,Medium,Baz’s stuff plays when the heater is elevated; Messick needs to limit barrels. Small lean to Baltimore’s lineup ceiling if Baz holds a normal starter workload.
-2026-04-16,COL,HOU,8:10 PM,Juan Mejia,Ryan Weiss,240,-290,28.34,71.66,48.46,51.54,20.12,-20.12,HOU,D,-20.12,High,approx_market_ml;lineup_not_posted_api,High,Road Rockies vs Houston’s overall talent is a steep mismatch; Crawford Boxes pull-side HRs matter. Chalk is heavy — PASS unless you model innings/hooks differently.
-2026-04-16,SEA,SD,8:40 PM,Luis Castillo,Walker Buehler,-104,-112,49.11,50.89,39.47,60.53,-9.64,9.64,SD,A+,9.64,High,approx_market_ml;lineup_not_posted_api,Medium,Castillo vs Buehler is a true ace duel; Petco suppresses offense. Side market is rightfully tight — prefer game props over ML.
+report_date,away,home,start_time_et,away_sp,home_sp,away_american,home_american,market_total,market_over_american,market_under_american,weather_summary,weather_temp_f,weather_wind_mph,weather_precip_pct,bullpen_away_score,bullpen_home_score,recent_form_away_score,recent_form_home_score,game_status_bucket,game_state,game_state_detail,game_status_note,away_score,home_score,verification_status,verification_notes,implied_away_pct_nv,implied_home_pct_nv,raw_model_away_win_pct,raw_model_home_win_pct,final_away_win_pct,final_home_win_pct,edge_away_pct,edge_home_pct,prediction,decision_tier_vs_market,edge_on_pick_pct,model_confidence,missing_data_flags,analyst_confidence,rationale_summary,scoring_status
+2026-04-16,WSH,PIT,12:35 PM,Foster Griffin,Braxton Ashcraft,118,-132,,,,47F / 8 mph wind / 12% precip / Open,47.2,7.9,12,0.350,0.376,0.502,0.406,final,Final,Final,"Final — WSH 8, PIT 7",8,7,Partial,rotowire_missing,44.64,55.36,,,,,,,,not_scored,,not_scored,rotowire_missing,Medium,Probables Griffin (WSH) and Ashcraft (PIT) look like swing/spot roles without big separator stuff. PNC is slightly pitcher-friendly; Pirates get a small home edge but the price is close to fair.,not_scored
+2026-04-16,SF,CIN,12:40 PM,Landen Roupp,Chase Burns,128,-148,,,,58F / 13 mph wind / 5% precip / Open,58.1,12.7,5,0.401,0.406,0.444,0.442,final,Final,Final,"Final — SF 3, CIN 0",3,0,Partial,rotowire_missing,42.36,57.64,,,,,,,,not_scored,,not_scored,rotowire_missing,Medium-High,"Burns at home brings premium velocity; Roupp works contact and weak barrels. GABP raises HR/TB volatility — lean Reds, but mostly a props/team-total environment.",not_scored
+2026-04-16,KC,DET,1:10 PM,Kris Bubic,Keider Montero,108,-124,,,,44F / 12 mph wind / 4% precip / Open,43.9,12.2,4,0.354,0.462,0.399,0.491,final,Final,Final,"Final — KC 9, DET 10",9,10,Partial,rotowire_missing,46.48,53.52,,,,,,,,not_scored,,not_scored,rotowire_missing,Medium,Bubic vs Montero is young-starter volatility; Comerica trims some extra-base noise. Slight DET home lean without a commanding pitching edge.,not_scored
+2026-04-16,LAA,NYY,1:35 PM,Brent Suter,Max Fried,205,-245,,,,47F / 8 mph wind / 13% precip / Open,46.6,7.7,13,0.356,0.385,0.448,0.512,final,Final,Final,"Final — LAA 11, NYY 4",11,4,Partial,rotowire_missing,31.59,68.41,,,,,,,,not_scored,,not_scored,rotowire_missing,High,Suter vs Fried is a massive talent mismatch; short porch amplifies fly-ball damage. Market already prices a big NYY edge — PASS on ML unless you have a materially better number.,not_scored
+2026-04-16,TOR,MIL,1:40 PM,Patrick Corbin,Brandon Sproat,-102,-108,,,,dome / mild,,,,0.418,0.398,0.485,0.393,final,Final,Final,"Final — TOR 1, MIL 2",1,2,Partial,rotowire_missing,49.30,50.70,,,,,,,,not_scored,,not_scored,rotowire_missing,Low,"Corbin vs Sproat is command volatility on both sides; Milwaukee navigation is a hair better at home, but this is effectively a coin flip for betting.",not_scored
+2026-04-16,TB,CWS,2:10 PM,Steven Matz,Jordan Leasure,-142,124,,,,62F / clear,,,,0.304,0.378,0.513,0.452,final,Final,Final,"Final — TB 5, CWS 3",5,3,Partial,rotowire_missing,56.79,43.21,,,,,,,,not_scored,,not_scored,rotowire_missing,Medium,Matz’s LHP shape matters against Chicago’s lefty bats; Leasure stretched as a starter adds volatility. Rays are the cleaner roster spot — edge is modest.,not_scored
+2026-04-16,TEX,ATH,3:05 PM,Jack Leiter,Jacob Lopez,-118,108,,,,76F / 6 mph wind / 0% precip / Open,75.8,6.4,0,0.437,0.384,0.435,0.470,final,Final,Final,"Final — TEX 9, ATH 6",9,6,Partial,rotowire_missing,52.96,47.04,,,,,,,,not_scored,,not_scored,rotowire_missing,Low,"Leiter vs Lopez profiles as short-leash, high-volatility. No compelling gap vs a tight market without a better posted price.",not_scored
+2026-04-16,BAL,CLE,6:10 PM,Shane Baz,Parker Messick,-128,118,,,,44F / 13 mph wind / 16% precip / Open,43.6,13.2,16,0.394,0.366,0.495,0.537,final,Final,Final,"Final — BAL 2, CLE 4",2,4,Partial,rotowire_missing,55.03,44.97,,,,,,,,not_scored,,not_scored,rotowire_missing,Medium,Baz’s stuff plays when the heater is elevated; Messick needs to limit barrels. Small lean to Baltimore’s lineup ceiling if Baz holds a normal starter workload.,not_scored
+2026-04-16,COL,HOU,8:10 PM,Juan Mejia,Ryan Weiss,240,-290,,,,65F / 4 mph wind / 0% precip / Retractable,65.4,4.2,0,0.414,0.334,0.491,0.530,final,Final,Final,"Final — COL 3, HOU 2",3,2,Partial,rotowire_missing,28.34,71.66,,,,,,,,not_scored,,not_scored,rotowire_missing,High,Road Rockies vs Houston’s overall talent is a steep mismatch; Crawford Boxes pull-side HRs matter. Chalk is heavy — PASS unless you model innings/hooks differently.,not_scored
+2026-04-16,SEA,SD,8:40 PM,Luis Castillo,Walker Buehler,-104,-112,,,,71F / 8 mph wind / 0% precip / Open,71.2,7.8,0,0.433,0.524,0.446,0.591,final,Final,Final,"Final — SEA 2, SD 5",2,5,Partial,rotowire_missing,49.11,50.89,,,,,,,,not_scored,,not_scored,rotowire_missing,Medium,Castillo vs Buehler is a true ace duel; Petco suppresses offense. Side market is rightfully tight — prefer game props over ML.,not_scored
 <!-- games-csv:end -->
 
 <!-- batter-outlooks-csv:start -->
-report_date,game,team,batter,opponent_pitcher,hr_prob_pct,tb2_prob_pct,fair_hr_american,fair_2tb_american,market_hr_american,edge_hr_pct,tier,data_confidence
-2026-04-16,WSH@PIT,WSH,James Wood,Braxton Ashcraft,8.23,32.00,+1116,+212,NA,0.00,A,"High — real stats+savant, posted lineup"
-2026-04-16,WSH@PIT,WSH,Luis García Jr.,Braxton Ashcraft,0.40,12.09,+24900,+727,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,WSH@PIT,WSH,Brady House,Braxton Ashcraft,0.40,6.59,+24900,+1418,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,WSH@PIT,WSH,Daylen Lile,Braxton Ashcraft,0.40,10.23,+24900,+877,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,WSH@PIT,WSH,CJ Abrams,Braxton Ashcraft,4.96,27.26,+1918,+267,NA,0.00,B,"High — real stats+savant, posted lineup"
-2026-04-16,WSH@PIT,WSH,Jacob Young,Braxton Ashcraft,0.40,13.13,+24900,+661,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,WSH@PIT,WSH,Jorbit Vivas,Braxton Ashcraft,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,WSH@PIT,WSH,Drew Millas,Braxton Ashcraft,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-16,WSH@PIT,WSH,Nasim Nuñez,Braxton Ashcraft,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,WSH@PIT,PIT,Jake Mangum,Foster Griffin,0.40,10.26,+24900,+875,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,WSH@PIT,PIT,Nick Gonzales,Foster Griffin,0.40,12.63,+24900,+692,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,WSH@PIT,PIT,Oneil Cruz,Foster Griffin,11.60,39.90,+762,+151,NA,0.00,A+,"High — real stats+savant, posted lineup"
-2026-04-16,WSH@PIT,PIT,Marcell Ozuna,Foster Griffin,2.58,15.23,+3776,+556,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,WSH@PIT,PIT,Nick Yorke,Foster Griffin,1.87,17.60,+5246,+468,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,WSH@PIT,PIT,Brandon Lowe,Foster Griffin,7.00,27.00,+1329,+270,NA,0.00,B,"High — real stats+savant, posted lineup"
-2026-04-16,WSH@PIT,PIT,Joey Bart,Foster Griffin,1.34,8.21,+7365,+1117,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-16,WSH@PIT,PIT,Konnor Griffin,Foster Griffin,0.40,10.37,+24900,+864,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,WSH@PIT,PIT,Billy Cook,Foster Griffin,1.21,15.14,+8168,+560,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-16,SF@CIN,SF,Luis Arraez,Chase Burns,0.40,8.51,+24900,+1076,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,SF@CIN,SF,Willy Adames,Chase Burns,4.24,22.09,+2256,+353,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-16,SF@CIN,SF,Rafael Devers,Chase Burns,3.71,18.87,+2593,+430,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,SF@CIN,SF,Matt Chapman,Chase Burns,0.76,14.19,+13003,+605,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,SF@CIN,SF,Jung Hoo Lee,Chase Burns,1.35,16.27,+7295,+515,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,SF@CIN,SF,Will Brennan,Chase Burns,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-16,SF@CIN,SF,Casey Schmitt,Chase Burns,6.03,28.39,+1558,+252,NA,0.00,B,"High — real stats+savant, posted lineup"
-2026-04-16,SF@CIN,SF,Drew Gilbert,Chase Burns,7.85,26.43,+1174,+278,NA,0.00,B,"Medium — real stats+savant, posted lineup"
-2026-04-16,SF@CIN,SF,Patrick Bailey,Chase Burns,0.40,9.56,+24900,+946,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,SF@CIN,CIN,TJ Friedl,Landen Roupp,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,SF@CIN,CIN,Matt McLain,Landen Roupp,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,SF@CIN,CIN,Elly De La Cruz,Landen Roupp,5.69,25.31,+1659,+295,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-16,SF@CIN,CIN,Sal Stewart,Landen Roupp,6.50,27.99,+1438,+257,NA,0.00,B,"High — real stats+savant, posted lineup"
-2026-04-16,SF@CIN,CIN,Eugenio Suárez,Landen Roupp,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,SF@CIN,CIN,Spencer Steer,Landen Roupp,1.43,14.10,+6885,+609,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,SF@CIN,CIN,Rece Hinds,Landen Roupp,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-16,SF@CIN,CIN,Ke'Bryan Hayes,Landen Roupp,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,SF@CIN,CIN,P.J. Higgins,Landen Roupp,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-16,KC@DET,KC,Maikel Garcia,Keider Montero,0.40,14.64,+24900,+583,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,KC@DET,KC,Bobby Witt Jr.,Keider Montero,0.96,18.97,+10306,+427,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,KC@DET,KC,Vinnie Pasquantino,Keider Montero,0.40,7.08,+24900,+1312,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,KC@DET,KC,Salvador Perez,Keider Montero,0.40,8.06,+24900,+1140,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,KC@DET,KC,Carter Jensen,Keider Montero,2.49,14.07,+3912,+611,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,KC@DET,KC,Jonathan India,Keider Montero,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,KC@DET,KC,Jac Caglianone,Keider Montero,0.79,15.71,+12631,+537,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,KC@DET,KC,Michael Massey,Keider Montero,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-16,KC@DET,KC,Kyle Isbel,Keider Montero,0.40,7.18,+24900,+1293,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,KC@DET,DET,Gleyber Torres,Kris Bubic,0.40,8.94,+24900,+1018,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,KC@DET,DET,Kevin McGonigle,Kris Bubic,3.75,24.03,+2570,+316,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-16,KC@DET,DET,Jahmai Jones,Kris Bubic,0.40,7.21,+24900,+1287,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-16,KC@DET,DET,Dillon Dingler,Kris Bubic,11.68,42.42,+756,+136,NA,0.00,A+,"High — real stats+savant, posted lineup"
-2026-04-16,KC@DET,DET,Riley Greene,Kris Bubic,5.87,30.00,+1604,+233,NA,0.00,B,"High — real stats+savant, posted lineup"
-2026-04-16,KC@DET,DET,Matt Vierling,Kris Bubic,2.65,14.67,+3674,+582,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-16,KC@DET,DET,Spencer Torkelson,Kris Bubic,2.19,17.15,+4459,+483,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,KC@DET,DET,Wenceel Pérez,Kris Bubic,1.61,6.00,+6105,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-16,KC@DET,DET,Javier Báez,Kris Bubic,0.99,15.69,+10040,+537,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,LAA@NYY,LAA,Zach Neto,Max Fried,0.79,11.77,+12566,+750,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,LAA@NYY,LAA,Mike Trout,Max Fried,9.23,35.27,+984,+184,NA,0.00,A,"High — real stats+savant, posted lineup"
-2026-04-16,LAA@NYY,LAA,Jo Adell,Max Fried,0.88,16.77,+11201,+496,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,LAA@NYY,LAA,Oswald Peraza,Max Fried,2.47,17.33,+3953,+477,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,LAA@NYY,LAA,Vaughn Grissom,Max Fried,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-16,LAA@NYY,LAA,Nolan Schanuel,Max Fried,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,LAA@NYY,LAA,Travis d'Arnaud,Max Fried,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-16,LAA@NYY,LAA,Josh Lowe,Max Fried,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,LAA@NYY,LAA,Bryce Teodosio,Max Fried,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-16,LAA@NYY,NYY,Trent Grisham,Brent Suter,2.98,18.24,+3261,+448,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,LAA@NYY,NYY,Aaron Judge,Brent Suter,12.82,41.28,+680,+142,NA,0.00,A+,"High — real stats+savant, posted lineup"
-2026-04-16,LAA@NYY,NYY,Cody Bellinger,Brent Suter,1.35,15.16,+7292,+560,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,LAA@NYY,NYY,Giancarlo Stanton,Brent Suter,3.84,19.19,+2502,+421,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,LAA@NYY,NYY,Ben Rice,Brent Suter,12.57,44.23,+696,+126,NA,0.00,A+,"High — real stats+savant, posted lineup"
-2026-04-16,LAA@NYY,NYY,Amed Rosario,Brent Suter,5.06,24.25,+1878,+312,NA,0.00,C,"Medium — real stats+savant, posted lineup"
-2026-04-16,LAA@NYY,NYY,Jazz Chisholm Jr.,Brent Suter,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,LAA@NYY,NYY,José Caballero,Brent Suter,0.40,7.18,+24900,+1294,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,LAA@NYY,NYY,J.C. Escarra,Brent Suter,0.40,8.71,+24900,+1048,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-16,TOR@MIL,TOR,Davis Schneider,Brandon Sproat,3.19,15.68,+3033,+538,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-16,TOR@MIL,TOR,Daulton Varsho,Brandon Sproat,3.62,18.83,+2664,+431,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,TOR@MIL,TOR,Vladimir Guerrero Jr.,Brandon Sproat,6.04,27.35,+1556,+266,NA,0.00,B,"High — real stats+savant, posted lineup"
-2026-04-16,TOR@MIL,TOR,Jesús Sánchez,Brandon Sproat,6.12,27.08,+1535,+269,NA,0.00,B,"High — real stats+savant, posted lineup"
-2026-04-16,TOR@MIL,TOR,Lenyn Sosa,Brandon Sproat,1.91,16.93,+5133,+491,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,TOR@MIL,TOR,Kazuma Okamoto,Brandon Sproat,3.68,17.14,+2618,+483,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,TOR@MIL,TOR,Andrés Giménez,Brandon Sproat,3.88,19.01,+2479,+426,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,TOR@MIL,TOR,Ernie Clement,Brandon Sproat,0.88,15.20,+11251,+558,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,TOR@MIL,TOR,Tyler Heineman,Brandon Sproat,2.16,15.52,+4536,+544,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-16,TOR@MIL,MIL,Brandon Lockridge,Patrick Corbin,3.20,14.42,+3020,+593,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,TOR@MIL,MIL,Brice Turang,Patrick Corbin,11.97,39.63,+735,+152,NA,0.00,A+,"High — real stats+savant, posted lineup"
-2026-04-16,TOR@MIL,MIL,William Contreras,Patrick Corbin,9.51,34.48,+952,+190,NA,0.00,A,"High — real stats+savant, posted lineup"
-2026-04-16,TOR@MIL,MIL,Gary Sánchez,Patrick Corbin,17.60,49.09,+468,+104,NA,0.00,A+,"High — real stats+savant, posted lineup"
-2026-04-16,TOR@MIL,MIL,Luis Rengifo,Patrick Corbin,4.18,17.15,+2290,+483,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,TOR@MIL,MIL,Luis Matos,Patrick Corbin,4.57,15.61,+2088,+541,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-16,TOR@MIL,MIL,Greg Jones,Patrick Corbin,3.61,10.35,+2668,+866,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-16,TOR@MIL,MIL,David Hamilton,Patrick Corbin,1.64,8.77,+5986,+1041,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,TOR@MIL,MIL,Joey Ortiz,Patrick Corbin,4.02,15.25,+2387,+556,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,TB@CWS,TB,Chandler Simpson,Jordan Leasure,0.40,9.68,+24900,+933,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,TB@CWS,TB,Junior Caminero,Jordan Leasure,5.51,23.17,+1715,+332,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-16,TB@CWS,TB,Cedric Mullins,Jordan Leasure,0.53,8.04,+18804,+1143,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,TB@CWS,TB,Yandy Díaz,Jordan Leasure,5.41,26.81,+1747,+273,NA,0.00,B,"High — real stats+savant, posted lineup"
-2026-04-16,TB@CWS,TB,Ryan Vilade,Jordan Leasure,1.19,11.82,+8314,+746,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-16,TB@CWS,TB,Ben Williamson,Jordan Leasure,0.40,9.13,+24900,+995,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,TB@CWS,TB,Jonny DeLuca,Jordan Leasure,6.10,26.32,+1541,+280,NA,0.00,B,"Medium — real stats+savant, posted lineup"
-2026-04-16,TB@CWS,TB,Nick Fortes,Jordan Leasure,2.94,20.90,+3302,+378,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-16,TB@CWS,TB,Taylor Walls,Jordan Leasure,2.51,17.84,+3883,+460,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-16,TB@CWS,CWS,Miguel Vargas,Steven Matz,4.32,18.89,+2217,+429,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,TB@CWS,CWS,Chase Meidroth,Steven Matz,2.22,17.31,+4400,+478,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,TB@CWS,CWS,Munetaka Murakami,Steven Matz,11.02,35.27,+807,+184,NA,0.00,A,"High — real stats+savant, posted lineup"
-2026-04-16,TB@CWS,CWS,Everson Pereira,Steven Matz,8.62,31.60,+1060,+216,NA,0.00,B,"Medium — real stats+savant, posted lineup"
-2026-04-16,TB@CWS,CWS,Edgar Quero,Steven Matz,0.40,6.18,+24900,+1519,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,TB@CWS,CWS,Tanner Murray,Steven Matz,4.27,20.07,+2240,+398,NA,0.00,C,"Medium — real stats+savant, posted lineup"
-2026-04-16,TB@CWS,CWS,Andrew Benintendi,Steven Matz,2.90,19.87,+3352,+403,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,TB@CWS,CWS,Derek Hill,Steven Matz,0.56,11.93,+17789,+739,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-16,TB@CWS,CWS,Sam Antonacci,Steven Matz,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-16,TEX@ATH,TEX,Brandon Nimmo,Jacob Lopez,4.06,22.45,+2363,+345,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-16,TEX@ATH,TEX,Wyatt Langford,Jacob Lopez,0.40,8.57,+24900,+1066,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,TEX@ATH,TEX,Jake Burger,Jacob Lopez,5.17,23.65,+1833,+323,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-16,TEX@ATH,TEX,Josh Jung,Jacob Lopez,2.35,20.61,+4161,+385,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-16,TEX@ATH,TEX,Kyle Higashioka,Jacob Lopez,1.05,12.64,+9461,+691,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-16,TEX@ATH,TEX,Andrew McCutchen,Jacob Lopez,1.17,12.03,+8416,+731,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-16,TEX@ATH,TEX,Sam Haggerty,Jacob Lopez,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-16,TEX@ATH,TEX,Josh Smith,Jacob Lopez,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,TEX@ATH,TEX,Ezequiel Duran,Jacob Lopez,0.63,12.21,+15724,+719,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,TEX@ATH,ATH,Jeff McNeil,Jack Leiter,1.54,15.65,+6391,+539,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,TEX@ATH,ATH,Shea Langeliers,Jack Leiter,11.18,37.28,+795,+168,NA,0.00,A,"High — real stats+savant, posted lineup"
-2026-04-16,TEX@ATH,ATH,Nick Kurtz,Jack Leiter,10.61,34.81,+842,+187,NA,0.00,A,"High — real stats+savant, posted lineup"
-2026-04-16,TEX@ATH,ATH,Tyler Soderstrom,Jack Leiter,6.83,25.58,+1364,+291,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-16,TEX@ATH,ATH,Jacob Wilson,Jack Leiter,0.61,12.66,+16251,+690,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,TEX@ATH,ATH,Carlos Cortes,Jack Leiter,5.47,24.61,+1727,+306,NA,0.00,C,"Medium — real stats+savant, posted lineup"
-2026-04-16,TEX@ATH,ATH,Lawrence Butler,Jack Leiter,5.18,22.56,+1829,+343,NA,0.00,C,"High — real stats+savant, posted lineup"
-2026-04-16,TEX@ATH,ATH,Austin Wynns,Jack Leiter,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-16,TEX@ATH,ATH,Darell Hernaiz,Jack Leiter,0.98,8.61,+10135,+1061,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-16,BAL@CLE,BAL,Gunnar Henderson,Parker Messick,2.77,16.61,+3510,+502,NA,0.00,D,"High — real stats+savant, projected lineup"
-2026-04-16,BAL@CLE,BAL,Colton Cowser,Parker Messick,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, projected lineup"
-2026-04-16,BAL@CLE,BAL,Pete Alonso,Parker Messick,1.38,14.84,+7152,+574,NA,0.00,D,"High — real stats+savant, projected lineup"
-2026-04-16,BAL@CLE,BAL,Coby Mayo,Parker Messick,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, projected lineup"
-2026-04-16,BAL@CLE,BAL,Leody Taveras,Parker Messick,0.40,12.00,+24900,+733,NA,0.00,D,"High — real stats+savant, projected lineup"
-2026-04-16,BAL@CLE,BAL,Taylor Ward,Parker Messick,0.40,8.12,+24900,+1132,NA,0.00,D,"High — real stats+savant, projected lineup"
-2026-04-16,BAL@CLE,BAL,Samuel Basallo,Parker Messick,1.04,10.20,+9517,+880,NA,0.00,D,"High — real stats+savant, projected lineup"
-2026-04-16,BAL@CLE,BAL,Dylan Beavers,Parker Messick,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, projected lineup"
-2026-04-16,BAL@CLE,BAL,Jeremiah Jackson,Parker Messick,3.37,18.09,+2869,+453,NA,0.00,D,"High — real stats+savant, projected lineup"
-2026-04-16,BAL@CLE,CLE,Steven Kwan,Shane Baz,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,BAL@CLE,CLE,Chase DeLauter,Shane Baz,7.22,27.92,+1285,+258,NA,0.00,B,"High — real stats+savant, posted lineup"
-2026-04-16,BAL@CLE,CLE,José Ramírez,Shane Baz,6.31,26.26,+1485,+281,NA,0.00,B,"High — real stats+savant, posted lineup"
-2026-04-16,BAL@CLE,CLE,Kyle Manzardo,Shane Baz,1.95,13.95,+5021,+617,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,BAL@CLE,CLE,George Valera,Shane Baz,3.15,26.15,+3075,+282,NA,0.00,B,"Medium — real stats+savant, posted lineup"
-2026-04-16,BAL@CLE,CLE,Angel Martínez,Shane Baz,2.76,18.06,+3527,+454,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,BAL@CLE,CLE,Juan Brito,Shane Baz,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-16,BAL@CLE,CLE,Austin Hedges,Shane Baz,0.43,13.79,+23183,+625,NA,0.00,D,"Medium — real stats+savant, posted lineup"
-2026-04-16,BAL@CLE,CLE,Brayan Rocchio,Shane Baz,0.47,11.37,+21212,+780,NA,0.00,D,"High — real stats+savant, posted lineup"
-2026-04-16,COL@HOU,COL,Brenton Doyle,Ryan Weiss,2.34,13.71,+4174,+629,NA,0.00,D,"High — real stats+savant, projected lineup"
-2026-04-16,COL@HOU,COL,Ezequiel Tovar,Ryan Weiss,6.36,28.47,+1471,+251,NA,0.00,B,"High — real stats+savant, projected lineup"
-2026-04-16,COL@HOU,COL,Hunter Goodman,Ryan Weiss,10.46,32.39,+856,+209,NA,0.00,A,"High — real stats+savant, projected lineup"
-2026-04-16,COL@HOU,COL,Jordan Beck,Ryan Weiss,2.68,11.22,+3628,+791,NA,0.00,D,"Medium — real stats+savant, projected lineup"
-2026-04-16,COL@HOU,COL,Mickey Moniak,Ryan Weiss,10.52,32.93,+850,+204,NA,0.00,A,"High — real stats+savant, projected lineup"
-2026-04-16,COL@HOU,COL,Edouard Julien,Ryan Weiss,6.20,26.72,+1513,+274,NA,0.00,B,"High — real stats+savant, projected lineup"
-2026-04-16,COL@HOU,COL,Willi Castro,Ryan Weiss,4.14,18.57,+2313,+438,NA,0.00,D,"High — real stats+savant, projected lineup"
-2026-04-16,COL@HOU,COL,Tyler Freeman,Ryan Weiss,2.68,17.32,+3633,+477,NA,0.00,D,"Medium — real stats+savant, projected lineup"
-2026-04-16,COL@HOU,COL,Brett Sullivan,Ryan Weiss,3.64,19.51,+2650,+412,NA,0.00,D,"Medium — real stats+savant, projected lineup"
-2026-04-16,COL@HOU,HOU,Jose Altuve,Juan Mejia,4.73,23.34,+2016,+328,NA,0.00,C,"High — real stats+savant, projected lineup"
-2026-04-16,COL@HOU,HOU,Yordan Alvarez,Juan Mejia,15.89,54.27,+529,-119,NA,0.00,A+,"High — real stats+savant, projected lineup"
-2026-04-16,COL@HOU,HOU,Christian Walker,Juan Mejia,7.65,29.89,+1208,+235,NA,0.00,B,"High — real stats+savant, projected lineup"
-2026-04-16,COL@HOU,HOU,Isaac Paredes,Juan Mejia,0.40,7.01,+24900,+1326,NA,0.00,D,"High — real stats+savant, projected lineup"
-2026-04-16,COL@HOU,HOU,Carlos Correa,Juan Mejia,5.24,25.50,+1809,+292,NA,0.00,C,"High — real stats+savant, projected lineup"
-2026-04-16,COL@HOU,HOU,Yainer Diaz,Juan Mejia,0.40,7.60,+24900,+1216,NA,0.00,D,"High — real stats+savant, projected lineup"
-2026-04-16,COL@HOU,HOU,Cam Smith,Juan Mejia,9.29,35.19,+977,+184,NA,0.00,A,"High — real stats+savant, projected lineup"
-2026-04-16,COL@HOU,HOU,Joey Loperfido,Juan Mejia,2.62,16.47,+3719,+507,NA,0.00,D,"High — real stats+savant, projected lineup"
-2026-04-16,COL@HOU,HOU,Taylor Trammell,Juan Mejia,3.17,19.20,+3059,+421,NA,0.00,D,"Medium — real stats+savant, projected lineup"
-2026-04-16,SEA@SD,SEA,J.P. Crawford,Walker Buehler,0.40,7.44,+24900,+1244,NA,0.00,D,"High — real stats+savant, projected lineup"
-2026-04-16,SEA@SD,SEA,Julio Rodríguez,Walker Buehler,0.40,7.39,+24900,+1254,NA,0.00,D,"High — real stats+savant, projected lineup"
-2026-04-16,SEA@SD,SEA,Cal Raleigh,Walker Buehler,1.58,13.27,+6242,+653,NA,0.00,D,"High — real stats+savant, projected lineup"
-2026-04-16,SEA@SD,SEA,Josh Naylor,Walker Buehler,0.40,8.01,+24900,+1148,NA,0.00,D,"High — real stats+savant, projected lineup"
-2026-04-16,SEA@SD,SEA,Randy Arozarena,Walker Buehler,0.49,13.71,+20256,+629,NA,0.00,D,"High — real stats+savant, projected lineup"
-2026-04-16,SEA@SD,SEA,Dominic Canzone,Walker Buehler,6.31,27.78,+1485,+260,NA,0.00,B,"High — real stats+savant, projected lineup"
-2026-04-16,SEA@SD,SEA,Luke Raley,Walker Buehler,9.28,36.00,+978,+178,NA,0.00,A,"High — real stats+savant, projected lineup"
-2026-04-16,SEA@SD,SEA,Brendan Donovan,Walker Buehler,1.21,13.18,+8152,+659,NA,0.00,D,"High — real stats+savant, projected lineup"
-2026-04-16,SEA@SD,SEA,Connor Joe,Walker Buehler,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, projected lineup"
-2026-04-16,SEA@SD,SD,Fernando Tatis Jr.,Luis Castillo,6.66,28.61,+1400,+249,NA,0.00,B,"High — real stats+savant, projected lineup"
-2026-04-16,SEA@SD,SD,Xander Bogaerts,Luis Castillo,5.25,24.28,+1806,+312,NA,0.00,C,"High — real stats+savant, projected lineup"
-2026-04-16,SEA@SD,SD,Manny Machado,Luis Castillo,2.01,14.51,+4864,+589,NA,0.00,D,"High — real stats+savant, projected lineup"
-2026-04-16,SEA@SD,SD,Jackson Merrill,Luis Castillo,6.99,27.76,+1331,+260,NA,0.00,B,"High — real stats+savant, projected lineup"
-2026-04-16,SEA@SD,SD,Jake Cronenworth,Luis Castillo,2.22,13.55,+4400,+638,NA,0.00,D,"High — real stats+savant, projected lineup"
-2026-04-16,SEA@SD,SD,Ty France,Luis Castillo,4.93,23.17,+1929,+332,NA,0.00,C,"Medium — real stats+savant, projected lineup"
-2026-04-16,SEA@SD,SD,Luis Campusano,Luis Castillo,6.02,28.79,+1560,+247,NA,0.00,B,"Medium — real stats+savant, projected lineup"
-2026-04-16,SEA@SD,SD,Nick Castellanos,Luis Castillo,2.44,17.24,+3992,+480,NA,0.00,D,"High — real stats+savant, projected lineup"
-2026-04-16,SEA@SD,SD,Miguel Andujar,Luis Castillo,2.70,21.23,+3604,+371,NA,0.00,C,"High — real stats+savant, projected lineup"
+report_date,game,team,batter,opponent_pitcher,hr_prob_pct,tb2_prob_pct,fair_hr_american,fair_2tb_american,market_hr_american,edge_hr_pct,market_tb_line,market_tb_over_american,edge_tb_pct,recent_form_score,bvp_pa,tier,hr_tier,tb2_tier,recommended_prop,recommended_tier,hr_market_status,tb2_market_status,data_confidence,market_data_status,scoring_status
+2026-04-16,WSH@PIT,WSH,James Wood,Braxton Ashcraft,,,,,NA,,,,,0.866,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,WSH@PIT,WSH,Luis García Jr.,Braxton Ashcraft,,,,,NA,,,,,0.518,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,WSH@PIT,WSH,Brady House,Braxton Ashcraft,,,,,NA,,,,,0.413,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,WSH@PIT,WSH,Daylen Lile,Braxton Ashcraft,,,,,NA,,,,,0.263,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,WSH@PIT,WSH,CJ Abrams,Braxton Ashcraft,,,,,NA,,,,,0.950,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,WSH@PIT,WSH,Jacob Young,Braxton Ashcraft,,,,,NA,,,,,0.548,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,WSH@PIT,WSH,Jorbit Vivas,Braxton Ashcraft,,,,,NA,,,,,0.486,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,WSH@PIT,WSH,Drew Millas,Braxton Ashcraft,,,,,NA,,,,,0.180,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,WSH@PIT,WSH,Nasim Nuñez,Braxton Ashcraft,,,,,NA,,,,,0.291,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,WSH@PIT,PIT,Jake Mangum,Foster Griffin,,,,,NA,,,,,0.401,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,WSH@PIT,PIT,Nick Gonzales,Foster Griffin,,,,,NA,,,,,0.248,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,WSH@PIT,PIT,Oneil Cruz,Foster Griffin,,,,,NA,,,,,0.638,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,WSH@PIT,PIT,Marcell Ozuna,Foster Griffin,,,,,NA,,,,,0.236,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,WSH@PIT,PIT,Nick Yorke,Foster Griffin,,,,,NA,,,,,0.449,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,WSH@PIT,PIT,Brandon Lowe,Foster Griffin,,,,,NA,,,,,0.685,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,WSH@PIT,PIT,Joey Bart,Foster Griffin,,,,,NA,,,,,0.380,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,WSH@PIT,PIT,Konnor Griffin,Foster Griffin,,,,,NA,,,,,0.308,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,WSH@PIT,PIT,Billy Cook,Foster Griffin,,,,,NA,,,,,0.308,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,SF@CIN,SF,Luis Arraez,Chase Burns,,,,,NA,,,,,0.543,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,SF@CIN,SF,Willy Adames,Chase Burns,,,,,NA,,,,,0.664,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,SF@CIN,SF,Rafael Devers,Chase Burns,,,,,NA,,,,,0.458,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,SF@CIN,SF,Matt Chapman,Chase Burns,,,,,NA,,,,,0.494,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,SF@CIN,SF,Jung Hoo Lee,Chase Burns,,,,,NA,,,,,0.444,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,SF@CIN,SF,Will Brennan,Chase Burns,,,,,NA,,,,,0.180,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,SF@CIN,SF,Casey Schmitt,Chase Burns,,,,,NA,,,,,0.842,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,SF@CIN,SF,Drew Gilbert,Chase Burns,,,,,NA,,,,,0.180,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,SF@CIN,SF,Patrick Bailey,Chase Burns,,,,,NA,,,,,0.189,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,SF@CIN,CIN,TJ Friedl,Landen Roupp,,,,,NA,,,,,0.279,6,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,SF@CIN,CIN,Matt McLain,Landen Roupp,,,,,NA,,,,,0.353,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,SF@CIN,CIN,Elly De La Cruz,Landen Roupp,,,,,NA,,,,,0.810,6,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,SF@CIN,CIN,Sal Stewart,Landen Roupp,,,,,NA,,,,,0.802,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,SF@CIN,CIN,Eugenio Suárez,Landen Roupp,,,,,NA,,,,,0.486,6,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,SF@CIN,CIN,Spencer Steer,Landen Roupp,,,,,NA,,,,,0.695,4,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,SF@CIN,CIN,Rece Hinds,Landen Roupp,,,,,NA,,,,,0.180,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,SF@CIN,CIN,Ke'Bryan Hayes,Landen Roupp,,,,,NA,,,,,0.180,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,SF@CIN,CIN,P.J. Higgins,Landen Roupp,,,,,NA,,,,,0.191,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,KC@DET,KC,Maikel Garcia,Keider Montero,,,,,NA,,,,,0.574,6,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,KC@DET,KC,Bobby Witt Jr.,Keider Montero,,,,,NA,,,,,0.403,9,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,KC@DET,KC,Vinnie Pasquantino,Keider Montero,,,,,NA,,,,,0.225,8,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,KC@DET,KC,Salvador Perez,Keider Montero,,,,,NA,,,,,0.271,8,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,KC@DET,KC,Carter Jensen,Keider Montero,,,,,NA,,,,,0.698,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,KC@DET,KC,Jonathan India,Keider Montero,,,,,NA,,,,,0.399,6,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,KC@DET,KC,Jac Caglianone,Keider Montero,,,,,NA,,,,,0.427,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,KC@DET,KC,Michael Massey,Keider Montero,,,,,NA,,,,,0.292,7,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,KC@DET,KC,Kyle Isbel,Keider Montero,,,,,NA,,,,,0.305,7,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,KC@DET,DET,Gleyber Torres,Kris Bubic,,,,,NA,,,,,0.441,13,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,KC@DET,DET,Kevin McGonigle,Kris Bubic,,,,,NA,,,,,0.574,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,KC@DET,DET,Jahmai Jones,Kris Bubic,,,,,NA,,,,,0.180,5,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,KC@DET,DET,Dillon Dingler,Kris Bubic,,,,,NA,,,,,0.601,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,KC@DET,DET,Riley Greene,Kris Bubic,,,,,NA,,,,,0.479,12,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,KC@DET,DET,Matt Vierling,Kris Bubic,,,,,NA,,,,,0.556,4,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,KC@DET,DET,Spencer Torkelson,Kris Bubic,,,,,NA,,,,,0.399,10,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,KC@DET,DET,Wenceel Pérez,Kris Bubic,,,,,NA,,,,,0.475,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,KC@DET,DET,Javier Báez,Kris Bubic,,,,,NA,,,,,0.710,14,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,LAA@NYY,LAA,Zach Neto,Max Fried,,,,,NA,,,,,0.626,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,LAA@NYY,LAA,Mike Trout,Max Fried,,,,,NA,,,,,0.719,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,LAA@NYY,LAA,Jo Adell,Max Fried,,,,,NA,,,,,0.592,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,LAA@NYY,LAA,Oswald Peraza,Max Fried,,,,,NA,,,,,0.610,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,LAA@NYY,LAA,Vaughn Grissom,Max Fried,,,,,NA,,,,,0.441,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,LAA@NYY,LAA,Nolan Schanuel,Max Fried,,,,,NA,,,,,0.276,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,LAA@NYY,LAA,Travis d'Arnaud,Max Fried,,,,,NA,,,,,0.180,5,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,LAA@NYY,LAA,Josh Lowe,Max Fried,,,,,NA,,,,,0.390,5,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,LAA@NYY,LAA,Bryce Teodosio,Max Fried,,,,,NA,,,,,0.200,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,LAA@NYY,NYY,Trent Grisham,Brent Suter,,,,,NA,,,,,0.454,7,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,LAA@NYY,NYY,Aaron Judge,Brent Suter,,,,,NA,,,,,0.866,4,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,LAA@NYY,NYY,Cody Bellinger,Brent Suter,,,,,NA,,,,,0.430,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,LAA@NYY,NYY,Giancarlo Stanton,Brent Suter,,,,,NA,,,,,0.262,1,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,LAA@NYY,NYY,Ben Rice,Brent Suter,,,,,NA,,,,,0.805,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,LAA@NYY,NYY,Amed Rosario,Brent Suter,,,,,NA,,,,,0.871,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,LAA@NYY,NYY,Jazz Chisholm Jr.,Brent Suter,,,,,NA,,,,,0.305,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,LAA@NYY,NYY,José Caballero,Brent Suter,,,,,NA,,,,,0.434,1,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,LAA@NYY,NYY,J.C. Escarra,Brent Suter,,,,,NA,,,,,0.180,1,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TOR@MIL,TOR,Davis Schneider,Brandon Sproat,,,,,NA,,,,,0.446,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TOR@MIL,TOR,Daulton Varsho,Brandon Sproat,,,,,NA,,,,,0.771,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TOR@MIL,TOR,Vladimir Guerrero Jr.,Brandon Sproat,,,,,NA,,,,,0.640,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TOR@MIL,TOR,Jesús Sánchez,Brandon Sproat,,,,,NA,,,,,0.472,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TOR@MIL,TOR,Lenyn Sosa,Brandon Sproat,,,,,NA,,,,,0.541,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TOR@MIL,TOR,Kazuma Okamoto,Brandon Sproat,,,,,NA,,,,,0.247,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TOR@MIL,TOR,Andrés Giménez,Brandon Sproat,,,,,NA,,,,,0.503,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TOR@MIL,TOR,Ernie Clement,Brandon Sproat,,,,,NA,,,,,0.376,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TOR@MIL,TOR,Tyler Heineman,Brandon Sproat,,,,,NA,,,,,0.366,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TOR@MIL,MIL,Brandon Lockridge,Patrick Corbin,,,,,NA,,,,,0.331,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TOR@MIL,MIL,Brice Turang,Patrick Corbin,,,,,NA,,,,,0.616,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TOR@MIL,MIL,William Contreras,Patrick Corbin,,,,,NA,,,,,0.611,10,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TOR@MIL,MIL,Gary Sánchez,Patrick Corbin,,,,,NA,,,,,0.719,13,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TOR@MIL,MIL,Luis Rengifo,Patrick Corbin,,,,,NA,,,,,0.235,15,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TOR@MIL,MIL,Luis Matos,Patrick Corbin,,,,,NA,,,,,0.334,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TOR@MIL,MIL,Greg Jones,Patrick Corbin,,,,,NA,,,,,,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TOR@MIL,MIL,David Hamilton,Patrick Corbin,,,,,NA,,,,,0.335,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TOR@MIL,MIL,Joey Ortiz,Patrick Corbin,,,,,NA,,,,,0.180,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TB@CWS,TB,Chandler Simpson,Jordan Leasure,,,,,NA,,,,,0.464,1,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TB@CWS,TB,Junior Caminero,Jordan Leasure,,,,,NA,,,,,0.619,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TB@CWS,TB,Cedric Mullins,Jordan Leasure,,,,,NA,,,,,0.427,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TB@CWS,TB,Yandy Díaz,Jordan Leasure,,,,,NA,,,,,0.633,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TB@CWS,TB,Ryan Vilade,Jordan Leasure,,,,,NA,,,,,0.562,1,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TB@CWS,TB,Ben Williamson,Jordan Leasure,,,,,NA,,,,,0.499,0,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TB@CWS,TB,Jonny DeLuca,Jordan Leasure,,,,,NA,,,,,0.525,0,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TB@CWS,TB,Nick Fortes,Jordan Leasure,,,,,NA,,,,,0.444,0,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TB@CWS,TB,Taylor Walls,Jordan Leasure,,,,,NA,,,,,0.450,0,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TB@CWS,CWS,Miguel Vargas,Steven Matz,,,,,NA,,,,,0.270,6,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TB@CWS,CWS,Chase Meidroth,Steven Matz,,,,,NA,,,,,0.310,4,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TB@CWS,CWS,Munetaka Murakami,Steven Matz,,,,,NA,,,,,0.461,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TB@CWS,CWS,Everson Pereira,Steven Matz,,,,,NA,,,,,0.950,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TB@CWS,CWS,Edgar Quero,Steven Matz,,,,,NA,,,,,0.258,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TB@CWS,CWS,Tanner Murray,Steven Matz,,,,,NA,,,,,0.548,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TB@CWS,CWS,Andrew Benintendi,Steven Matz,,,,,NA,,,,,0.366,11,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TB@CWS,CWS,Derek Hill,Steven Matz,,,,,NA,,,,,0.415,7,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TB@CWS,CWS,Sam Antonacci,Steven Matz,,,,,NA,,,,,0.491,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TEX@ATH,TEX,Brandon Nimmo,Jacob Lopez,,,,,NA,,,,,0.625,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TEX@ATH,TEX,Wyatt Langford,Jacob Lopez,,,,,NA,,,,,0.512,8,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TEX@ATH,TEX,Jake Burger,Jacob Lopez,,,,,NA,,,,,0.573,6,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TEX@ATH,TEX,Josh Jung,Jacob Lopez,,,,,NA,,,,,0.526,8,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TEX@ATH,TEX,Kyle Higashioka,Jacob Lopez,,,,,NA,,,,,0.813,7,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TEX@ATH,TEX,Andrew McCutchen,Jacob Lopez,,,,,NA,,,,,0.180,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TEX@ATH,TEX,Sam Haggerty,Jacob Lopez,,,,,NA,,,,,0.180,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TEX@ATH,TEX,Josh Smith,Jacob Lopez,,,,,NA,,,,,0.223,7,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TEX@ATH,TEX,Ezequiel Duran,Jacob Lopez,,,,,NA,,,,,0.279,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TEX@ATH,ATH,Jeff McNeil,Jack Leiter,,,,,NA,,,,,0.524,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TEX@ATH,ATH,Shea Langeliers,Jack Leiter,,,,,NA,,,,,0.498,13,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TEX@ATH,ATH,Nick Kurtz,Jack Leiter,,,,,NA,,,,,0.494,8,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TEX@ATH,ATH,Tyler Soderstrom,Jack Leiter,,,,,NA,,,,,0.606,13,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TEX@ATH,ATH,Jacob Wilson,Jack Leiter,,,,,NA,,,,,0.447,11,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TEX@ATH,ATH,Carlos Cortes,Jack Leiter,,,,,NA,,,,,0.568,4,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TEX@ATH,ATH,Lawrence Butler,Jack Leiter,,,,,NA,,,,,0.481,9,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TEX@ATH,ATH,Austin Wynns,Jack Leiter,,,,,NA,,,,,0.207,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,TEX@ATH,ATH,Darell Hernaiz,Jack Leiter,,,,,NA,,,,,0.405,5,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,BAL@CLE,BAL,Taylor Ward,Parker Messick,,,,,NA,,,,,0.533,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,BAL@CLE,BAL,Gunnar Henderson,Parker Messick,,,,,NA,,,,,0.771,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,BAL@CLE,BAL,Pete Alonso,Parker Messick,,,,,NA,,,,,0.392,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,BAL@CLE,BAL,Johnathan Rodríguez,Parker Messick,,,,,NA,,,,,0.233,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,BAL@CLE,BAL,Samuel Basallo,Parker Messick,,,,,NA,,,,,0.486,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,BAL@CLE,BAL,Jeremiah Jackson,Parker Messick,,,,,NA,,,,,0.944,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,BAL@CLE,BAL,Coby Mayo,Parker Messick,,,,,NA,,,,,0.311,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,BAL@CLE,BAL,Leody Taveras,Parker Messick,,,,,NA,,,,,0.516,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,BAL@CLE,BAL,Blaze Alexander,Parker Messick,,,,,NA,,,,,0.264,6,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,BAL@CLE,CLE,Steven Kwan,Shane Baz,,,,,NA,,,,,0.434,9,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,BAL@CLE,CLE,Chase DeLauter,Shane Baz,,,,,NA,,,,,0.546,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,BAL@CLE,CLE,José Ramírez,Shane Baz,,,,,NA,,,,,0.552,9,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,BAL@CLE,CLE,Kyle Manzardo,Shane Baz,,,,,NA,,,,,0.546,9,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,BAL@CLE,CLE,George Valera,Shane Baz,,,,,NA,,,,,0.708,6,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,BAL@CLE,CLE,Angel Martínez,Shane Baz,,,,,NA,,,,,0.723,5,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,BAL@CLE,CLE,Juan Brito,Shane Baz,,,,,NA,,,,,0.355,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,BAL@CLE,CLE,Austin Hedges,Shane Baz,,,,,NA,,,,,0.462,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,BAL@CLE,CLE,Brayan Rocchio,Shane Baz,,,,,NA,,,,,0.509,4,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,COL@HOU,COL,Edouard Julien,Ryan Weiss,,,,,NA,,,,,0.586,4,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,COL@HOU,COL,Tyler Freeman,Ryan Weiss,,,,,NA,,,,,0.301,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,COL@HOU,COL,TJ Rumfield,Ryan Weiss,,,,,NA,,,,,0.414,4,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,COL@HOU,COL,Hunter Goodman,Ryan Weiss,,,,,NA,,,,,0.578,4,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,COL@HOU,COL,Mickey Moniak,Ryan Weiss,,,,,NA,,,,,0.824,4,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,COL@HOU,COL,Ezequiel Tovar,Ryan Weiss,,,,,NA,,,,,0.388,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,COL@HOU,COL,Troy Johnston,Ryan Weiss,,,,,NA,,,,,0.561,4,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,COL@HOU,COL,Kyle Karros,Ryan Weiss,,,,,NA,,,,,0.320,4,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,COL@HOU,COL,Brenton Doyle,Ryan Weiss,,,,,NA,,,,,0.444,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,COL@HOU,HOU,Jose Altuve,Juan Mejia,,,,,NA,,,,,0.427,5,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,COL@HOU,HOU,Yordan Alvarez,Juan Mejia,,,,,NA,,,,,0.833,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,COL@HOU,HOU,Isaac Paredes,Juan Mejia,,,,,NA,,,,,0.314,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,COL@HOU,HOU,Carlos Correa,Juan Mejia,,,,,NA,,,,,0.418,5,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,COL@HOU,HOU,Christian Walker,Juan Mejia,,,,,NA,,,,,0.781,5,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,COL@HOU,HOU,Joey Loperfido,Juan Mejia,,,,,NA,,,,,0.410,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,COL@HOU,HOU,Cam Smith,Juan Mejia,,,,,NA,,,,,0.681,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,COL@HOU,HOU,Taylor Trammell,Juan Mejia,,,,,NA,,,,,0.490,0,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,COL@HOU,HOU,Yainer Diaz,Juan Mejia,,,,,NA,,,,,0.420,1,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,SEA@SD,SEA,Brendan Donovan,Walker Buehler,,,,,NA,,,,,0.450,6,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,SEA@SD,SEA,Cal Raleigh,Walker Buehler,,,,,NA,,,,,0.396,9,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,SEA@SD,SEA,Julio Rodríguez,Walker Buehler,,,,,NA,,,,,0.483,8,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,SEA@SD,SEA,Josh Naylor,Walker Buehler,,,,,NA,,,,,0.411,8,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,SEA@SD,SEA,Randy Arozarena,Walker Buehler,,,,,NA,,,,,0.561,6,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,SEA@SD,SEA,Luke Raley,Walker Buehler,,,,,NA,,,,,0.706,4,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,SEA@SD,SEA,J.P. Crawford,Walker Buehler,,,,,NA,,,,,0.361,9,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,SEA@SD,SEA,Dominic Canzone,Walker Buehler,,,,,NA,,,,,0.278,4,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,SEA@SD,SEA,Cole Young,Walker Buehler,,,,,NA,,,,,0.370,4,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,SEA@SD,SD,Ramón Laureano,Luis Castillo,,,,,NA,,,,,0.597,5,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,SEA@SD,SD,Fernando Tatis Jr.,Luis Castillo,,,,,NA,,,,,0.367,12,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,SEA@SD,SD,Jackson Merrill,Luis Castillo,,,,,NA,,,,,0.614,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,SEA@SD,SD,Manny Machado,Luis Castillo,,,,,NA,,,,,0.479,21,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,SEA@SD,SD,Xander Bogaerts,Luis Castillo,,,,,NA,,,,,0.757,8,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,SEA@SD,SD,Gavin Sheets,Luis Castillo,,,,,NA,,,,,0.674,11,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,SEA@SD,SD,Miguel Andujar,Luis Castillo,,,,,NA,,,,,0.646,109,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,SEA@SD,SD,Luis Campusano,Luis Castillo,,,,,NA,,,,,0.892,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-16,SEA@SD,SD,Jake Cronenworth,Luis Castillo,,,,,NA,,,,,0.296,13,,,,,,not_scored,not_scored,Display only,none,not_scored
 <!-- batter-outlooks-csv:end -->
 */
