@@ -61,6 +61,8 @@ HR_EDGE_GATE_PCT = 2.5
 TB_EDGE_GATE_PCT = 1.5
 TB_TARGET_LINE = 1.5
 PROP_TIER_RANK = {"A+": 5, "A": 4, "B": 3, "C": 2, "D": 1}
+SCORING_STATUS_SCORED = "scored"
+SCORING_STATUS_NOT_SCORED = "not_scored"
 
 
 def fetch_json(url: str) -> dict:
@@ -191,6 +193,43 @@ def round_or_blank(value: float | None, decimals: int = 2) -> str:
     if value is None:
         return ""
     return f"{value:.{decimals}f}"
+
+
+def scoring_status_for_bucket(bucket: Any) -> str:
+    return SCORING_STATUS_SCORED if str(bucket or "").strip().lower() == "pregame" else SCORING_STATUS_NOT_SCORED
+
+
+def summarize_snapshot_evaluation(
+    allow_partial: bool,
+    game_rows: list[dict[str, str]],
+    prop_rows: list[dict[str, str]],
+) -> dict[str, Any]:
+    reasons: list[str] = []
+    if allow_partial:
+        reasons.append("allow_partial")
+    if not game_rows:
+        reasons.append("no_games")
+    if any(str(row.get("game_status_bucket") or "").strip().lower() != "pregame" for row in game_rows):
+        reasons.append("contains_live_or_final_games")
+    if any(
+        str(row.get("game_status_bucket") or "").strip().lower() != "pregame"
+        and str(row.get("scoring_status") or "").strip().lower() == SCORING_STATUS_SCORED
+        for row in game_rows
+    ):
+        reasons.append("contains_non_pregame_scored_games")
+
+    scored_games = sum(1 for row in game_rows if str(row.get("scoring_status") or "").strip().lower() == SCORING_STATUS_SCORED)
+    scored_props = sum(1 for row in prop_rows if str(row.get("scoring_status") or "").strip().lower() == SCORING_STATUS_SCORED)
+    eligible = not reasons
+    return {
+        "eligible": eligible,
+        "status": "eligible" if eligible else "not_evaluable",
+        "reasons": reasons,
+        "scored_games": scored_games,
+        "not_scored_games": len(game_rows) - scored_games,
+        "scored_props": scored_props,
+        "not_scored_props": len(prop_rows) - scored_props,
+    }
 
 
 def report_date_value() -> date:
@@ -740,14 +779,19 @@ def write_run_snapshot(
     snapshot_dir = SNAPSHOT_ROOT / slug
     snapshot_dir.mkdir(parents=True, exist_ok=True)
     run_ts = datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")
+    game_rows = rows_to_dicts(games_rows)
+    prop_rows = rows_to_dicts(batter_rows)
+    evaluation = summarize_snapshot_evaluation(allow_partial, game_rows, prop_rows)
     payload = {
         "slug": slug,
         "report_date": REPORT_DATE,
         "run_timestamp_utc": run_ts,
         "allow_partial": allow_partial,
+        "evaluation_eligible": evaluation["eligible"],
+        "evaluation": evaluation,
         "canvas_path": str(path),
-        "games": rows_to_dicts(games_rows),
-        "props": rows_to_dicts(batter_rows),
+        "games": game_rows,
+        "props": prop_rows,
         "game_features": game_feature_rows,
         "prop_features": prop_feature_rows,
         "team_bullpens": team_bullpen_scores,
@@ -777,15 +821,21 @@ def write_run_snapshot(
             for game_key, ctx in lineup_context.items()
         },
         "summary": {
-            "pregame_games": sum(1 for row in rows_to_dicts(games_rows) if row.get("game_status_bucket") == "pregame"),
-            "live_games": sum(1 for row in rows_to_dicts(games_rows) if row.get("game_status_bucket") == "live"),
-            "final_games": sum(1 for row in rows_to_dicts(games_rows) if row.get("game_status_bucket") == "final"),
-            "other_games": sum(1 for row in rows_to_dicts(games_rows) if row.get("game_status_bucket") == "other"),
-            "verified_games": sum(1 for row in rows_to_dicts(games_rows) if row.get("verification_status") == "Verified"),
-            "partial_games": sum(1 for row in rows_to_dicts(games_rows) if row.get("verification_status") == "Partial"),
-            "full_prop_markets": sum(1 for row in rows_to_dicts(batter_rows) if row.get("market_data_status") == "full"),
-            "partial_prop_markets": sum(1 for row in rows_to_dicts(batter_rows) if row.get("market_data_status") == "partial"),
-            "no_prop_markets": sum(1 for row in rows_to_dicts(batter_rows) if row.get("market_data_status") == "none"),
+            "pregame_games": sum(1 for row in game_rows if row.get("game_status_bucket") == "pregame"),
+            "live_games": sum(1 for row in game_rows if row.get("game_status_bucket") == "live"),
+            "final_games": sum(1 for row in game_rows if row.get("game_status_bucket") == "final"),
+            "other_games": sum(1 for row in game_rows if row.get("game_status_bucket") == "other"),
+            "verified_games": sum(1 for row in game_rows if row.get("verification_status") == "Verified"),
+            "partial_games": sum(1 for row in game_rows if row.get("verification_status") == "Partial"),
+            "scored_games": evaluation["scored_games"],
+            "not_scored_games": evaluation["not_scored_games"],
+            "full_prop_markets": sum(1 for row in prop_rows if row.get("market_data_status") == "full"),
+            "partial_prop_markets": sum(1 for row in prop_rows if row.get("market_data_status") == "partial"),
+            "no_prop_markets": sum(1 for row in prop_rows if row.get("market_data_status") == "none"),
+            "scored_props": evaluation["scored_props"],
+            "not_scored_props": evaluation["not_scored_props"],
+            "evaluation_eligible": evaluation["eligible"],
+            "evaluation_status": evaluation["status"],
         },
     }
     snapshot_text = json.dumps(payload, indent=2, ensure_ascii=False)
@@ -1677,6 +1727,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
             "missing_data_flags",
             "analyst_confidence",
             "rationale_summary",
+            "scoring_status",
         ]
     ]
 
@@ -1706,6 +1757,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
         "tb2_market_status",
         "data_confidence",
         "market_data_status",
+        "scoring_status",
     ]
     batter_rows: list[list[str]] = [batter_header]
 
@@ -1718,12 +1770,15 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
     for spec in GAME_SPECS:
         key = f"{spec['away']}@{spec['home']}"
         ctx = lineup_context[key]
+        game_status_bucket = str(ctx.get("game_status_bucket") or "")
+        scoring_status = scoring_status_for_bucket(game_status_bucket)
+        is_scored = scoring_status == SCORING_STATUS_SCORED
         away_pitcher = ctx["away_pitcher"]
         home_pitcher = ctx["home_pitcher"]
         away_pitch_feats = pitcher_features.get(int(away_pitcher["id"])) if away_pitcher.get("id") else None
         home_pitch_feats = pitcher_features.get(int(home_pitcher["id"])) if home_pitcher.get("id") else None
         weather_snapshot = ctx.get("weather")
-        is_pregame = str(ctx.get("game_status_bucket") or "pregame") == "pregame"
+        is_pregame = game_status_bucket == "pregame"
         away_recent_score = team_recent_form_score(ctx["away_players"], batter_features)
         home_recent_score = team_recent_form_score(ctx["home_players"], batter_features)
         away_bullpen_score = team_bullpen_scores.get(str(spec["away"]), {}).get("score")
@@ -1743,29 +1798,38 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
         away_lu = build_model_lineup(ctx["away_players"], batter_features)
         home_lu = build_model_lineup(ctx["home_players"], batter_features)
 
-        p_away, p_home, mconf, miss = win_probability_model(
-            away_lu,
-            home_lu,
-            away_prof,
-            home_prof,
-            weather_snapshot.summary if weather_snapshot else str(spec["weather"]),
-            run_environment_label(weather_snapshot.run_factor if weather_snapshot else None),
-            away_bullpen_score=away_bullpen_score,
-            home_bullpen_score=home_bullpen_score,
-            away_recent_form_score=away_recent_score,
-            home_recent_form_score=home_recent_score,
-            weather_factor=weather_snapshot.run_factor if weather_snapshot else None,
-        )
-
         away_moneyline = int(ctx["away_moneyline"])
         home_moneyline = int(ctx["home_moneyline"])
         ia, ih = devig_two_way(away_moneyline, home_moneyline)
         imp_a, imp_h = ia * 100, ih * 100
-        ma, mh = p_away * 100, p_home * 100
-        ea, eh = ma - imp_a, mh - imp_h
-        pred = spec["away"] if p_away > p_home else spec["home"]
-        edge_pick = ea if pred == spec["away"] else eh
-        tier = tier_from_edge(edge_pick)
+        ma: float | None = None
+        mh: float | None = None
+        ea: float | None = None
+        eh: float | None = None
+        edge_pick: float | None = None
+        pred = ""
+        tier = "not_scored"
+        mconf = ""
+        miss: list[str] = []
+        if is_scored:
+            p_away, p_home, mconf, miss = win_probability_model(
+                away_lu,
+                home_lu,
+                away_prof,
+                home_prof,
+                weather_snapshot.summary if weather_snapshot else str(spec["weather"]),
+                run_environment_label(weather_snapshot.run_factor if weather_snapshot else None),
+                away_bullpen_score=away_bullpen_score,
+                home_bullpen_score=home_bullpen_score,
+                away_recent_form_score=away_recent_score,
+                home_recent_form_score=home_recent_score,
+                weather_factor=weather_snapshot.run_factor if weather_snapshot else None,
+            )
+            ma, mh = p_away * 100, p_home * 100
+            ea, eh = ma - imp_a, mh - imp_h
+            pred = spec["away"] if p_away > p_home else spec["home"]
+            edge_pick = ea if pred == spec["away"] else eh
+            tier = tier_from_edge(edge_pick)
         issues = list(ctx["issues"]) + miss
         flags = ";".join(sorted(set(filter(None, issues))))
         verification_status = "Verified" if not ctx["issues"] else "Partial"
@@ -1802,17 +1866,18 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                 "|".join(sorted(set(ctx["issues"]))),
                 f"{imp_a:.2f}",
                 f"{imp_h:.2f}",
-                f"{ma:.2f}",
-                f"{mh:.2f}",
-                f"{ea:.2f}",
-                f"{eh:.2f}",
+                round_or_blank(ma, 2),
+                round_or_blank(mh, 2),
+                round_or_blank(ea, 2),
+                round_or_blank(eh, 2),
                 pred,
                 tier,
-                f"{edge_pick:.2f}",
-                mconf,
+                round_or_blank(edge_pick, 2),
+                mconf if is_scored else "not_scored",
                 flags,
                 str(spec["analyst_confidence"]),
                 str(spec["rationale"]).replace("\n", " "),
+                scoring_status,
             ]
         )
         computed_games.append(
@@ -1820,15 +1885,16 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                 "gameKey": key,
                 "impliedAwayPct": imp_a,
                 "impliedHomePct": imp_h,
-                "modelAwayPct": ma,
-                "modelHomePct": mh,
-                "edgeAwayPct": ea,
-                "edgeHomePct": eh,
-                "prediction": pred,
-                "decisionTier": tier,
-                "edgeOnPickPct": edge_pick,
-                "modelConfidence": mconf,
-                "flags": flags,
+                "modelAwayPct": ma if ma is not None else 0.0,
+                "modelHomePct": mh if mh is not None else 0.0,
+                "edgeAwayPct": ea if ea is not None else 0.0,
+                "edgeHomePct": eh if eh is not None else 0.0,
+                "prediction": pred if is_scored else "Not Scored",
+                "decisionTier": tier if is_scored else "Not Scored",
+                "edgeOnPickPct": edge_pick if edge_pick is not None else 0.0,
+                "modelConfidence": mconf if is_scored else "Not Scored",
+                "flags": flags if is_scored else ";".join(filter(None, [flags, "not_scored_non_pregame"])),
+                "scoringStatus": scoring_status,
             }
         )
         game_feature_rows.append(
@@ -1857,6 +1923,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                 "home_lineup_label": ctx["home_label"],
                 "issues": sorted(set(ctx["issues"])),
                 "missing_data_flags": flags,
+                "scoring_status": scoring_status,
                 "prediction": pred,
                 "decision_tier": tier,
                 "edge_on_pick_pct": edge_pick,
@@ -1879,68 +1946,83 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                     if opp_pitcher.get("id") and player.get("id")
                     else None
                 )
-                hr, tb2, fair_hr, fair_2tb, hr_tier, tb2_tier, pconf = batter_hr_two_tb(
-                    str(spec["away"]),
-                    str(spec["home"]),
-                    team_is_away,
-                    player["name"],
-                    away_lu if team_is_away else home_lu,
-                    opp_prof,
-                    batter_hand=str(feats.get("bat_hand") or ""),
-                    pitcher_hand=str((opp_pitch_feats or {}).get("pitch_hand") or ""),
-                    xslg_override=feats.get("xslg"),
-                    barrel_rate=feats.get("barrel_rate"),
-                    actual_slg=feats.get("slg"),
-                    hard_hit_rate=feats.get("hard_hit_rate"),
-                    avg_hit_speed=feats.get("avg_hit_speed"),
-                    est_ba=feats.get("est_ba"),
-                    plate_appearances=feats.get("plate_appearances"),
-                    home_runs=feats.get("home_runs"),
-                    opp_xera_override=(opp_pitch_feats or {}).get("xera"),
-                    opp_est_slg=(opp_pitch_feats or {}).get("est_slg"),
-                    opp_barrel_rate=(opp_pitch_feats or {}).get("barrel_rate"),
-                    opp_hard_hit_rate=(opp_pitch_feats or {}).get("hard_hit_rate"),
-                    recent_slg=feats.get("recent_slg"),
-                    recent_ops=feats.get("recent_ops"),
-                    recent_hr_rate=feats.get("recent_hr_rate"),
-                    recent_tb_rate=feats.get("recent_tb_rate"),
-                    weather_factor=weather_snapshot.run_factor if weather_snapshot else None,
-                    opp_bullpen_score=opp_bullpen,
-                    starter_recent_form_score=(opp_pitch_feats or {}).get("recent_form_score"),
-                    vs_pitcher_pa=(vs_pitcher or {}).get("pa"),
-                    vs_pitcher_ab=(vs_pitcher or {}).get("ab"),
-                    vs_pitcher_hits=(vs_pitcher or {}).get("hits"),
-                    vs_pitcher_hr=(vs_pitcher or {}).get("home_runs"),
-                    vs_pitcher_total_bases=(vs_pitcher or {}).get("total_bases"),
-                )
                 player_key = normalize_player_name(player["name"])
                 hr_market = player_markets.get((player_key, "batter_home_runs"))
                 tb_market = player_markets.get((player_key, "batter_total_bases"))
                 hr_market_priced = has_hr_market_price(hr_market)
                 tb_market_any = has_any_tb_market(tb_market)
                 tb_market_aligned = is_aligned_tb_market(tb_market)
-                edge_hr_pct = (
-                    (hr * 100) - (american_to_implied(hr_market.over_price) * 100)
-                    if hr_market_priced
-                    else None
-                )
-                edge_tb_pct = (
-                    (tb2 * 100) - (american_to_implied(tb_market.over_price) * 100)
-                    if tb_market_aligned and tb_market and tb_market.over_price is not None
-                    else None
-                )
-                hr_market_status = classify_hr_market_status(edge_hr_pct, hr_tier, pconf, hr_market)
-                tb2_market_status = classify_tb_market_status(edge_tb_pct, tb2_tier, pconf, tb_market)
-                recommended_prop, recommended_tier = choose_recommended_prop(
-                    hr_market_status,
-                    tb2_market_status,
-                    edge_hr_pct,
-                    edge_tb_pct,
-                    hr_tier,
-                    tb2_tier,
-                )
-                display_tier = recommended_tier or stronger_tier(hr_tier, tb2_tier)
                 market_status = "full" if hr_market_priced and tb_market_aligned else "partial" if hr_market_priced or tb_market_any else "none"
+                hr: float | None = None
+                tb2: float | None = None
+                fair_hr = ""
+                fair_2tb = ""
+                hr_tier = ""
+                tb2_tier = ""
+                pconf = ""
+                edge_hr_pct: float | None = None
+                edge_tb_pct: float | None = None
+                hr_market_status = "not_scored"
+                tb2_market_status = "not_scored"
+                recommended_prop = ""
+                recommended_tier = ""
+                display_tier = ""
+                if is_scored:
+                    hr, tb2, fair_hr, fair_2tb, hr_tier, tb2_tier, pconf = batter_hr_two_tb(
+                        str(spec["away"]),
+                        str(spec["home"]),
+                        team_is_away,
+                        player["name"],
+                        away_lu if team_is_away else home_lu,
+                        opp_prof,
+                        batter_hand=str(feats.get("bat_hand") or ""),
+                        pitcher_hand=str((opp_pitch_feats or {}).get("pitch_hand") or ""),
+                        xslg_override=feats.get("xslg"),
+                        barrel_rate=feats.get("barrel_rate"),
+                        actual_slg=feats.get("slg"),
+                        hard_hit_rate=feats.get("hard_hit_rate"),
+                        avg_hit_speed=feats.get("avg_hit_speed"),
+                        est_ba=feats.get("est_ba"),
+                        plate_appearances=feats.get("plate_appearances"),
+                        home_runs=feats.get("home_runs"),
+                        opp_xera_override=(opp_pitch_feats or {}).get("xera"),
+                        opp_est_slg=(opp_pitch_feats or {}).get("est_slg"),
+                        opp_barrel_rate=(opp_pitch_feats or {}).get("barrel_rate"),
+                        opp_hard_hit_rate=(opp_pitch_feats or {}).get("hard_hit_rate"),
+                        recent_slg=feats.get("recent_slg"),
+                        recent_ops=feats.get("recent_ops"),
+                        recent_hr_rate=feats.get("recent_hr_rate"),
+                        recent_tb_rate=feats.get("recent_tb_rate"),
+                        weather_factor=weather_snapshot.run_factor if weather_snapshot else None,
+                        opp_bullpen_score=opp_bullpen,
+                        starter_recent_form_score=(opp_pitch_feats or {}).get("recent_form_score"),
+                        vs_pitcher_pa=(vs_pitcher or {}).get("pa"),
+                        vs_pitcher_ab=(vs_pitcher or {}).get("ab"),
+                        vs_pitcher_hits=(vs_pitcher or {}).get("hits"),
+                        vs_pitcher_hr=(vs_pitcher or {}).get("home_runs"),
+                        vs_pitcher_total_bases=(vs_pitcher or {}).get("total_bases"),
+                    )
+                    edge_hr_pct = (
+                        (hr * 100) - (american_to_implied(hr_market.over_price) * 100)
+                        if hr_market_priced and hr is not None
+                        else None
+                    )
+                    edge_tb_pct = (
+                        (tb2 * 100) - (american_to_implied(tb_market.over_price) * 100)
+                        if tb_market_aligned and tb_market and tb_market.over_price is not None and tb2 is not None
+                        else None
+                    )
+                    hr_market_status = classify_hr_market_status(edge_hr_pct, hr_tier, pconf, hr_market)
+                    tb2_market_status = classify_tb_market_status(edge_tb_pct, tb2_tier, pconf, tb_market)
+                    recommended_prop, recommended_tier = choose_recommended_prop(
+                        hr_market_status,
+                        tb2_market_status,
+                        edge_hr_pct,
+                        edge_tb_pct,
+                        hr_tier,
+                        tb2_tier,
+                    )
+                    display_tier = recommended_tier or stronger_tier(hr_tier, tb2_tier)
                 if not allow_partial and is_pregame:
                     if not hr_market_priced:
                         late_blocking_issues.append(f"{key}: missing HR market for {player['name']}")
@@ -1951,20 +2033,25 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                         late_blocking_issues.append(
                             f"{key}: TB market not 1.5 for {player['name']} (got {point_label})"
                         )
-                note = build_prop_note(
-                    feats,
-                    opp_pitch_feats or {},
-                    str(spec["away"]),
-                    str(spec["home"]),
-                    vs_pitcher=vs_pitcher,
-                    weather_factor=weather_snapshot.run_factor if weather_snapshot else None,
-                    opp_bullpen_score=opp_bullpen,
-                )
-                if tb_market_any and not tb_market_aligned and tb_market and tb_market.point is not None:
-                    note = f"{note}; TB book at {tb_market.point:g}, not 1.5-aligned"
-                if recommended_prop and recommended_tier:
-                    note = f"{note}; priced lean: {recommended_prop} ({recommended_tier})"
-                dc = build_data_confidence(pconf, lineup_label, market_status)
+                if is_scored:
+                    note = build_prop_note(
+                        feats,
+                        opp_pitch_feats or {},
+                        str(spec["away"]),
+                        str(spec["home"]),
+                        vs_pitcher=vs_pitcher,
+                        weather_factor=weather_snapshot.run_factor if weather_snapshot else None,
+                        opp_bullpen_score=opp_bullpen,
+                    )
+                    if tb_market_any and not tb_market_aligned and tb_market and tb_market.point is not None:
+                        note = f"{note}; TB book at {tb_market.point:g}, not 1.5-aligned"
+                    if recommended_prop and recommended_tier:
+                        note = f"{note}; priced lean: {recommended_prop} ({recommended_tier})"
+                    dc = build_data_confidence(pconf, lineup_label, market_status)
+                else:
+                    status_note = str(ctx.get("game_status_note") or ctx.get("game_state_detail") or "game no longer pregame")
+                    note = f"Not scored — {status_note}"
+                    dc = "Display only"
                 batter_rows.append(
                     [
                         REPORT_DATE,
@@ -1972,8 +2059,8 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                         str(spec["away"] if team_is_away else spec["home"]),
                         player["name"],
                         opp_pitcher.get("name", "TBD"),
-                        f"{hr * 100:.2f}",
-                        f"{tb2 * 100:.2f}",
+                        f"{hr * 100:.2f}" if hr is not None else "",
+                        f"{tb2 * 100:.2f}" if tb2 is not None else "",
                         fair_hr,
                         fair_2tb,
                         str(hr_market.over_price) if hr_market and hr_market.over_price is not None else "NA",
@@ -1992,6 +2079,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                         tb2_market_status,
                         dc,
                         market_status,
+                        scoring_status,
                     ]
                 )
                 prop_feature_rows.append(
@@ -2019,6 +2107,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                         "tier": display_tier,
                         "hr_tier": hr_tier,
                         "tb2_tier": tb2_tier,
+                        "scoring_status": scoring_status,
                         "recommended_prop": recommended_prop,
                         "recommended_tier": recommended_tier,
                         "edge_hr_pct": edge_hr_pct,
@@ -2034,9 +2123,9 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                     {
                         "batter": player["name"],
                         "team": str(spec["away"] if team_is_away else spec["home"]),
-                        "hrPct": hr * 100,
-                        "tb2Pct": tb2 * 100,
-                        "tier": f"HR {hr_tier} / TB {tb2_tier}",
+                        "hrPct": (hr or 0.0) * 100,
+                        "tb2Pct": (tb2 or 0.0) * 100,
+                        "tier": f"HR {hr_tier} / TB {tb2_tier}" if is_scored else "Not Scored",
                         "note": note,
                     }
                 )

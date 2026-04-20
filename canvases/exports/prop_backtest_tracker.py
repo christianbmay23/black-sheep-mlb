@@ -121,6 +121,13 @@ def implied_probability_from_american(odds: int | None) -> float | None:
     return abs(odds) / (abs(odds) + 100)
 
 
+def is_scored_prop_row(row: dict[str, str]) -> bool:
+    scoring_status = (row.get("scoring_status") or "").strip().lower()
+    if scoring_status:
+        return scoring_status == "scored"
+    return True
+
+
 def normalize_result(result_value: str) -> str:
     text = (result_value or "").strip().lower()
     if text in {"w", "win", "won", "yes", "y", "1", "over", "hit"}:
@@ -158,6 +165,8 @@ def load_model_props(outlook_csv: Path) -> dict[tuple[str, str, str, str], Model
 
     model_map: dict[tuple[str, str, str, str], ModelProp] = {}
     for row in rows:
+        if not is_scored_prop_row(row):
+            continue
         date = row.get("report_date", "").strip()
         game = row.get("game", "").strip().upper()
         player = row.get("batter", "").strip()

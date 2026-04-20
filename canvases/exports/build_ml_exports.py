@@ -59,6 +59,7 @@ GAMES_HEADERS = [
     "missing_data_flags",
     "analyst_confidence",
     "rationale_summary",
+    "scoring_status",
 ]
 
 BATTER_HEADERS = [
@@ -87,7 +88,11 @@ BATTER_HEADERS = [
     "tb2_market_status",
     "data_confidence",
     "market_data_status",
+    "scoring_status",
 ]
+
+SCORING_STATUS_SCORED = "scored"
+SCORING_STATUS_NOT_SCORED = "not_scored"
 
 
 def parse_args() -> argparse.Namespace:
@@ -211,6 +216,69 @@ def game_key_for_row(row: dict[str, str]) -> str:
     away = row.get("away", "").strip().upper()
     home = row.get("home", "").strip().upper()
     return f"{away}@{home}" if away and home else ""
+
+
+def normalized_scoring_status(row: dict[str, object], fallback_bucket: str | None = None) -> str:
+    raw = str(row.get("scoring_status") or "").strip().lower()
+    if raw in {SCORING_STATUS_SCORED, SCORING_STATUS_NOT_SCORED}:
+        return raw
+    bucket = str(row.get("game_status_bucket") or fallback_bucket or "").strip().lower()
+    if not bucket:
+        return SCORING_STATUS_SCORED
+    return SCORING_STATUS_SCORED if bucket == "pregame" else SCORING_STATUS_NOT_SCORED
+
+
+def is_scored_row(row: dict[str, object], fallback_bucket: str | None = None) -> bool:
+    return normalized_scoring_status(row, fallback_bucket) == SCORING_STATUS_SCORED
+
+
+def evaluation_reason_text(reason: str) -> str:
+    return {
+        "allow_partial": "run used allow-partial fallback mode",
+        "no_games": "snapshot contains no games",
+        "contains_live_or_final_games": "snapshot includes live or final games",
+        "contains_non_pregame_scored_games": "a non-pregame game was still scored",
+    }.get(reason, reason.replace("_", " "))
+
+
+def derive_evaluation(snapshot: dict | None, game_rows: list[dict[str, str]], prop_rows: list[dict[str, str]]) -> dict[str, object]:
+    if isinstance(snapshot, dict) and isinstance(snapshot.get("evaluation"), dict):
+        evaluation = dict(snapshot["evaluation"])
+        evaluation.setdefault("eligible", bool(snapshot.get("evaluation_eligible")))
+        evaluation.setdefault("status", "eligible" if evaluation.get("eligible") else "not_evaluable")
+        evaluation.setdefault("reasons", [])
+        evaluation.setdefault("scored_games", sum(1 for row in game_rows if is_scored_row(row)))
+        evaluation.setdefault("not_scored_games", len(game_rows) - int(evaluation.get("scored_games", 0)))
+        evaluation.setdefault("scored_props", sum(1 for row in prop_rows if is_scored_row(row)))
+        evaluation.setdefault("not_scored_props", len(prop_rows) - int(evaluation.get("scored_props", 0)))
+        return evaluation
+
+    allow_partial = bool(snapshot.get("allow_partial")) if isinstance(snapshot, dict) else False
+    reasons: list[str] = []
+    if allow_partial:
+        reasons.append("allow_partial")
+    if not game_rows:
+        reasons.append("no_games")
+    if any(str(row.get("game_status_bucket") or "").strip().lower() != "pregame" for row in game_rows):
+        reasons.append("contains_live_or_final_games")
+    if any(
+        str(row.get("game_status_bucket") or "").strip().lower() != "pregame" and is_scored_row(row)
+        for row in game_rows
+    ):
+        reasons.append("contains_non_pregame_scored_games")
+
+    scored_games = sum(1 for row in game_rows if is_scored_row(row))
+    scored_props = sum(1 for row in prop_rows if is_scored_row(row))
+    eligible = not reasons
+    return {
+        "eligible": eligible,
+        "status": "eligible" if eligible else "not_evaluable",
+        "reasons": reasons,
+        "scored_games": scored_games,
+        "not_scored_games": len(game_rows) - scored_games,
+        "scored_props": scored_props,
+        "not_scored_props": len(prop_rows) - scored_props,
+    }
 
 
 def load_latest_snapshot(slug: str) -> dict | None:
@@ -354,6 +422,9 @@ def recent_form_reason(score: object, label: str) -> str:
 
 
 def game_reason_summary(row: dict[str, str], feature: dict | None) -> str:
+    if not is_scored_row(row):
+        detail = str(row.get("game_status_note") or row.get("game_state_detail") or row.get("game_status_bucket") or "game no longer pregame")
+        return f"Not scored — {detail}"
     if not isinstance(feature, dict):
         return row.get("rationale_summary", "")
     pick, opp = team_for_prediction(row)
@@ -405,6 +476,8 @@ def game_reason_summary(row: dict[str, str], feature: dict | None) -> str:
 
 
 def game_reason_badges(row: dict[str, str], feature: dict | None) -> list[str]:
+    if not is_scored_row(row):
+        return ["Not scored"]
     if not isinstance(feature, dict):
         return []
     pick, opp = team_for_prediction(row)
@@ -439,6 +512,9 @@ def game_reason_badges(row: dict[str, str], feature: dict | None) -> list[str]:
 def prop_reason_summary(feature: dict | None) -> str:
     if not isinstance(feature, dict):
         return ""
+    if not is_scored_row(feature):
+        detail = str(feature.get("game_status_note") or feature.get("game_state_detail") or feature.get("game_status_bucket") or "game no longer pregame")
+        return f"Not scored — {detail}"
     batter = feature.get("batter_features") or {}
     pitcher = feature.get("pitcher_features") or {}
     vs_pitcher = feature.get("vs_pitcher") or {}
@@ -505,6 +581,8 @@ def reason_badges_html(labels: list[str]) -> str:
 
 
 def prop_pick_label(feature: dict[str, object]) -> str:
+    if not is_scored_row(feature):
+        return "Not scored"
     recommended = str(feature.get("recommended_prop") or "").strip()
     tier = str(feature.get("recommended_tier") or "").strip()
     if recommended:
@@ -514,6 +592,8 @@ def prop_pick_label(feature: dict[str, object]) -> str:
 
 
 def prop_edge_label(feature: dict[str, object]) -> str:
+    if not is_scored_row(feature):
+        return "Not scored"
     recommended = str(feature.get("recommended_prop") or "").strip()
     if recommended == "HR":
         return format_signed_pct(feature.get("edge_hr_pct"))
@@ -524,18 +604,38 @@ def prop_edge_label(feature: dict[str, object]) -> str:
     return f"HR {hr_edge} / TB {tb_edge}"
 
 
-def summary_cards_html(summary: dict[str, int]) -> str:
+def summary_cards_html(summary: dict[str, object], evaluation: dict[str, object]) -> str:
     cards = [
+        ("Evaluation", "Eligible" if evaluation.get("eligible") else "Not Evaluable"),
         ("Pregame", str(summary.get("pregame_games", 0))),
         ("Live", str(summary.get("live_games", 0))),
         ("Final", str(summary.get("final_games", 0))),
+        ("Scored Games", str(summary.get("scored_games", 0))),
+        ("Not Scored", str(summary.get("not_scored_games", 0))),
         ("Verified", str(summary.get("verified_games", 0))),
         ("Partial", str(summary.get("partial_games", 0))),
         ("Full Markets", str(summary.get("full_prop_markets", 0))),
         ("Partial Markets", str(summary.get("partial_prop_markets", 0))),
-        ("No Markets", str(summary.get("no_prop_markets", 0))),
+        ("Scored Props", str(summary.get("scored_props", 0))),
     ]
     return "<div class='summary-grid'>" + "".join(render_stat(label, value) for label, value in cards) + "</div>"
+
+
+def evaluation_banner_html(evaluation: dict[str, object]) -> str:
+    eligible = bool(evaluation.get("eligible"))
+    reasons = [evaluation_reason_text(str(reason)) for reason in evaluation.get("reasons", []) if str(reason).strip()]
+    title = "Evaluation Eligible" if eligible else "Not Evaluable"
+    body = (
+        "Strict pregame snapshot: all games are pregame and scoring is evaluation-safe."
+        if eligible
+        else "Snapshot should not be used for pregame evaluation: " + "; ".join(reasons or ["eligibility requirements not met"]) + "."
+    )
+    tone = "success" if eligible else "warning"
+    return (
+        f"<div class='eval-banner eval-banner-{tone}'>"
+        f"<strong>{html.escape(title)}</strong><span>{html.escape(body)}</span>"
+        "</div>"
+    )
 
 
 def leaderboard_table(title: str, headers: list[str], rows: list[list[str]]) -> str:
@@ -578,6 +678,7 @@ def lineup_html(players: list[dict] | None, label: str, team: str) -> str:
 
 
 def prop_strength_key(row: dict[str, object]) -> tuple[int, int, float, float]:
+    scored_rank = 0 if is_scored_row(row) else 1
     recommended = str(row.get("recommended_prop") or "").strip()
     if recommended == "HR":
         rec_edge = parse_float(row.get("edge_hr_pct")) or -999.0
@@ -586,6 +687,7 @@ def prop_strength_key(row: dict[str, object]) -> tuple[int, int, float, float]:
     else:
         rec_edge = max(parse_float(row.get("edge_hr_pct")) or -999.0, parse_float(row.get("edge_tb_pct")) or -999.0)
     return (
+        scored_rank,
         0 if recommended else 1,
         0 if str(row.get("market_status") or row.get("market_data_status") or "") == "full" else 1,
         -rec_edge,
@@ -628,8 +730,11 @@ def top_props_rows(
     edge_key: str,
     recommended_prop: str,
 ) -> list[list[str]]:
-    pregame_rows = [row for row in prop_rows if game_status_map.get(str(row.get("game") or "").upper(), "") == "pregame"]
-    pool = pregame_rows or prop_rows
+    pool = [
+        row
+        for row in prop_rows
+        if is_scored_row(row, game_status_map.get(str(row.get("game") or "").upper(), ""))
+    ]
     ordered = sorted(
         pool,
         key=lambda row: (
@@ -658,8 +763,7 @@ def top_props_rows(
 
 
 def best_game_rows(game_rows: list[dict[str, str]], game_feature_map: dict[str, dict[str, object]]) -> list[list[str]]:
-    pregame_rows = [row for row in game_rows if row.get("game_status_bucket", "").lower() == "pregame"]
-    pool = pregame_rows or game_rows
+    pool = [row for row in game_rows if is_scored_row(row)]
     ordered = sorted(
         pool,
         key=lambda row: (
@@ -698,24 +802,34 @@ def game_card_html(
     away_props = [prop for prop in props if prop.get("team") == away]
     home_props = [prop for prop in props if prop.get("team") == home]
     lineup_ctx = lineup_ctx or {}
+    scored = is_scored_row(row)
     reason_text = game_reason_summary(row, game_feature)
     reason_badges = reason_badges_html(game_reason_badges(row, game_feature))
 
-    header_pills = "".join(
-        [
-            render_pill(bucket_title(row.get("game_status_bucket", "")), "info"),
-            render_pill(row.get("verification_status", "Unknown"), "success" if row.get("verification_status") == "Verified" else "warning"),
-            render_pill(f"Tier {row.get('decision_tier_vs_market', '')}", "success" if row.get("decision_tier_vs_market", "").startswith("A") else "neutral"),
-            render_pill(f"Pick {row.get('prediction', '')}", "accent"),
-        ]
-    )
+    header_bits = [
+        render_pill(bucket_title(row.get("game_status_bucket", "")), "info"),
+        render_pill(row.get("verification_status", "Unknown"), "success" if row.get("verification_status") == "Verified" else "warning"),
+        render_pill("Scored" if scored else "Not Scored", "success" if scored else "warning"),
+    ]
+    if scored:
+        header_bits.append(
+            render_pill(
+                f"Tier {row.get('decision_tier_vs_market', '')}",
+                "success" if row.get("decision_tier_vs_market", "").startswith("A") else "neutral",
+            )
+        )
+        header_bits.append(render_pill(f"Pick {row.get('prediction', '')}", "accent"))
+    header_pills = "".join(header_bits)
 
     summary_stats = "".join(
         [
             render_stat("Start", row.get("start_time_et", "NA")),
             render_stat("Market", f"{away} {format_american(row.get('away_american'))} / {home} {format_american(row.get('home_american'))}"),
-            render_stat("Model", f"{away} {format_pct(row.get('model_away_win_pct'))} / {home} {format_pct(row.get('model_home_win_pct'))}"),
-            render_stat("Edge On Pick", format_signed_pct(row.get("edge_on_pick_pct"))),
+            render_stat(
+                "Model",
+                f"{away} {format_pct(row.get('model_away_win_pct'))} / {home} {format_pct(row.get('model_home_win_pct'))}" if scored else "Not scored",
+            ),
+            render_stat("Edge On Pick", format_signed_pct(row.get("edge_on_pick_pct")) if scored else "Not scored"),
             render_stat("Weather", row.get("weather_summary", "NA")),
             render_stat("Score / State", row.get("game_status_note", "") or row.get("game_state_detail", "NA")),
         ]
@@ -730,7 +844,7 @@ def game_card_html(
             "</div>",
             f"<div class='stats-grid'>{summary_stats}</div>",
             "<div class='reason-panel'>"
-            "<div class='reason-title'>Why The Model Likes This Side</div>"
+            f"<div class='reason-title'>{'Why The Model Likes This Side' if scored else 'Scoring Status'}</div>"
             f"<div class='reason-copy'>{html.escape(reason_text or row.get('rationale_summary', ''))}</div>"
             "</div>",
             "<div class='split-grid'>",
@@ -743,6 +857,7 @@ def game_card_html(
             "</div>",
             "<div class='game-meta'>",
             f"<div><strong>Pitchers:</strong> {html.escape(row.get('away_sp', 'TBD'))} vs {html.escape(row.get('home_sp', 'TBD'))}</div>",
+            f"<div><strong>Scoring:</strong> {html.escape('scored' if scored else 'not_scored')}</div>",
             f"<div><strong>Flags:</strong> {html.escape(row.get('missing_data_flags', '') or 'None')}</div>",
             f"<div><strong>Verification Notes:</strong> {html.escape(row.get('verification_notes', '') or 'None')}</div>",
             "</div>",
@@ -776,13 +891,24 @@ def build_html(report_path: Path, slug: str, games_rows: list[list[str]], batter
             "other_games": sum(1 for row in game_rows if row.get("game_status_bucket") == "other"),
             "verified_games": sum(1 for row in game_rows if row.get("verification_status") == "Verified"),
             "partial_games": sum(1 for row in game_rows if row.get("verification_status") == "Partial"),
+            "scored_games": sum(1 for row in game_rows if is_scored_row(row)),
+            "not_scored_games": sum(1 for row in game_rows if not is_scored_row(row)),
             "full_prop_markets": sum(1 for row in prop_rows if row.get("market_data_status") == "full"),
             "partial_prop_markets": sum(1 for row in prop_rows if row.get("market_data_status") == "partial"),
             "no_prop_markets": sum(1 for row in prop_rows if row.get("market_data_status") == "none"),
+            "scored_props": sum(1 for row in prop_rows if is_scored_row(row)),
+            "not_scored_props": sum(1 for row in prop_rows if not is_scored_row(row)),
         }
+    evaluation = derive_evaluation(snapshot if isinstance(snapshot, dict) else None, game_rows, prop_rows)
 
     game_feature_map = {str(row.get("game") or "").upper(): row for row in snapshot_game_features if isinstance(row, dict)}
-    prop_feature_rows = [row for row in snapshot_prop_features if isinstance(row, dict)] or [dict(row) for row in prop_rows]
+    prop_feature_rows = [row for row in snapshot_prop_features if isinstance(row, dict)] or [
+        {
+            **dict(row),
+            "game_status_bucket": next((game.get("game_status_bucket", "") for game in game_rows if game_key_for_row(game) == str(row.get("game") or "").upper()), ""),
+        }
+        for row in prop_rows
+    ]
 
     props_by_game: dict[str, list[dict[str, object]]] = defaultdict(list)
     for row in prop_feature_rows:
@@ -860,6 +986,10 @@ def build_html(report_path: Path, slug: str, games_rows: list[list[str]], batter
             "th,td{border:1px solid #2a3a4d;padding:7px 8px;text-align:left;vertical-align:top}",
             "th{background:#1a2430;position:sticky;top:0}.compact-table th,.compact-table td{font-size:11px}.compact-table td:last-child{min-width:260px}",
             ".section-lead{color:#b9c7d8;font-size:14px;margin-top:8px}",
+            ".eval-banner{display:flex;gap:10px;align-items:flex-start;padding:14px 16px;border-radius:16px;margin:18px 0 14px;border:1px solid #314357;background:#16212d}",
+            ".eval-banner strong{display:block;min-width:140px}",
+            ".eval-banner-success{border-color:#2c6b45;background:#173024}",
+            ".eval-banner-warning{border-color:#73501f;background:#362711}",
             "@media (max-width: 900px){.game-card-header{flex-direction:column}.pill-row{justify-content:flex-start}.split-grid{grid-template-columns:1fr}}",
             "a{color:#a8dcff}",
             "</style></head><body><div class='shell'>",
@@ -869,7 +999,8 @@ def build_html(report_path: Path, slug: str, games_rows: list[list[str]], batter
                 if snapshot
                 else "<p class='muted'>Rendered from current canvas marker blocks.</p>"
             ),
-            summary_cards_html(summary),
+            summary_cards_html(summary, evaluation),
+            evaluation_banner_html(evaluation),
             f"<div class='nav-links'>{game_links}</div>",
             "<div class='leader-grid'>",
             best_games,

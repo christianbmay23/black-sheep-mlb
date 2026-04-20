@@ -229,6 +229,7 @@ def strip_accents(text: str) -> str:
 def normalize_player_name(name: str) -> str:
     clean = strip_accents(name).lower()
     clean = re.sub(r"\b(jr|sr)\.?\b", "", clean)
+    clean = re.sub(r"\b(i|ii|iii|iv|v)\b", "", clean)
     clean = re.sub(r"[^a-z0-9]+", "", clean)
     return clean
 
@@ -651,67 +652,71 @@ def fetch_live_game_odds(
     out: dict[str, GameOdds] = {}
     api_key = odds_api_key(required=False)
     if api_key:
-        payload = fetch_json(
-            "https://api.the-odds-api.com/v4/sports/"
-            f"{ODDS_API_SPORT}/odds?"
-            + urllib.parse.urlencode(
-                {
-                    "apiKey": api_key,
-                    "regions": "us",
-                    "markets": "h2h,totals",
-                    "oddsFormat": "american",
-                    "dateFormat": "iso",
-                }
+        try:
+            payload = fetch_json(
+                "https://api.the-odds-api.com/v4/sports/"
+                f"{ODDS_API_SPORT}/odds?"
+                + urllib.parse.urlencode(
+                    {
+                        "apiKey": api_key,
+                        "regions": "us",
+                        "markets": "h2h,totals",
+                        "oddsFormat": "american",
+                        "dateFormat": "iso",
+                    }
+                )
             )
-        )
-        for event in payload:
-            away_abbr = normalize_team_name(str(event.get("away_team") or ""))
-            home_abbr = normalize_team_name(str(event.get("home_team") or ""))
-            if not re.fullmatch(r"[A-Z]{2,3}", away_abbr) or not re.fullmatch(r"[A-Z]{2,3}", home_abbr):
-                continue
-            game_key = f"{away_abbr}@{home_abbr}"
-            if game_key not in schedule_games:
-                continue
+            for event in payload:
+                away_abbr = normalize_team_name(str(event.get("away_team") or ""))
+                home_abbr = normalize_team_name(str(event.get("home_team") or ""))
+                if not re.fullmatch(r"[A-Z]{2,3}", away_abbr) or not re.fullmatch(r"[A-Z]{2,3}", home_abbr):
+                    continue
+                game_key = f"{away_abbr}@{home_abbr}"
+                if game_key not in schedule_games:
+                    continue
 
-            away_prices: list[int] = []
-            home_prices: list[int] = []
-            total_line: float | None = None
-            over_price: int | None = None
-            under_price: int | None = None
-            last_update = ""
-            bookmakers_count = 0
+                away_prices: list[int] = []
+                home_prices: list[int] = []
+                total_line: float | None = None
+                over_price: int | None = None
+                under_price: int | None = None
+                last_update = ""
+                bookmakers_count = 0
 
-            for bookmaker in event.get("bookmakers") or []:
-                bookmakers_count += 1
-                for market in bookmaker.get("markets") or []:
-                    market_key = market.get("key")
-                    last_update = max(last_update, str(market.get("last_update") or ""))
-                    if market_key == "h2h":
-                        for outcome in market.get("outcomes") or []:
-                            price = parse_int(outcome.get("price"))
-                            if price is None:
-                                continue
-                            team_abbr = normalize_team_name(str(outcome.get("name") or ""))
-                            if team_abbr == away_abbr:
-                                away_prices.append(price)
-                            elif team_abbr == home_abbr:
-                                home_prices.append(price)
-                    elif market_key == "totals":
-                        total_line, over_price, under_price = summarize_total_market(market)
+                for bookmaker in event.get("bookmakers") or []:
+                    bookmakers_count += 1
+                    for market in bookmaker.get("markets") or []:
+                        market_key = market.get("key")
+                        last_update = max(last_update, str(market.get("last_update") or ""))
+                        if market_key == "h2h":
+                            for outcome in market.get("outcomes") or []:
+                                price = parse_int(outcome.get("price"))
+                                if price is None:
+                                    continue
+                                team_abbr = normalize_team_name(str(outcome.get("name") or ""))
+                                if team_abbr == away_abbr:
+                                    away_prices.append(price)
+                                elif team_abbr == home_abbr:
+                                    home_prices.append(price)
+                        elif market_key == "totals":
+                            total_line, over_price, under_price = summarize_total_market(market)
 
-            out[game_key] = GameOdds(
-                event_id=str(event.get("id") or ""),
-                away_abbr=away_abbr,
-                home_abbr=home_abbr,
-                away_moneyline=round_median(away_prices),
-                home_moneyline=round_median(home_prices),
-                total_line=total_line,
-                over_price=over_price,
-                under_price=under_price,
-                bookmakers_count=bookmakers_count,
-                last_update=last_update,
-                source="odds_api",
-            )
+                out[game_key] = GameOdds(
+                    event_id=str(event.get("id") or ""),
+                    away_abbr=away_abbr,
+                    home_abbr=home_abbr,
+                    away_moneyline=round_median(away_prices),
+                    home_moneyline=round_median(home_prices),
+                    total_line=total_line,
+                    over_price=over_price,
+                    under_price=under_price,
+                    bookmakers_count=bookmakers_count,
+                    last_update=last_update,
+                    source="odds_api",
+                )
+        except Exception:
+            if required and not date_str:
+                raise
 
     if date_str:
         fallback = fetch_rotowire_game_odds(date_str, schedule_games)
@@ -765,19 +770,24 @@ def fetch_live_prop_markets(event_id: str, *, required: bool = False) -> dict[tu
     api_key = odds_api_key(required=False)
     if not api_key:
         return {}
-    payload = fetch_json(
-        "https://api.the-odds-api.com/v4/sports/"
-        f"{ODDS_API_SPORT}/events/{urllib.parse.quote(event_id)}/odds?"
-        + urllib.parse.urlencode(
-            {
-                "apiKey": api_key,
-                "regions": "us",
-                "markets": ",".join(ODDS_API_PROP_MARKETS),
-                "oddsFormat": "american",
-                "dateFormat": "iso",
-            }
+    try:
+        payload = fetch_json(
+            "https://api.the-odds-api.com/v4/sports/"
+            f"{ODDS_API_SPORT}/events/{urllib.parse.quote(event_id)}/odds?"
+            + urllib.parse.urlencode(
+                {
+                    "apiKey": api_key,
+                    "regions": "us",
+                    "markets": ",".join(ODDS_API_PROP_MARKETS),
+                    "oddsFormat": "american",
+                    "dateFormat": "iso",
+                }
+            )
         )
-    )
+    except Exception:
+        if required:
+            raise
+        return {}
     grouped: dict[tuple[str, str], dict[tuple[str, float | None], dict[str, list[int]]]] = defaultdict(
         lambda: defaultdict(lambda: {"Over": [], "Under": [], "Yes": [], "No": []})
     )

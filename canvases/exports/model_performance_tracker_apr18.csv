@@ -1,16 +1,1 @@
-report_date,matchup,predicted_winner,actual_winner,was_correct,model_confidence,decision_tier,edge_on_pick_pct,missing_data_flags
-2026-04-18,KC@NYY,NYY,NYY,Y,High,A,5.99,
-2026-04-18,CIN@MIN,MIN,CIN,N,High,A+,11.89,
-2026-04-18,NYM@CHC,NYM,CHC,N,High,A+,8.67,
-2026-04-18,TB@PIT,PIT,TB,N,High,D,-1.73,
-2026-04-18,SF@WSH,SF,SF,Y,High,D,-2.50,
-2026-04-18,CWS@ATH,CWS,ATH,N,High,A+,24.12,
-2026-04-18,DET@BOS,DET,DET,Y,High,A+,14.17,
-2026-04-18,MIL@MIA,MIA,MIL,N,High,A,7.76,
-2026-04-18,BAL@CLE,BAL,CLE,N,High,A+,8.95,
-2026-04-18,STL@HOU,HOU,STL,N,High,C,0.12,
-2026-04-18,TEX@SEA,SEA,SEA,Y,High,D,-1.18,
-2026-04-18,ATL@PHI,PHI,ATL,N,High,B,4.71,
-2026-04-18,LAD@COL,LAD,COL,N,High,D,-14.99,
-2026-04-18,TOR@ARI,ARI,ARI,Y,High,B,3.19,
-2026-04-18,SD@LAA,SD,SD,Y,High,D,-0.61,
+report_date,matchup,predicted_winner,market_favorite,actual_winner,was_correct,baseline_was_correct,model_confidence,decision_tier,edge_on_pick_pct,missing_data_flags

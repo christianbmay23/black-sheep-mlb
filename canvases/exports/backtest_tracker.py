@@ -55,8 +55,10 @@ MANUAL_RESULTS_BY_DATE: dict[str, dict[str, str]] = {
 class BacktestRow:
     matchup: str
     predicted_winner: str
+    market_favorite: str
     actual_winner: str
     was_correct: bool
+    baseline_was_correct: bool
     model_confidence: str
     decision_tier: str
     edge_on_pick_pct: float
@@ -78,6 +80,46 @@ def slug_from_date_input(date_input: str) -> str:
 def normalize_team(team: str) -> str:
     value = (team or "").strip().upper()
     return MLB_TEAM_ALIASES.get(value, value)
+
+
+def parse_float(value: str) -> float | None:
+    text = (value or "").strip()
+    if text in {"", "NA", "N/A", "None", "null"}:
+        return None
+    try:
+        return float(text)
+    except ValueError:
+        return None
+
+
+def implied_probability_from_american(odds: float | None) -> float | None:
+    if odds is None:
+        return None
+    if odds > 0:
+        return 100 / (odds + 100)
+    return abs(odds) / (abs(odds) + 100)
+
+
+def is_scored_prediction_row(row: dict[str, str]) -> bool:
+    scoring_status = (row.get("scoring_status") or "").strip().lower()
+    if scoring_status:
+        return scoring_status == "scored"
+    return (row.get("game_status_bucket") or "pregame").strip().lower() == "pregame"
+
+
+def market_favorite_pick(row: dict[str, str]) -> str:
+    away = normalize_team(row.get("away", ""))
+    home = normalize_team(row.get("home", ""))
+    away_prob = parse_float(row.get("implied_away_pct_nv", ""))
+    home_prob = parse_float(row.get("implied_home_pct_nv", ""))
+    if away_prob is not None and home_prob is not None:
+        return away if away_prob >= home_prob else home
+
+    away_odds = implied_probability_from_american(parse_float(row.get("away_american", "")))
+    home_odds = implied_probability_from_american(parse_float(row.get("home_american", "")))
+    if away_odds is None or home_odds is None:
+        return ""
+    return away if away_odds >= home_odds else home
 
 def fetch_completed_game_winners(date_str: str) -> dict[str, str]:
     query = urllib.parse.urlencode(
@@ -123,13 +165,13 @@ def resolve_actual_winners(date_str: str) -> tuple[dict[str, str], str]:
     return {}, "unavailable"
 
 
-def load_predictions(csv_path: Path) -> tuple[str, list[dict[str, str]]]:
+def load_predictions(csv_path: Path) -> tuple[str, list[dict[str, str]], int]:
     with csv_path.open(newline="", encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
     if not rows:
         raise ValueError("Predictions CSV is empty.")
     date_str = rows[0]["report_date"]
-    return date_str, rows
+    return date_str, [row for row in rows if is_scored_prediction_row(row)], len(rows)
 
 
 def build_backtest_rows(predictions: list[dict[str, str]], actual_winners: dict[str, str]) -> list[BacktestRow]:
@@ -139,17 +181,21 @@ def build_backtest_rows(predictions: list[dict[str, str]], actual_winners: dict[
         home = normalize_team(pred["home"])
         matchup = f"{away}@{home}"
         predicted_winner = normalize_team(pred["prediction"])
+        market_favorite = market_favorite_pick(pred)
         actual_winner = actual_winners.get(matchup, "")
         was_correct = predicted_winner == actual_winner if actual_winner else False
+        baseline_was_correct = market_favorite == actual_winner if actual_winner and market_favorite else False
         rows.append(
             BacktestRow(
                 matchup=matchup,
                 predicted_winner=predicted_winner,
+                market_favorite=market_favorite,
                 actual_winner=actual_winner,
                 was_correct=was_correct,
+                baseline_was_correct=baseline_was_correct,
                 model_confidence=pred["model_confidence"],
                 decision_tier=pred["decision_tier_vs_market"],
-                edge_on_pick_pct=float(pred["edge_on_pick_pct"]),
+                edge_on_pick_pct=parse_float(pred.get("edge_on_pick_pct", "")) or 0.0,
                 missing_data_flags=pred["missing_data_flags"],
                 rationale_summary=pred["rationale_summary"],
             )
@@ -165,8 +211,10 @@ def write_tracker_csv(rows: list[BacktestRow], date_str: str, tracker_csv: Path)
                 "report_date",
                 "matchup",
                 "predicted_winner",
+                "market_favorite",
                 "actual_winner",
                 "was_correct",
+                "baseline_was_correct",
                 "model_confidence",
                 "decision_tier",
                 "edge_on_pick_pct",
@@ -179,8 +227,10 @@ def write_tracker_csv(rows: list[BacktestRow], date_str: str, tracker_csv: Path)
                     date_str,
                     r.matchup,
                     r.predicted_winner,
+                    r.market_favorite,
                     r.actual_winner,
                     "Y" if r.was_correct else "N",
+                    "Y" if r.baseline_was_correct else "N",
                     r.model_confidence,
                     r.decision_tier,
                     f"{r.edge_on_pick_pct:.2f}",
@@ -192,6 +242,7 @@ def write_tracker_csv(rows: list[BacktestRow], date_str: str, tracker_csv: Path)
 def summarize(rows: list[BacktestRow]) -> dict[str, object]:
     settled = [r for r in rows if r.actual_winner]
     correct = [r for r in settled if r.was_correct]
+    baseline_correct = [r for r in settled if r.baseline_was_correct]
 
     by_tier: dict[str, list[BacktestRow]] = defaultdict(list)
     by_conf: dict[str, list[BacktestRow]] = defaultdict(list)
@@ -223,6 +274,9 @@ def summarize(rows: list[BacktestRow]) -> dict[str, object]:
         "settled": len(settled),
         "correct": len(correct),
         "accuracy": (len(correct) / len(settled) * 100) if settled else 0,
+        "baseline_correct": len(baseline_correct),
+        "baseline_accuracy": (len(baseline_correct) / len(settled) * 100) if settled else 0,
+        "accuracy_vs_baseline_pct": ((len(correct) - len(baseline_correct)) / len(settled) * 100) if settled else 0,
         "avg_edge_all": mean(r.edge_on_pick_pct for r in settled) if settled else 0,
         "avg_edge_correct": mean(r.edge_on_pick_pct for r in correct) if correct else 0,
         "by_tier": by_tier,
@@ -249,6 +303,11 @@ def recommendations(summary: dict[str, object]) -> list[str]:
     clean = summary["clean"]
     top_misses = summary["top_misses"]
     by_tier = summary["by_tier"]
+
+    if summary["accuracy"] <= summary["baseline_accuracy"]:
+        recs.append(
+            "Do not claim improvement yet: the model failed to beat the simple market-favorite baseline on this sample."
+        )
 
     if flagged and clean:
         flagged_acc = sum(r.was_correct for r in flagged) / len(flagged)
@@ -289,13 +348,18 @@ def write_summary(date_str: str, summary: dict[str, object], summary_md: Path) -
     lines.append("")
     lines.append("## Headline")
     lines.append(
-        f"- Settled picks: **{summary['settled']}** / {summary['total']}"
+        f"- Settled scored picks: **{summary['settled']}** / {summary['total']}"
     )
     lines.append(
-        f"- Record: **{summary['correct']}-{summary['settled'] - summary['correct']}**"
+        f"- Model record: **{summary['correct']}-{summary['settled'] - summary['correct']}**"
     )
-    lines.append(f"- Accuracy: **{summary['accuracy']:.1f}%**")
+    lines.append(f"- Model accuracy: **{summary['accuracy']:.1f}%**")
+    lines.append(
+        f"- Market-favorite baseline: **{summary['baseline_correct']}-{summary['settled'] - summary['baseline_correct']}** (**{summary['baseline_accuracy']:.1f}%**)"
+    )
+    lines.append(f"- Delta vs baseline: **{summary['accuracy_vs_baseline_pct']:+.1f} pts**")
     lines.append(f"- Avg model edge on picks: **{summary['avg_edge_all']:.2f}%**")
+    lines.append("- Standard: current model performance must beat the market-favorite baseline before improvement claims are credible.")
     lines.append("")
 
     lines.append("## Tracker by tier")
@@ -366,7 +430,7 @@ def main() -> None:
     tracker_csv = args.tracker or (OUT_DIR / f"model_performance_tracker_{slug}.csv")
     summary_md = args.summary or (OUT_DIR / f"model_performance_summary_{slug}.md")
 
-    date_str, predictions = load_predictions(csv_path)
+    date_str, predictions, total_rows = load_predictions(csv_path)
     actual_winners, source = resolve_actual_winners(date_str)
     backtest_rows = build_backtest_rows(predictions, actual_winners)
 
@@ -377,7 +441,9 @@ def main() -> None:
     print(f"Backtest complete for {date_str} ({slug}).")
     print(f"Tracker: {tracker_csv}")
     print(f"Summary: {summary_md}")
-    print(f"Accuracy: {summary['accuracy']:.1f}% ({summary['correct']}/{summary['settled']})")
+    print(f"Scored rows considered: {len(predictions)} / {total_rows}")
+    print(f"Model accuracy: {summary['accuracy']:.1f}% ({summary['correct']}/{summary['settled']})")
+    print(f"Baseline accuracy: {summary['baseline_accuracy']:.1f}% ({summary['baseline_correct']}/{summary['settled']})")
     print(f"Results source: {source}")
 
 

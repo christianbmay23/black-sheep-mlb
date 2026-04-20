@@ -1,10 +1,13 @@
 # Model Performance Backtest — 2026-04-15
 
 ## Headline
-- Settled picks: **12** / 12
-- Record: **7-5**
-- Accuracy: **58.3%**
+- Settled scored picks: **12** / 12
+- Model record: **7-5**
+- Model accuracy: **58.3%**
+- Market-favorite baseline: **8-4** (**66.7%**)
+- Delta vs baseline: **-8.3 pts**
 - Avg model edge on picks: **2.22%**
+- Standard: current model performance must beat the market-favorite baseline before improvement claims are credible.
 
 ## Tracker by tier
 - A+: 2-1 (66.7%)
@@ -33,5 +36,6 @@
 - home LU: 2 misses
 
 ## Steps going forward
-1. Add a post-lineup re-score pass that updates win probabilities using confirmed batting orders and bullpen availability to reduce late-information misses.
-2. Track results daily by tier/confidence and pause any segment (tier or confidence bucket) that falls below 45% over a rolling 7-day window.
+1. Do not claim improvement yet: the model failed to beat the simple market-favorite baseline on this sample.
+2. Add a post-lineup re-score pass that updates win probabilities using confirmed batting orders and bullpen availability to reduce late-information misses.
+3. Track results daily by tier/confidence and pause any segment (tier or confidence bucket) that falls below 45% over a rolling 7-day window.

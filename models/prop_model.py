@@ -19,7 +19,13 @@ def strip_accents(text: str) -> str:
 
 def lineup_match_key(name: str) -> str:
     stripped = strip_accents(name)
-    parts = [p for p in stripped.split() if not re.match(r"^jr\.?$", p, re.I) and not re.match(r"^sr\.?$", p, re.I)]
+    parts = [
+        p
+        for p in stripped.split()
+        if not re.match(r"^jr\.?$", p, re.I)
+        and not re.match(r"^sr\.?$", p, re.I)
+        and not re.match(r"^(i|ii|iii|iv|v)$", p, re.I)
+    ]
     if len(parts) >= 2:
         first = re.sub(r"[^A-Za-z]", "", parts[0])[:1].lower()
         last = re.sub(r"\.", "", parts[-1]).lower()
