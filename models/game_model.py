@@ -10,6 +10,7 @@ ModelConf = Literal["Low", "Medium", "High"]
 DecisionTier = Literal["A+", "A", "B", "C", "D"]
 
 Profile = list[list[str]]
+DEFAULT_MARKET_BLEND_ALPHA = 0.25
 
 
 def clamp(n: float, lo: float, hi: float) -> float:
@@ -30,6 +31,27 @@ def devig_two_way(away_a: float, home_a: float) -> tuple[float, float]:
     if s <= 0:
         return 0.5, 0.5
     return ia / s, ih / s
+
+
+def blend_with_market(model_prob: float, market_prob: float, *, alpha: float = DEFAULT_MARKET_BLEND_ALPHA) -> float:
+    weight = clamp(alpha, 0.0, 1.0)
+    return clamp((weight * model_prob) + ((1.0 - weight) * market_prob), 0.001, 0.999)
+
+
+def blended_win_probabilities(
+    raw_away: float,
+    raw_home: float,
+    market_away: float,
+    market_home: float,
+    *,
+    alpha: float = DEFAULT_MARKET_BLEND_ALPHA,
+) -> tuple[float, float]:
+    away = blend_with_market(raw_away, market_away, alpha=alpha)
+    home = blend_with_market(raw_home, market_home, alpha=alpha)
+    total = away + home
+    if total <= 0:
+        return 0.5, 0.5
+    return away / total, home / total
 
 
 def parse_xera(profile: Profile) -> float | None:
@@ -171,21 +193,14 @@ def win_probability_model(
     return p_away, p_home, model_conf, miss
 
 
-def blend_with_market_probability(raw_prob: float, market_prob: float, alpha: float = 0.25) -> float:
-    a = clamp(alpha, 0.0, 1.0)
-    raw = clamp(raw_prob, 0.0, 1.0)
-    market = clamp(market_prob, 0.0, 1.0)
-    return clamp((a * raw) + ((1.0 - a) * market), 0.0, 1.0)
-
-
-def tier_from_edge(edge_pct: float, *, allow_a_plus: bool = False) -> DecisionTier:
-    if allow_a_plus and edge_pct >= 12:
+def tier_from_edge(edge_pct: float) -> DecisionTier:
+    if edge_pct >= 7.5:
         return "A+"
-    if edge_pct >= 8:
+    if edge_pct >= 5.0:
         return "A"
-    if edge_pct >= 4:
+    if edge_pct >= 2.5:
         return "B"
-    if edge_pct > 1:
+    if edge_pct >= 1.0:
         return "C"
     return "D"
 

@@ -1,5 +1,7 @@
 # Model Performance Backtest — 2026-04-15
 
+> Legacy compatibility mode: generated with `--allow-legacy-game-probs` from a pre-Phase-1 game CSV. This output is historical only and is not valid Phase 1 proof.
+
 ## Headline
 - Settled scored picks: **12** / 12
 - Model record: **7-5**
@@ -7,15 +9,16 @@
 - Market-favorite baseline: **8-4** (**66.7%**)
 - Delta vs baseline: **-8.3 pts**
 - Avg model edge on picks: **2.22%**
-- Brier score (lower is better): **0.2146**
-- Log loss (lower is better): **0.6206**
+- Brier score: **0.215**
+- Log loss: **0.621**
+- Assessment: **Do not claim improvement yet: the model failed to beat the simple market-favorite baseline on this sample.**
 - Standard: current model performance must beat the market-favorite baseline before improvement claims are credible.
 
 ## Tracker by tier
-- A+: 2-1 (66.7%) | Brier 0.2182 | Log loss 0.6269
-- B: 0-2 (0.0%) | Brier 0.2911 | Log loss 0.7761
-- C: 1-0 (100.0%) | Brier 0.1212 | Log loss 0.4279
-- D: 4-2 (66.7%) | Brier 0.2030 | Log loss 0.5977
+- A+: 2-1 (66.7%) | Brier 0.218 | Log loss 0.627
+- B: 0-2 (0.0%) | Brier 0.291 | Log loss 0.776
+- C: 1-0 (100.0%) | Brier 0.121 | Log loss 0.428
+- D: 4-2 (66.7%) | Brier 0.203 | Log loss 0.598
 
 ## Tracker by confidence
 - High: 4-3 (57.1%)

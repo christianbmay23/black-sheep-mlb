@@ -1,181 +1,181 @@
-report_date,game,team,batter,opponent_pitcher,hr_prob_pct,tb2_prob_pct,fair_hr_american,fair_2tb_american,market_hr_american,edge_hr_pct,market_tb_line,market_tb_over_american,edge_tb_pct,recent_form_score,bvp_pa,tier,hr_tier,tb2_tier,recommended_prop,recommended_tier,hr_market_status,tb2_market_status,data_confidence,market_data_status,scoring_status
-2026-04-16,WSH@PIT,WSH,James Wood,Braxton Ashcraft,,,,,NA,,,,,0.866,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,WSH@PIT,WSH,Luis García Jr.,Braxton Ashcraft,,,,,NA,,,,,0.518,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,WSH@PIT,WSH,Brady House,Braxton Ashcraft,,,,,NA,,,,,0.413,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,WSH@PIT,WSH,Daylen Lile,Braxton Ashcraft,,,,,NA,,,,,0.263,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,WSH@PIT,WSH,CJ Abrams,Braxton Ashcraft,,,,,NA,,,,,0.950,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,WSH@PIT,WSH,Jacob Young,Braxton Ashcraft,,,,,NA,,,,,0.548,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,WSH@PIT,WSH,Jorbit Vivas,Braxton Ashcraft,,,,,NA,,,,,0.486,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,WSH@PIT,WSH,Drew Millas,Braxton Ashcraft,,,,,NA,,,,,0.180,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,WSH@PIT,WSH,Nasim Nuñez,Braxton Ashcraft,,,,,NA,,,,,0.291,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,WSH@PIT,PIT,Jake Mangum,Foster Griffin,,,,,NA,,,,,0.401,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,WSH@PIT,PIT,Nick Gonzales,Foster Griffin,,,,,NA,,,,,0.248,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,WSH@PIT,PIT,Oneil Cruz,Foster Griffin,,,,,NA,,,,,0.638,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,WSH@PIT,PIT,Marcell Ozuna,Foster Griffin,,,,,NA,,,,,0.236,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,WSH@PIT,PIT,Nick Yorke,Foster Griffin,,,,,NA,,,,,0.449,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,WSH@PIT,PIT,Brandon Lowe,Foster Griffin,,,,,NA,,,,,0.685,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,WSH@PIT,PIT,Joey Bart,Foster Griffin,,,,,NA,,,,,0.380,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,WSH@PIT,PIT,Konnor Griffin,Foster Griffin,,,,,NA,,,,,0.308,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,WSH@PIT,PIT,Billy Cook,Foster Griffin,,,,,NA,,,,,0.308,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,SF@CIN,SF,Luis Arraez,Chase Burns,,,,,NA,,,,,0.543,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,SF@CIN,SF,Willy Adames,Chase Burns,,,,,NA,,,,,0.664,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,SF@CIN,SF,Rafael Devers,Chase Burns,,,,,NA,,,,,0.458,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,SF@CIN,SF,Matt Chapman,Chase Burns,,,,,NA,,,,,0.494,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,SF@CIN,SF,Jung Hoo Lee,Chase Burns,,,,,NA,,,,,0.444,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,SF@CIN,SF,Will Brennan,Chase Burns,,,,,NA,,,,,0.180,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,SF@CIN,SF,Casey Schmitt,Chase Burns,,,,,NA,,,,,0.842,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,SF@CIN,SF,Drew Gilbert,Chase Burns,,,,,NA,,,,,0.180,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,SF@CIN,SF,Patrick Bailey,Chase Burns,,,,,NA,,,,,0.189,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,SF@CIN,CIN,TJ Friedl,Landen Roupp,,,,,NA,,,,,0.279,6,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,SF@CIN,CIN,Matt McLain,Landen Roupp,,,,,NA,,,,,0.353,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,SF@CIN,CIN,Elly De La Cruz,Landen Roupp,,,,,NA,,,,,0.810,6,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,SF@CIN,CIN,Sal Stewart,Landen Roupp,,,,,NA,,,,,0.802,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,SF@CIN,CIN,Eugenio Suárez,Landen Roupp,,,,,NA,,,,,0.486,6,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,SF@CIN,CIN,Spencer Steer,Landen Roupp,,,,,NA,,,,,0.695,4,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,SF@CIN,CIN,Rece Hinds,Landen Roupp,,,,,NA,,,,,0.180,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,SF@CIN,CIN,Ke'Bryan Hayes,Landen Roupp,,,,,NA,,,,,0.180,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,SF@CIN,CIN,P.J. Higgins,Landen Roupp,,,,,NA,,,,,0.191,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,KC@DET,KC,Maikel Garcia,Keider Montero,,,,,NA,,,,,0.574,6,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,KC@DET,KC,Bobby Witt Jr.,Keider Montero,,,,,NA,,,,,0.403,9,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,KC@DET,KC,Vinnie Pasquantino,Keider Montero,,,,,NA,,,,,0.225,8,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,KC@DET,KC,Salvador Perez,Keider Montero,,,,,NA,,,,,0.271,8,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,KC@DET,KC,Carter Jensen,Keider Montero,,,,,NA,,,,,0.698,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,KC@DET,KC,Jonathan India,Keider Montero,,,,,NA,,,,,0.399,6,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,KC@DET,KC,Jac Caglianone,Keider Montero,,,,,NA,,,,,0.427,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,KC@DET,KC,Michael Massey,Keider Montero,,,,,NA,,,,,0.292,7,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,KC@DET,KC,Kyle Isbel,Keider Montero,,,,,NA,,,,,0.305,7,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,KC@DET,DET,Gleyber Torres,Kris Bubic,,,,,NA,,,,,0.441,13,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,KC@DET,DET,Kevin McGonigle,Kris Bubic,,,,,NA,,,,,0.574,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,KC@DET,DET,Jahmai Jones,Kris Bubic,,,,,NA,,,,,0.180,5,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,KC@DET,DET,Dillon Dingler,Kris Bubic,,,,,NA,,,,,0.601,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,KC@DET,DET,Riley Greene,Kris Bubic,,,,,NA,,,,,0.479,12,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,KC@DET,DET,Matt Vierling,Kris Bubic,,,,,NA,,,,,0.556,4,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,KC@DET,DET,Spencer Torkelson,Kris Bubic,,,,,NA,,,,,0.399,10,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,KC@DET,DET,Wenceel Pérez,Kris Bubic,,,,,NA,,,,,0.475,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,KC@DET,DET,Javier Báez,Kris Bubic,,,,,NA,,,,,0.710,14,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,LAA@NYY,LAA,Zach Neto,Max Fried,,,,,NA,,,,,0.626,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,LAA@NYY,LAA,Mike Trout,Max Fried,,,,,NA,,,,,0.719,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,LAA@NYY,LAA,Jo Adell,Max Fried,,,,,NA,,,,,0.592,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,LAA@NYY,LAA,Oswald Peraza,Max Fried,,,,,NA,,,,,0.610,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,LAA@NYY,LAA,Vaughn Grissom,Max Fried,,,,,NA,,,,,0.441,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,LAA@NYY,LAA,Nolan Schanuel,Max Fried,,,,,NA,,,,,0.276,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,LAA@NYY,LAA,Travis d'Arnaud,Max Fried,,,,,NA,,,,,0.180,5,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,LAA@NYY,LAA,Josh Lowe,Max Fried,,,,,NA,,,,,0.390,5,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,LAA@NYY,LAA,Bryce Teodosio,Max Fried,,,,,NA,,,,,0.200,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,LAA@NYY,NYY,Trent Grisham,Brent Suter,,,,,NA,,,,,0.454,7,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,LAA@NYY,NYY,Aaron Judge,Brent Suter,,,,,NA,,,,,0.866,4,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,LAA@NYY,NYY,Cody Bellinger,Brent Suter,,,,,NA,,,,,0.430,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,LAA@NYY,NYY,Giancarlo Stanton,Brent Suter,,,,,NA,,,,,0.262,1,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,LAA@NYY,NYY,Ben Rice,Brent Suter,,,,,NA,,,,,0.805,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,LAA@NYY,NYY,Amed Rosario,Brent Suter,,,,,NA,,,,,0.871,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,LAA@NYY,NYY,Jazz Chisholm Jr.,Brent Suter,,,,,NA,,,,,0.305,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,LAA@NYY,NYY,José Caballero,Brent Suter,,,,,NA,,,,,0.434,1,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,LAA@NYY,NYY,J.C. Escarra,Brent Suter,,,,,NA,,,,,0.180,1,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TOR@MIL,TOR,Davis Schneider,Brandon Sproat,,,,,NA,,,,,0.446,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TOR@MIL,TOR,Daulton Varsho,Brandon Sproat,,,,,NA,,,,,0.771,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TOR@MIL,TOR,Vladimir Guerrero Jr.,Brandon Sproat,,,,,NA,,,,,0.640,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TOR@MIL,TOR,Jesús Sánchez,Brandon Sproat,,,,,NA,,,,,0.472,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TOR@MIL,TOR,Lenyn Sosa,Brandon Sproat,,,,,NA,,,,,0.541,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TOR@MIL,TOR,Kazuma Okamoto,Brandon Sproat,,,,,NA,,,,,0.247,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TOR@MIL,TOR,Andrés Giménez,Brandon Sproat,,,,,NA,,,,,0.503,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TOR@MIL,TOR,Ernie Clement,Brandon Sproat,,,,,NA,,,,,0.376,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TOR@MIL,TOR,Tyler Heineman,Brandon Sproat,,,,,NA,,,,,0.366,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TOR@MIL,MIL,Brandon Lockridge,Patrick Corbin,,,,,NA,,,,,0.331,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TOR@MIL,MIL,Brice Turang,Patrick Corbin,,,,,NA,,,,,0.616,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TOR@MIL,MIL,William Contreras,Patrick Corbin,,,,,NA,,,,,0.611,10,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TOR@MIL,MIL,Gary Sánchez,Patrick Corbin,,,,,NA,,,,,0.719,13,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TOR@MIL,MIL,Luis Rengifo,Patrick Corbin,,,,,NA,,,,,0.235,15,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TOR@MIL,MIL,Luis Matos,Patrick Corbin,,,,,NA,,,,,0.334,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TOR@MIL,MIL,Greg Jones,Patrick Corbin,,,,,NA,,,,,,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TOR@MIL,MIL,David Hamilton,Patrick Corbin,,,,,NA,,,,,0.335,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TOR@MIL,MIL,Joey Ortiz,Patrick Corbin,,,,,NA,,,,,0.180,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TB@CWS,TB,Chandler Simpson,Jordan Leasure,,,,,NA,,,,,0.464,1,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TB@CWS,TB,Junior Caminero,Jordan Leasure,,,,,NA,,,,,0.619,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TB@CWS,TB,Cedric Mullins,Jordan Leasure,,,,,NA,,,,,0.427,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TB@CWS,TB,Yandy Díaz,Jordan Leasure,,,,,NA,,,,,0.633,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TB@CWS,TB,Ryan Vilade,Jordan Leasure,,,,,NA,,,,,0.562,1,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TB@CWS,TB,Ben Williamson,Jordan Leasure,,,,,NA,,,,,0.499,0,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TB@CWS,TB,Jonny DeLuca,Jordan Leasure,,,,,NA,,,,,0.525,0,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TB@CWS,TB,Nick Fortes,Jordan Leasure,,,,,NA,,,,,0.444,0,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TB@CWS,TB,Taylor Walls,Jordan Leasure,,,,,NA,,,,,0.450,0,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TB@CWS,CWS,Miguel Vargas,Steven Matz,,,,,NA,,,,,0.270,6,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TB@CWS,CWS,Chase Meidroth,Steven Matz,,,,,NA,,,,,0.310,4,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TB@CWS,CWS,Munetaka Murakami,Steven Matz,,,,,NA,,,,,0.461,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TB@CWS,CWS,Everson Pereira,Steven Matz,,,,,NA,,,,,0.950,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TB@CWS,CWS,Edgar Quero,Steven Matz,,,,,NA,,,,,0.258,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TB@CWS,CWS,Tanner Murray,Steven Matz,,,,,NA,,,,,0.548,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TB@CWS,CWS,Andrew Benintendi,Steven Matz,,,,,NA,,,,,0.366,11,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TB@CWS,CWS,Derek Hill,Steven Matz,,,,,NA,,,,,0.415,7,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TB@CWS,CWS,Sam Antonacci,Steven Matz,,,,,NA,,,,,0.491,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TEX@ATH,TEX,Brandon Nimmo,Jacob Lopez,,,,,NA,,,,,0.625,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TEX@ATH,TEX,Wyatt Langford,Jacob Lopez,,,,,NA,,,,,0.512,8,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TEX@ATH,TEX,Jake Burger,Jacob Lopez,,,,,NA,,,,,0.573,6,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TEX@ATH,TEX,Josh Jung,Jacob Lopez,,,,,NA,,,,,0.526,8,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TEX@ATH,TEX,Kyle Higashioka,Jacob Lopez,,,,,NA,,,,,0.813,7,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TEX@ATH,TEX,Andrew McCutchen,Jacob Lopez,,,,,NA,,,,,0.180,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TEX@ATH,TEX,Sam Haggerty,Jacob Lopez,,,,,NA,,,,,0.180,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TEX@ATH,TEX,Josh Smith,Jacob Lopez,,,,,NA,,,,,0.223,7,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TEX@ATH,TEX,Ezequiel Duran,Jacob Lopez,,,,,NA,,,,,0.279,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TEX@ATH,ATH,Jeff McNeil,Jack Leiter,,,,,NA,,,,,0.524,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TEX@ATH,ATH,Shea Langeliers,Jack Leiter,,,,,NA,,,,,0.498,13,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TEX@ATH,ATH,Nick Kurtz,Jack Leiter,,,,,NA,,,,,0.494,8,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TEX@ATH,ATH,Tyler Soderstrom,Jack Leiter,,,,,NA,,,,,0.606,13,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TEX@ATH,ATH,Jacob Wilson,Jack Leiter,,,,,NA,,,,,0.447,11,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TEX@ATH,ATH,Carlos Cortes,Jack Leiter,,,,,NA,,,,,0.568,4,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TEX@ATH,ATH,Lawrence Butler,Jack Leiter,,,,,NA,,,,,0.481,9,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TEX@ATH,ATH,Austin Wynns,Jack Leiter,,,,,NA,,,,,0.207,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,TEX@ATH,ATH,Darell Hernaiz,Jack Leiter,,,,,NA,,,,,0.405,5,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,BAL@CLE,BAL,Taylor Ward,Parker Messick,,,,,NA,,,,,0.533,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,BAL@CLE,BAL,Gunnar Henderson,Parker Messick,,,,,NA,,,,,0.771,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,BAL@CLE,BAL,Pete Alonso,Parker Messick,,,,,NA,,,,,0.392,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,BAL@CLE,BAL,Johnathan Rodríguez,Parker Messick,,,,,NA,,,,,0.233,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,BAL@CLE,BAL,Samuel Basallo,Parker Messick,,,,,NA,,,,,0.486,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,BAL@CLE,BAL,Jeremiah Jackson,Parker Messick,,,,,NA,,,,,0.944,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,BAL@CLE,BAL,Coby Mayo,Parker Messick,,,,,NA,,,,,0.311,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,BAL@CLE,BAL,Leody Taveras,Parker Messick,,,,,NA,,,,,0.516,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,BAL@CLE,BAL,Blaze Alexander,Parker Messick,,,,,NA,,,,,0.264,6,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,BAL@CLE,CLE,Steven Kwan,Shane Baz,,,,,NA,,,,,0.434,9,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,BAL@CLE,CLE,Chase DeLauter,Shane Baz,,,,,NA,,,,,0.546,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,BAL@CLE,CLE,José Ramírez,Shane Baz,,,,,NA,,,,,0.552,9,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,BAL@CLE,CLE,Kyle Manzardo,Shane Baz,,,,,NA,,,,,0.546,9,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,BAL@CLE,CLE,George Valera,Shane Baz,,,,,NA,,,,,0.708,6,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,BAL@CLE,CLE,Angel Martínez,Shane Baz,,,,,NA,,,,,0.723,5,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,BAL@CLE,CLE,Juan Brito,Shane Baz,,,,,NA,,,,,0.355,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,BAL@CLE,CLE,Austin Hedges,Shane Baz,,,,,NA,,,,,0.462,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,BAL@CLE,CLE,Brayan Rocchio,Shane Baz,,,,,NA,,,,,0.509,4,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,COL@HOU,COL,Edouard Julien,Ryan Weiss,,,,,NA,,,,,0.586,4,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,COL@HOU,COL,Tyler Freeman,Ryan Weiss,,,,,NA,,,,,0.301,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,COL@HOU,COL,TJ Rumfield,Ryan Weiss,,,,,NA,,,,,0.414,4,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,COL@HOU,COL,Hunter Goodman,Ryan Weiss,,,,,NA,,,,,0.578,4,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,COL@HOU,COL,Mickey Moniak,Ryan Weiss,,,,,NA,,,,,0.824,4,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,COL@HOU,COL,Ezequiel Tovar,Ryan Weiss,,,,,NA,,,,,0.388,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,COL@HOU,COL,Troy Johnston,Ryan Weiss,,,,,NA,,,,,0.561,4,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,COL@HOU,COL,Kyle Karros,Ryan Weiss,,,,,NA,,,,,0.320,4,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,COL@HOU,COL,Brenton Doyle,Ryan Weiss,,,,,NA,,,,,0.444,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,COL@HOU,HOU,Jose Altuve,Juan Mejia,,,,,NA,,,,,0.427,5,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,COL@HOU,HOU,Yordan Alvarez,Juan Mejia,,,,,NA,,,,,0.833,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,COL@HOU,HOU,Isaac Paredes,Juan Mejia,,,,,NA,,,,,0.314,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,COL@HOU,HOU,Carlos Correa,Juan Mejia,,,,,NA,,,,,0.418,5,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,COL@HOU,HOU,Christian Walker,Juan Mejia,,,,,NA,,,,,0.781,5,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,COL@HOU,HOU,Joey Loperfido,Juan Mejia,,,,,NA,,,,,0.410,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,COL@HOU,HOU,Cam Smith,Juan Mejia,,,,,NA,,,,,0.681,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,COL@HOU,HOU,Taylor Trammell,Juan Mejia,,,,,NA,,,,,0.490,0,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,COL@HOU,HOU,Yainer Diaz,Juan Mejia,,,,,NA,,,,,0.420,1,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,SEA@SD,SEA,Brendan Donovan,Walker Buehler,,,,,NA,,,,,0.450,6,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,SEA@SD,SEA,Cal Raleigh,Walker Buehler,,,,,NA,,,,,0.396,9,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,SEA@SD,SEA,Julio Rodríguez,Walker Buehler,,,,,NA,,,,,0.483,8,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,SEA@SD,SEA,Josh Naylor,Walker Buehler,,,,,NA,,,,,0.411,8,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,SEA@SD,SEA,Randy Arozarena,Walker Buehler,,,,,NA,,,,,0.561,6,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,SEA@SD,SEA,Luke Raley,Walker Buehler,,,,,NA,,,,,0.706,4,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,SEA@SD,SEA,J.P. Crawford,Walker Buehler,,,,,NA,,,,,0.361,9,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,SEA@SD,SEA,Dominic Canzone,Walker Buehler,,,,,NA,,,,,0.278,4,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,SEA@SD,SEA,Cole Young,Walker Buehler,,,,,NA,,,,,0.370,4,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,SEA@SD,SD,Ramón Laureano,Luis Castillo,,,,,NA,,,,,0.597,5,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,SEA@SD,SD,Fernando Tatis Jr.,Luis Castillo,,,,,NA,,,,,0.367,12,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,SEA@SD,SD,Jackson Merrill,Luis Castillo,,,,,NA,,,,,0.614,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,SEA@SD,SD,Manny Machado,Luis Castillo,,,,,NA,,,,,0.479,21,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,SEA@SD,SD,Xander Bogaerts,Luis Castillo,,,,,NA,,,,,0.757,8,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,SEA@SD,SD,Gavin Sheets,Luis Castillo,,,,,NA,,,,,0.674,11,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,SEA@SD,SD,Miguel Andujar,Luis Castillo,,,,,NA,,,,,0.646,109,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,SEA@SD,SD,Luis Campusano,Luis Castillo,,,,,NA,,,,,0.892,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-16,SEA@SD,SD,Jake Cronenworth,Luis Castillo,,,,,NA,,,,,0.296,13,,,,,,not_scored,not_scored,Display only,none,not_scored
+report_date,game,team,batter,opponent_pitcher,hr_prob_pct,tb2_prob_pct,fair_hr_american,fair_2tb_american,market_hr_american,edge_hr_pct,tier,data_confidence
+2026-04-16,WSH@PIT,WSH,James Wood,Braxton Ashcraft,8.23,32.00,+1116,+212,NA,0.00,A,"High — real stats+savant, posted lineup"
+2026-04-16,WSH@PIT,WSH,Luis García Jr.,Braxton Ashcraft,0.40,12.09,+24900,+727,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,WSH@PIT,WSH,Brady House,Braxton Ashcraft,0.40,6.59,+24900,+1418,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,WSH@PIT,WSH,Daylen Lile,Braxton Ashcraft,0.40,10.23,+24900,+877,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,WSH@PIT,WSH,CJ Abrams,Braxton Ashcraft,4.96,27.26,+1918,+267,NA,0.00,B,"High — real stats+savant, posted lineup"
+2026-04-16,WSH@PIT,WSH,Jacob Young,Braxton Ashcraft,0.40,13.13,+24900,+661,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,WSH@PIT,WSH,Jorbit Vivas,Braxton Ashcraft,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,WSH@PIT,WSH,Drew Millas,Braxton Ashcraft,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
+2026-04-16,WSH@PIT,WSH,Nasim Nuñez,Braxton Ashcraft,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,WSH@PIT,PIT,Jake Mangum,Foster Griffin,0.40,10.26,+24900,+875,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,WSH@PIT,PIT,Nick Gonzales,Foster Griffin,0.40,12.63,+24900,+692,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,WSH@PIT,PIT,Oneil Cruz,Foster Griffin,11.60,39.90,+762,+151,NA,0.00,A+,"High — real stats+savant, posted lineup"
+2026-04-16,WSH@PIT,PIT,Marcell Ozuna,Foster Griffin,2.58,15.23,+3776,+556,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,WSH@PIT,PIT,Nick Yorke,Foster Griffin,1.87,17.60,+5246,+468,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,WSH@PIT,PIT,Brandon Lowe,Foster Griffin,7.00,27.00,+1329,+270,NA,0.00,B,"High — real stats+savant, posted lineup"
+2026-04-16,WSH@PIT,PIT,Joey Bart,Foster Griffin,1.34,8.21,+7365,+1117,NA,0.00,D,"Medium — real stats+savant, posted lineup"
+2026-04-16,WSH@PIT,PIT,Konnor Griffin,Foster Griffin,0.40,10.37,+24900,+864,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,WSH@PIT,PIT,Billy Cook,Foster Griffin,1.21,15.14,+8168,+560,NA,0.00,D,"Medium — real stats+savant, posted lineup"
+2026-04-16,SF@CIN,SF,Luis Arraez,Chase Burns,0.40,8.51,+24900,+1076,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,SF@CIN,SF,Willy Adames,Chase Burns,4.24,22.09,+2256,+353,NA,0.00,C,"High — real stats+savant, posted lineup"
+2026-04-16,SF@CIN,SF,Rafael Devers,Chase Burns,3.71,18.87,+2593,+430,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,SF@CIN,SF,Matt Chapman,Chase Burns,0.76,14.19,+13003,+605,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,SF@CIN,SF,Jung Hoo Lee,Chase Burns,1.35,16.27,+7295,+515,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,SF@CIN,SF,Will Brennan,Chase Burns,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
+2026-04-16,SF@CIN,SF,Casey Schmitt,Chase Burns,6.03,28.39,+1558,+252,NA,0.00,B,"High — real stats+savant, posted lineup"
+2026-04-16,SF@CIN,SF,Drew Gilbert,Chase Burns,7.85,26.43,+1174,+278,NA,0.00,B,"Medium — real stats+savant, posted lineup"
+2026-04-16,SF@CIN,SF,Patrick Bailey,Chase Burns,0.40,9.56,+24900,+946,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,SF@CIN,CIN,TJ Friedl,Landen Roupp,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,SF@CIN,CIN,Matt McLain,Landen Roupp,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,SF@CIN,CIN,Elly De La Cruz,Landen Roupp,5.69,25.31,+1659,+295,NA,0.00,C,"High — real stats+savant, posted lineup"
+2026-04-16,SF@CIN,CIN,Sal Stewart,Landen Roupp,6.50,27.99,+1438,+257,NA,0.00,B,"High — real stats+savant, posted lineup"
+2026-04-16,SF@CIN,CIN,Eugenio Suárez,Landen Roupp,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,SF@CIN,CIN,Spencer Steer,Landen Roupp,1.43,14.10,+6885,+609,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,SF@CIN,CIN,Rece Hinds,Landen Roupp,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
+2026-04-16,SF@CIN,CIN,Ke'Bryan Hayes,Landen Roupp,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,SF@CIN,CIN,P.J. Higgins,Landen Roupp,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
+2026-04-16,KC@DET,KC,Maikel Garcia,Keider Montero,0.40,14.64,+24900,+583,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,KC@DET,KC,Bobby Witt Jr.,Keider Montero,0.96,18.97,+10306,+427,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,KC@DET,KC,Vinnie Pasquantino,Keider Montero,0.40,7.08,+24900,+1312,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,KC@DET,KC,Salvador Perez,Keider Montero,0.40,8.06,+24900,+1140,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,KC@DET,KC,Carter Jensen,Keider Montero,2.49,14.07,+3912,+611,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,KC@DET,KC,Jonathan India,Keider Montero,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,KC@DET,KC,Jac Caglianone,Keider Montero,0.79,15.71,+12631,+537,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,KC@DET,KC,Michael Massey,Keider Montero,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
+2026-04-16,KC@DET,KC,Kyle Isbel,Keider Montero,0.40,7.18,+24900,+1293,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,KC@DET,DET,Gleyber Torres,Kris Bubic,0.40,8.94,+24900,+1018,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,KC@DET,DET,Kevin McGonigle,Kris Bubic,3.75,24.03,+2570,+316,NA,0.00,C,"High — real stats+savant, posted lineup"
+2026-04-16,KC@DET,DET,Jahmai Jones,Kris Bubic,0.40,7.21,+24900,+1287,NA,0.00,D,"Medium — real stats+savant, posted lineup"
+2026-04-16,KC@DET,DET,Dillon Dingler,Kris Bubic,11.68,42.42,+756,+136,NA,0.00,A+,"High — real stats+savant, posted lineup"
+2026-04-16,KC@DET,DET,Riley Greene,Kris Bubic,5.87,30.00,+1604,+233,NA,0.00,B,"High — real stats+savant, posted lineup"
+2026-04-16,KC@DET,DET,Matt Vierling,Kris Bubic,2.65,14.67,+3674,+582,NA,0.00,D,"Medium — real stats+savant, posted lineup"
+2026-04-16,KC@DET,DET,Spencer Torkelson,Kris Bubic,2.19,17.15,+4459,+483,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,KC@DET,DET,Wenceel Pérez,Kris Bubic,1.61,6.00,+6105,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
+2026-04-16,KC@DET,DET,Javier Báez,Kris Bubic,0.99,15.69,+10040,+537,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,LAA@NYY,LAA,Zach Neto,Max Fried,0.79,11.77,+12566,+750,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,LAA@NYY,LAA,Mike Trout,Max Fried,9.23,35.27,+984,+184,NA,0.00,A,"High — real stats+savant, posted lineup"
+2026-04-16,LAA@NYY,LAA,Jo Adell,Max Fried,0.88,16.77,+11201,+496,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,LAA@NYY,LAA,Oswald Peraza,Max Fried,2.47,17.33,+3953,+477,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,LAA@NYY,LAA,Vaughn Grissom,Max Fried,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
+2026-04-16,LAA@NYY,LAA,Nolan Schanuel,Max Fried,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,LAA@NYY,LAA,Travis d'Arnaud,Max Fried,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
+2026-04-16,LAA@NYY,LAA,Josh Lowe,Max Fried,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,LAA@NYY,LAA,Bryce Teodosio,Max Fried,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
+2026-04-16,LAA@NYY,NYY,Trent Grisham,Brent Suter,2.98,18.24,+3261,+448,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,LAA@NYY,NYY,Aaron Judge,Brent Suter,12.82,41.28,+680,+142,NA,0.00,A+,"High — real stats+savant, posted lineup"
+2026-04-16,LAA@NYY,NYY,Cody Bellinger,Brent Suter,1.35,15.16,+7292,+560,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,LAA@NYY,NYY,Giancarlo Stanton,Brent Suter,3.84,19.19,+2502,+421,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,LAA@NYY,NYY,Ben Rice,Brent Suter,12.57,44.23,+696,+126,NA,0.00,A+,"High — real stats+savant, posted lineup"
+2026-04-16,LAA@NYY,NYY,Amed Rosario,Brent Suter,5.06,24.25,+1878,+312,NA,0.00,C,"Medium — real stats+savant, posted lineup"
+2026-04-16,LAA@NYY,NYY,Jazz Chisholm Jr.,Brent Suter,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,LAA@NYY,NYY,José Caballero,Brent Suter,0.40,7.18,+24900,+1294,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,LAA@NYY,NYY,J.C. Escarra,Brent Suter,0.40,8.71,+24900,+1048,NA,0.00,D,"Medium — real stats+savant, posted lineup"
+2026-04-16,TOR@MIL,TOR,Davis Schneider,Brandon Sproat,3.19,15.68,+3033,+538,NA,0.00,D,"Medium — real stats+savant, posted lineup"
+2026-04-16,TOR@MIL,TOR,Daulton Varsho,Brandon Sproat,3.62,18.83,+2664,+431,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,TOR@MIL,TOR,Vladimir Guerrero Jr.,Brandon Sproat,6.04,27.35,+1556,+266,NA,0.00,B,"High — real stats+savant, posted lineup"
+2026-04-16,TOR@MIL,TOR,Jesús Sánchez,Brandon Sproat,6.12,27.08,+1535,+269,NA,0.00,B,"High — real stats+savant, posted lineup"
+2026-04-16,TOR@MIL,TOR,Lenyn Sosa,Brandon Sproat,1.91,16.93,+5133,+491,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,TOR@MIL,TOR,Kazuma Okamoto,Brandon Sproat,3.68,17.14,+2618,+483,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,TOR@MIL,TOR,Andrés Giménez,Brandon Sproat,3.88,19.01,+2479,+426,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,TOR@MIL,TOR,Ernie Clement,Brandon Sproat,0.88,15.20,+11251,+558,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,TOR@MIL,TOR,Tyler Heineman,Brandon Sproat,2.16,15.52,+4536,+544,NA,0.00,D,"Medium — real stats+savant, posted lineup"
+2026-04-16,TOR@MIL,MIL,Brandon Lockridge,Patrick Corbin,3.20,14.42,+3020,+593,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,TOR@MIL,MIL,Brice Turang,Patrick Corbin,11.97,39.63,+735,+152,NA,0.00,A+,"High — real stats+savant, posted lineup"
+2026-04-16,TOR@MIL,MIL,William Contreras,Patrick Corbin,9.51,34.48,+952,+190,NA,0.00,A,"High — real stats+savant, posted lineup"
+2026-04-16,TOR@MIL,MIL,Gary Sánchez,Patrick Corbin,17.60,49.09,+468,+104,NA,0.00,A+,"High — real stats+savant, posted lineup"
+2026-04-16,TOR@MIL,MIL,Luis Rengifo,Patrick Corbin,4.18,17.15,+2290,+483,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,TOR@MIL,MIL,Luis Matos,Patrick Corbin,4.57,15.61,+2088,+541,NA,0.00,D,"Medium — real stats+savant, posted lineup"
+2026-04-16,TOR@MIL,MIL,Greg Jones,Patrick Corbin,3.61,10.35,+2668,+866,NA,0.00,D,"Medium — real stats+savant, posted lineup"
+2026-04-16,TOR@MIL,MIL,David Hamilton,Patrick Corbin,1.64,8.77,+5986,+1041,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,TOR@MIL,MIL,Joey Ortiz,Patrick Corbin,4.02,15.25,+2387,+556,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,TB@CWS,TB,Chandler Simpson,Jordan Leasure,0.40,9.68,+24900,+933,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,TB@CWS,TB,Junior Caminero,Jordan Leasure,5.51,23.17,+1715,+332,NA,0.00,C,"High — real stats+savant, posted lineup"
+2026-04-16,TB@CWS,TB,Cedric Mullins,Jordan Leasure,0.53,8.04,+18804,+1143,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,TB@CWS,TB,Yandy Díaz,Jordan Leasure,5.41,26.81,+1747,+273,NA,0.00,B,"High — real stats+savant, posted lineup"
+2026-04-16,TB@CWS,TB,Ryan Vilade,Jordan Leasure,1.19,11.82,+8314,+746,NA,0.00,D,"Medium — real stats+savant, posted lineup"
+2026-04-16,TB@CWS,TB,Ben Williamson,Jordan Leasure,0.40,9.13,+24900,+995,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,TB@CWS,TB,Jonny DeLuca,Jordan Leasure,6.10,26.32,+1541,+280,NA,0.00,B,"Medium — real stats+savant, posted lineup"
+2026-04-16,TB@CWS,TB,Nick Fortes,Jordan Leasure,2.94,20.90,+3302,+378,NA,0.00,C,"High — real stats+savant, posted lineup"
+2026-04-16,TB@CWS,TB,Taylor Walls,Jordan Leasure,2.51,17.84,+3883,+460,NA,0.00,D,"Medium — real stats+savant, posted lineup"
+2026-04-16,TB@CWS,CWS,Miguel Vargas,Steven Matz,4.32,18.89,+2217,+429,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,TB@CWS,CWS,Chase Meidroth,Steven Matz,2.22,17.31,+4400,+478,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,TB@CWS,CWS,Munetaka Murakami,Steven Matz,11.02,35.27,+807,+184,NA,0.00,A,"High — real stats+savant, posted lineup"
+2026-04-16,TB@CWS,CWS,Everson Pereira,Steven Matz,8.62,31.60,+1060,+216,NA,0.00,B,"Medium — real stats+savant, posted lineup"
+2026-04-16,TB@CWS,CWS,Edgar Quero,Steven Matz,0.40,6.18,+24900,+1519,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,TB@CWS,CWS,Tanner Murray,Steven Matz,4.27,20.07,+2240,+398,NA,0.00,C,"Medium — real stats+savant, posted lineup"
+2026-04-16,TB@CWS,CWS,Andrew Benintendi,Steven Matz,2.90,19.87,+3352,+403,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,TB@CWS,CWS,Derek Hill,Steven Matz,0.56,11.93,+17789,+739,NA,0.00,D,"Medium — real stats+savant, posted lineup"
+2026-04-16,TB@CWS,CWS,Sam Antonacci,Steven Matz,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
+2026-04-16,TEX@ATH,TEX,Brandon Nimmo,Jacob Lopez,4.06,22.45,+2363,+345,NA,0.00,C,"High — real stats+savant, posted lineup"
+2026-04-16,TEX@ATH,TEX,Wyatt Langford,Jacob Lopez,0.40,8.57,+24900,+1066,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,TEX@ATH,TEX,Jake Burger,Jacob Lopez,5.17,23.65,+1833,+323,NA,0.00,C,"High — real stats+savant, posted lineup"
+2026-04-16,TEX@ATH,TEX,Josh Jung,Jacob Lopez,2.35,20.61,+4161,+385,NA,0.00,C,"High — real stats+savant, posted lineup"
+2026-04-16,TEX@ATH,TEX,Kyle Higashioka,Jacob Lopez,1.05,12.64,+9461,+691,NA,0.00,D,"Medium — real stats+savant, posted lineup"
+2026-04-16,TEX@ATH,TEX,Andrew McCutchen,Jacob Lopez,1.17,12.03,+8416,+731,NA,0.00,D,"Medium — real stats+savant, posted lineup"
+2026-04-16,TEX@ATH,TEX,Sam Haggerty,Jacob Lopez,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
+2026-04-16,TEX@ATH,TEX,Josh Smith,Jacob Lopez,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,TEX@ATH,TEX,Ezequiel Duran,Jacob Lopez,0.63,12.21,+15724,+719,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,TEX@ATH,ATH,Jeff McNeil,Jack Leiter,1.54,15.65,+6391,+539,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,TEX@ATH,ATH,Shea Langeliers,Jack Leiter,11.18,37.28,+795,+168,NA,0.00,A,"High — real stats+savant, posted lineup"
+2026-04-16,TEX@ATH,ATH,Nick Kurtz,Jack Leiter,10.61,34.81,+842,+187,NA,0.00,A,"High — real stats+savant, posted lineup"
+2026-04-16,TEX@ATH,ATH,Tyler Soderstrom,Jack Leiter,6.83,25.58,+1364,+291,NA,0.00,C,"High — real stats+savant, posted lineup"
+2026-04-16,TEX@ATH,ATH,Jacob Wilson,Jack Leiter,0.61,12.66,+16251,+690,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,TEX@ATH,ATH,Carlos Cortes,Jack Leiter,5.47,24.61,+1727,+306,NA,0.00,C,"Medium — real stats+savant, posted lineup"
+2026-04-16,TEX@ATH,ATH,Lawrence Butler,Jack Leiter,5.18,22.56,+1829,+343,NA,0.00,C,"High — real stats+savant, posted lineup"
+2026-04-16,TEX@ATH,ATH,Austin Wynns,Jack Leiter,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
+2026-04-16,TEX@ATH,ATH,Darell Hernaiz,Jack Leiter,0.98,8.61,+10135,+1061,NA,0.00,D,"Medium — real stats+savant, posted lineup"
+2026-04-16,BAL@CLE,BAL,Gunnar Henderson,Parker Messick,2.77,16.61,+3510,+502,NA,0.00,D,"High — real stats+savant, projected lineup"
+2026-04-16,BAL@CLE,BAL,Colton Cowser,Parker Messick,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, projected lineup"
+2026-04-16,BAL@CLE,BAL,Pete Alonso,Parker Messick,1.38,14.84,+7152,+574,NA,0.00,D,"High — real stats+savant, projected lineup"
+2026-04-16,BAL@CLE,BAL,Coby Mayo,Parker Messick,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, projected lineup"
+2026-04-16,BAL@CLE,BAL,Leody Taveras,Parker Messick,0.40,12.00,+24900,+733,NA,0.00,D,"High — real stats+savant, projected lineup"
+2026-04-16,BAL@CLE,BAL,Taylor Ward,Parker Messick,0.40,8.12,+24900,+1132,NA,0.00,D,"High — real stats+savant, projected lineup"
+2026-04-16,BAL@CLE,BAL,Samuel Basallo,Parker Messick,1.04,10.20,+9517,+880,NA,0.00,D,"High — real stats+savant, projected lineup"
+2026-04-16,BAL@CLE,BAL,Dylan Beavers,Parker Messick,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, projected lineup"
+2026-04-16,BAL@CLE,BAL,Jeremiah Jackson,Parker Messick,3.37,18.09,+2869,+453,NA,0.00,D,"High — real stats+savant, projected lineup"
+2026-04-16,BAL@CLE,CLE,Steven Kwan,Shane Baz,0.40,6.00,+24900,+1567,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,BAL@CLE,CLE,Chase DeLauter,Shane Baz,7.22,27.92,+1285,+258,NA,0.00,B,"High — real stats+savant, posted lineup"
+2026-04-16,BAL@CLE,CLE,José Ramírez,Shane Baz,6.31,26.26,+1485,+281,NA,0.00,B,"High — real stats+savant, posted lineup"
+2026-04-16,BAL@CLE,CLE,Kyle Manzardo,Shane Baz,1.95,13.95,+5021,+617,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,BAL@CLE,CLE,George Valera,Shane Baz,3.15,26.15,+3075,+282,NA,0.00,B,"Medium — real stats+savant, posted lineup"
+2026-04-16,BAL@CLE,CLE,Angel Martínez,Shane Baz,2.76,18.06,+3527,+454,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,BAL@CLE,CLE,Juan Brito,Shane Baz,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, posted lineup"
+2026-04-16,BAL@CLE,CLE,Austin Hedges,Shane Baz,0.43,13.79,+23183,+625,NA,0.00,D,"Medium — real stats+savant, posted lineup"
+2026-04-16,BAL@CLE,CLE,Brayan Rocchio,Shane Baz,0.47,11.37,+21212,+780,NA,0.00,D,"High — real stats+savant, posted lineup"
+2026-04-16,COL@HOU,COL,Brenton Doyle,Ryan Weiss,2.34,13.71,+4174,+629,NA,0.00,D,"High — real stats+savant, projected lineup"
+2026-04-16,COL@HOU,COL,Ezequiel Tovar,Ryan Weiss,6.36,28.47,+1471,+251,NA,0.00,B,"High — real stats+savant, projected lineup"
+2026-04-16,COL@HOU,COL,Hunter Goodman,Ryan Weiss,10.46,32.39,+856,+209,NA,0.00,A,"High — real stats+savant, projected lineup"
+2026-04-16,COL@HOU,COL,Jordan Beck,Ryan Weiss,2.68,11.22,+3628,+791,NA,0.00,D,"Medium — real stats+savant, projected lineup"
+2026-04-16,COL@HOU,COL,Mickey Moniak,Ryan Weiss,10.52,32.93,+850,+204,NA,0.00,A,"High — real stats+savant, projected lineup"
+2026-04-16,COL@HOU,COL,Edouard Julien,Ryan Weiss,6.20,26.72,+1513,+274,NA,0.00,B,"High — real stats+savant, projected lineup"
+2026-04-16,COL@HOU,COL,Willi Castro,Ryan Weiss,4.14,18.57,+2313,+438,NA,0.00,D,"High — real stats+savant, projected lineup"
+2026-04-16,COL@HOU,COL,Tyler Freeman,Ryan Weiss,2.68,17.32,+3633,+477,NA,0.00,D,"Medium — real stats+savant, projected lineup"
+2026-04-16,COL@HOU,COL,Brett Sullivan,Ryan Weiss,3.64,19.51,+2650,+412,NA,0.00,D,"Medium — real stats+savant, projected lineup"
+2026-04-16,COL@HOU,HOU,Jose Altuve,Juan Mejia,4.73,23.34,+2016,+328,NA,0.00,C,"High — real stats+savant, projected lineup"
+2026-04-16,COL@HOU,HOU,Yordan Alvarez,Juan Mejia,15.89,54.27,+529,-119,NA,0.00,A+,"High — real stats+savant, projected lineup"
+2026-04-16,COL@HOU,HOU,Christian Walker,Juan Mejia,7.65,29.89,+1208,+235,NA,0.00,B,"High — real stats+savant, projected lineup"
+2026-04-16,COL@HOU,HOU,Isaac Paredes,Juan Mejia,0.40,7.01,+24900,+1326,NA,0.00,D,"High — real stats+savant, projected lineup"
+2026-04-16,COL@HOU,HOU,Carlos Correa,Juan Mejia,5.24,25.50,+1809,+292,NA,0.00,C,"High — real stats+savant, projected lineup"
+2026-04-16,COL@HOU,HOU,Yainer Diaz,Juan Mejia,0.40,7.60,+24900,+1216,NA,0.00,D,"High — real stats+savant, projected lineup"
+2026-04-16,COL@HOU,HOU,Cam Smith,Juan Mejia,9.29,35.19,+977,+184,NA,0.00,A,"High — real stats+savant, projected lineup"
+2026-04-16,COL@HOU,HOU,Joey Loperfido,Juan Mejia,2.62,16.47,+3719,+507,NA,0.00,D,"High — real stats+savant, projected lineup"
+2026-04-16,COL@HOU,HOU,Taylor Trammell,Juan Mejia,3.17,19.20,+3059,+421,NA,0.00,D,"Medium — real stats+savant, projected lineup"
+2026-04-16,SEA@SD,SEA,J.P. Crawford,Walker Buehler,0.40,7.44,+24900,+1244,NA,0.00,D,"High — real stats+savant, projected lineup"
+2026-04-16,SEA@SD,SEA,Julio Rodríguez,Walker Buehler,0.40,7.39,+24900,+1254,NA,0.00,D,"High — real stats+savant, projected lineup"
+2026-04-16,SEA@SD,SEA,Cal Raleigh,Walker Buehler,1.58,13.27,+6242,+653,NA,0.00,D,"High — real stats+savant, projected lineup"
+2026-04-16,SEA@SD,SEA,Josh Naylor,Walker Buehler,0.40,8.01,+24900,+1148,NA,0.00,D,"High — real stats+savant, projected lineup"
+2026-04-16,SEA@SD,SEA,Randy Arozarena,Walker Buehler,0.49,13.71,+20256,+629,NA,0.00,D,"High — real stats+savant, projected lineup"
+2026-04-16,SEA@SD,SEA,Dominic Canzone,Walker Buehler,6.31,27.78,+1485,+260,NA,0.00,B,"High — real stats+savant, projected lineup"
+2026-04-16,SEA@SD,SEA,Luke Raley,Walker Buehler,9.28,36.00,+978,+178,NA,0.00,A,"High — real stats+savant, projected lineup"
+2026-04-16,SEA@SD,SEA,Brendan Donovan,Walker Buehler,1.21,13.18,+8152,+659,NA,0.00,D,"High — real stats+savant, projected lineup"
+2026-04-16,SEA@SD,SEA,Connor Joe,Walker Buehler,0.40,6.00,+24900,+1567,NA,0.00,D,"Medium — real stats+savant, projected lineup"
+2026-04-16,SEA@SD,SD,Fernando Tatis Jr.,Luis Castillo,6.66,28.61,+1400,+249,NA,0.00,B,"High — real stats+savant, projected lineup"
+2026-04-16,SEA@SD,SD,Xander Bogaerts,Luis Castillo,5.25,24.28,+1806,+312,NA,0.00,C,"High — real stats+savant, projected lineup"
+2026-04-16,SEA@SD,SD,Manny Machado,Luis Castillo,2.01,14.51,+4864,+589,NA,0.00,D,"High — real stats+savant, projected lineup"
+2026-04-16,SEA@SD,SD,Jackson Merrill,Luis Castillo,6.99,27.76,+1331,+260,NA,0.00,B,"High — real stats+savant, projected lineup"
+2026-04-16,SEA@SD,SD,Jake Cronenworth,Luis Castillo,2.22,13.55,+4400,+638,NA,0.00,D,"High — real stats+savant, projected lineup"
+2026-04-16,SEA@SD,SD,Ty France,Luis Castillo,4.93,23.17,+1929,+332,NA,0.00,C,"Medium — real stats+savant, projected lineup"
+2026-04-16,SEA@SD,SD,Luis Campusano,Luis Castillo,6.02,28.79,+1560,+247,NA,0.00,B,"Medium — real stats+savant, projected lineup"
+2026-04-16,SEA@SD,SD,Nick Castellanos,Luis Castillo,2.44,17.24,+3992,+480,NA,0.00,D,"High — real stats+savant, projected lineup"
+2026-04-16,SEA@SD,SD,Miguel Andujar,Luis Castillo,2.70,21.23,+3604,+371,NA,0.00,C,"High — real stats+savant, projected lineup"

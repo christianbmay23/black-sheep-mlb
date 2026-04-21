@@ -58,6 +58,7 @@ class ModelProp:
     fair_odds: str
     tier: str
     confidence: str
+    recommended_selection: bool
 
 
 @dataclass
@@ -74,6 +75,7 @@ class TrackerRow:
     edge_percent: float | None
     tier: str
     confidence: str
+    recommended_selection: bool
     result: str
     outcome: str
     profit_loss_units: float | None
@@ -171,6 +173,7 @@ def load_model_props(outlook_csv: Path) -> dict[tuple[str, str, str, str], Model
         game = row.get("game", "").strip().upper()
         player = row.get("batter", "").strip()
         team = row.get("team", "").strip().upper()
+        recommended_prop = row.get("recommended_prop", "").strip()
         confidence = row.get("data_confidence", "").strip()
         legacy_tier = row.get("tier", "").strip()
         hr_tier = row.get("hr_tier", "").strip() or legacy_tier
@@ -181,12 +184,16 @@ def load_model_props(outlook_csv: Path) -> dict[tuple[str, str, str, str], Model
         hr_prob = float(row.get("hr_prob_pct") or 0)
         hr_fair = row.get("fair_hr_american", "").strip()
         key_hr = (game, alias_key, team, "HR")
-        model_map[key_hr] = ModelProp(date, game, player, team, "HR", hr_prob, hr_fair, hr_tier, confidence)
+        model_map[key_hr] = ModelProp(
+            date, game, player, team, "HR", hr_prob, hr_fair, hr_tier, confidence, recommended_prop == "HR"
+        )
 
         tb_prob = float(row.get("tb2_prob_pct") or 0)
         tb_fair = row.get("fair_2tb_american", "").strip()
         key_tb = (game, alias_key, team, "2+ TB")
-        model_map[key_tb] = ModelProp(date, game, player, team, "2+ TB", tb_prob, tb_fair, tb2_tier, confidence)
+        model_map[key_tb] = ModelProp(
+            date, game, player, team, "2+ TB", tb_prob, tb_fair, tb2_tier, confidence, recommended_prop == "2+ TB"
+        )
 
     return model_map
 
@@ -242,6 +249,7 @@ def build_tracker_rows(
         fair_odds = model.fair_odds if model else ""
         tier = model.tier if model else ""
         confidence = model.confidence if model else ""
+        recommended_selection = model.recommended_selection if model else False
 
         if model is None and prop_type in {"HR", "2+ TB"}:
             warning = f"row {idx}: unmatched model row for {game} | {player} | {team} | {prop_type}"
@@ -277,6 +285,7 @@ def build_tracker_rows(
                 edge_percent=edge_percent,
                 tier=tier,
                 confidence=confidence,
+                recommended_selection=recommended_selection,
                 result=result_raw,
                 outcome=outcome,
                 profit_loss_units=pnl,
@@ -322,6 +331,7 @@ def write_tracker(rows: list[TrackerRow], tracker_csv: Path) -> None:
                 "edge_percent",
                 "tier",
                 "confidence",
+                "recommended_selection",
                 "result",
                 "win_loss_push",
                 "profit_loss_units",
@@ -346,6 +356,7 @@ def write_tracker(rows: list[TrackerRow], tracker_csv: Path) -> None:
                     "" if r.edge_percent is None else f"{r.edge_percent:.2f}",
                     r.tier,
                     r.confidence,
+                    "Y" if r.recommended_selection else "N",
                     r.result,
                     r.outcome,
                     "" if r.profit_loss_units is None else f"{r.profit_loss_units:.3f}",
@@ -390,6 +401,21 @@ def roi(rows: list[TrackerRow]) -> float | None:
     return units / risked * 100
 
 
+def avg_clv(rows: list[TrackerRow]) -> float | None:
+    clv_rows = [r.closing_line_value for r in rows if r.closing_line_value is not None]
+    if not clv_rows:
+        return None
+    return sum(clv_rows) / len(clv_rows)
+
+
+def beat_close_rate(rows: list[TrackerRow]) -> str:
+    clv_rows = [r for r in rows if r.closing_line_value is not None]
+    if not clv_rows:
+        return "N/A"
+    beat = sum(1 for r in clv_rows if (r.closing_line_value or 0) > 0)
+    return f"{beat}/{len(clv_rows)} ({beat / len(clv_rows) * 100:.1f}%)"
+
+
 def summarize(
     rows: list[TrackerRow],
     warnings: list[str],
@@ -401,12 +427,17 @@ def summarize(
     tb = [r for r in rows if r.prop_type == "2+ TB"]
     ks = [r for r in rows if r.prop_type == "K"]
     priced = [r for r in rows if r.eval_mode == "betting_roi"]
+    recommended_priced = [r for r in priced if r.recommended_selection]
     unpriced = [r for r in rows if r.eval_mode == "target_accuracy"]
+    priced_hr = [r for r in priced if r.prop_type == "HR"]
+    priced_tb = [r for r in priced if r.prop_type == "2+ TB"]
+    recommended_hr = [r for r in recommended_priced if r.prop_type == "HR"]
+    recommended_tb = [r for r in recommended_priced if r.prop_type == "2+ TB"]
 
     by_type: dict[str, list[TrackerRow]] = defaultdict(list)
     by_tier: dict[str, list[TrackerRow]] = defaultdict(list)
     by_conf: dict[str, list[TrackerRow]] = defaultdict(list)
-    for r in priced:
+    for r in recommended_priced:
         by_type[r.prop_type].append(r)
         if r.tier:
             by_tier[r.tier].append(r)
@@ -446,19 +477,22 @@ def summarize(
     lines.append(f"- Pitcher K record: **{format_record(ks)}**")
     lines.append("")
 
-    lines.append("## Betting ROI (priced props only)")
-    lines.append(f"- Priced prop count: **{len(priced)}**")
-    lines.append(f"- Betting ROI (all priced props): **{'N/A' if roi(priced) is None else f'{roi(priced):.2f}%'}**")
-    lines.append("- **+EV classification is only valid when market odds exist.**")
+    lines.append("## Recommendation-Rule ROI")
+    lines.append(f"- Recommended priced prop count: **{len(recommended_priced)}**")
+    lines.append(f"- Recommended ROI: **{'N/A' if roi(recommended_priced) is None else f'{roi(recommended_priced):.2f}%'}**")
+    lines.append(f"- Recommended HR ROI: **{'N/A' if roi(recommended_hr) is None else f'{roi(recommended_hr):.2f}%'}**")
+    lines.append(f"- Recommended 2+ TB ROI: **{'N/A' if roi(recommended_tb) is None else f'{roi(recommended_tb):.2f}%'}**")
+    lines.append("- HR is tracked as a separate high-variance family and should not be blended into 2+ TB stability claims.")
+    lines.append("- **Primary ROI should be judged on this recommendation-gated subset, not the full priced universe.**")
     lines.append("")
 
-    lines.append("### ROI by prop type")
+    lines.append("### Recommended ROI by prop type")
     for prop in sorted(by_type):
         value = roi(by_type[prop])
         lines.append(f"- {prop}: {'N/A' if value is None else f'{value:.2f}%'}")
     lines.append("")
 
-    lines.append("### ROI by tier")
+    lines.append("### Recommended ROI by tier")
     for tier in ["A+", "A", "B", "C", "D"]:
         bucket = by_tier.get(tier, [])
         if bucket:
@@ -466,12 +500,28 @@ def summarize(
             lines.append(f"- {tier}: {'N/A' if value is None else f'{value:.2f}%'}")
     lines.append("")
 
-    lines.append("### ROI by confidence")
+    lines.append("### Recommended ROI by confidence")
     for conf in ["High", "Medium", "Low"]:
         bucket = by_conf.get(conf, [])
         if bucket:
             value = roi(bucket)
             lines.append(f"- {conf}: {'N/A' if value is None else f'{value:.2f}%'}")
+    lines.append("")
+
+    lines.append("## Diagnostic ROI (all priced props)")
+    lines.append(f"- All priced prop count: **{len(priced)}**")
+    lines.append(f"- All priced ROI: **{'N/A' if roi(priced) is None else f'{roi(priced):.2f}%'}**")
+    lines.append(f"- All priced HR ROI: **{'N/A' if roi(priced_hr) is None else f'{roi(priced_hr):.2f}%'}**")
+    lines.append(f"- All priced 2+ TB ROI: **{'N/A' if roi(priced_tb) is None else f'{roi(priced_tb):.2f}%'}**")
+    lines.append("- Use this section as a market-coverage diagnostic, not as the lead performance claim.")
+    lines.append("")
+
+    lines.append("## Closing-Line Value")
+    lines.append(f"- Recommended rows with closing odds: **{sum(1 for r in recommended_priced if r.closing_line_value is not None)}**")
+    lines.append(
+        f"- Recommended average CLV: **{'N/A' if avg_clv(recommended_priced) is None else f'{avg_clv(recommended_priced):.2f} pts'}**"
+    )
+    lines.append(f"- Recommended beat-close rate: **{beat_close_rate(recommended_priced)}**")
     lines.append("")
 
     lines.append("## Unpriced Watchlist Accuracy")

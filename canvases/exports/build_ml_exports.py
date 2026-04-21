@@ -52,6 +52,9 @@ GAMES_HEADERS = [
     "raw_model_home_win_pct",
     "final_away_win_pct",
     "final_home_win_pct",
+    "market_blend_alpha",
+    "model_away_win_pct",
+    "model_home_win_pct",
     "edge_away_pct",
     "edge_home_pct",
     "prediction",
@@ -109,7 +112,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--compute",
         action="store_true",
-        help="Supported slates (apr16, apr18): run MLB Stats API + models, update canvas markers and SLATE, then export.",
+        help="Supported slates (for example apr16, apr18, apr19): run MLB Stats API + models, update canvas markers and SLATE, then export.",
     )
     parser.add_argument(
         "--allow-partial",
@@ -243,26 +246,16 @@ def evaluation_reason_text(reason: str) -> str:
     }.get(reason, reason.replace("_", " "))
 
 
-def derive_evaluation(snapshot: dict | None, game_rows: list[dict[str, str]], prop_rows: list[dict[str, str]]) -> dict[str, object]:
-    if isinstance(snapshot, dict) and isinstance(snapshot.get("evaluation"), dict):
-        evaluation = dict(snapshot["evaluation"])
-        evaluation.setdefault("eligible", bool(snapshot.get("evaluation_eligible")))
-        evaluation.setdefault("status", "eligible" if evaluation.get("eligible") else "not_evaluable")
-        evaluation.setdefault("reasons", [])
-        evaluation.setdefault("scored_games", sum(1 for row in game_rows if is_scored_row(row)))
-        evaluation.setdefault("not_scored_games", len(game_rows) - int(evaluation.get("scored_games", 0)))
-        evaluation.setdefault("scored_props", sum(1 for row in prop_rows if is_scored_row(row)))
-        evaluation.setdefault("not_scored_props", len(prop_rows) - int(evaluation.get("scored_props", 0)))
-        return evaluation
-
-    allow_partial = bool(snapshot.get("allow_partial")) if isinstance(snapshot, dict) else False
+def summarize_snapshot_evaluation(
+    allow_partial: bool,
+    game_rows: list[dict[str, str]],
+    prop_rows: list[dict[str, str]],
+) -> dict[str, object]:
     reasons: list[str] = []
     if allow_partial:
         reasons.append("allow_partial")
     if not game_rows:
         reasons.append("no_games")
-    if any(str(row.get("game_status_bucket") or "").strip().lower() != "pregame" for row in game_rows):
-        reasons.append("contains_live_or_final_games")
     if any(
         str(row.get("game_status_bucket") or "").strip().lower() != "pregame" and is_scored_row(row)
         for row in game_rows
@@ -281,6 +274,11 @@ def derive_evaluation(snapshot: dict | None, game_rows: list[dict[str, str]], pr
         "scored_props": scored_props,
         "not_scored_props": len(prop_rows) - scored_props,
     }
+
+
+def derive_evaluation(snapshot: dict | None, game_rows: list[dict[str, str]], prop_rows: list[dict[str, str]]) -> dict[str, object]:
+    allow_partial = bool(snapshot.get("allow_partial")) if isinstance(snapshot, dict) else False
+    return summarize_snapshot_evaluation(allow_partial, game_rows, prop_rows)
 
 
 def load_latest_snapshot(slug: str) -> dict | None:
@@ -331,22 +329,25 @@ def format_model_pct(value: object, digits: int = 2) -> str:
     return f"{number:.{digits}f}%"
 
 
-def model_row_probabilities(row: dict[str, str]) -> tuple[str, str, str, str]:
-    raw_away = format_pct(row.get("raw_model_away_win_pct"))
-    raw_home = format_pct(row.get("raw_model_home_win_pct"))
-    final_away = format_pct(row.get("final_away_win_pct"))
-    final_home = format_pct(row.get("final_home_win_pct"))
+def game_raw_model_pct(row: dict[str, object], side: str) -> object:
+    return row.get(f"raw_model_{side}_win_pct") or row.get(f"model_{side}_win_pct")
 
-    # Backward compatibility for older exports.
-    if raw_away == "NA":
-        raw_away = format_pct(row.get("model_away_win_pct"))
-    if raw_home == "NA":
-        raw_home = format_pct(row.get("model_home_win_pct"))
-    if final_away == "NA":
-        final_away = format_pct(row.get("model_away_win_pct"))
-    if final_home == "NA":
-        final_home = format_pct(row.get("model_home_win_pct"))
-    return raw_away, raw_home, final_away, final_home
+
+def game_final_model_pct(row: dict[str, object], side: str) -> object:
+    return (
+        row.get(f"final_{side}_win_pct")
+        or row.get(f"final_model_{side}_win_pct")
+        or row.get(f"model_{side}_win_pct")
+    )
+
+
+def game_blend_alpha(row: dict[str, object], feature: dict | None = None) -> float | None:
+    alpha = parse_float(row.get("market_blend_alpha"))
+    if alpha is not None:
+        return alpha
+    if isinstance(feature, dict):
+        return parse_float(feature.get("market_blend_alpha"))
+    return None
 
 
 def format_signed_pct(value: str | None, digits: int = 2) -> str:
@@ -532,8 +533,17 @@ def game_reason_badges(row: dict[str, str], feature: dict | None) -> list[str]:
 def prop_reason_summary(feature: dict | None) -> str:
     if not isinstance(feature, dict):
         return ""
-    if not is_scored_row(feature):
-        detail = str(feature.get("game_status_note") or feature.get("game_state_detail") or feature.get("game_status_bucket") or "game no longer pregame")
+    display_only = (
+        not is_scored_row(feature)
+        and (
+            parse_float(feature.get("hr_prob")) is not None
+            or parse_float(feature.get("tb2_prob")) is not None
+            or parse_float(feature.get("hr_prob_pct")) is not None
+            or parse_float(feature.get("tb2_prob_pct")) is not None
+        )
+    )
+    detail = str(feature.get("game_status_note") or feature.get("game_state_detail") or feature.get("game_status_bucket") or "game no longer pregame")
+    if not is_scored_row(feature) and not display_only:
         return f"Not scored — {detail}"
     batter = feature.get("batter_features") or {}
     pitcher = feature.get("pitcher_features") or {}
@@ -591,7 +601,10 @@ def prop_reason_summary(feature: dict | None) -> str:
     if pen:
         reasons.append(pen)
 
-    return "; ".join(reasons[:4])
+    summary = "; ".join(reasons[:4])
+    if display_only:
+        return f"Display only — {detail}" + (f"; {summary}" if summary else "")
+    return summary
 
 
 def reason_badges_html(labels: list[str]) -> str:
@@ -601,18 +614,40 @@ def reason_badges_html(labels: list[str]) -> str:
 
 
 def prop_pick_label(feature: dict[str, object]) -> str:
-    if not is_scored_row(feature):
+    display_only = (
+        not is_scored_row(feature)
+        and (
+            parse_float(feature.get("hr_prob")) is not None
+            or parse_float(feature.get("tb2_prob")) is not None
+            or parse_float(feature.get("hr_prob_pct")) is not None
+            or parse_float(feature.get("tb2_prob_pct")) is not None
+        )
+    )
+    if not is_scored_row(feature) and not display_only:
         return "Not scored"
     recommended = str(feature.get("recommended_prop") or "").strip()
     tier = str(feature.get("recommended_tier") or "").strip()
     if recommended:
         return f"{recommended} {tier}".strip()
+    if display_only:
+        tier = str(feature.get("tier") or "").strip()
+        if tier:
+            return tier
     market_status = str(feature.get("market_status") or "").strip()
     return market_status or "watch"
 
 
 def prop_edge_label(feature: dict[str, object]) -> str:
-    if not is_scored_row(feature):
+    display_only = (
+        not is_scored_row(feature)
+        and (
+            parse_float(feature.get("hr_prob")) is not None
+            or parse_float(feature.get("tb2_prob")) is not None
+            or parse_float(feature.get("hr_prob_pct")) is not None
+            or parse_float(feature.get("tb2_prob_pct")) is not None
+        )
+    )
+    if not is_scored_row(feature) and not display_only:
         return "Not scored"
     recommended = str(feature.get("recommended_prop") or "").strip()
     if recommended == "HR":
@@ -638,6 +673,10 @@ def summary_cards_html(summary: dict[str, object], evaluation: dict[str, object]
         ("Partial Markets", str(summary.get("partial_prop_markets", 0))),
         ("Scored Props", str(summary.get("scored_props", 0))),
     ]
+    if "games_missing_odds" in summary:
+        cards.append(("Missing Odds", str(summary.get("games_missing_odds", 0))))
+    if "one_sided_hr_games" in summary:
+        cards.append(("1-Sided HR", str(summary.get("one_sided_hr_games", 0))))
     return "<div class='summary-grid'>" + "".join(render_stat(label, value) for label, value in cards) + "</div>"
 
 
@@ -656,6 +695,45 @@ def evaluation_banner_html(evaluation: dict[str, object]) -> str:
         f"<strong>{html.escape(title)}</strong><span>{html.escape(body)}</span>"
         "</div>"
     )
+
+
+def diagnostics_section_html(runtime_diagnostics: list[dict[str, object]], prop_market_coverage: list[dict[str, object]]) -> str:
+    parts: list[str] = []
+    if runtime_diagnostics:
+        items = "".join(
+            "<li>" + html.escape(str(entry.get("message") or "")) + "</li>"
+            for entry in runtime_diagnostics
+        )
+        parts.append(
+            "<div class='leaderboard'><h3>Data Source Warnings</h3>"
+            "<ul class='lineup-list'>"
+            f"{items}"
+            "</ul></div>"
+        )
+    if prop_market_coverage:
+        rows = []
+        for row in prop_market_coverage:
+            notes = ", ".join(str(note) for note in row.get("notes", []) if str(note).strip()) or "-"
+            rows.append(
+                [
+                    str(row.get("game") or ""),
+                    f"{row.get('away_hr_covered', 0)}/{row.get('away_lineup_size', 0)}",
+                    f"{row.get('home_hr_covered', 0)}/{row.get('home_lineup_size', 0)}",
+                    f"{row.get('away_tb_covered', 0)}/{row.get('away_lineup_size', 0)}",
+                    f"{row.get('home_tb_covered', 0)}/{row.get('home_lineup_size', 0)}",
+                    notes,
+                ]
+            )
+        parts.append(
+            leaderboard_table(
+                "Prop Coverage Diagnostics",
+                ["Game", "HR Away", "HR Home", "TB Away", "TB Home", "Notes"],
+                rows,
+            )
+        )
+    if not parts:
+        return ""
+    return "<div class='leader-grid'>" + "".join(parts) + "</div>"
 
 
 def leaderboard_table(title: str, headers: list[str], rows: list[list[str]]) -> str:
@@ -823,9 +901,9 @@ def game_card_html(
     home_props = [prop for prop in props if prop.get("team") == home]
     lineup_ctx = lineup_ctx or {}
     scored = is_scored_row(row)
+    blend_alpha = game_blend_alpha(row, game_feature)
     reason_text = game_reason_summary(row, game_feature)
     reason_badges = reason_badges_html(game_reason_badges(row, game_feature))
-    raw_away_pct, raw_home_pct, final_away_pct, final_home_pct = model_row_probabilities(row)
 
     header_bits = [
         render_pill(bucket_title(row.get("game_status_bucket", "")), "info"),
@@ -847,13 +925,12 @@ def game_card_html(
             render_stat("Start", row.get("start_time_et", "NA")),
             render_stat("Market", f"{away} {format_american(row.get('away_american'))} / {home} {format_american(row.get('home_american'))}"),
             render_stat(
-                "Model",
-                (
-                    f"Raw {away} {raw_away_pct} / {home} {raw_home_pct}; "
-                    f"Final {away} {final_away_pct} / {home} {final_home_pct}"
-                )
-                if scored
-                else "Not scored",
+                "Raw Model",
+                f"{away} {format_pct(game_raw_model_pct(row, 'away'))} / {home} {format_pct(game_raw_model_pct(row, 'home'))}" if scored else "Not scored",
+            ),
+            render_stat(
+                f"Final Blend{f' (a={blend_alpha:.2f})' if blend_alpha is not None else ''}",
+                f"{away} {format_pct(game_final_model_pct(row, 'away'))} / {home} {format_pct(game_final_model_pct(row, 'home'))}" if scored else "Not scored",
             ),
             render_stat("Edge On Pick", format_signed_pct(row.get("edge_on_pick_pct")) if scored else "Not scored"),
             render_stat("Weather", row.get("weather_summary", "NA")),
@@ -909,6 +986,8 @@ def build_html(report_path: Path, slug: str, games_rows: list[list[str]], batter
     snapshot_game_features = snapshot.get("game_features", []) if isinstance(snapshot, dict) else []
     snapshot_prop_features = snapshot.get("prop_features", []) if isinstance(snapshot, dict) else []
     summary = snapshot.get("summary", {}) if isinstance(snapshot, dict) else {}
+    runtime_diagnostics = snapshot.get("runtime_diagnostics", []) if isinstance(snapshot, dict) else []
+    prop_market_coverage = snapshot.get("prop_market_coverage", []) if isinstance(snapshot, dict) else []
     if not summary:
         summary = {
             "pregame_games": sum(1 for row in game_rows if row.get("game_status_bucket") == "pregame"),
@@ -1027,6 +1106,10 @@ def build_html(report_path: Path, slug: str, games_rows: list[list[str]], batter
             ),
             summary_cards_html(summary, evaluation),
             evaluation_banner_html(evaluation),
+            diagnostics_section_html(
+                runtime_diagnostics if isinstance(runtime_diagnostics, list) else [],
+                prop_market_coverage if isinstance(prop_market_coverage, list) else [],
+            ),
             f"<div class='nav-links'>{game_links}</div>",
             "<div class='leader-grid'>",
             best_games,

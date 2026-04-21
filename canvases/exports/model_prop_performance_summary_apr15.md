@@ -7,24 +7,31 @@
 - 2+ TB record: **3-1-0**
 - Pitcher K record: **1-0-0**
 
-## Betting ROI (priced props only)
-- Priced prop count: **11**
-- Betting ROI (all priced props): **83.11%**
-- **+EV classification is only valid when market odds exist.**
+## Recommendation-Rule ROI
+- Recommended priced prop count: **0**
+- Recommended ROI: **N/A**
+- Recommended HR ROI: **N/A**
+- Recommended 2+ TB ROI: **N/A**
+- HR is tracked as a separate high-variance family and should not be blended into 2+ TB stability claims.
+- **Primary ROI should be judged on this recommendation-gated subset, not the full priced universe.**
 
-### ROI by prop type
-- 2+ TB: 111.25%
-- HIT: -100.00%
-- HR: 100.00%
-- K: 95.24%
-- RUN: 90.91%
+### Recommended ROI by prop type
 
-### ROI by tier
-- A: 143.00%
-- B: -100.00%
+### Recommended ROI by tier
 
-### ROI by confidence
-- High: 102.50%
+### Recommended ROI by confidence
+
+## Diagnostic ROI (all priced props)
+- All priced prop count: **11**
+- All priced ROI: **83.11%**
+- All priced HR ROI: **100.00%**
+- All priced 2+ TB ROI: **111.25%**
+- Use this section as a market-coverage diagnostic, not as the lead performance claim.
+
+## Closing-Line Value
+- Recommended rows with closing odds: **0**
+- Recommended average CLV: **N/A**
+- Recommended beat-close rate: **N/A**
 
 ## Unpriced Watchlist Accuracy
 - Unpriced (target-only) count: **1**

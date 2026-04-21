@@ -1,1 +1,11 @@
-report_date,matchup,predicted_winner,market_favorite,actual_winner,was_correct,baseline_was_correct,model_confidence,decision_tier,edge_on_pick_pct,missing_data_flags
+report_date,matchup,predicted_winner,market_favorite,actual_winner,was_correct,baseline_was_correct,predicted_win_prob,model_confidence,decision_tier,edge_on_pick_pct,missing_data_flags
+2026-04-16,WSH@PIT,PIT,PIT,WSH,N,N,0.7268,High,A+,17.31,approx_market_ml
+2026-04-16,SF@CIN,SF,CIN,SF,Y,N,0.6303,High,A+,20.66,approx_market_ml
+2026-04-16,KC@DET,DET,DET,DET,Y,Y,0.7242,High,A+,18.90,approx_market_ml
+2026-04-16,LAA@NYY,NYY,NYY,LAA,N,N,0.6395,High,D,-4.46,approx_market_ml
+2026-04-16,TOR@MIL,TOR,MIL,MIL,N,Y,0.5070,High,C,1.40,approx_market_ml;corbin_platoons
+2026-04-16,TB@CWS,TB,TB,TB,Y,Y,0.5128,High,D,-5.51,approx_market_ml
+2026-04-16,TEX@ATH,ATH,TEX,TEX,N,Y,0.5903,High,A+,11.99,approx_market_ml;oak_coliseum_env
+2026-04-16,BAL@CLE,CLE,BAL,CLE,Y,N,0.6708,High,A+,22.11,approx_market_ml;lineup_not_posted_api
+2026-04-16,COL@HOU,HOU,HOU,COL,N,N,0.5154,High,D,-20.12,approx_market_ml;lineup_not_posted_api
+2026-04-16,SEA@SD,SD,SD,SD,Y,Y,0.6053,High,A+,9.64,approx_market_ml;lineup_not_posted_api

@@ -11,7 +11,7 @@ Research canvas + probability engine for MLB slates: implied vs model win probab
 | `canvases/mlb-pregame-intel-apr18.canvas.tsx` | Apr 18, 2026 slate: same pattern as Apr 16; use `--date 2026-04-18 --compute` to refresh. |
 | `canvases/exports/build_ml_exports.py` | Regenerates CSV + standalone HTML from marker blocks inside a dated canvas. |
 | `models/game_model.py`, `models/prop_model.py`, `models/apr16_inputs.py`, `models/apr18_inputs.py` | **Win probability** and **HR / 2+ TB** logic; per-slate moneylines, weather, and analyst copy. |
-| `canvases/exports/apr16_compute.py` | Wires API lineups + models into marker CSV + SLATE (supports apr16, apr18 via `models/<slug>_inputs`). |
+| `canvases/exports/apr16_compute.py` | Wires API lineups + models into marker CSV + SLATE for any slate with a `models/<slug>_inputs.py` module (for example apr16, apr18, apr19). |
 | `canvases/exports/_gen_apr16_canvas.py` | Thin wrapper: `build_ml_exports.py --date 2026-04-16 --compute`. |
 | `canvases/exports/_gen_apr18_canvas.py` | Thin wrapper: `build_ml_exports.py --date 2026-04-18 --compute`. |
 | `canvases/canvas-types.d.ts` | Ambient typings for `cursor/canvas` (IDE / `tsc` without bundling Cursor). |
@@ -134,11 +134,41 @@ python3 canvases/exports/backtest_tracker.py --date 2026-04-15
 python3 canvases/exports/backtest_tracker.py --date apr15
 ```
 
+Current Phase 1 behavior:
+
+- Normal mode requires the current game CSV schema with:
+  - `raw_model_away_win_pct`
+  - `raw_model_home_win_pct`
+  - `final_away_win_pct`
+  - `final_home_win_pct`
+- Legacy pre-Phase-1 CSVs that only have `model_away_win_pct` / `model_home_win_pct` are rejected by default.
+- To score a historical legacy CSV intentionally, opt in:
+
+```bash
+python3 canvases/exports/backtest_tracker.py --date apr15 --allow-legacy-game-probs
+```
+
+Legacy mode marks the output as historical compatibility only and not valid Phase 1 proof.
+
 Outputs:
 - `canvases/exports/model_performance_tracker_apr15.csv`
 - `canvases/exports/model_performance_summary_apr15.md`
 
 The script will try MLB Stats API first. If the environment blocks outbound calls, it falls back to a locally maintained result map for supported dates.
+
+### Phase 1 proof gate
+
+Before Phase 2, require one fresh strict pregame slate from the current compute path:
+
+1. Run `python3 canvases/exports/build_ml_exports.py --date YYYY-MM-DD --compute` with no `--allow-partial`.
+2. Confirm the generated snapshot shows:
+   - `allow_partial = false`
+   - `evaluation_eligible = true`
+   - `scored_games > 0`
+3. Confirm the generated game CSV includes both `raw_model_*` and `final_*`.
+4. After that slate settles, run `python3 canvases/exports/backtest_tracker.py --date YYYY-MM-DD` without `--allow-legacy-game-probs`.
+
+Only that fresh strict slate should be used as the Phase 1 proof surface. Older legacy backtests are historical context only.
 
 ## Prop Backtesting Workflow
 

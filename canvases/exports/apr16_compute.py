@@ -29,12 +29,15 @@ from live_mlb_data import (  # noqa: E402
     fetch_rotowire_lineups,
     fetch_slate_prop_markets,
     fetch_weather_snapshot,
+    get_runtime_diagnostics,
     normalize_player_name,
+    reset_runtime_diagnostics,
     strip_accents,
 )
 from models.game_model import (  # noqa: E402
+    DEFAULT_MARKET_BLEND_ALPHA,
     american_to_implied,
-    blend_with_market_probability,
+    blended_win_probabilities,
     clamp,
     devig_two_way,
     tier_from_edge,
@@ -60,11 +63,12 @@ SAVANT_HEADERS = {
 SNAPSHOT_ROOT = ROOT / "canvases" / "exports" / "snapshots"
 HR_EDGE_GATE_PCT = 2.5
 TB_EDGE_GATE_PCT = 1.5
+TB_RECOMMEND_MIN_PROB_PCT = 48.0
+TB_PARTIAL_RECOMMEND_MIN_PROB_PCT = 50.0
 TB_TARGET_LINE = 1.5
 PROP_TIER_RANK = {"A+": 5, "A": 4, "B": 3, "C": 2, "D": 1}
 SCORING_STATUS_SCORED = "scored"
 SCORING_STATUS_NOT_SCORED = "not_scored"
-GAME_BLEND_ALPHA = 0.25
 
 
 def fetch_json(url: str) -> dict:
@@ -145,9 +149,11 @@ def classify_hr_market_status(edge_hr_pct: float | None, hr_tier: str, prop_conf
 
 def classify_tb_market_status(
     edge_tb_pct: float | None,
+    tb2_prob: float | None,
     tb2_tier: str,
     prop_conf: str,
     tb_market: PropMarketLine | None,
+    market_status: str,
 ) -> str:
     if tb_market is None or tb_market.over_price is None:
         return "unpriced"
@@ -157,6 +163,16 @@ def classify_tb_market_status(
         return f"line_mismatch_{tb_market.point:g}"
     if edge_tb_pct is None or edge_tb_pct <= 0:
         return "priced_no_edge"
+    if tb2_prob is None:
+        return "prob_missing"
+    tb2_prob_pct = tb2_prob * 100
+    min_prob_gate = (
+        TB_PARTIAL_RECOMMEND_MIN_PROB_PCT
+        if market_status == "partial"
+        else TB_RECOMMEND_MIN_PROB_PCT
+    )
+    if tb2_prob_pct < min_prob_gate:
+        return "priced_below_prob_gate"
     if prop_tier_rank(tb2_tier) < prop_tier_rank("B"):
         return "priced_below_tier"
     if prop_conf == "Low":
@@ -201,6 +217,59 @@ def scoring_status_for_bucket(bucket: Any) -> str:
     return SCORING_STATUS_SCORED if str(bucket or "").strip().lower() == "pregame" else SCORING_STATUS_NOT_SCORED
 
 
+def summarize_prop_market_coverage(
+    game_key: str,
+    ctx: dict[str, Any],
+    markets: dict[tuple[str, str], PropMarketLine],
+) -> dict[str, Any]:
+    def coverage(players: list[dict[str, Any]], market_key: str) -> tuple[int, list[str], list[str]]:
+        covered = 0
+        missing: list[str] = []
+        sources: set[str] = set()
+        for player in players:
+            player_name = str(player.get("name") or "")
+            line = markets.get((normalize_player_name(player_name), market_key))
+            if line and line.over_price is not None:
+                covered += 1
+                if line.source:
+                    sources.add(line.source)
+            else:
+                missing.append(player_name)
+        return covered, sorted(missing), sorted(sources)
+
+    away_players = list(ctx.get("away_players") or [])
+    home_players = list(ctx.get("home_players") or [])
+    away_hr_covered, away_hr_missing, away_hr_sources = coverage(away_players, "batter_home_runs")
+    home_hr_covered, home_hr_missing, home_hr_sources = coverage(home_players, "batter_home_runs")
+    away_tb_covered, away_tb_missing, away_tb_sources = coverage(away_players, "batter_total_bases")
+    home_tb_covered, home_tb_missing, home_tb_sources = coverage(home_players, "batter_total_bases")
+    hr_sources = sorted(set(away_hr_sources + home_hr_sources))
+    tb_sources = sorted(set(away_tb_sources + home_tb_sources))
+    notes: list[str] = []
+    if away_hr_covered and not home_hr_covered and hr_sources and all(source.startswith("rotowire") for source in hr_sources):
+        notes.append("rotowire_hr_home_side_missing")
+    if home_hr_covered and not away_hr_covered and hr_sources and all(source.startswith("rotowire") for source in hr_sources):
+        notes.append("rotowire_hr_away_side_missing")
+    if ctx.get("away_moneyline") is None or ctx.get("home_moneyline") is None:
+        notes.append("market_odds_unavailable")
+    return {
+        "game": game_key,
+        "away_lineup_size": len(away_players),
+        "home_lineup_size": len(home_players),
+        "away_hr_covered": away_hr_covered,
+        "home_hr_covered": home_hr_covered,
+        "away_tb_covered": away_tb_covered,
+        "home_tb_covered": home_tb_covered,
+        "away_hr_missing": away_hr_missing,
+        "home_hr_missing": home_hr_missing,
+        "away_tb_missing": away_tb_missing,
+        "home_tb_missing": home_tb_missing,
+        "hr_sources": hr_sources,
+        "tb_sources": tb_sources,
+        "notes": notes,
+    }
+
+
 def summarize_snapshot_evaluation(
     allow_partial: bool,
     game_rows: list[dict[str, str]],
@@ -211,8 +280,6 @@ def summarize_snapshot_evaluation(
         reasons.append("allow_partial")
     if not game_rows:
         reasons.append("no_games")
-    if any(str(row.get("game_status_bucket") or "").strip().lower() != "pregame" for row in game_rows):
-        reasons.append("contains_live_or_final_games")
     if any(
         str(row.get("game_status_bucket") or "").strip().lower() != "pregame"
         and str(row.get("scoring_status") or "").strip().lower() == SCORING_STATUS_SCORED
@@ -776,6 +843,8 @@ def write_run_snapshot(
     game_feature_rows: list[dict[str, Any]],
     prop_feature_rows: list[dict[str, Any]],
     team_bullpen_scores: dict[str, dict[str, Any]],
+    runtime_diagnostics: list[dict[str, Any]],
+    prop_market_coverage: list[dict[str, Any]],
 ) -> Path:
     slug = canvas_slug(path)
     snapshot_dir = SNAPSHOT_ROOT / slug
@@ -791,12 +860,17 @@ def write_run_snapshot(
         "allow_partial": allow_partial,
         "evaluation_eligible": evaluation["eligible"],
         "evaluation": evaluation,
+        "game_model": {
+            "market_blend_alpha": DEFAULT_MARKET_BLEND_ALPHA,
+        },
         "canvas_path": str(path),
         "games": game_rows,
         "props": prop_rows,
         "game_features": game_feature_rows,
         "prop_features": prop_feature_rows,
         "team_bullpens": team_bullpen_scores,
+        "runtime_diagnostics": runtime_diagnostics,
+        "prop_market_coverage": prop_market_coverage,
         "lineup_context": {
             game_key: {
                 "game_status_bucket": ctx.get("game_status_bucket"),
@@ -836,6 +910,15 @@ def write_run_snapshot(
             "no_prop_markets": sum(1 for row in prop_rows if row.get("market_data_status") == "none"),
             "scored_props": evaluation["scored_props"],
             "not_scored_props": evaluation["not_scored_props"],
+            "games_missing_odds": sum(
+                1 for row in prop_market_coverage if "market_odds_unavailable" in list(row.get("notes") or [])
+            ),
+            "one_sided_hr_games": sum(
+                1
+                for row in prop_market_coverage
+                if "rotowire_hr_home_side_missing" in list(row.get("notes") or [])
+                or "rotowire_hr_away_side_missing" in list(row.get("notes") or [])
+            ),
             "evaluation_eligible": evaluation["eligible"],
             "evaluation_status": evaluation["status"],
         },
@@ -1476,6 +1559,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
     if not path.is_file():
         raise FileNotFoundError(path)
 
+    reset_runtime_diagnostics()
     original = path.read_text(encoding="utf-8")
     canvas_games = parse_canvas_games(original)
     api = fetch_schedule_lineups(REPORT_DATE)
@@ -1686,6 +1770,33 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
         for game_key, ctx in lineup_context.items()
     }
     prop_market_map = fetch_slate_prop_markets(REPORT_DATE, event_ids_by_game)
+    prop_market_coverage: list[dict[str, Any]] = []
+    coverage_by_game: dict[str, dict[str, Any]] = {}
+    for spec in GAME_SPECS:
+        key = f"{spec['away']}@{spec['home']}"
+        coverage = summarize_prop_market_coverage(key, lineup_context[key], prop_market_map.get(key, {}))
+        coverage_by_game[key] = coverage
+        prop_market_coverage.append(coverage)
+        if "rotowire_hr_home_side_missing" in coverage["notes"]:
+            lineup_context[key]["issues"] = sorted(set(list(lineup_context[key].get("issues") or []) + ["rotowire_hr_home_side_missing"]))
+        if "rotowire_hr_away_side_missing" in coverage["notes"]:
+            lineup_context[key]["issues"] = sorted(set(list(lineup_context[key].get("issues") or []) + ["rotowire_hr_away_side_missing"]))
+        if "market_odds_unavailable" in coverage["notes"]:
+            lineup_context[key]["issues"] = sorted(set(list(lineup_context[key].get("issues") or []) + ["market_odds_unavailable"]))
+        note_text = ", ".join(coverage["notes"]) or "ok"
+        print(
+            f"Prop coverage {key}: "
+            f"HR away {coverage['away_hr_covered']}/{coverage['away_lineup_size']} "
+            f"home {coverage['home_hr_covered']}/{coverage['home_lineup_size']} | "
+            f"TB away {coverage['away_tb_covered']}/{coverage['away_lineup_size']} "
+            f"home {coverage['home_tb_covered']}/{coverage['home_lineup_size']} | "
+            f"notes={note_text}"
+        )
+    for diagnostic in get_runtime_diagnostics():
+        print(
+            f"Data warning [{diagnostic.get('code', 'unknown')}]: "
+            f"{diagnostic.get('message', '')}"
+        )
 
     games_rows: list[list[str]] = [
         [
@@ -1722,6 +1833,9 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
             "raw_model_home_win_pct",
             "final_away_win_pct",
             "final_home_win_pct",
+            "market_blend_alpha",
+            "model_away_win_pct",
+            "model_home_win_pct",
             "edge_away_pct",
             "edge_home_pct",
             "prediction",
@@ -1802,14 +1916,17 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
         away_lu = build_model_lineup(ctx["away_players"], batter_features)
         home_lu = build_model_lineup(ctx["home_players"], batter_features)
 
-        away_moneyline = int(ctx["away_moneyline"])
-        home_moneyline = int(ctx["home_moneyline"])
-        ia, ih = devig_two_way(away_moneyline, home_moneyline)
+        away_moneyline = parse_int(ctx.get("away_moneyline"))
+        home_moneyline = parse_int(ctx.get("home_moneyline"))
+        if away_moneyline is not None and home_moneyline is not None:
+            ia, ih = devig_two_way(away_moneyline, home_moneyline)
+        else:
+            ia, ih = 0.5, 0.5
         imp_a, imp_h = ia * 100, ih * 100
         raw_ma: float | None = None
         raw_mh: float | None = None
-        final_ma: float | None = None
-        final_mh: float | None = None
+        ma: float | None = None
+        mh: float | None = None
         ea: float | None = None
         eh: float | None = None
         edge_pick: float | None = None
@@ -1832,11 +1949,16 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                 weather_factor=weather_snapshot.run_factor if weather_snapshot else None,
             )
             raw_ma, raw_mh = p_away * 100, p_home * 100
-            final_p_away = blend_with_market_probability(p_away, ia, GAME_BLEND_ALPHA)
-            final_p_home = blend_with_market_probability(p_home, ih, GAME_BLEND_ALPHA)
-            final_ma, final_mh = final_p_away * 100, final_p_home * 100
-            ea, eh = final_ma - imp_a, final_mh - imp_h
-            pred = spec["away"] if final_p_away > final_p_home else spec["home"]
+            final_away, final_home = blended_win_probabilities(
+                p_away,
+                p_home,
+                ia,
+                ih,
+                alpha=DEFAULT_MARKET_BLEND_ALPHA,
+            )
+            ma, mh = final_away * 100, final_home * 100
+            ea, eh = ma - imp_a, mh - imp_h
+            pred = spec["away"] if final_away > final_home else spec["home"]
             edge_pick = ea if pred == spec["away"] else eh
             tier = tier_from_edge(edge_pick)
         issues = list(ctx["issues"]) + miss
@@ -1852,8 +1974,8 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                 str(spec["time_et"]),
                 away_pitcher.get("name", "TBD"),
                 home_pitcher.get("name", "TBD"),
-                str(away_moneyline),
-                str(home_moneyline),
+                str(away_moneyline) if away_moneyline is not None else "",
+                str(home_moneyline) if home_moneyline is not None else "",
                 str(odds.total_line) if isinstance(odds, GameOdds) and odds.total_line is not None else "",
                 str(odds.over_price) if isinstance(odds, GameOdds) and odds.over_price is not None else "",
                 str(odds.under_price) if isinstance(odds, GameOdds) and odds.under_price is not None else "",
@@ -1877,8 +1999,11 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                 f"{imp_h:.2f}",
                 round_or_blank(raw_ma, 2),
                 round_or_blank(raw_mh, 2),
-                round_or_blank(final_ma, 2),
-                round_or_blank(final_mh, 2),
+                round_or_blank(ma, 2),
+                round_or_blank(mh, 2),
+                f"{DEFAULT_MARKET_BLEND_ALPHA:.2f}" if is_scored else "",
+                round_or_blank(ma, 2),
+                round_or_blank(mh, 2),
                 round_or_blank(ea, 2),
                 round_or_blank(eh, 2),
                 pred,
@@ -1896,8 +2021,8 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                 "gameKey": key,
                 "impliedAwayPct": imp_a,
                 "impliedHomePct": imp_h,
-                "modelAwayPct": final_ma if final_ma is not None else 0.0,
-                "modelHomePct": final_mh if final_mh is not None else 0.0,
+                "modelAwayPct": ma if ma is not None else 0.0,
+                "modelHomePct": mh if mh is not None else 0.0,
                 "edgeAwayPct": ea if ea is not None else 0.0,
                 "edgeHomePct": eh if eh is not None else 0.0,
                 "prediction": pred if is_scored else "Not Scored",
@@ -1923,6 +2048,13 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                 "home_recent_form_score": home_recent_score,
                 "weather": serialize_weather(weather_snapshot if isinstance(weather_snapshot, WeatherSnapshot) else None),
                 "odds": serialize_game_odds(odds if isinstance(odds, GameOdds) else None),
+                "market_blend_alpha": DEFAULT_MARKET_BLEND_ALPHA if is_scored else None,
+                "raw_model_away_win_pct": raw_ma,
+                "raw_model_home_win_pct": raw_mh,
+                "final_away_win_pct": ma,
+                "final_home_win_pct": mh,
+                "final_model_away_win_pct": ma,
+                "final_model_home_win_pct": mh,
                 "game_status_bucket": ctx.get("game_status_bucket"),
                 "game_state": ctx.get("game_state"),
                 "game_state_detail": ctx.get("game_state_detail"),
@@ -1938,11 +2070,6 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                 "prediction": pred,
                 "decision_tier": tier,
                 "edge_on_pick_pct": edge_pick,
-                "raw_model_away_win_pct": raw_ma,
-                "raw_model_home_win_pct": raw_mh,
-                "final_away_win_pct": final_ma,
-                "final_home_win_pct": final_mh,
-                "game_blend_alpha": GAME_BLEND_ALPHA,
             }
         )
 
@@ -1983,7 +2110,8 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                 recommended_prop = ""
                 recommended_tier = ""
                 display_tier = ""
-                if is_scored:
+                should_render_prop_projection = game_status_bucket != "final"
+                if should_render_prop_projection:
                     hr, tb2, fair_hr, fair_2tb, hr_tier, tb2_tier, pconf = batter_hr_two_tb(
                         str(spec["away"]),
                         str(spec["home"]),
@@ -2029,7 +2157,14 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                         else None
                     )
                     hr_market_status = classify_hr_market_status(edge_hr_pct, hr_tier, pconf, hr_market)
-                    tb2_market_status = classify_tb_market_status(edge_tb_pct, tb2_tier, pconf, tb_market)
+                    tb2_market_status = classify_tb_market_status(
+                        edge_tb_pct,
+                        tb2,
+                        tb2_tier,
+                        pconf,
+                        tb_market,
+                        market_status,
+                    )
                     recommended_prop, recommended_tier = choose_recommended_prop(
                         hr_market_status,
                         tb2_market_status,
@@ -2041,7 +2176,13 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                     display_tier = recommended_tier or stronger_tier(hr_tier, tb2_tier)
                 if not allow_partial and is_pregame:
                     if not hr_market_priced:
-                        late_blocking_issues.append(f"{key}: missing HR market for {player['name']}")
+                        coverage_notes = list(coverage_by_game.get(key, {}).get("notes") or [])
+                        reason = ""
+                        if "rotowire_hr_home_side_missing" in coverage_notes and not team_is_away:
+                            reason = " (Rotowire fallback returned no home-side HR markets for this game)"
+                        elif "rotowire_hr_away_side_missing" in coverage_notes and team_is_away:
+                            reason = " (Rotowire fallback returned no away-side HR markets for this game)"
+                        late_blocking_issues.append(f"{key}: missing HR market for {player['name']}{reason}")
                     if tb_market is None or tb_market.over_price is None:
                         late_blocking_issues.append(f"{key}: missing TB market for {player['name']}")
                     elif not tb_market_aligned:
@@ -2067,6 +2208,24 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                 else:
                     status_note = str(ctx.get("game_status_note") or ctx.get("game_state_detail") or "game no longer pregame")
                     note = f"Not scored — {status_note}"
+                    if should_render_prop_projection:
+                        display_note = build_prop_note(
+                            feats,
+                            opp_pitch_feats or {},
+                            str(spec["away"]),
+                            str(spec["home"]),
+                            vs_pitcher=vs_pitcher,
+                            weather_factor=weather_snapshot.run_factor if weather_snapshot else None,
+                            opp_bullpen_score=opp_bullpen,
+                        )
+                        if tb_market_any and not tb_market_aligned and tb_market and tb_market.point is not None:
+                            display_note = f"{display_note}; TB book at {tb_market.point:g}, not 1.5-aligned"
+                        if recommended_prop and recommended_tier:
+                            display_note = f"{display_note}; priced lean: {recommended_prop} ({recommended_tier})"
+                        if display_note:
+                            note = f"Display only — {status_note}; {display_note}"
+                        else:
+                            note = f"Display only — {status_note}"
                     dc = "Display only"
                 batter_rows.append(
                     [
@@ -2141,7 +2300,11 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                         "team": str(spec["away"] if team_is_away else spec["home"]),
                         "hrPct": (hr or 0.0) * 100,
                         "tb2Pct": (tb2 or 0.0) * 100,
-                        "tier": f"HR {hr_tier} / TB {tb2_tier}" if is_scored else "Not Scored",
+                        "tier": (
+                            f"HR {hr_tier} / TB {tb2_tier}"
+                            if (hr_tier or tb2_tier)
+                            else ("Not Scored" if not should_render_prop_projection else "Display only")
+                        ),
                         "note": note,
                     }
                 )
@@ -2210,6 +2373,8 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
         game_feature_rows=game_feature_rows,
         prop_feature_rows=prop_feature_rows,
         team_bullpen_scores=team_bullpen_scores,
+        runtime_diagnostics=get_runtime_diagnostics(),
+        prop_market_coverage=prop_market_coverage,
     )
     print("Updated model-driven markers + SLATE:", path)
     print("Wrote snapshot:", snapshot_path)

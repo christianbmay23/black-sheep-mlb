@@ -67,6 +67,7 @@ ROTOWIRE_PROP_PAGE_KEYS = {
     "batter_home_runs": "onehomerun",
     "batter_total_bases": "bases",
 }
+RUNTIME_DIAGNOSTICS: list[dict[str, Any]] = []
 
 TEAM_NAME_ALIASES = {
     "athletics": "ATH",
@@ -97,6 +98,7 @@ TEAM_NAME_ALIASES = {
     "seattle mariners": "SEA",
     "san francisco giants": "SF",
     "st. louis cardinals": "STL",
+    "st louis cardinals": "STL",
     "saint louis cardinals": "STL",
     "tampa bay rays": "TB",
     "texas rangers": "TEX",
@@ -291,11 +293,22 @@ def round_median_float(values: list[float]) -> float | None:
     return float(round(float(median(values)), 3))
 
 
+def parse_iso_utc(value: Any) -> datetime | None:
+    raw = str(value or "").strip()
+    if not raw:
+        return None
+    try:
+        return datetime.fromisoformat(raw.replace("Z", "+00:00")).astimezone(timezone.utc)
+    except ValueError:
+        return None
+
+
 def load_repo_env() -> None:
     global _ENV_LOADED
     if _ENV_LOADED:
         return
     _ENV_LOADED = True
+    protected_keys = set(os.environ)
     for name in (".env", ".env.local"):
         path = ROOT / name
         if not path.is_file():
@@ -306,7 +319,7 @@ def load_repo_env() -> None:
                 continue
             key, value = line.split("=", 1)
             key = key.strip()
-            if not key or key in os.environ:
+            if not key or key in protected_keys:
                 continue
             value = value.strip()
             if len(value) >= 2 and value[0] == value[-1] and value[0] in {'"', "'"}:
@@ -320,6 +333,53 @@ def odds_api_key(required: bool = False) -> str | None:
     if required and not key:
         raise LiveDataError("Missing ODDS_API_KEY / THE_ODDS_API_KEY for live odds + prop market ingestion.")
     return key
+
+
+def reset_runtime_diagnostics() -> None:
+    RUNTIME_DIAGNOSTICS.clear()
+
+
+def get_runtime_diagnostics() -> list[dict[str, Any]]:
+    return list(RUNTIME_DIAGNOSTICS)
+
+
+def record_runtime_diagnostic(
+    code: str,
+    message: str,
+    *,
+    severity: str = "warning",
+    source: str = "",
+    context: dict[str, Any] | None = None,
+) -> None:
+    entry = {
+        "code": code,
+        "message": message,
+        "severity": severity,
+        "source": source,
+        "context": context or {},
+    }
+    if entry not in RUNTIME_DIAGNOSTICS:
+        RUNTIME_DIAGNOSTICS.append(entry)
+
+
+def parse_http_error_details(exc: Exception) -> dict[str, str]:
+    details: dict[str, str] = {}
+    body = ""
+    if hasattr(exc, "read"):
+        try:
+            body = exc.read().decode("utf-8", "ignore")
+        except Exception:
+            body = ""
+    if body:
+        try:
+            parsed = json.loads(body)
+            if isinstance(parsed, dict):
+                details = {str(k): str(v) for k, v in parsed.items() if v is not None}
+        except json.JSONDecodeError:
+            details["body"] = body[:300]
+    if "message" not in details and str(exc):
+        details["message"] = str(exc)
+    return details
 
 
 def scan_div_block(text: str, start_idx: int) -> str:
@@ -650,6 +710,7 @@ def fetch_live_game_odds(
     required: bool = False,
 ) -> dict[str, GameOdds]:
     out: dict[str, GameOdds] = {}
+    selection_meta: dict[str, tuple[float, bool, int]] = {}
     api_key = odds_api_key(required=False)
     if api_key:
         try:
@@ -682,6 +743,8 @@ def fetch_live_game_odds(
                 under_price: int | None = None
                 last_update = ""
                 bookmakers_count = 0
+                schedule_dt = parse_iso_utc(schedule_games[game_key].get("game_date_utc"))
+                event_dt = parse_iso_utc(event.get("commence_time"))
 
                 for bookmaker in event.get("bookmakers") or []:
                     bookmakers_count += 1
@@ -701,12 +764,41 @@ def fetch_live_game_odds(
                         elif market_key == "totals":
                             total_line, over_price, under_price = summarize_total_market(market)
 
+                away_moneyline = round_median(away_prices)
+                home_moneyline = round_median(home_prices)
+                has_two_way_moneyline = away_moneyline is not None and home_moneyline is not None
+                event_distance = (
+                    abs((event_dt - schedule_dt).total_seconds())
+                    if event_dt is not None and schedule_dt is not None
+                    else float("inf")
+                )
+                previous_distance, previous_has_two_way, previous_bookmakers = selection_meta.get(
+                    game_key,
+                    (float("inf"), False, -1),
+                )
+                should_replace = (
+                    game_key not in out
+                    or (has_two_way_moneyline and not previous_has_two_way)
+                    or (
+                        has_two_way_moneyline == previous_has_two_way
+                        and (
+                            event_distance < previous_distance
+                            or (
+                                event_distance == previous_distance
+                                and bookmakers_count > previous_bookmakers
+                            )
+                        )
+                    )
+                )
+                if not should_replace:
+                    continue
+
                 out[game_key] = GameOdds(
                     event_id=str(event.get("id") or ""),
                     away_abbr=away_abbr,
                     home_abbr=home_abbr,
-                    away_moneyline=round_median(away_prices),
-                    home_moneyline=round_median(home_prices),
+                    away_moneyline=away_moneyline,
+                    home_moneyline=home_moneyline,
                     total_line=total_line,
                     over_price=over_price,
                     under_price=under_price,
@@ -714,7 +806,25 @@ def fetch_live_game_odds(
                     last_update=last_update,
                     source="odds_api",
                 )
-        except Exception:
+                selection_meta[game_key] = (event_distance, has_two_way_moneyline, bookmakers_count)
+        except Exception as exc:
+            details = parse_http_error_details(exc)
+            error_code = details.get("error_code", "")
+            message = details.get("message", str(exc))
+            if error_code == "OUT_OF_USAGE_CREDITS":
+                record_runtime_diagnostic(
+                    "odds_api_out_of_usage_credits",
+                    "Odds API usage credits are exhausted; falling back to Rotowire game odds. Live Odds API event IDs for prop pulls are unavailable until credits are restored.",
+                    source="odds_api",
+                    context={"date": date_str or "", "stage": "game_odds"},
+                )
+            else:
+                record_runtime_diagnostic(
+                    "odds_api_game_odds_failed",
+                    f"Odds API game odds request failed: {message}",
+                    source="odds_api",
+                    context={"date": date_str or "", "stage": "game_odds", "error_code": error_code},
+                )
             if required and not date_str:
                 raise
 
@@ -784,7 +894,24 @@ def fetch_live_prop_markets(event_id: str, *, required: bool = False) -> dict[tu
                 }
             )
         )
-    except Exception:
+    except Exception as exc:
+        details = parse_http_error_details(exc)
+        error_code = details.get("error_code", "")
+        message = details.get("message", str(exc))
+        if error_code == "OUT_OF_USAGE_CREDITS":
+            record_runtime_diagnostic(
+                "odds_api_out_of_usage_credits",
+                "Odds API usage credits are exhausted; live prop pulls are unavailable and fallback sources will be used where possible.",
+                source="odds_api",
+                context={"event_id": event_id, "stage": "prop_markets"},
+            )
+        else:
+            record_runtime_diagnostic(
+                "odds_api_prop_markets_failed",
+                f"Odds API prop request failed for event {event_id}: {message}",
+                source="odds_api",
+                context={"event_id": event_id, "stage": "prop_markets", "error_code": error_code},
+            )
         if required:
             raise
         return {}
@@ -945,6 +1072,14 @@ def fetch_slate_prop_markets(
     event_ids_by_game: dict[str, str],
 ) -> dict[str, dict[tuple[str, str], PropMarketLine]]:
     out: dict[str, dict[tuple[str, str], PropMarketLine]] = {game_key: {} for game_key in event_ids_by_game}
+    rotowire_only_games = sorted(game_key for game_key, event_id in event_ids_by_game.items() if str(event_id).startswith("rotowire:"))
+    if rotowire_only_games:
+        record_runtime_diagnostic(
+            "rotowire_only_prop_fallback",
+            f"Using Rotowire-only prop fallback for {len(rotowire_only_games)} games because live Odds API event IDs were unavailable.",
+            source="rotowire",
+            context={"games": rotowire_only_games, "date": date_str},
+        )
     for game_key, event_id in event_ids_by_game.items():
         if not event_id or event_id.startswith("rotowire:"):
             continue

@@ -100,10 +100,10 @@ const SLATE: SlateGame[] = [
     edgeOnPickPct: 0.00,
     modelConfidence: "Not Scored",
     analystConfidence: "Medium",
-    flags: "rotowire_missing;not_scored_non_pregame",
+    flags: "starter_mismatch_rotowire;not_scored_non_pregame",
     rationale: "Robbie Ray gives the Giants the cleaner starting edge, but Nationals Park can flatten a modest road-favorite number if the Washington lineup posts a full contact-heavy order.",
-    awayLuLabel: "Posted (MLB API)",
-    homeLuLabel: "Posted (MLB API)",
+    awayLuLabel: "Confirmed (MLB API + RotoWire)",
+    homeLuLabel: "Confirmed (MLB API + RotoWire)",
     awayLineup: [
       ["1", "Willy Adames", "SS"],
       ["2", "Luis Arraez", "2B"],
@@ -179,10 +179,10 @@ const SLATE: SlateGame[] = [
     edgeOnPickPct: 0.00,
     modelConfidence: "Not Scored",
     analystConfidence: "Medium",
-    flags: "rotowire_missing;not_scored_non_pregame",
+    flags: "not_scored_non_pregame",
     rationale: "McClanahan vs Keller sets up as a run-suppressed duel at PNC; pricing is driven more by home field and bullpen path than by a huge early-offense expectation.",
-    awayLuLabel: "Posted (MLB API)",
-    homeLuLabel: "Posted (MLB API)",
+    awayLuLabel: "Confirmed (MLB API + RotoWire)",
+    homeLuLabel: "Confirmed (MLB API + RotoWire)",
     awayLineup: [
       ["1", "Chandler Simpson", "LF"],
       ["2", "Junior Caminero", "3B"],
@@ -258,10 +258,10 @@ const SLATE: SlateGame[] = [
     edgeOnPickPct: 0.00,
     modelConfidence: "Not Scored",
     analystConfidence: "Medium",
-    flags: "rotowire_missing;not_scored_non_pregame",
+    flags: "not_scored_non_pregame",
     rationale: "Ragans keeps Kansas City live, but Yankee Stadium still punishes mistakes and the market leans to New York's lineup ceiling over the full nine.",
-    awayLuLabel: "Posted (MLB API)",
-    homeLuLabel: "Posted (MLB API)",
+    awayLuLabel: "Confirmed (MLB API + RotoWire)",
+    homeLuLabel: "Confirmed (MLB API + RotoWire)",
     awayLineup: [
       ["1", "Maikel Garcia", "3B"],
       ["2", "Bobby Witt Jr.", "SS"],
@@ -337,10 +337,10 @@ const SLATE: SlateGame[] = [
     edgeOnPickPct: 0.00,
     modelConfidence: "Not Scored",
     analystConfidence: "Low",
-    flags: "rotowire_missing;not_scored_non_pregame",
+    flags: "not_scored_non_pregame",
     rationale: "Guardians get a light home lean in a contact-oriented matchup; this profiles more like a bullpen and sequencing game than a dominant starter mismatch.",
-    awayLuLabel: "Posted (MLB API)",
-    homeLuLabel: "Posted (MLB API)",
+    awayLuLabel: "Confirmed (MLB API + RotoWire)",
+    homeLuLabel: "Confirmed (MLB API + RotoWire)",
     awayLineup: [
       ["1", "Taylor Ward", "LF"],
       ["2", "Gunnar Henderson", "SS"],
@@ -416,10 +416,10 @@ const SLATE: SlateGame[] = [
     edgeOnPickPct: 0.00,
     modelConfidence: "Not Scored",
     analystConfidence: "Medium",
-    flags: "rotowire_missing;not_scored_non_pregame",
+    flags: "not_scored_non_pregame",
     rationale: "Misiorowski and Eury Perez bring big raw stuff, so Miami's edge is more about home run prevention and run environment than a market-wide offensive gap.",
-    awayLuLabel: "Posted (MLB API)",
-    homeLuLabel: "Posted (MLB API)",
+    awayLuLabel: "Confirmed (MLB API + RotoWire)",
+    homeLuLabel: "Confirmed (MLB API + RotoWire)",
     awayLineup: [
       ["1", "Garrett Mitchell", "DH"],
       ["2", "Brice Turang", "2B"],
@@ -495,10 +495,10 @@ const SLATE: SlateGame[] = [
     edgeOnPickPct: 0.00,
     modelConfidence: "Not Scored",
     analystConfidence: "Medium",
-    flags: "rotowire_missing;not_scored_non_pregame",
+    flags: "not_scored_non_pregame",
     rationale: "Houston is priced as the steadier home side, but neither starter carries a massive separator, so this stays in the range where late lineup quality and bullpen leverage matter.",
-    awayLuLabel: "Posted (MLB API)",
-    homeLuLabel: "Posted (MLB API)",
+    awayLuLabel: "Confirmed (MLB API + RotoWire)",
+    homeLuLabel: "Confirmed (MLB API + RotoWire)",
     awayLineup: [
       ["1", "JJ Wetherholt", "2B"],
       ["2", "Iván Herrera", "DH"],
@@ -574,10 +574,10 @@ const SLATE: SlateGame[] = [
     edgeOnPickPct: 0.00,
     modelConfidence: "Not Scored",
     analystConfidence: "Medium",
-    flags: "rotowire_missing;not_scored_non_pregame",
+    flags: "not_scored_non_pregame",
     rationale: "Singer vs Ober keeps this near pick'em territory, with Minnesota getting a small home bump if the roof holds down early extra-base variance.",
-    awayLuLabel: "Posted (MLB API)",
-    homeLuLabel: "Posted (MLB API)",
+    awayLuLabel: "Confirmed (MLB API + RotoWire)",
+    homeLuLabel: "Confirmed (MLB API + RotoWire)",
     awayLineup: [
       ["1", "TJ Friedl", "CF"],
       ["2", "Matt McLain", "2B"],
@@ -653,10 +653,10 @@ const SLATE: SlateGame[] = [
     edgeOnPickPct: 0.00,
     modelConfidence: "Not Scored",
     analystConfidence: "Medium",
-    flags: "rotowire_missing;not_scored_non_pregame",
+    flags: "starter_mismatch_rotowire;not_scored_non_pregame",
     rationale: "Wrigley remains sensitive to weather and late lineup shape; the Cubs are favored, but not by enough to ignore any wind or scratch changes.",
-    awayLuLabel: "Posted (MLB API)",
-    homeLuLabel: "Posted (MLB API)",
+    awayLuLabel: "Confirmed (MLB API + RotoWire)",
+    homeLuLabel: "Confirmed (MLB API + RotoWire)",
     awayLineup: [
       ["1", "Carson Benge", "LF"],
       ["2", "Bo Bichette", "3B"],
@@ -721,8 +721,8 @@ const SLATE: SlateGame[] = [
     homeSp: "TBD",
     awayAmerican: -225,
     homeAmerican: 190,
-    impliedAwayPct: 66.43,
-    impliedHomePct: 33.57,
+    impliedAwayPct: 66.75,
+    impliedHomePct: 33.25,
     modelAwayPct: 0.00,
     modelHomePct: 0.00,
     edgeAwayPct: 0.00,
@@ -732,10 +732,10 @@ const SLATE: SlateGame[] = [
     edgeOnPickPct: 0.00,
     modelConfidence: "Not Scored",
     analystConfidence: "Medium-High",
-    flags: "rotowire_unconfirmed;starter_mismatch_rotowire;not_scored_non_pregame",
+    flags: "not_scored_non_pregame",
     rationale: "Coors Field keeps the run environment elevated, but the Dodgers still bring the most complete roster edge on the board with Sasaki over Lorenzen.",
-    awayLuLabel: "Posted (MLB API)",
-    homeLuLabel: "Posted (MLB API)",
+    awayLuLabel: "Confirmed (MLB API + RotoWire)",
+    homeLuLabel: "Confirmed (MLB API + RotoWire)",
     awayLineup: [
       ["1", "Shohei Ohtani", "DH"],
       ["2", "Kyle Tucker", "RF"],
@@ -811,10 +811,10 @@ const SLATE: SlateGame[] = [
     edgeOnPickPct: 0.00,
     modelConfidence: "Not Scored",
     analystConfidence: "Low",
-    flags: "rotowire_missing;not_scored_non_pregame",
+    flags: "not_scored_non_pregame",
     rationale: "Sutter Health Park still carries park-model uncertainty, so even with the Athletics favored this is a slate where props and late verification may be cleaner than the side.",
-    awayLuLabel: "Posted (MLB API)",
-    homeLuLabel: "Posted (MLB API)",
+    awayLuLabel: "Confirmed (MLB API + RotoWire)",
+    homeLuLabel: "Confirmed (MLB API + RotoWire)",
     awayLineup: [
       ["1", "Chase Meidroth", "2B"],
       ["2", "Miguel Vargas", "3B"],
@@ -890,10 +890,10 @@ const SLATE: SlateGame[] = [
     edgeOnPickPct: 0.00,
     modelConfidence: "Not Scored",
     analystConfidence: "Medium-High",
-    flags: "rotowire_missing;not_scored_non_pregame",
+    flags: "not_scored_non_pregame",
     rationale: "Michael King vs a vulnerable Angels starter gives San Diego the cleaner pitching baseline; the main question is how much the market already prices that edge.",
-    awayLuLabel: "Posted (MLB API)",
-    homeLuLabel: "Posted (MLB API)",
+    awayLuLabel: "Confirmed (MLB API + RotoWire)",
+    homeLuLabel: "Confirmed (MLB API + RotoWire)",
     awayLineup: [
       ["1", "Ramón Laureano", "LF"],
       ["2", "Fernando Tatis Jr.", "2B"],
@@ -969,10 +969,10 @@ const SLATE: SlateGame[] = [
     edgeOnPickPct: 0.00,
     modelConfidence: "Not Scored",
     analystConfidence: "Medium",
-    flags: "rotowire_missing;not_scored_non_pregame",
+    flags: "not_scored_non_pregame",
     rationale: "Gore and Woo can both miss bats, so this is another total-and-props environment unless the market drifts far enough off Seattle's home edge.",
-    awayLuLabel: "Posted (MLB API)",
-    homeLuLabel: "Posted (MLB API)",
+    awayLuLabel: "Confirmed (MLB API + RotoWire)",
+    homeLuLabel: "Confirmed (MLB API + RotoWire)",
     awayLineup: [
       ["1", "Brandon Nimmo", "RF"],
       ["2", "Corey Seager", "SS"],
@@ -1048,10 +1048,10 @@ const SLATE: SlateGame[] = [
     edgeOnPickPct: 0.00,
     modelConfidence: "Not Scored",
     analystConfidence: "Low",
-    flags: "rotowire_missing;not_scored_non_pregame",
+    flags: "not_scored_non_pregame",
     rationale: "Gausman gives Toronto the sharper top-end starter case, but Chase Field often compresses edges once bullpens and roof settings are baked in.",
-    awayLuLabel: "Posted (MLB API)",
-    homeLuLabel: "Posted (MLB API)",
+    awayLuLabel: "Confirmed (MLB API + RotoWire)",
+    homeLuLabel: "Confirmed (MLB API + RotoWire)",
     awayLineup: [
       ["1", "Nathan Lukes", "RF"],
       ["2", "Ernie Clement", "2B"],
@@ -1127,10 +1127,10 @@ const SLATE: SlateGame[] = [
     edgeOnPickPct: 0.00,
     modelConfidence: "Not Scored",
     analystConfidence: "Medium",
-    flags: "rotowire_lineup_mismatch;starter_mismatch_rotowire;not_scored_non_pregame",
+    flags: "not_scored_non_pregame",
     rationale: "Valdez vs Crochet is an ace-caliber setup, so the Red Sox lean is more about home context and price efficiency than any expectation of crooked numbers.",
-    awayLuLabel: "Posted (MLB API)",
-    homeLuLabel: "Posted (MLB API)",
+    awayLuLabel: "Confirmed (MLB API + RotoWire)",
+    homeLuLabel: "Confirmed (MLB API + RotoWire)",
     awayLineup: [
       ["1", "Jahmai Jones", "DH"],
       ["2", "Gleyber Torres", "2B"],
@@ -1206,10 +1206,10 @@ const SLATE: SlateGame[] = [
     edgeOnPickPct: 0.00,
     modelConfidence: "Not Scored",
     analystConfidence: "Medium",
-    flags: "rotowire_missing;not_scored_non_pregame",
+    flags: "not_scored_non_pregame",
     rationale: "Painter gives Philadelphia the higher-ceiling arm, but NL East pricing between these lineups rarely leaves much margin without full lineup confirmation.",
-    awayLuLabel: "Posted (MLB API)",
-    homeLuLabel: "Posted (MLB API)",
+    awayLuLabel: "Confirmed (MLB API + RotoWire)",
+    homeLuLabel: "Confirmed (MLB API + RotoWire)",
     awayLineup: [
       ["1", "Ronald Acuña Jr.", "RF"],
       ["2", "Drake Baldwin", "C"],
@@ -1795,295 +1795,295 @@ export default function Apr19Canvas() {
 
 /*
 <!-- games-csv:start -->
-report_date,away,home,start_time_et,away_sp,home_sp,away_american,home_american,market_total,market_over_american,market_under_american,weather_summary,weather_temp_f,weather_wind_mph,weather_precip_pct,bullpen_away_score,bullpen_home_score,recent_form_away_score,recent_form_home_score,game_status_bucket,game_state,game_state_detail,game_status_note,away_score,home_score,verification_status,verification_notes,implied_away_pct_nv,implied_home_pct_nv,raw_model_away_win_pct,raw_model_home_win_pct,final_away_win_pct,final_home_win_pct,edge_away_pct,edge_home_pct,prediction,decision_tier_vs_market,edge_on_pick_pct,model_confidence,missing_data_flags,analyst_confidence,rationale_summary,scoring_status
-2026-04-19,SF,WSH,1:35 PM,Robbie Ray,PJ Poulin,-135,112,,,,56F / 10 mph wind / 0% precip / Open,55.6,10.2,0,0.364,0.314,0.550,0.462,final,Final,Final,"Final — SF 0, WSH 3",0,3,Partial,rotowire_missing,54.91,45.09,,,,,,,,not_scored,,not_scored,rotowire_missing,Medium,"Robbie Ray gives the Giants the cleaner starting edge, but Nationals Park can flatten a modest road-favorite number if the Washington lineup posts a full contact-heavy order.",not_scored
-2026-04-19,TB,PIT,1:35 PM,Shane McClanahan,Mitch Keller,100,-133,,,,47F / 8 mph wind / 12% precip / Open,47.2,7.9,12,0.276,0.329,0.501,0.451,final,Final,Final,"Final — TB 3, PIT 6",3,6,Partial,rotowire_missing,46.69,53.31,,,,,,,,not_scored,,not_scored,rotowire_missing,Medium,McClanahan vs Keller sets up as a run-suppressed duel at PNC; pricing is driven more by home field and bullpen path than by a huge early-offense expectation.,not_scored
-2026-04-19,KC,NYY,1:35 PM,Cole Ragans,Ryan Weathers,131,-150,,,,47F / 8 mph wind / 13% precip / Open,46.6,7.7,13,0.342,0.449,0.421,0.586,final,Final,Final,"Final — KC 0, NYY 7",0,7,Partial,rotowire_missing,41.91,58.09,,,,,,,,not_scored,,not_scored,rotowire_missing,Medium,"Ragans keeps Kansas City live, but Yankee Stadium still punishes mistakes and the market leans to New York's lineup ceiling over the full nine.",not_scored
-2026-04-19,BAL,CLE,1:40 PM,Trevor Rogers,Joey Cantillo,104,-115,,,,44F / 13 mph wind / 16% precip / Open,43.6,13.2,16,0.484,0.334,0.499,0.501,final,Final,Final,"Final — BAL 4, CLE 8",4,8,Partial,rotowire_missing,47.82,52.18,,,,,,,,not_scored,,not_scored,rotowire_missing,Low,Guardians get a light home lean in a contact-oriented matchup; this profiles more like a bullpen and sequencing game than a dominant starter mismatch.,not_scored
-2026-04-19,MIL,MIA,1:40 PM,Jacob Misiorowski,Eury Pérez,104,-140,,,,79F / 2 mph wind / 34% precip / Retractable,78.9,2.1,34,0.424,0.419,0.426,0.516,final,Final,Final,"Final — MIL 3, MIA 5",3,5,Partial,rotowire_missing,45.66,54.34,,,,,,,,not_scored,,not_scored,rotowire_missing,Medium,"Misiorowski and Eury Perez bring big raw stuff, so Miami's edge is more about home run prevention and run environment than a market-wide offensive gap.",not_scored
-2026-04-19,STL,HOU,2:10 PM,Matthew Liberatore,Mike Burrows,120,-140,,,,65F / 4 mph wind / 0% precip / Retractable,65.4,4.2,0,0.319,0.360,0.509,0.534,final,Final,Final,"Final — STL 7, HOU 5",7,5,Partial,rotowire_missing,43.80,56.20,,,,,,,,not_scored,,not_scored,rotowire_missing,Medium,"Houston is priced as the steadier home side, but neither starter carries a massive separator, so this stays in the range where late lineup quality and bullpen leverage matter.",not_scored
-2026-04-19,CIN,MIN,2:10 PM,Brady Singer,Bailey Ober,-101,-113,,,,46F / 11 mph wind / 0% precip / Open,45.7,10.8,0,0.362,0.324,0.414,0.461,final,Final,Final,"Final — CIN 7, MIN 4",7,4,Partial,rotowire_missing,48.64,51.36,,,,,,,,not_scored,,not_scored,rotowire_missing,Medium,"Singer vs Ober keeps this near pick'em territory, with Minnesota getting a small home bump if the roof holds down early extra-base variance.",not_scored
-2026-04-19,NYM,CHC,2:20 PM,Tobias Myers,Javier Assad,120,-140,,,,42F / 5 mph wind / 3% precip / Open,41.9,5.4,3,0.365,0.450,0.372,0.573,final,Final,Final,"Final — NYM 1, CHC 2",1,2,Partial,rotowire_missing,43.80,56.20,,,,,,,,not_scored,,not_scored,rotowire_missing,Medium,"Wrigley remains sensitive to weather and late lineup shape; the Cubs are favored, but not by enough to ignore any wind or scratch changes.",not_scored
-2026-04-19,LAD,COL,3:10 PM,Roki Sasaki,Michael Lorenzen,-222,187,11.5,-114,-108,72F / 8 mph wind / 0% precip / Open,72.4,7.9,0,0.411,0.386,0.604,0.548,final,Final,Final,"Final — LAD 6, COL 9",6,9,Partial,rotowire_unconfirmed|starter_mismatch_rotowire,66.43,33.57,,,,,,,,not_scored,,not_scored,rotowire_unconfirmed;starter_mismatch_rotowire,Medium-High,"Coors Field keeps the run environment elevated, but the Dodgers still bring the most complete roster edge on the board with Sasaki over Lorenzen.",not_scored
-2026-04-19,CWS,ATH,4:05 PM,Noah Schultz,Jeffrey Springs,133,-156,,,,76F / 6 mph wind / 0% precip / Open,75.8,6.4,0,0.330,0.399,0.468,0.421,final,Final,Final,"Final — CWS 7, ATH 4",7,4,Partial,rotowire_missing,41.32,58.68,,,,,,,,not_scored,,not_scored,rotowire_missing,Low,"Sutter Health Park still carries park-model uncertainty, so even with the Athletics favored this is a slate where props and late verification may be cleaner than the side.",not_scored
-2026-04-19,SD,LAA,4:07 PM,Michael King,Walbert Urena,-142,120,,,,74F / 8 mph wind / 0% precip / Open,73.5,7.8,0,0.484,0.360,0.557,0.590,final,Final,Final,"Final — SD 2, LAA 1",2,1,Partial,rotowire_missing,56.35,43.65,,,,,,,,not_scored,,not_scored,rotowire_missing,Medium-High,Michael King vs a vulnerable Angels starter gives San Diego the cleaner pitching baseline; the main question is how much the market already prices that edge.,not_scored
-2026-04-19,TEX,SEA,4:10 PM,MacKenzie Gore,Bryan Woo,120,-142,,,,71F / 6 mph wind / 2% precip / Retractable,70.8,5.5,2,0.433,0.360,0.534,0.336,final,Final,Final,"Final — TEX 2, SEA 5",2,5,Partial,rotowire_missing,43.65,56.35,,,,,,,,not_scored,,not_scored,rotowire_missing,Medium,"Gore and Woo can both miss bats, so this is another total-and-props environment unless the market drifts far enough off Seattle's home edge.",not_scored
-2026-04-19,TOR,AZ,4:10 PM,Kevin Gausman,Ryne Nelson,-110,-104,,,,94F / 6 mph wind / 0% precip / Retractable,94.3,6.5,0,0.450,0.471,0.431,0.520,final,Final,Final,"Final — TOR 10, AZ 4",10,4,Partial,rotowire_missing,50.68,49.32,,,,,,,,not_scored,,not_scored,rotowire_missing,Low,"Gausman gives Toronto the sharper top-end starter case, but Chase Field often compresses edges once bullpens and roof settings are baked in.",not_scored
-2026-04-19,DET,BOS,4:35 PM,Framber Valdez,Garrett Crochet,128,-150,,,,39F / 8 mph wind / 24% precip / Open,39.3,8.3,24,0.470,0.456,0.387,0.415,final,Final,Final,"Final — DET 6, BOS 2",6,2,Partial,rotowire_lineup_mismatch|starter_mismatch_rotowire,42.23,57.77,,,,,,,,not_scored,,not_scored,rotowire_lineup_mismatch;starter_mismatch_rotowire,Medium,"Valdez vs Crochet is an ace-caliber setup, so the Red Sox lean is more about home context and price efficiency than any expectation of crooked numbers.",not_scored
-2026-04-19,ATL,PHI,7:20 PM,Grant Holmes,Andrew Painter,-102,-118,,,,47F / 7 mph wind / 10% precip / Open,47.4,6.9,10,0.520,0.498,0.609,0.424,final,Final,Final,"Final — ATL 4, PHI 2",4,2,Partial,rotowire_missing,48.26,51.74,,,,,,,,not_scored,,not_scored,rotowire_missing,Medium,"Painter gives Philadelphia the higher-ceiling arm, but NL East pricing between these lineups rarely leaves much margin without full lineup confirmation.",not_scored
+report_date,away,home,start_time_et,away_sp,home_sp,away_american,home_american,market_total,market_over_american,market_under_american,weather_summary,weather_temp_f,weather_wind_mph,weather_precip_pct,bullpen_away_score,bullpen_home_score,recent_form_away_score,recent_form_home_score,game_status_bucket,game_state,game_state_detail,game_status_note,away_score,home_score,verification_status,verification_notes,implied_away_pct_nv,implied_home_pct_nv,raw_model_away_win_pct,raw_model_home_win_pct,market_blend_alpha,model_away_win_pct,model_home_win_pct,edge_away_pct,edge_home_pct,prediction,decision_tier_vs_market,edge_on_pick_pct,model_confidence,missing_data_flags,analyst_confidence,rationale_summary,scoring_status
+2026-04-19,SF,WSH,1:35 PM,Robbie Ray,PJ Poulin,-135,112,,,,56F / 10 mph wind / 0% precip / Open,55.6,10.2,0,0.363,0.310,0.550,0.462,final,Final,Final,"Final — SF 0, WSH 3",0,3,Partial,starter_mismatch_rotowire,54.91,45.09,,,,,,,,,not_scored,,not_scored,starter_mismatch_rotowire,Medium,"Robbie Ray gives the Giants the cleaner starting edge, but Nationals Park can flatten a modest road-favorite number if the Washington lineup posts a full contact-heavy order.",not_scored
+2026-04-19,TB,PIT,1:35 PM,Shane McClanahan,Mitch Keller,100,-133,,,,47F / 8 mph wind / 12% precip / Open,47.2,7.9,12,0.260,0.326,0.501,0.451,final,Final,Final,"Final — TB 3, PIT 6",3,6,Verified,,46.69,53.31,,,,,,,,,not_scored,,not_scored,,Medium,McClanahan vs Keller sets up as a run-suppressed duel at PNC; pricing is driven more by home field and bullpen path than by a huge early-offense expectation.,not_scored
+2026-04-19,KC,NYY,1:35 PM,Cole Ragans,Ryan Weathers,131,-150,,,,47F / 8 mph wind / 13% precip / Open,46.6,7.7,13,0.341,0.448,0.421,0.586,final,Final,Final,"Final — KC 0, NYY 7",0,7,Verified,,41.91,58.09,,,,,,,,,not_scored,,not_scored,,Medium,"Ragans keeps Kansas City live, but Yankee Stadium still punishes mistakes and the market leans to New York's lineup ceiling over the full nine.",not_scored
+2026-04-19,BAL,CLE,1:40 PM,Trevor Rogers,Joey Cantillo,104,-115,,,,44F / 13 mph wind / 16% precip / Open,43.6,13.2,16,0.477,0.321,0.499,0.501,final,Final,Final,"Final — BAL 4, CLE 8",4,8,Verified,,47.82,52.18,,,,,,,,,not_scored,,not_scored,,Low,Guardians get a light home lean in a contact-oriented matchup; this profiles more like a bullpen and sequencing game than a dominant starter mismatch.,not_scored
+2026-04-19,MIL,MIA,1:40 PM,Jacob Misiorowski,Eury Pérez,104,-140,,,,79F / 2 mph wind / 34% precip / Retractable,78.9,2.1,34,0.425,0.409,0.426,0.516,final,Final,Final,"Final — MIL 3, MIA 5",3,5,Verified,,45.66,54.34,,,,,,,,,not_scored,,not_scored,,Medium,"Misiorowski and Eury Perez bring big raw stuff, so Miami's edge is more about home run prevention and run environment than a market-wide offensive gap.",not_scored
+2026-04-19,STL,HOU,2:10 PM,Matthew Liberatore,Mike Burrows,120,-140,,,,65F / 4 mph wind / 0% precip / Retractable,65.4,4.2,0,0.329,0.371,0.509,0.534,final,Final,Final,"Final — STL 7, HOU 5",7,5,Verified,,43.80,56.20,,,,,,,,,not_scored,,not_scored,,Medium,"Houston is priced as the steadier home side, but neither starter carries a massive separator, so this stays in the range where late lineup quality and bullpen leverage matter.",not_scored
+2026-04-19,CIN,MIN,2:10 PM,Brady Singer,Bailey Ober,-101,-113,,,,46F / 11 mph wind / 0% precip / Open,45.7,10.8,0,0.358,0.328,0.414,0.461,final,Final,Final,"Final — CIN 7, MIN 4",7,4,Verified,,48.64,51.36,,,,,,,,,not_scored,,not_scored,,Medium,"Singer vs Ober keeps this near pick'em territory, with Minnesota getting a small home bump if the roof holds down early extra-base variance.",not_scored
+2026-04-19,NYM,CHC,2:20 PM,Tobias Myers,Javier Assad,120,-140,,,,42F / 5 mph wind / 3% precip / Open,41.9,5.4,3,0.335,0.447,0.372,0.573,final,Final,Final,"Final — NYM 1, CHC 2",1,2,Partial,starter_mismatch_rotowire,43.80,56.20,,,,,,,,,not_scored,,not_scored,starter_mismatch_rotowire,Medium,"Wrigley remains sensitive to weather and late lineup shape; the Cubs are favored, but not by enough to ignore any wind or scratch changes.",not_scored
+2026-04-19,LAD,COL,3:10 PM,Roki Sasaki,Michael Lorenzen,-225,190,,,,72F / 8 mph wind / 0% precip / Open,72.4,7.9,0,0.448,0.393,0.604,0.548,final,Final,Final,"Final — LAD 6, COL 9",6,9,Verified,,66.75,33.25,,,,,,,,,not_scored,,not_scored,,Medium-High,"Coors Field keeps the run environment elevated, but the Dodgers still bring the most complete roster edge on the board with Sasaki over Lorenzen.",not_scored
+2026-04-19,CWS,ATH,4:05 PM,Noah Schultz,Jeffrey Springs,133,-156,,,,76F / 6 mph wind / 0% precip / Open,75.8,6.4,0,0.330,0.390,0.468,0.421,final,Final,Final,"Final — CWS 7, ATH 4",7,4,Verified,,41.32,58.68,,,,,,,,,not_scored,,not_scored,,Low,"Sutter Health Park still carries park-model uncertainty, so even with the Athletics favored this is a slate where props and late verification may be cleaner than the side.",not_scored
+2026-04-19,SD,LAA,4:07 PM,Michael King,Walbert Urena,-142,120,,,,74F / 8 mph wind / 0% precip / Open,73.5,7.8,0,0.488,0.358,0.557,0.590,final,Final,Final,"Final — SD 2, LAA 1",2,1,Verified,,56.35,43.65,,,,,,,,,not_scored,,not_scored,,Medium-High,Michael King vs a vulnerable Angels starter gives San Diego the cleaner pitching baseline; the main question is how much the market already prices that edge.,not_scored
+2026-04-19,TEX,SEA,4:10 PM,MacKenzie Gore,Bryan Woo,120,-142,,,,71F / 6 mph wind / 2% precip / Retractable,70.8,5.5,2,0.427,0.350,0.534,0.336,final,Final,Final,"Final — TEX 2, SEA 5",2,5,Verified,,43.65,56.35,,,,,,,,,not_scored,,not_scored,,Medium,"Gore and Woo can both miss bats, so this is another total-and-props environment unless the market drifts far enough off Seattle's home edge.",not_scored
+2026-04-19,TOR,AZ,4:10 PM,Kevin Gausman,Ryne Nelson,-110,-104,,,,94F / 6 mph wind / 0% precip / Retractable,94.3,6.5,0,0.446,0.471,0.431,0.520,final,Final,Final,"Final — TOR 10, AZ 4",10,4,Verified,,50.68,49.32,,,,,,,,,not_scored,,not_scored,,Low,"Gausman gives Toronto the sharper top-end starter case, but Chase Field often compresses edges once bullpens and roof settings are baked in.",not_scored
+2026-04-19,DET,BOS,4:35 PM,Framber Valdez,Garrett Crochet,128,-150,,,,39F / 8 mph wind / 24% precip / Open,39.3,8.3,24,0.465,0.457,0.387,0.415,final,Final,Final,"Final — DET 6, BOS 2",6,2,Verified,,42.23,57.77,,,,,,,,,not_scored,,not_scored,,Medium,"Valdez vs Crochet is an ace-caliber setup, so the Red Sox lean is more about home context and price efficiency than any expectation of crooked numbers.",not_scored
+2026-04-19,ATL,PHI,7:20 PM,Grant Holmes,Andrew Painter,-102,-118,,,,47F / 7 mph wind / 10% precip / Open,47.4,6.9,10,0.521,0.480,0.609,0.424,final,Final,Final,"Final — ATL 4, PHI 2",4,2,Verified,,48.26,51.74,,,,,,,,,not_scored,,not_scored,,Medium,"Painter gives Philadelphia the higher-ceiling arm, but NL East pricing between these lineups rarely leaves much margin without full lineup confirmation.",not_scored
 <!-- games-csv:end -->
 
 <!-- batter-outlooks-csv:start -->
 report_date,game,team,batter,opponent_pitcher,hr_prob_pct,tb2_prob_pct,fair_hr_american,fair_2tb_american,market_hr_american,edge_hr_pct,market_tb_line,market_tb_over_american,edge_tb_pct,recent_form_score,bvp_pa,tier,hr_tier,tb2_tier,recommended_prop,recommended_tier,hr_market_status,tb2_market_status,data_confidence,market_data_status,scoring_status
-2026-04-19,SF@WSH,SF,Willy Adames,PJ Poulin,,,,,NA,,,,,0.685,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,SF@WSH,SF,Luis Arraez,PJ Poulin,,,,,NA,,,,,0.509,1,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,SF@WSH,SF,Matt Chapman,PJ Poulin,,,,,NA,,,,,0.555,1,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,SF@WSH,SF,Rafael Devers,PJ Poulin,,,,,NA,,,,,0.376,1,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,SF@WSH,SF,Casey Schmitt,PJ Poulin,,,,,NA,,,,,0.767,0,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,SF@WSH,SF,Jung Hoo Lee,PJ Poulin,,,,,NA,,,,,0.530,0,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,SF@WSH,SF,Heliot Ramos,PJ Poulin,,,,,NA,,,,,0.651,1,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,SF@WSH,SF,Drew Gilbert,PJ Poulin,,,,,NA,,,,,0.665,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,SF@WSH,SF,Patrick Bailey,PJ Poulin,,,,,NA,,,,,0.217,1,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,SF@WSH,WSH,James Wood,Robbie Ray,,,,,NA,,,,,0.950,6,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,SF@WSH,WSH,Curtis Mead,Robbie Ray,,,,,NA,,,,,0.467,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,SF@WSH,WSH,Brady House,Robbie Ray,,,,,NA,,,,,0.373,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,SF@WSH,WSH,CJ Abrams,Robbie Ray,,,,,NA,,,,,0.821,8,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,SF@WSH,WSH,Jacob Young,Robbie Ray,,,,,NA,,,,,0.489,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,SF@WSH,WSH,Joey Wiemer,Robbie Ray,,,,,NA,,,,,0.243,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,SF@WSH,WSH,Luis García Jr.,Robbie Ray,,,,,NA,,,,,0.301,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,SF@WSH,WSH,Nasim Nuñez,Robbie Ray,,,,,NA,,,,,0.249,5,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,SF@WSH,WSH,Keibert Ruiz,Robbie Ray,,,,,NA,,,,,0.270,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TB@PIT,TB,Chandler Simpson,Mitch Keller,,,,,NA,,,,,0.398,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TB@PIT,TB,Junior Caminero,Mitch Keller,,,,,NA,,,,,0.673,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TB@PIT,TB,Jonathan Aranda,Mitch Keller,,,,,NA,,,,,0.446,5,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TB@PIT,TB,Yandy Díaz,Mitch Keller,,,,,NA,,,,,0.543,9,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TB@PIT,TB,Cedric Mullins,Mitch Keller,,,,,NA,,,,,0.468,9,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TB@PIT,TB,Richie Palacios,Mitch Keller,,,,,NA,,,,,0.743,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TB@PIT,TB,Jonny DeLuca,Mitch Keller,,,,,NA,,,,,0.587,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TB@PIT,TB,Hunter Feduccia,Mitch Keller,,,,,NA,,,,,0.293,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TB@PIT,TB,Taylor Walls,Mitch Keller,,,,,NA,,,,,0.362,7,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TB@PIT,PIT,Jake Mangum,Shane McClanahan,,,,,NA,,,,,0.504,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TB@PIT,PIT,Nick Gonzales,Shane McClanahan,,,,,NA,,,,,0.250,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TB@PIT,PIT,Bryan Reynolds,Shane McClanahan,,,,,NA,,,,,0.502,9,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TB@PIT,PIT,Marcell Ozuna,Shane McClanahan,,,,,NA,,,,,0.572,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TB@PIT,PIT,Oneil Cruz,Shane McClanahan,,,,,NA,,,,,0.703,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TB@PIT,PIT,Nick Yorke,Shane McClanahan,,,,,NA,,,,,0.367,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TB@PIT,PIT,Konnor Griffin,Shane McClanahan,,,,,NA,,,,,0.349,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TB@PIT,PIT,Joey Bart,Shane McClanahan,,,,,NA,,,,,0.386,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TB@PIT,PIT,Billy Cook,Shane McClanahan,,,,,NA,,,,,0.425,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,KC@NYY,KC,Maikel Garcia,Ryan Weathers,,,,,NA,,,,,0.520,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,KC@NYY,KC,Bobby Witt Jr.,Ryan Weathers,,,,,NA,,,,,0.465,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,KC@NYY,KC,Vinnie Pasquantino,Ryan Weathers,,,,,NA,,,,,0.396,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,KC@NYY,KC,Salvador Perez,Ryan Weathers,,,,,NA,,,,,0.266,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,KC@NYY,KC,Lane Thomas,Ryan Weathers,,,,,NA,,,,,0.314,6,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,KC@NYY,KC,Starling Marte,Ryan Weathers,,,,,NA,,,,,0.319,7,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,KC@NYY,KC,Isaac Collins,Ryan Weathers,,,,,NA,,,,,0.223,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,KC@NYY,KC,Michael Massey,Ryan Weathers,,,,,NA,,,,,0.340,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,KC@NYY,KC,Elias Díaz,Ryan Weathers,,,,,NA,,,,,,9,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,KC@NYY,NYY,Ben Rice,Cole Ragans,,,,,NA,,,,,0.950,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,KC@NYY,NYY,Aaron Judge,Cole Ragans,,,,,NA,,,,,0.793,6,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,KC@NYY,NYY,Cody Bellinger,Cole Ragans,,,,,NA,,,,,0.548,8,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,KC@NYY,NYY,Paul Goldschmidt,Cole Ragans,,,,,NA,,,,,0.395,7,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,KC@NYY,NYY,Trent Grisham,Cole Ragans,,,,,NA,,,,,0.374,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,KC@NYY,NYY,Amed Rosario,Cole Ragans,,,,,NA,,,,,0.760,6,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,KC@NYY,NYY,Austin Wells,Cole Ragans,,,,,NA,,,,,0.435,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,KC@NYY,NYY,José Caballero,Cole Ragans,,,,,NA,,,,,0.545,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,KC@NYY,NYY,Ryan McMahon,Cole Ragans,,,,,NA,,,,,0.477,8,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,BAL@CLE,BAL,Taylor Ward,Joey Cantillo,,,,,NA,,,,,0.527,4,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,BAL@CLE,BAL,Gunnar Henderson,Joey Cantillo,,,,,NA,,,,,0.644,8,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,BAL@CLE,BAL,Pete Alonso,Joey Cantillo,,,,,NA,,,,,0.456,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,BAL@CLE,BAL,Johnathan Rodríguez,Joey Cantillo,,,,,NA,,,,,0.180,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,BAL@CLE,BAL,Jeremiah Jackson,Joey Cantillo,,,,,NA,,,,,0.912,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,BAL@CLE,BAL,Weston Wilson,Joey Cantillo,,,,,NA,,,,,0.871,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,BAL@CLE,BAL,Coby Mayo,Joey Cantillo,,,,,NA,,,,,0.247,6,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,BAL@CLE,BAL,Sam Huff,Joey Cantillo,,,,,NA,,,,,0.408,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,BAL@CLE,BAL,Blaze Alexander,Joey Cantillo,,,,,NA,,,,,0.245,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,BAL@CLE,CLE,Steven Kwan,Trevor Rogers,,,,,NA,,,,,0.432,9,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,BAL@CLE,CLE,Angel Martínez,Trevor Rogers,,,,,NA,,,,,0.665,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,BAL@CLE,CLE,José Ramírez,Trevor Rogers,,,,,NA,,,,,0.623,8,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,BAL@CLE,CLE,Rhys Hoskins,Trevor Rogers,,,,,NA,,,,,0.432,27,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,BAL@CLE,CLE,David Fry,Trevor Rogers,,,,,NA,,,,,0.266,7,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,BAL@CLE,CLE,Daniel Schneemann,Trevor Rogers,,,,,NA,,,,,0.831,5,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,BAL@CLE,CLE,Juan Brito,Trevor Rogers,,,,,NA,,,,,0.286,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,BAL@CLE,CLE,Austin Hedges,Trevor Rogers,,,,,NA,,,,,0.369,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,BAL@CLE,CLE,Brayan Rocchio,Trevor Rogers,,,,,NA,,,,,0.605,6,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,MIL@MIA,MIL,Garrett Mitchell,Eury Pérez,,,,,NA,,,,,0.436,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,MIL@MIA,MIL,Brice Turang,Eury Pérez,,,,,NA,,,,,0.715,8,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,MIL@MIA,MIL,Gary Sánchez,Eury Pérez,,,,,NA,,,,,0.752,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,MIL@MIA,MIL,Jake Bauers,Eury Pérez,,,,,NA,,,,,0.704,5,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,MIL@MIA,MIL,Luis Rengifo,Eury Pérez,,,,,NA,,,,,0.257,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,MIL@MIA,MIL,Brandon Lockridge,Eury Pérez,,,,,NA,,,,,0.318,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,MIL@MIA,MIL,Greg Jones,Eury Pérez,,,,,NA,,,,,0.180,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,MIL@MIA,MIL,Luis Matos,Eury Pérez,,,,,NA,,,,,0.258,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,MIL@MIA,MIL,David Hamilton,Eury Pérez,,,,,NA,,,,,0.214,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,MIL@MIA,MIA,Jakob Marsee,Jacob Misiorowski,,,,,NA,,,,,0.308,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,MIL@MIA,MIA,Xavier Edwards,Jacob Misiorowski,,,,,NA,,,,,0.469,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,MIL@MIA,MIA,Otto Lopez,Jacob Misiorowski,,,,,NA,,,,,0.743,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,MIL@MIA,MIA,Kyle Stowers,Jacob Misiorowski,,,,,NA,,,,,,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,MIL@MIA,MIA,Agustín Ramírez,Jacob Misiorowski,,,,,NA,,,,,0.429,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,MIL@MIA,MIA,Liam Hicks,Jacob Misiorowski,,,,,NA,,,,,0.450,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,MIL@MIA,MIA,Connor Norby,Jacob Misiorowski,,,,,NA,,,,,0.687,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,MIL@MIA,MIA,Owen Caissie,Jacob Misiorowski,,,,,NA,,,,,0.300,4,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,MIL@MIA,MIA,Graham Pauley,Jacob Misiorowski,,,,,NA,,,,,0.305,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,STL@HOU,STL,JJ Wetherholt,Mike Burrows,,,,,NA,,,,,0.512,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,STL@HOU,STL,Iván Herrera,Mike Burrows,,,,,NA,,,,,0.490,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,STL@HOU,STL,Alec Burleson,Mike Burrows,,,,,NA,,,,,0.636,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,STL@HOU,STL,Jordan Walker,Mike Burrows,,,,,NA,,,,,0.908,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,STL@HOU,STL,Nolan Gorman,Mike Burrows,,,,,NA,,,,,0.427,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,STL@HOU,STL,Masyn Winn,Mike Burrows,,,,,NA,,,,,0.468,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,STL@HOU,STL,Nathan Church,Mike Burrows,,,,,NA,,,,,0.571,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,STL@HOU,STL,Pedro Pagés,Mike Burrows,,,,,NA,,,,,0.355,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,STL@HOU,STL,Victor Scott II,Mike Burrows,,,,,NA,,,,,0.217,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,STL@HOU,HOU,Carlos Correa,Matthew Liberatore,,,,,NA,,,,,0.477,6,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,STL@HOU,HOU,Yordan Alvarez,Matthew Liberatore,,,,,NA,,,,,0.929,4,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,STL@HOU,HOU,Jose Altuve,Matthew Liberatore,,,,,NA,,,,,0.501,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,STL@HOU,HOU,Christian Walker,Matthew Liberatore,,,,,NA,,,,,0.543,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,STL@HOU,HOU,Isaac Paredes,Matthew Liberatore,,,,,NA,,,,,0.251,7,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,STL@HOU,HOU,Cam Smith,Matthew Liberatore,,,,,NA,,,,,0.505,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,STL@HOU,HOU,Yainer Diaz,Matthew Liberatore,,,,,NA,,,,,0.216,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,STL@HOU,HOU,Shay Whitcomb,Matthew Liberatore,,,,,NA,,,,,0.950,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,STL@HOU,HOU,Taylor Trammell,Matthew Liberatore,,,,,NA,,,,,0.434,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,CIN@MIN,CIN,TJ Friedl,Bailey Ober,,,,,NA,,,,,0.241,12,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,CIN@MIN,CIN,Matt McLain,Bailey Ober,,,,,NA,,,,,0.255,5,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,CIN@MIN,CIN,Elly De La Cruz,Bailey Ober,,,,,NA,,,,,0.691,9,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,CIN@MIN,CIN,Sal Stewart,Bailey Ober,,,,,NA,,,,,0.738,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,CIN@MIN,CIN,Eugenio Suárez,Bailey Ober,,,,,NA,,,,,0.565,10,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,CIN@MIN,CIN,Spencer Steer,Bailey Ober,,,,,NA,,,,,0.487,12,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,CIN@MIN,CIN,Tyler Stephenson,Bailey Ober,,,,,NA,,,,,0.394,8,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,CIN@MIN,CIN,Rece Hinds,Bailey Ober,,,,,NA,,,,,0.180,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,CIN@MIN,CIN,Ke'Bryan Hayes,Bailey Ober,,,,,NA,,,,,0.180,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,CIN@MIN,MIN,Byron Buxton,Brady Singer,,,,,NA,,,,,0.629,21,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,CIN@MIN,MIN,Trevor Larnach,Brady Singer,,,,,NA,,,,,0.455,18,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,CIN@MIN,MIN,Josh Bell,Brady Singer,,,,,NA,,,,,0.510,14,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,CIN@MIN,MIN,Victor Caratini,Brady Singer,,,,,NA,,,,,0.477,7,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,CIN@MIN,MIN,Kody Clemens,Brady Singer,,,,,NA,,,,,0.385,5,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,CIN@MIN,MIN,Luke Keaschall,Brady Singer,,,,,NA,,,,,0.412,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,CIN@MIN,MIN,Tristan Gray,Brady Singer,,,,,NA,,,,,0.487,6,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,CIN@MIN,MIN,Brooks Lee,Brady Singer,,,,,NA,,,,,0.617,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,CIN@MIN,MIN,James Outman,Brady Singer,,,,,NA,,,,,0.180,5,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,NYM@CHC,NYM,Carson Benge,Javier Assad,,,,,NA,,,,,0.280,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,NYM@CHC,NYM,Bo Bichette,Javier Assad,,,,,NA,,,,,0.413,8,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,NYM@CHC,NYM,Francisco Lindor,Javier Assad,,,,,NA,,,,,0.419,11,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,NYM@CHC,NYM,Luis Robert Jr.,Javier Assad,,,,,NA,,,,,0.464,5,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,NYM@CHC,NYM,MJ Melendez,Javier Assad,,,,,NA,,,,,0.713,5,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,NYM@CHC,NYM,Mark Vientos,Javier Assad,,,,,NA,,,,,0.245,4,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,NYM@CHC,NYM,Brett Baty,Javier Assad,,,,,NA,,,,,0.180,5,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,NYM@CHC,NYM,Marcus Semien,Javier Assad,,,,,NA,,,,,0.275,4,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,NYM@CHC,NYM,Luis Torrens,Javier Assad,,,,,NA,,,,,0.364,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,NYM@CHC,CHC,Nico Hoerner,Tobias Myers,,,,,NA,,,,,0.707,9,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,NYM@CHC,CHC,Michael Busch,Tobias Myers,,,,,NA,,,,,0.190,10,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,NYM@CHC,CHC,Alex Bregman,Tobias Myers,,,,,NA,,,,,0.329,1,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,NYM@CHC,CHC,Ian Happ,Tobias Myers,,,,,NA,,,,,0.666,10,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,NYM@CHC,CHC,Seiya Suzuki,Tobias Myers,,,,,NA,,,,,0.419,9,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,NYM@CHC,CHC,Moisés Ballesteros,Tobias Myers,,,,,NA,,,,,0.950,1,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,NYM@CHC,CHC,Carson Kelly,Tobias Myers,,,,,NA,,,,,0.877,5,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,NYM@CHC,CHC,Pete Crow-Armstrong,Tobias Myers,,,,,NA,,,,,0.340,7,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,NYM@CHC,CHC,Dansby Swanson,Tobias Myers,,,,,NA,,,,,0.680,8,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,LAD@COL,LAD,Shohei Ohtani,Michael Lorenzen,,,,,192,,2.5,110,,0.764,13,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-19,LAD@COL,LAD,Kyle Tucker,Michael Lorenzen,,,,,380,,1.5,-128,,0.527,9,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-19,LAD@COL,LAD,Will Smith,Michael Lorenzen,,,,,360,,1.5,-130,,0.502,4,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-19,LAD@COL,LAD,Max Muncy,Michael Lorenzen,,,,,300,,1.5,106,,0.780,5,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-19,LAD@COL,LAD,Andy Pages,Michael Lorenzen,,,,,430,,1.5,-130,,0.652,5,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-19,LAD@COL,LAD,Alex Call,Michael Lorenzen,,,,,NA,,,,,0.731,5,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,LAD@COL,LAD,Ryan Ward,Michael Lorenzen,,,,,630,,1.5,124,,,1,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-19,LAD@COL,LAD,Hyeseong Kim,Michael Lorenzen,,,,,NA,,,,,0.585,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,LAD@COL,LAD,Alex Freeland,Michael Lorenzen,,,,,NA,,,,,0.266,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,LAD@COL,COL,Edouard Julien,Roki Sasaki,,,,,NA,,,,,0.451,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,LAD@COL,COL,Mickey Moniak,Roki Sasaki,,,,,NA,,,,,0.830,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,LAD@COL,COL,Hunter Goodman,Roki Sasaki,,,,,330,,1.5,100,,0.839,3,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-19,LAD@COL,COL,Tyler Freeman,Roki Sasaki,,,,,775,,1.5,106,,0.391,3,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-19,LAD@COL,COL,TJ Rumfield,Roki Sasaki,,,,,700,,1.5,149,,0.369,2,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-19,LAD@COL,COL,Troy Johnston,Roki Sasaki,,,,,NA,,,,,0.579,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,LAD@COL,COL,Willi Castro,Roki Sasaki,,,,,725,,1.5,140,,0.620,2,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-19,LAD@COL,COL,Kyle Karros,Roki Sasaki,,,,,900,,0.5,-182,,0.297,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-19,LAD@COL,COL,Jake McCarthy,Roki Sasaki,,,,,900,,0.5,-167,,0.553,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-19,CWS@ATH,CWS,Chase Meidroth,Jeffrey Springs,,,,,NA,,,,,0.413,5,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,CWS@ATH,CWS,Miguel Vargas,Jeffrey Springs,,,,,NA,,,,,0.260,10,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,CWS@ATH,CWS,Munetaka Murakami,Jeffrey Springs,,,,,NA,,,,,0.580,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,CWS@ATH,CWS,Everson Pereira,Jeffrey Springs,,,,,NA,,,,,0.944,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,CWS@ATH,CWS,Edgar Quero,Jeffrey Springs,,,,,NA,,,,,0.307,6,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,CWS@ATH,CWS,Colson Montgomery,Jeffrey Springs,,,,,NA,,,,,0.525,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,CWS@ATH,CWS,Tanner Murray,Jeffrey Springs,,,,,NA,,,,,0.559,0,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,CWS@ATH,CWS,Derek Hill,Jeffrey Springs,,,,,NA,,,,,0.352,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,CWS@ATH,CWS,Luisangel Acuña,Jeffrey Springs,,,,,NA,,,,,0.269,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,CWS@ATH,ATH,Jacob Wilson,Noah Schultz,,,,,NA,,,,,0.511,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,CWS@ATH,ATH,Shea Langeliers,Noah Schultz,,,,,NA,,,,,0.603,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,CWS@ATH,ATH,Nick Kurtz,Noah Schultz,,,,,NA,,,,,0.687,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,CWS@ATH,ATH,Andy Ibáñez,Noah Schultz,,,,,NA,,,,,0.180,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,CWS@ATH,ATH,Max Muncy,Noah Schultz,,,,,NA,,,,,0.459,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,CWS@ATH,ATH,Tyler Soderstrom,Noah Schultz,,,,,NA,,,,,0.510,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,CWS@ATH,ATH,Darell Hernaiz,Noah Schultz,,,,,NA,,,,,0.334,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,CWS@ATH,ATH,Denzel Clarke,Noah Schultz,,,,,NA,,,,,0.274,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,CWS@ATH,ATH,Zack Gelof,Noah Schultz,,,,,NA,,,,,0.228,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,SD@LAA,SD,Ramón Laureano,Walbert Urena,,,,,NA,,,,,0.618,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,SD@LAA,SD,Fernando Tatis Jr.,Walbert Urena,,,,,NA,,,,,0.427,1,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,SD@LAA,SD,Jackson Merrill,Walbert Urena,,,,,NA,,,,,0.551,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,SD@LAA,SD,Manny Machado,Walbert Urena,,,,,NA,,,,,0.463,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,SD@LAA,SD,Xander Bogaerts,Walbert Urena,,,,,NA,,,,,0.754,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,SD@LAA,SD,Gavin Sheets,Walbert Urena,,,,,NA,,,,,0.619,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,SD@LAA,SD,Miguel Andujar,Walbert Urena,,,,,NA,,,,,0.604,0,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,SD@LAA,SD,Luis Campusano,Walbert Urena,,,,,NA,,,,,0.745,0,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,SD@LAA,SD,Bryce Johnson,Walbert Urena,,,,,NA,,,,,0.228,1,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,SD@LAA,LAA,Zach Neto,Michael King,,,,,NA,,,,,0.565,8,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,SD@LAA,LAA,Mike Trout,Michael King,,,,,NA,,,,,0.828,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,SD@LAA,LAA,Nolan Schanuel,Michael King,,,,,NA,,,,,0.312,4,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,SD@LAA,LAA,Jorge Soler,Michael King,,,,,NA,,,,,0.934,13,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,SD@LAA,LAA,Yoán Moncada,Michael King,,,,,NA,,,,,0.608,9,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,SD@LAA,LAA,Jo Adell,Michael King,,,,,NA,,,,,0.664,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,SD@LAA,LAA,Josh Lowe,Michael King,,,,,NA,,,,,0.536,5,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,SD@LAA,LAA,Travis d'Arnaud,Michael King,,,,,NA,,,,,0.182,6,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,SD@LAA,LAA,Adam Frazier,Michael King,,,,,NA,,,,,0.683,9,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TEX@SEA,TEX,Brandon Nimmo,Bryan Woo,,,,,NA,,,,,0.611,118,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TEX@SEA,TEX,Corey Seager,Bryan Woo,,,,,NA,,,,,0.487,118,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TEX@SEA,TEX,Wyatt Langford,Bryan Woo,,,,,NA,,,,,0.551,118,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TEX@SEA,TEX,Jake Burger,Bryan Woo,,,,,NA,,,,,0.533,118,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TEX@SEA,TEX,Joc Pederson,Bryan Woo,,,,,NA,,,,,0.639,118,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TEX@SEA,TEX,Josh Jung,Bryan Woo,,,,,NA,,,,,0.918,118,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TEX@SEA,TEX,Evan Carter,Bryan Woo,,,,,NA,,,,,0.408,118,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TEX@SEA,TEX,Josh Smith,Bryan Woo,,,,,NA,,,,,0.317,118,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TEX@SEA,TEX,Danny Jansen,Bryan Woo,,,,,NA,,,,,0.337,118,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TEX@SEA,SEA,Rob Refsnyder,MacKenzie Gore,,,,,NA,,,,,0.180,76,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TEX@SEA,SEA,Cal Raleigh,MacKenzie Gore,,,,,NA,,,,,0.428,76,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TEX@SEA,SEA,Julio Rodríguez,MacKenzie Gore,,,,,NA,,,,,0.470,76,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TEX@SEA,SEA,Randy Arozarena,MacKenzie Gore,,,,,NA,,,,,0.497,76,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TEX@SEA,SEA,Mitch Garver,MacKenzie Gore,,,,,NA,,,,,0.187,76,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TEX@SEA,SEA,Connor Joe,MacKenzie Gore,,,,,NA,,,,,0.180,76,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TEX@SEA,SEA,J.P. Crawford,MacKenzie Gore,,,,,NA,,,,,0.371,76,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TEX@SEA,SEA,Cole Young,MacKenzie Gore,,,,,NA,,,,,0.414,76,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TEX@SEA,SEA,Leo Rivas,MacKenzie Gore,,,,,NA,,,,,0.296,76,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TOR@AZ,TOR,Nathan Lukes,Ryne Nelson,,,,,NA,,,,,0.189,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TOR@AZ,TOR,Ernie Clement,Ryne Nelson,,,,,NA,,,,,0.472,6,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TOR@AZ,TOR,Vladimir Guerrero Jr.,Ryne Nelson,,,,,NA,,,,,0.528,9,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TOR@AZ,TOR,Jesús Sánchez,Ryne Nelson,,,,,NA,,,,,0.443,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TOR@AZ,TOR,Eloy Jiménez,Ryne Nelson,,,,,NA,,,,,0.445,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TOR@AZ,TOR,Andrés Giménez,Ryne Nelson,,,,,NA,,,,,0.478,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TOR@AZ,TOR,Kazuma Okamoto,Ryne Nelson,,,,,NA,,,,,0.238,1,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TOR@AZ,TOR,Myles Straw,Ryne Nelson,,,,,NA,,,,,0.699,1,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TOR@AZ,TOR,Brandon Valenzuela,Ryne Nelson,,,,,NA,,,,,0.390,1,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TOR@AZ,AZ,Ketel Marte,Kevin Gausman,,,,,NA,,,,,0.634,30,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TOR@AZ,AZ,Corbin Carroll,Kevin Gausman,,,,,NA,,,,,0.754,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TOR@AZ,AZ,Jose Fernandez,Kevin Gausman,,,,,NA,,,,,0.410,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TOR@AZ,AZ,Lourdes Gurriel Jr.,Kevin Gausman,,,,,NA,,,,,0.180,6,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TOR@AZ,AZ,Adrian Del Castillo,Kevin Gausman,,,,,NA,,,,,0.669,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TOR@AZ,AZ,Ildemaro Vargas,Kevin Gausman,,,,,NA,,,,,0.646,6,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TOR@AZ,AZ,Nolan Arenado,Kevin Gausman,,,,,NA,,,,,0.582,24,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TOR@AZ,AZ,James McCann,Kevin Gausman,,,,,NA,,,,,0.483,18,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,TOR@AZ,AZ,Alek Thomas,Kevin Gausman,,,,,NA,,,,,0.321,4,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,DET@BOS,DET,Jahmai Jones,Garrett Crochet,,,,,NA,,,,,0.295,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-19,SF@WSH,SF,Willy Adames,PJ Poulin,,,,,NA,,1.5,150,,0.685,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,SF@WSH,SF,Luis Arraez,PJ Poulin,,,,,NA,,1.5,150,,0.509,1,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,SF@WSH,SF,Matt Chapman,PJ Poulin,,,,,NA,,1.5,150,,0.555,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,SF@WSH,SF,Rafael Devers,PJ Poulin,,,,,NA,,1.5,200,,0.376,1,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,SF@WSH,SF,Casey Schmitt,PJ Poulin,,,,,NA,,1.5,250,,0.767,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,SF@WSH,SF,Jung Hoo Lee,PJ Poulin,,,,,NA,,1.5,150,,0.530,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,SF@WSH,SF,Heliot Ramos,PJ Poulin,,,,,NA,,1.5,150,,0.651,1,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,SF@WSH,SF,Drew Gilbert,PJ Poulin,,,,,NA,,1.5,250,,0.665,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,SF@WSH,SF,Patrick Bailey,PJ Poulin,,,,,NA,,1.5,150,,0.217,1,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,SF@WSH,WSH,James Wood,Robbie Ray,,,,,NA,,1.5,150,,0.950,6,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,SF@WSH,WSH,Curtis Mead,Robbie Ray,,,,,NA,,1.5,150,,0.467,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,SF@WSH,WSH,Brady House,Robbie Ray,,,,,NA,,1.5,150,,0.373,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,SF@WSH,WSH,CJ Abrams,Robbie Ray,,,,,NA,,1.5,100,,0.821,5,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,SF@WSH,WSH,Jacob Young,Robbie Ray,,,,,NA,,1.5,150,,0.489,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,SF@WSH,WSH,Joey Wiemer,Robbie Ray,,,,,NA,,1.5,150,,0.243,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,SF@WSH,WSH,Luis García Jr.,Robbie Ray,,,,,NA,,1.5,100,,0.301,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,SF@WSH,WSH,Nasim Nuñez,Robbie Ray,,,,,NA,,1.5,150,,0.249,5,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,SF@WSH,WSH,Keibert Ruiz,Robbie Ray,,,,,NA,,1.5,150,,0.270,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TB@PIT,TB,Chandler Simpson,Mitch Keller,,,,,NA,,1.5,150,,0.398,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TB@PIT,TB,Junior Caminero,Mitch Keller,,,,,NA,,1.5,150,,0.673,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TB@PIT,TB,Jonathan Aranda,Mitch Keller,,,,,NA,,1.5,150,,0.446,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TB@PIT,TB,Yandy Díaz,Mitch Keller,,,,,NA,,1.5,150,,0.543,9,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TB@PIT,TB,Cedric Mullins,Mitch Keller,,,,,NA,,1.5,150,,0.468,6,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TB@PIT,TB,Richie Palacios,Mitch Keller,,,,,NA,,1.5,250,,0.743,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TB@PIT,TB,Jonny DeLuca,Mitch Keller,,,,,NA,,1.5,150,,0.587,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TB@PIT,TB,Hunter Feduccia,Mitch Keller,,,,,NA,,1.5,150,,0.293,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TB@PIT,TB,Taylor Walls,Mitch Keller,,,,,NA,,1.5,150,,0.362,7,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TB@PIT,PIT,Jake Mangum,Shane McClanahan,,,,,NA,,1.5,350,,0.504,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TB@PIT,PIT,Nick Gonzales,Shane McClanahan,,,,,NA,,1.5,250,,0.250,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TB@PIT,PIT,Bryan Reynolds,Shane McClanahan,,,,,NA,,1.5,150,,0.502,9,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TB@PIT,PIT,Marcell Ozuna,Shane McClanahan,,,,,NA,,1.5,250,,0.572,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TB@PIT,PIT,Oneil Cruz,Shane McClanahan,,,,,NA,,1.5,100,,0.703,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TB@PIT,PIT,Nick Yorke,Shane McClanahan,,,,,NA,,1.5,100,,0.367,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TB@PIT,PIT,Konnor Griffin,Shane McClanahan,,,,,NA,,1.5,150,,0.349,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TB@PIT,PIT,Joey Bart,Shane McClanahan,,,,,NA,,1.5,250,,0.386,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TB@PIT,PIT,Billy Cook,Shane McClanahan,,,,,NA,,1.5,150,,0.425,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,KC@NYY,KC,Maikel Garcia,Ryan Weathers,,,,,NA,,1.5,150,,0.520,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,KC@NYY,KC,Bobby Witt Jr.,Ryan Weathers,,,,,NA,,1.5,300,,0.465,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,KC@NYY,KC,Vinnie Pasquantino,Ryan Weathers,,,,,NA,,1.5,100,,0.396,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,KC@NYY,KC,Salvador Perez,Ryan Weathers,,,,,NA,,1.5,150,,0.266,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,KC@NYY,KC,Lane Thomas,Ryan Weathers,,,,,NA,,1.5,150,,0.314,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,KC@NYY,KC,Starling Marte,Ryan Weathers,,,,,NA,,1.5,150,,0.319,5,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,KC@NYY,KC,Isaac Collins,Ryan Weathers,,,,,NA,,1.5,100,,0.223,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,KC@NYY,KC,Michael Massey,Ryan Weathers,,,,,NA,,1.5,100,,0.340,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,KC@NYY,KC,Elias Díaz,Ryan Weathers,,,,,NA,,1.5,150,,,7,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,KC@NYY,NYY,Ben Rice,Cole Ragans,,,,,NA,,1.5,450,,0.950,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,KC@NYY,NYY,Aaron Judge,Cole Ragans,,,,,NA,,1.5,450,,0.793,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,KC@NYY,NYY,Cody Bellinger,Cole Ragans,,,,,NA,,1.5,250,,0.548,8,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,KC@NYY,NYY,Paul Goldschmidt,Cole Ragans,,,,,NA,,1.5,100,,0.395,4,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,KC@NYY,NYY,Trent Grisham,Cole Ragans,,,,,NA,,1.5,450,,0.374,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,KC@NYY,NYY,Amed Rosario,Cole Ragans,,,,,NA,,1.5,150,,0.760,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,KC@NYY,NYY,Austin Wells,Cole Ragans,,,,,NA,,1.5,100,,0.435,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,KC@NYY,NYY,José Caballero,Cole Ragans,,,,,NA,,1.5,150,,0.545,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,KC@NYY,NYY,Ryan McMahon,Cole Ragans,,,,,NA,,1.5,50,,0.477,8,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,BAL@CLE,BAL,Taylor Ward,Joey Cantillo,,,,,NA,,1.5,350,,0.527,4,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,BAL@CLE,BAL,Gunnar Henderson,Joey Cantillo,,,,,NA,,1.5,150,,0.644,8,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,BAL@CLE,BAL,Pete Alonso,Joey Cantillo,,,,,NA,,1.5,150,,0.456,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,BAL@CLE,BAL,Johnathan Rodríguez,Joey Cantillo,,,,,NA,,1.5,150,,0.180,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,BAL@CLE,BAL,Jeremiah Jackson,Joey Cantillo,,,,,NA,,1.5,150,,0.912,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,BAL@CLE,BAL,Weston Wilson,Joey Cantillo,,,,,NA,,1.5,100,,0.871,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,BAL@CLE,BAL,Coby Mayo,Joey Cantillo,,,,,NA,,1.5,150,,0.247,6,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,BAL@CLE,BAL,Sam Huff,Joey Cantillo,,,,,NA,,1.5,150,,0.408,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,BAL@CLE,BAL,Blaze Alexander,Joey Cantillo,,,,,NA,,1.5,100,,0.245,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,BAL@CLE,CLE,Steven Kwan,Trevor Rogers,,,,,NA,,1.5,150,,0.432,8,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,BAL@CLE,CLE,Angel Martínez,Trevor Rogers,,,,,NA,,1.5,150,,0.665,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,BAL@CLE,CLE,José Ramírez,Trevor Rogers,,,,,NA,,1.5,650,,0.623,8,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,BAL@CLE,CLE,Rhys Hoskins,Trevor Rogers,,,,,NA,,1.5,150,,0.432,26,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,BAL@CLE,CLE,David Fry,Trevor Rogers,,,,,NA,,1.5,150,,0.266,4,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,BAL@CLE,CLE,Daniel Schneemann,Trevor Rogers,,,,,NA,,1.5,100,,0.831,5,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,BAL@CLE,CLE,Juan Brito,Trevor Rogers,,,,,NA,,1.5,250,,0.286,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,BAL@CLE,CLE,Austin Hedges,Trevor Rogers,,,,,NA,,1.5,100,,0.369,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,BAL@CLE,CLE,Brayan Rocchio,Trevor Rogers,,,,,NA,,1.5,250,,0.605,4,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,MIL@MIA,MIL,Garrett Mitchell,Eury Pérez,,,,,NA,,1.5,150,,0.436,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,MIL@MIA,MIL,Brice Turang,Eury Pérez,,,,,NA,,1.5,150,,0.715,8,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,MIL@MIA,MIL,Gary Sánchez,Eury Pérez,,,,,NA,,1.5,150,,0.752,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,MIL@MIA,MIL,Jake Bauers,Eury Pérez,,,,,NA,,1.5,100,,0.704,5,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,MIL@MIA,MIL,Luis Rengifo,Eury Pérez,,,,,NA,,1.5,150,,0.257,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,MIL@MIA,MIL,Brandon Lockridge,Eury Pérez,,,,,NA,,1.5,250,,0.318,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,MIL@MIA,MIL,Greg Jones,Eury Pérez,,,,,NA,,1.5,150,,0.180,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,MIL@MIA,MIL,Luis Matos,Eury Pérez,,,,,NA,,1.5,100,,0.258,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,MIL@MIA,MIL,David Hamilton,Eury Pérez,,,,,NA,,1.5,100,,0.214,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,MIL@MIA,MIA,Jakob Marsee,Jacob Misiorowski,,,,,NA,,1.5,150,,0.308,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,MIL@MIA,MIA,Xavier Edwards,Jacob Misiorowski,,,,,NA,,1.5,150,,0.469,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,MIL@MIA,MIA,Otto Lopez,Jacob Misiorowski,,,,,NA,,1.5,150,,0.743,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,MIL@MIA,MIA,Kyle Stowers,Jacob Misiorowski,,,,,NA,,1.5,250,,,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,MIL@MIA,MIA,Agustín Ramírez,Jacob Misiorowski,,,,,NA,,1.5,150,,0.429,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,MIL@MIA,MIA,Liam Hicks,Jacob Misiorowski,,,,,NA,,1.5,150,,0.450,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,MIL@MIA,MIA,Connor Norby,Jacob Misiorowski,,,,,NA,,1.5,150,,0.687,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,MIL@MIA,MIA,Owen Caissie,Jacob Misiorowski,,,,,NA,,1.5,250,,0.300,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,MIL@MIA,MIA,Graham Pauley,Jacob Misiorowski,,,,,NA,,1.5,100,,0.305,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,STL@HOU,STL,JJ Wetherholt,Mike Burrows,,,,,NA,,1.5,150,,0.512,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,STL@HOU,STL,Iván Herrera,Mike Burrows,,,,,NA,,1.5,150,,0.490,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,STL@HOU,STL,Alec Burleson,Mike Burrows,,,,,NA,,1.5,150,,0.636,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,STL@HOU,STL,Jordan Walker,Mike Burrows,,,,,NA,,1.5,150,,0.908,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,STL@HOU,STL,Nolan Gorman,Mike Burrows,,,,,NA,,1.5,100,,0.427,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,STL@HOU,STL,Masyn Winn,Mike Burrows,,,,,NA,,1.5,250,,0.468,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,STL@HOU,STL,Nathan Church,Mike Burrows,,,,,NA,,1.5,50,,0.571,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,STL@HOU,STL,Pedro Pagés,Mike Burrows,,,,,NA,,1.5,150,,0.355,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,STL@HOU,STL,Victor Scott II,Mike Burrows,,,,,NA,,1.5,100,,0.217,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,STL@HOU,HOU,Carlos Correa,Matthew Liberatore,,,,,NA,,1.5,150,,0.477,6,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,STL@HOU,HOU,Yordan Alvarez,Matthew Liberatore,,,,,NA,,1.5,150,,0.929,1,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,STL@HOU,HOU,Jose Altuve,Matthew Liberatore,,,,,NA,,1.5,150,,0.501,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,STL@HOU,HOU,Christian Walker,Matthew Liberatore,,,,,NA,,1.5,150,,0.543,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,STL@HOU,HOU,Isaac Paredes,Matthew Liberatore,,,,,NA,,1.5,150,,0.251,7,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,STL@HOU,HOU,Cam Smith,Matthew Liberatore,,,,,NA,,1.5,150,,0.505,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,STL@HOU,HOU,Yainer Diaz,Matthew Liberatore,,,,,NA,,1.5,250,,0.216,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,STL@HOU,HOU,Shay Whitcomb,Matthew Liberatore,,,,,NA,,1.5,50,,0.950,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,STL@HOU,HOU,Taylor Trammell,Matthew Liberatore,,,,,NA,,1.5,350,,0.434,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,CIN@MIN,CIN,TJ Friedl,Bailey Ober,,,,,NA,,1.5,150,,0.241,12,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,CIN@MIN,CIN,Matt McLain,Bailey Ober,,,,,NA,,1.5,150,,0.255,5,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,CIN@MIN,CIN,Elly De La Cruz,Bailey Ober,,,,,NA,,1.5,250,,0.691,9,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,CIN@MIN,CIN,Sal Stewart,Bailey Ober,,,,,NA,,1.5,150,,0.738,1,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,CIN@MIN,CIN,Eugenio Suárez,Bailey Ober,,,,,NA,,1.5,100,,0.565,10,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,CIN@MIN,CIN,Spencer Steer,Bailey Ober,,,,,NA,,1.5,150,,0.487,12,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,CIN@MIN,CIN,Tyler Stephenson,Bailey Ober,,,,,NA,,1.5,150,,0.394,8,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,CIN@MIN,CIN,Rece Hinds,Bailey Ober,,,,,NA,,1.5,100,,0.180,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,CIN@MIN,CIN,Ke'Bryan Hayes,Bailey Ober,,,,,NA,,1.5,100,,0.180,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,CIN@MIN,MIN,Byron Buxton,Brady Singer,,,,,NA,,1.5,150,,0.629,18,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,CIN@MIN,MIN,Trevor Larnach,Brady Singer,,,,,NA,,1.5,150,,0.455,15,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,CIN@MIN,MIN,Josh Bell,Brady Singer,,,,,NA,,1.5,150,,0.510,11,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,CIN@MIN,MIN,Victor Caratini,Brady Singer,,,,,NA,,1.5,150,,0.477,7,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,CIN@MIN,MIN,Kody Clemens,Brady Singer,,,,,NA,,1.5,100,,0.385,4,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,CIN@MIN,MIN,Luke Keaschall,Brady Singer,,,,,NA,,1.5,150,,0.412,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,CIN@MIN,MIN,Tristan Gray,Brady Singer,,,,,NA,,1.5,100,,0.487,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,CIN@MIN,MIN,Brooks Lee,Brady Singer,,,,,NA,,1.5,100,,0.617,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,CIN@MIN,MIN,James Outman,Brady Singer,,,,,NA,,1.5,150,,0.180,5,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,NYM@CHC,NYM,Carson Benge,Javier Assad,,,,,NA,,1.5,100,,0.280,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,NYM@CHC,NYM,Bo Bichette,Javier Assad,,,,,NA,,1.5,150,,0.413,8,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,NYM@CHC,NYM,Francisco Lindor,Javier Assad,,,,,NA,,1.5,150,,0.419,11,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,NYM@CHC,NYM,Luis Robert Jr.,Javier Assad,,,,,NA,,1.5,150,,0.464,5,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,NYM@CHC,NYM,MJ Melendez,Javier Assad,,,,,NA,,1.5,450,,0.713,5,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,NYM@CHC,NYM,Mark Vientos,Javier Assad,,,,,NA,,1.5,150,,0.245,4,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,NYM@CHC,NYM,Brett Baty,Javier Assad,,,,,NA,,1.5,150,,0.180,5,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,NYM@CHC,NYM,Marcus Semien,Javier Assad,,,,,NA,,1.5,150,,0.275,4,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,NYM@CHC,NYM,Luis Torrens,Javier Assad,,,,,NA,,1.5,250,,0.364,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,NYM@CHC,CHC,Nico Hoerner,Tobias Myers,,,,,NA,,1.5,150,,0.707,8,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,NYM@CHC,CHC,Michael Busch,Tobias Myers,,,,,NA,,1.5,150,,0.190,10,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,NYM@CHC,CHC,Alex Bregman,Tobias Myers,,,,,NA,,1.5,150,,0.329,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,NYM@CHC,CHC,Ian Happ,Tobias Myers,,,,,NA,,1.5,150,,0.666,9,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,NYM@CHC,CHC,Seiya Suzuki,Tobias Myers,,,,,NA,,1.5,150,,0.419,9,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,NYM@CHC,CHC,Moisés Ballesteros,Tobias Myers,,,,,NA,,1.5,150,,0.950,1,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,NYM@CHC,CHC,Carson Kelly,Tobias Myers,,,,,NA,,1.5,100,,0.877,5,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,NYM@CHC,CHC,Pete Crow-Armstrong,Tobias Myers,,,,,NA,,1.5,350,,0.340,7,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,NYM@CHC,CHC,Dansby Swanson,Tobias Myers,,,,,NA,,1.5,150,,0.680,8,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,LAD@COL,LAD,Shohei Ohtani,Michael Lorenzen,,,,,NA,,1.5,350,,0.764,10,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,LAD@COL,LAD,Kyle Tucker,Michael Lorenzen,,,,,NA,,1.5,150,,0.527,9,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,LAD@COL,LAD,Will Smith,Michael Lorenzen,,,,,NA,,1.5,150,,0.502,4,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,LAD@COL,LAD,Max Muncy,Michael Lorenzen,,,,,NA,,1.5,250,,0.780,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,LAD@COL,LAD,Andy Pages,Michael Lorenzen,,,,,NA,,1.5,150,,0.652,5,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,LAD@COL,LAD,Alex Call,Michael Lorenzen,,,,,NA,,1.5,150,,0.731,5,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,LAD@COL,LAD,Ryan Ward,Michael Lorenzen,,,,,NA,,1.5,150,,,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,LAD@COL,LAD,Hyeseong Kim,Michael Lorenzen,,,,,NA,,1.5,250,,0.585,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,LAD@COL,LAD,Alex Freeland,Michael Lorenzen,,,,,NA,,1.5,250,,0.266,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,LAD@COL,COL,Edouard Julien,Roki Sasaki,,,,,NA,,1.5,150,,0.451,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,LAD@COL,COL,Mickey Moniak,Roki Sasaki,,,,,NA,,1.5,150,,0.830,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,LAD@COL,COL,Hunter Goodman,Roki Sasaki,,,,,NA,,1.5,150,,0.839,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,LAD@COL,COL,Tyler Freeman,Roki Sasaki,,,,,NA,,1.5,150,,0.391,1,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,LAD@COL,COL,TJ Rumfield,Roki Sasaki,,,,,NA,,1.5,150,,0.369,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,LAD@COL,COL,Troy Johnston,Roki Sasaki,,,,,NA,,1.5,350,,0.579,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,LAD@COL,COL,Willi Castro,Roki Sasaki,,,,,NA,,1.5,150,,0.620,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,LAD@COL,COL,Kyle Karros,Roki Sasaki,,,,,NA,,1.5,550,,0.297,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,LAD@COL,COL,Jake McCarthy,Roki Sasaki,,,,,NA,,1.5,250,,0.553,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,CWS@ATH,CWS,Chase Meidroth,Jeffrey Springs,,,,,NA,,1.5,350,,0.413,5,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,CWS@ATH,CWS,Miguel Vargas,Jeffrey Springs,,,,,NA,,1.5,550,,0.260,10,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,CWS@ATH,CWS,Munetaka Murakami,Jeffrey Springs,,,,,NA,,1.5,450,,0.580,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,CWS@ATH,CWS,Everson Pereira,Jeffrey Springs,,,,,NA,,1.5,350,,0.944,5,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,CWS@ATH,CWS,Edgar Quero,Jeffrey Springs,,,,,NA,,1.5,150,,0.307,6,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,CWS@ATH,CWS,Colson Montgomery,Jeffrey Springs,,,,,NA,,1.5,450,,0.525,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,CWS@ATH,CWS,Tanner Murray,Jeffrey Springs,,,,,NA,,1.5,150,,0.559,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,CWS@ATH,CWS,Derek Hill,Jeffrey Springs,,,,,NA,,1.5,450,,0.352,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,CWS@ATH,CWS,Luisangel Acuña,Jeffrey Springs,,,,,NA,,1.5,150,,0.269,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,CWS@ATH,ATH,Jacob Wilson,Noah Schultz,,,,,NA,,1.5,150,,0.511,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,CWS@ATH,ATH,Shea Langeliers,Noah Schultz,,,,,NA,,1.5,150,,0.603,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,CWS@ATH,ATH,Nick Kurtz,Noah Schultz,,,,,NA,,1.5,150,,0.687,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,CWS@ATH,ATH,Andy Ibáñez,Noah Schultz,,,,,NA,,1.5,150,,0.180,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,CWS@ATH,ATH,Max Muncy,Noah Schultz,,,,,NA,,1.5,150,,0.459,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,CWS@ATH,ATH,Tyler Soderstrom,Noah Schultz,,,,,NA,,1.5,200,,0.510,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,CWS@ATH,ATH,Darell Hernaiz,Noah Schultz,,,,,NA,,1.5,450,,0.334,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,CWS@ATH,ATH,Denzel Clarke,Noah Schultz,,,,,NA,,1.5,50,,0.274,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,CWS@ATH,ATH,Zack Gelof,Noah Schultz,,,,,NA,,1.5,150,,0.228,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,SD@LAA,SD,Ramón Laureano,Walbert Urena,,,,,NA,,1.5,150,,0.618,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,SD@LAA,SD,Fernando Tatis Jr.,Walbert Urena,,,,,NA,,1.5,150,,0.427,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,SD@LAA,SD,Jackson Merrill,Walbert Urena,,,,,NA,,1.5,150,,0.551,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,SD@LAA,SD,Manny Machado,Walbert Urena,,,,,NA,,1.5,150,,0.463,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,SD@LAA,SD,Xander Bogaerts,Walbert Urena,,,,,NA,,1.5,150,,0.754,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,SD@LAA,SD,Gavin Sheets,Walbert Urena,,,,,NA,,1.5,150,,0.619,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,SD@LAA,SD,Miguel Andujar,Walbert Urena,,,,,NA,,1.5,150,,0.604,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,SD@LAA,SD,Luis Campusano,Walbert Urena,,,,,NA,,1.5,100,,0.745,1,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,SD@LAA,SD,Bryce Johnson,Walbert Urena,,,,,NA,,1.5,250,,0.228,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,SD@LAA,LAA,Zach Neto,Michael King,,,,,NA,,1.5,150,,0.565,5,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,SD@LAA,LAA,Mike Trout,Michael King,,,,,NA,,1.5,150,,0.828,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,SD@LAA,LAA,Nolan Schanuel,Michael King,,,,,NA,,1.5,150,,0.312,5,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,SD@LAA,LAA,Jorge Soler,Michael King,,,,,NA,,1.5,150,,0.934,13,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,SD@LAA,LAA,Yoán Moncada,Michael King,,,,,NA,,1.5,100,,0.608,7,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,SD@LAA,LAA,Jo Adell,Michael King,,,,,NA,,1.5,150,,0.664,1,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,SD@LAA,LAA,Josh Lowe,Michael King,,,,,NA,,1.5,150,,0.536,5,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,SD@LAA,LAA,Travis d'Arnaud,Michael King,,,,,NA,,1.5,100,,0.182,6,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,SD@LAA,LAA,Adam Frazier,Michael King,,,,,NA,,1.5,150,,0.683,9,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TEX@SEA,TEX,Brandon Nimmo,Bryan Woo,,,,,NA,,1.5,150,,0.611,6,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TEX@SEA,TEX,Corey Seager,Bryan Woo,,,,,NA,,1.5,150,,0.487,18,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TEX@SEA,TEX,Wyatt Langford,Bryan Woo,,,,,NA,,1.5,150,,0.551,9,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TEX@SEA,TEX,Jake Burger,Bryan Woo,,,,,NA,,1.5,150,,0.533,8,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TEX@SEA,TEX,Joc Pederson,Bryan Woo,,,,,NA,,1.5,100,,0.639,13,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TEX@SEA,TEX,Josh Jung,Bryan Woo,,,,,NA,,1.5,100,,0.918,16,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TEX@SEA,TEX,Evan Carter,Bryan Woo,,,,,NA,,1.5,150,,0.408,10,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TEX@SEA,TEX,Josh Smith,Bryan Woo,,,,,NA,,1.5,150,,0.317,17,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TEX@SEA,TEX,Danny Jansen,Bryan Woo,,,,,NA,,1.5,50,,0.337,4,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TEX@SEA,SEA,Rob Refsnyder,MacKenzie Gore,,,,,NA,,1.5,450,,0.180,8,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TEX@SEA,SEA,Cal Raleigh,MacKenzie Gore,,,,,NA,,1.5,150,,0.428,8,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TEX@SEA,SEA,Julio Rodríguez,MacKenzie Gore,,,,,NA,,1.5,150,,0.470,11,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TEX@SEA,SEA,Randy Arozarena,MacKenzie Gore,,,,,NA,,1.5,650,,0.497,8,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TEX@SEA,SEA,Mitch Garver,MacKenzie Gore,,,,,NA,,1.5,50,,0.187,5,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TEX@SEA,SEA,Connor Joe,MacKenzie Gore,,,,,NA,,1.5,150,,0.180,12,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TEX@SEA,SEA,J.P. Crawford,MacKenzie Gore,,,,,NA,,1.5,450,,0.371,8,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TEX@SEA,SEA,Cole Young,MacKenzie Gore,,,,,NA,,1.5,150,,0.414,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TEX@SEA,SEA,Leo Rivas,MacKenzie Gore,,,,,NA,,1.5,100,,0.296,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TOR@AZ,TOR,Nathan Lukes,Ryne Nelson,,,,,NA,,1.5,500,,0.189,1,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TOR@AZ,TOR,Ernie Clement,Ryne Nelson,,,,,NA,,1.5,400,,0.472,5,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TOR@AZ,TOR,Vladimir Guerrero Jr.,Ryne Nelson,,,,,NA,,1.5,250,,0.528,9,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TOR@AZ,TOR,Jesús Sánchez,Ryne Nelson,,,,,NA,,1.5,250,,0.443,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TOR@AZ,TOR,Eloy Jiménez,Ryne Nelson,,,,,NA,,1.5,250,,0.445,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TOR@AZ,TOR,Andrés Giménez,Ryne Nelson,,,,,NA,,1.5,200,,0.478,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TOR@AZ,TOR,Kazuma Okamoto,Ryne Nelson,,,,,NA,,1.5,500,,0.238,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TOR@AZ,TOR,Myles Straw,Ryne Nelson,,,,,NA,,1.5,150,,0.699,1,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TOR@AZ,TOR,Brandon Valenzuela,Ryne Nelson,,,,,NA,,1.5,150,,0.390,1,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TOR@AZ,AZ,Ketel Marte,Kevin Gausman,,,,,NA,,1.5,150,,0.634,30,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TOR@AZ,AZ,Corbin Carroll,Kevin Gausman,,,,,NA,,1.5,150,,0.754,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TOR@AZ,AZ,Jose Fernandez,Kevin Gausman,,,,,NA,,1.5,150,,0.410,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TOR@AZ,AZ,Lourdes Gurriel Jr.,Kevin Gausman,,,,,NA,,1.5,150,,0.180,6,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TOR@AZ,AZ,Adrian Del Castillo,Kevin Gausman,,,,,NA,,1.5,350,,0.669,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TOR@AZ,AZ,Ildemaro Vargas,Kevin Gausman,,,,,NA,,1.5,150,,0.646,6,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TOR@AZ,AZ,Nolan Arenado,Kevin Gausman,,,,,NA,,1.5,150,,0.582,24,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TOR@AZ,AZ,James McCann,Kevin Gausman,,,,,NA,,1.5,150,,0.483,18,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,TOR@AZ,AZ,Alek Thomas,Kevin Gausman,,,,,NA,,1.5,250,,0.321,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,DET@BOS,DET,Jahmai Jones,Garrett Crochet,,,,,NA,,1.5,450,,0.295,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
 2026-04-19,DET@BOS,DET,Gleyber Torres,Garrett Crochet,,,,,NA,,1.5,150,,0.335,4,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-19,DET@BOS,DET,Matt Vierling,Garrett Crochet,,,,,NA,,1.5,250,,0.315,10,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-19,DET@BOS,DET,Dillon Dingler,Garrett Crochet,,,,,NA,,1.5,150,,0.589,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,DET@BOS,DET,Matt Vierling,Garrett Crochet,,,,,NA,,1.5,350,,0.315,7,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,DET@BOS,DET,Dillon Dingler,Garrett Crochet,,,,,NA,,1.5,750,,0.589,1,,,,,,not_scored,not_scored,Display only,partial,not_scored
 2026-04-19,DET@BOS,DET,Riley Greene,Garrett Crochet,,,,,NA,,1.5,150,,0.522,10,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-19,DET@BOS,DET,Wenceel Pérez,Garrett Crochet,,,,,NA,,1.5,50,,0.239,5,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-19,DET@BOS,DET,Spencer Torkelson,Garrett Crochet,,,,,NA,,1.5,50,,0.413,9,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-19,DET@BOS,DET,Hao-Yu  Lee,Garrett Crochet,,,,,NA,,1.5,150,,0.180,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-19,DET@BOS,DET,Javier Báez,Garrett Crochet,,,,,NA,,1.5,50,,0.599,7,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-19,DET@BOS,BOS,Roman Anthony,Framber Valdez,,,,,NA,,1.5,150,,0.380,6,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-19,DET@BOS,BOS,Andruw Monasterio,Framber Valdez,,,,,NA,,,,,0.491,0,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,DET@BOS,BOS,Willson Contreras,Framber Valdez,,,,,NA,,1.5,150,,0.735,9,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,DET@BOS,DET,Wenceel Pérez,Garrett Crochet,,,,,NA,,1.5,150,,0.239,5,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,DET@BOS,DET,Spencer Torkelson,Garrett Crochet,,,,,NA,,1.5,150,,0.413,9,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,DET@BOS,DET,Hao-Yu  Lee,Garrett Crochet,,,,,NA,,1.5,150,,0.180,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,DET@BOS,DET,Javier Báez,Garrett Crochet,,,,,NA,,1.5,150,,0.599,7,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,DET@BOS,BOS,Roman Anthony,Framber Valdez,,,,,NA,,1.5,150,,0.380,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,DET@BOS,BOS,Andruw Monasterio,Framber Valdez,,,,,NA,,1.5,150,,0.491,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,DET@BOS,BOS,Willson Contreras,Framber Valdez,,,,,NA,,1.5,450,,0.735,9,,,,,,not_scored,not_scored,Display only,partial,not_scored
 2026-04-19,DET@BOS,BOS,Trevor Story,Framber Valdez,,,,,NA,,1.5,150,,0.445,9,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-19,DET@BOS,BOS,Wilyer Abreu,Framber Valdez,,,,,NA,,1.5,150,,0.402,6,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-19,DET@BOS,BOS,Ceddanne Rafaela,Framber Valdez,,,,,NA,,1.5,150,,0.457,8,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-19,DET@BOS,BOS,Caleb Durbin,Framber Valdez,,,,,NA,,1.5,250,,0.334,4,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-19,DET@BOS,BOS,Carlos Narváez,Framber Valdez,,,,,NA,,1.5,200,,0.180,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-19,DET@BOS,BOS,Isiah Kiner-Falefa,Framber Valdez,,,,,NA,,,,,0.307,20,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,ATL@PHI,ATL,Ronald Acuña Jr.,Andrew Painter,,,,,NA,,,,,0.584,0,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,ATL@PHI,ATL,Drake Baldwin,Andrew Painter,,,,,NA,,,,,0.652,0,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,ATL@PHI,ATL,Matt Olson,Andrew Painter,,,,,NA,,,,,0.732,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,ATL@PHI,ATL,Austin Riley,Andrew Painter,,,,,NA,,,,,0.685,0,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,ATL@PHI,ATL,Ozzie Albies,Andrew Painter,,,,,NA,,,,,0.534,0,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,ATL@PHI,ATL,Mike Yastrzemski,Andrew Painter,,,,,NA,,,,,0.269,0,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,ATL@PHI,ATL,Dominic Smith,Andrew Painter,,,,,NA,,,,,0.821,0,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,ATL@PHI,ATL,Mauricio Dubón,Andrew Painter,,,,,NA,,,,,0.560,0,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,ATL@PHI,ATL,Michael Harris II,Andrew Painter,,,,,NA,,,,,0.639,0,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,ATL@PHI,PHI,Trea Turner,Grant Holmes,,,,,NA,,,,,0.491,5,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,ATL@PHI,PHI,Kyle Schwarber,Grant Holmes,,,,,NA,,,,,0.601,6,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,ATL@PHI,PHI,Bryce Harper,Grant Holmes,,,,,NA,,,,,0.785,4,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,ATL@PHI,PHI,Adolis García,Grant Holmes,,,,,NA,,,,,0.407,4,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,ATL@PHI,PHI,Brandon Marsh,Grant Holmes,,,,,NA,,,,,0.481,6,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,ATL@PHI,PHI,Alec Bohm,Grant Holmes,,,,,NA,,,,,0.180,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,ATL@PHI,PHI,Bryson Stott,Grant Holmes,,,,,NA,,,,,0.220,6,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,ATL@PHI,PHI,Rafael Marchán,Grant Holmes,,,,,NA,,,,,0.180,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-19,ATL@PHI,PHI,Justin Crawford,Grant Holmes,,,,,NA,,,,,0.469,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-19,DET@BOS,BOS,Wilyer Abreu,Framber Valdez,,,,,NA,,1.5,150,,0.402,5,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,DET@BOS,BOS,Ceddanne Rafaela,Framber Valdez,,,,,NA,,1.5,250,,0.457,8,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,DET@BOS,BOS,Caleb Durbin,Framber Valdez,,,,,NA,,1.5,150,,0.334,5,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,DET@BOS,BOS,Carlos Narváez,Framber Valdez,,,,,NA,,1.5,150,,0.180,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,DET@BOS,BOS,Isiah Kiner-Falefa,Framber Valdez,,,,,NA,,1.5,150,,0.307,20,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,ATL@PHI,ATL,Ronald Acuña Jr.,Andrew Painter,,,,,NA,,1.5,150,,0.584,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,ATL@PHI,ATL,Drake Baldwin,Andrew Painter,,,,,NA,,1.5,150,,0.652,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,ATL@PHI,ATL,Matt Olson,Andrew Painter,,,,,NA,,1.5,150,,0.732,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,ATL@PHI,ATL,Austin Riley,Andrew Painter,,,,,NA,,1.5,150,,0.685,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,ATL@PHI,ATL,Ozzie Albies,Andrew Painter,,,,,NA,,1.5,250,,0.534,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,ATL@PHI,ATL,Mike Yastrzemski,Andrew Painter,,,,,NA,,1.5,250,,0.269,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,ATL@PHI,ATL,Dominic Smith,Andrew Painter,,,,,NA,,1.5,150,,0.821,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,ATL@PHI,ATL,Mauricio Dubón,Andrew Painter,,,,,NA,,1.5,100,,0.560,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,ATL@PHI,ATL,Michael Harris II,Andrew Painter,,,,,NA,,1.5,550,,0.639,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,ATL@PHI,PHI,Trea Turner,Grant Holmes,,,,,NA,,1.5,150,,0.491,5,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,ATL@PHI,PHI,Kyle Schwarber,Grant Holmes,,,,,NA,,1.5,650,,0.601,6,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,ATL@PHI,PHI,Bryce Harper,Grant Holmes,,,,,NA,,1.5,150,,0.785,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,ATL@PHI,PHI,Adolis García,Grant Holmes,,,,,NA,,1.5,150,,0.407,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,ATL@PHI,PHI,Brandon Marsh,Grant Holmes,,,,,NA,,1.5,100,,0.481,6,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,ATL@PHI,PHI,Alec Bohm,Grant Holmes,,,,,NA,,1.5,150,,0.180,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,ATL@PHI,PHI,Bryson Stott,Grant Holmes,,,,,NA,,1.5,100,,0.220,6,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,ATL@PHI,PHI,Rafael Marchán,Grant Holmes,,,,,NA,,1.5,100,,0.180,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-19,ATL@PHI,PHI,Justin Crawford,Grant Holmes,,,,,NA,,1.5,150,,0.469,1,,,,,,not_scored,not_scored,Display only,partial,not_scored
 <!-- batter-outlooks-csv:end -->
 */

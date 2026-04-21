@@ -1,13 +1,13 @@
-date,game,player,team,prop_type,model_probability,fair_odds,market_odds,market_implied_probability,edge_percent,tier,confidence,result,win_loss_push,profit_loss_units,closing_odds,closing_line_value,notes,evaluation_mode
-2026-04-15,SF@CIN,S. Stewart,CIN,HR,10.56,+847,+430,18.87,-8.31,A,High,L,L,-1.000,+410,-0.74,hard contact but no HR,betting_roi
-2026-04-15,SF@CIN,S. Stewart,CIN,2+ TB,32.67,+206,+175,36.36,-3.69,A,High,W,W,1.750,+165,-1.37,doubled and singled,betting_roi
-2026-04-15,LAA@NYY,M. Trout,LAA,HR,11.67,+757,+320,23.81,-12.14,A,High,L,L,-1.000,+300,-1.19,warning track outs,betting_roi
-2026-04-15,LAA@NYY,A. Judge,NYY,2+ TB,,,+130,43.48,,,,W,W,1.300,+125,-0.97,multi-hit game,betting_roi
-2026-04-15,MIA@ATL,Ronald Acuña Jr.,ATL,HR,8.42,+1087,+330,23.26,-14.84,B,High,P,P,0.000,+345,0.78,void due to scratch,betting_roi
-2026-04-15,TOR@MIL,G. Sanchez,MIL,HR,9.04,+1006,+500,16.67,-7.63,A,High,W,W,5.000,+475,-0.72,late homer,betting_roi
-2026-04-15,SEA@SD,L. Raley,SEA,2+ TB,30.80,+225,+190,34.48,-3.68,B,High,L,L,-1.000,+170,-2.55,0-for-4,betting_roi
-2026-04-15,NYM@LAD,F. Alvarez,NYM,2+ TB,32.41,+209,+240,29.41,3.00,A,High,W,W,2.400,+220,-1.84,HR cashed TB,betting_roi
-2026-04-15,NYM@LAD,Shohei Ohtani,LAD,K,,,-105,51.22,,,,W,W,0.952,-120,-3.33,pitcher K prop from market,betting_roi
-2026-04-15,TEX@ATH,J. Burger,TEX,HIT,,,-150,60.00,,,,L,L,-1.000,-165,-2.26,grounded into DP,betting_roi
-2026-04-15,TB@CWS,M. Murakami,CWS,RBI,,,,,,,,W,W,,,,no market odds posted,target_accuracy
-2026-04-15,COL@HOU,Y. Alvarez,HOU,RUN,,,-110,52.38,,,,W,W,0.909,-118,-1.75,scored twice,betting_roi
+date,game,player,team,prop_type,model_probability,fair_odds,market_odds,market_implied_probability,edge_percent,tier,confidence,recommended_selection,result,win_loss_push,profit_loss_units,closing_odds,closing_line_value,notes,evaluation_mode
+2026-04-15,SF@CIN,S. Stewart,CIN,HR,10.56,+847,+430,18.87,-8.31,A,High,N,L,L,-1.000,+410,-0.74,hard contact but no HR,betting_roi
+2026-04-15,SF@CIN,S. Stewart,CIN,2+ TB,32.67,+206,+175,36.36,-3.69,A,High,N,W,W,1.750,+165,-1.37,doubled and singled,betting_roi
+2026-04-15,LAA@NYY,M. Trout,LAA,HR,11.67,+757,+320,23.81,-12.14,A,High,N,L,L,-1.000,+300,-1.19,warning track outs,betting_roi
+2026-04-15,LAA@NYY,A. Judge,NYY,2+ TB,,,+130,43.48,,,,N,W,W,1.300,+125,-0.97,multi-hit game,betting_roi
+2026-04-15,MIA@ATL,Ronald Acuña Jr.,ATL,HR,8.42,+1087,+330,23.26,-14.84,B,High,N,P,P,0.000,+345,0.78,void due to scratch,betting_roi
+2026-04-15,TOR@MIL,G. Sanchez,MIL,HR,9.04,+1006,+500,16.67,-7.63,A,High,N,W,W,5.000,+475,-0.72,late homer,betting_roi
+2026-04-15,SEA@SD,L. Raley,SEA,2+ TB,30.80,+225,+190,34.48,-3.68,B,High,N,L,L,-1.000,+170,-2.55,0-for-4,betting_roi
+2026-04-15,NYM@LAD,F. Alvarez,NYM,2+ TB,32.41,+209,+240,29.41,3.00,A,High,N,W,W,2.400,+220,-1.84,HR cashed TB,betting_roi
+2026-04-15,NYM@LAD,Shohei Ohtani,LAD,K,,,-105,51.22,,,,N,W,W,0.952,-120,-3.33,pitcher K prop from market,betting_roi
+2026-04-15,TEX@ATH,J. Burger,TEX,HIT,,,-150,60.00,,,,N,L,L,-1.000,-165,-2.26,grounded into DP,betting_roi
+2026-04-15,TB@CWS,M. Murakami,CWS,RBI,,,,,,,,N,W,W,,,,no market odds posted,target_accuracy
+2026-04-15,COL@HOU,Y. Alvarez,HOU,RUN,,,-110,52.38,,,,N,W,W,0.909,-118,-1.75,scored twice,betting_roi

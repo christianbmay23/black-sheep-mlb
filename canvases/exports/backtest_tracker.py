@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import math
 import urllib.parse
 import urllib.request
 from collections import Counter, defaultdict
@@ -12,10 +13,19 @@ from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 from statistics import mean
-import math
 
 OUT_DIR = Path(__file__).resolve().parent
 DEFAULT_SLUG = "apr15"
+CURRENT_GAME_PROB_FIELDS = (
+    "raw_model_away_win_pct",
+    "raw_model_home_win_pct",
+    "final_away_win_pct",
+    "final_home_win_pct",
+)
+LEGACY_GAME_PROB_FIELDS = (
+    "model_away_win_pct",
+    "model_home_win_pct",
+)
 
 MLB_TEAM_ALIASES = {
     "AZ": "ARI",
@@ -60,12 +70,12 @@ class BacktestRow:
     actual_winner: str
     was_correct: bool
     baseline_was_correct: bool
+    predicted_win_prob: float | None
     model_confidence: str
     decision_tier: str
     edge_on_pick_pct: float
     missing_data_flags: str
     rationale_summary: str
-    predicted_win_prob: float
 
 
 def slug_from_date_input(date_input: str) -> str:
@@ -92,6 +102,20 @@ def parse_float(value: str) -> float | None:
         return float(text)
     except ValueError:
         return None
+
+
+def parse_probability(value: str) -> float | None:
+    number = parse_float(value)
+    if number is None:
+        return None
+    if number > 1:
+        number /= 100
+    return min(max(number, 0.001), 0.999)
+
+
+def has_fields(fieldnames: list[str] | None, required: tuple[str, ...]) -> bool:
+    fieldset = set(fieldnames or [])
+    return all(field in fieldset for field in required)
 
 
 def implied_probability_from_american(odds: float | None) -> float | None:
@@ -122,6 +146,53 @@ def market_favorite_pick(row: dict[str, str]) -> str:
     if away_odds is None or home_odds is None:
         return ""
     return away if away_odds >= home_odds else home
+
+
+def predicted_pick_probability(
+    row: dict[str, str],
+    *,
+    allow_legacy_game_probs: bool = False,
+) -> float | None:
+    away = normalize_team(row.get("away", ""))
+    home = normalize_team(row.get("home", ""))
+    predicted = normalize_team(row.get("prediction", ""))
+    away_prob = parse_probability(row.get("final_away_win_pct", ""))
+    home_prob = parse_probability(row.get("final_home_win_pct", ""))
+    if (away_prob is None or home_prob is None) and allow_legacy_game_probs:
+        away_prob = parse_probability(row.get("model_away_win_pct", ""))
+        home_prob = parse_probability(row.get("model_home_win_pct", ""))
+    if predicted == away:
+        return away_prob
+    if predicted == home:
+        return home_prob
+    return None
+
+
+def validate_game_probability_schema(
+    csv_path: Path,
+    fieldnames: list[str] | None,
+    *,
+    allow_legacy_game_probs: bool,
+) -> bool:
+    if has_fields(fieldnames, CURRENT_GAME_PROB_FIELDS):
+        return False
+    if allow_legacy_game_probs and has_fields(fieldnames, LEGACY_GAME_PROB_FIELDS):
+        return True
+
+    if has_fields(fieldnames, LEGACY_GAME_PROB_FIELDS):
+        raise SystemExit(
+            "Error: "
+            f"{csv_path} uses legacy game probability columns ({', '.join(LEGACY_GAME_PROB_FIELDS)}). "
+            "This file is not valid Phase 1 evidence. Regenerate the slate so it includes "
+            f"{', '.join(CURRENT_GAME_PROB_FIELDS)} or rerun with --allow-legacy-game-probs "
+            "for historical compatibility only."
+        )
+
+    missing = [field for field in CURRENT_GAME_PROB_FIELDS if field not in set(fieldnames or [])]
+    raise SystemExit(
+        "Error: "
+        f"{csv_path} is missing required Phase 1 game probability fields: {', '.join(missing)}."
+    )
 
 def fetch_completed_game_winners(date_str: str) -> dict[str, str]:
     query = urllib.parse.urlencode(
@@ -167,16 +238,31 @@ def resolve_actual_winners(date_str: str) -> tuple[dict[str, str], str]:
     return {}, "unavailable"
 
 
-def load_predictions(csv_path: Path) -> tuple[str, list[dict[str, str]], int]:
+def load_predictions(
+    csv_path: Path,
+    *,
+    allow_legacy_game_probs: bool,
+) -> tuple[str, list[dict[str, str]], int, bool]:
     with csv_path.open(newline="", encoding="utf-8") as f:
-        rows = list(csv.DictReader(f))
+        reader = csv.DictReader(f)
+        legacy_mode = validate_game_probability_schema(
+            csv_path,
+            reader.fieldnames,
+            allow_legacy_game_probs=allow_legacy_game_probs,
+        )
+        rows = list(reader)
     if not rows:
         raise ValueError("Predictions CSV is empty.")
     date_str = rows[0]["report_date"]
-    return date_str, [row for row in rows if is_scored_prediction_row(row)], len(rows)
+    return date_str, [row for row in rows if is_scored_prediction_row(row)], len(rows), legacy_mode
 
 
-def build_backtest_rows(predictions: list[dict[str, str]], actual_winners: dict[str, str]) -> list[BacktestRow]:
+def build_backtest_rows(
+    predictions: list[dict[str, str]],
+    actual_winners: dict[str, str],
+    *,
+    allow_legacy_game_probs: bool,
+) -> list[BacktestRow]:
     rows: list[BacktestRow] = []
     for pred in predictions:
         away = normalize_team(pred["away"])
@@ -185,18 +271,12 @@ def build_backtest_rows(predictions: list[dict[str, str]], actual_winners: dict[
         predicted_winner = normalize_team(pred["prediction"])
         market_favorite = market_favorite_pick(pred)
         actual_winner = actual_winners.get(matchup, "")
-        final_away = parse_float(pred.get("final_away_win_pct", ""))
-        final_home = parse_float(pred.get("final_home_win_pct", ""))
-        if final_away is None:
-            final_away = parse_float(pred.get("model_away_win_pct", ""))
-        if final_home is None:
-            final_home = parse_float(pred.get("model_home_win_pct", ""))
-        p_away = (final_away / 100.0) if final_away is not None and final_away > 1 else (final_away or 0.0)
-        p_home = (final_home / 100.0) if final_home is not None and final_home > 1 else (final_home or 0.0)
-        predicted_win_prob = p_away if predicted_winner == away else p_home if predicted_winner == home else max(p_away, p_home)
-        predicted_win_prob = min(max(predicted_win_prob, 0.001), 0.999)
         was_correct = predicted_winner == actual_winner if actual_winner else False
         baseline_was_correct = market_favorite == actual_winner if actual_winner and market_favorite else False
+        predicted_win_prob = predicted_pick_probability(
+            pred,
+            allow_legacy_game_probs=allow_legacy_game_probs,
+        )
         rows.append(
             BacktestRow(
                 matchup=matchup,
@@ -205,12 +285,12 @@ def build_backtest_rows(predictions: list[dict[str, str]], actual_winners: dict[
                 actual_winner=actual_winner,
                 was_correct=was_correct,
                 baseline_was_correct=baseline_was_correct,
+                predicted_win_prob=predicted_win_prob,
                 model_confidence=pred["model_confidence"],
                 decision_tier=pred["decision_tier_vs_market"],
                 edge_on_pick_pct=parse_float(pred.get("edge_on_pick_pct", "")) or 0.0,
                 missing_data_flags=pred["missing_data_flags"],
                 rationale_summary=pred["rationale_summary"],
-                predicted_win_prob=predicted_win_prob,
             )
         )
     return rows
@@ -228,6 +308,7 @@ def write_tracker_csv(rows: list[BacktestRow], date_str: str, tracker_csv: Path)
                 "actual_winner",
                 "was_correct",
                 "baseline_was_correct",
+                "predicted_win_prob",
                 "model_confidence",
                 "decision_tier",
                 "edge_on_pick_pct",
@@ -244,12 +325,34 @@ def write_tracker_csv(rows: list[BacktestRow], date_str: str, tracker_csv: Path)
                     r.actual_winner,
                     "Y" if r.was_correct else "N",
                     "Y" if r.baseline_was_correct else "N",
+                    "" if r.predicted_win_prob is None else f"{r.predicted_win_prob:.4f}",
                     r.model_confidence,
                     r.decision_tier,
                     f"{r.edge_on_pick_pct:.2f}",
                     r.missing_data_flags,
                 ]
             )
+
+
+def brier_score(rows: list[BacktestRow]) -> float | None:
+    scored = [r for r in rows if r.actual_winner and r.predicted_win_prob is not None]
+    if not scored:
+        return None
+    return mean((r.predicted_win_prob - (1.0 if r.was_correct else 0.0)) ** 2 for r in scored)
+
+
+def log_loss(rows: list[BacktestRow]) -> float | None:
+    scored = [r for r in rows if r.actual_winner and r.predicted_win_prob is not None]
+    if not scored:
+        return None
+    return mean(
+        -(math.log(r.predicted_win_prob) if r.was_correct else math.log(1.0 - r.predicted_win_prob))
+        for r in scored
+    )
+
+
+def format_metric(value: float | None) -> str:
+    return "NA" if value is None else f"{value:.3f}"
 
 
 def summarize(rows: list[BacktestRow]) -> dict[str, object]:
@@ -271,17 +374,6 @@ def summarize(rows: list[BacktestRow]) -> dict[str, object]:
             clean.append(r)
 
     misses = [r for r in settled if not r.was_correct]
-    brier = mean((r.predicted_win_prob - (1.0 if r.was_correct else 0.0)) ** 2 for r in settled) if settled else 0.0
-    log_loss = (
-        mean(
-            -math.log(min(max(r.predicted_win_prob, 1e-6), 1 - 1e-6))
-            if r.was_correct
-            else -math.log(min(max(1.0 - r.predicted_win_prob, 1e-6), 1 - 1e-6))
-            for r in settled
-        )
-        if settled
-        else 0.0
-    )
     top_hits = sorted(correct, key=lambda r: r.edge_on_pick_pct, reverse=True)[:3]
     top_misses = sorted(misses, key=lambda r: r.edge_on_pick_pct, reverse=True)[:3]
 
@@ -293,22 +385,6 @@ def summarize(rows: list[BacktestRow]) -> dict[str, object]:
         for f in flags:
             miss_reasons[f] += 1
 
-    by_tier_calibration: dict[str, dict[str, float]] = {}
-    for tier, tier_rows in by_tier.items():
-        if not tier_rows:
-            continue
-        tier_brier = mean((r.predicted_win_prob - (1.0 if r.was_correct else 0.0)) ** 2 for r in tier_rows)
-        tier_log_loss = mean(
-            -math.log(min(max(r.predicted_win_prob, 1e-6), 1 - 1e-6))
-            if r.was_correct
-            else -math.log(min(max(1.0 - r.predicted_win_prob, 1e-6), 1 - 1e-6))
-            for r in tier_rows
-        )
-        by_tier_calibration[tier] = {
-            "brier": tier_brier,
-            "log_loss": tier_log_loss,
-        }
-
     return {
         "total": len(rows),
         "settled": len(settled),
@@ -319,10 +395,17 @@ def summarize(rows: list[BacktestRow]) -> dict[str, object]:
         "accuracy_vs_baseline_pct": ((len(correct) - len(baseline_correct)) / len(settled) * 100) if settled else 0,
         "avg_edge_all": mean(r.edge_on_pick_pct for r in settled) if settled else 0,
         "avg_edge_correct": mean(r.edge_on_pick_pct for r in correct) if correct else 0,
-        "brier": brier,
-        "log_loss": log_loss,
+        "brier_score": brier_score(settled),
+        "log_loss": log_loss(settled),
+        "tier_metrics": {
+            tier: {
+                "record": format_record(tier_rows),
+                "brier_score": brier_score(tier_rows),
+                "log_loss": log_loss(tier_rows),
+            }
+            for tier, tier_rows in by_tier.items()
+        },
         "by_tier": by_tier,
-        "by_tier_calibration": by_tier_calibration,
         "by_conf": by_conf,
         "flagged": flagged,
         "clean": clean,
@@ -340,17 +423,25 @@ def format_record(rows: list[BacktestRow]) -> str:
     return f"{wins}-{total - wins} ({wins / total * 100:.1f}%)"
 
 
+def sample_assessment(summary: dict[str, object]) -> str:
+    settled = int(summary["settled"])
+    accuracy = float(summary["accuracy"])
+    baseline_accuracy = float(summary["baseline_accuracy"])
+    if settled == 0:
+        return "No evaluable sample yet; do not claim improvement."
+    if accuracy < baseline_accuracy:
+        return "Do not claim improvement yet: the model failed to beat the simple market-favorite baseline on this sample."
+    if accuracy == baseline_accuracy:
+        return "Do not claim improvement yet: the model matched the simple market-favorite baseline and did not exceed it."
+    return "This sample beat the market-favorite baseline, but treat it as sample-level evidence rather than a durable improvement claim."
+
+
 def recommendations(summary: dict[str, object]) -> list[str]:
-    recs: list[str] = []
+    recs: list[str] = [sample_assessment(summary)]
     flagged = summary["flagged"]
     clean = summary["clean"]
     top_misses = summary["top_misses"]
     by_tier = summary["by_tier"]
-
-    if summary["accuracy"] <= summary["baseline_accuracy"]:
-        recs.append(
-            "Do not claim improvement yet: the model failed to beat the simple market-favorite baseline on this sample."
-        )
 
     if flagged and clean:
         flagged_acc = sum(r.was_correct for r in flagged) / len(flagged)
@@ -379,9 +470,14 @@ def recommendations(summary: dict[str, object]) -> list[str]:
     return recs
 
 
-def write_summary(date_str: str, summary: dict[str, object], summary_md: Path) -> None:
+def write_summary(
+    date_str: str,
+    summary: dict[str, object],
+    summary_md: Path,
+    *,
+    legacy_mode: bool,
+) -> None:
     by_tier = summary["by_tier"]
-    by_tier_calibration = summary["by_tier_calibration"]
     by_conf = summary["by_conf"]
     top_hits = summary["top_hits"]
     top_misses = summary["top_misses"]
@@ -390,6 +486,12 @@ def write_summary(date_str: str, summary: dict[str, object], summary_md: Path) -
     lines: list[str] = []
     lines.append(f"# Model Performance Backtest — {date_str}")
     lines.append("")
+    if legacy_mode:
+        lines.append(
+            "> Legacy compatibility mode: generated with `--allow-legacy-game-probs` from a pre-Phase-1 game CSV. "
+            "This output is historical only and is not valid Phase 1 proof."
+        )
+        lines.append("")
     lines.append("## Headline")
     lines.append(
         f"- Settled scored picks: **{summary['settled']}** / {summary['total']}"
@@ -403,18 +505,20 @@ def write_summary(date_str: str, summary: dict[str, object], summary_md: Path) -
     )
     lines.append(f"- Delta vs baseline: **{summary['accuracy_vs_baseline_pct']:+.1f} pts**")
     lines.append(f"- Avg model edge on picks: **{summary['avg_edge_all']:.2f}%**")
-    lines.append(f"- Brier score (lower is better): **{summary['brier']:.4f}**")
-    lines.append(f"- Log loss (lower is better): **{summary['log_loss']:.4f}**")
+    lines.append(f"- Brier score: **{format_metric(summary['brier_score'])}**")
+    lines.append(f"- Log loss: **{format_metric(summary['log_loss'])}**")
+    lines.append(f"- Assessment: **{sample_assessment(summary)}**")
     lines.append("- Standard: current model performance must beat the market-favorite baseline before improvement claims are credible.")
     lines.append("")
 
     lines.append("## Tracker by tier")
+    tier_metrics = summary.get("tier_metrics", {})
     for tier in ["A+", "A", "B", "C", "D"]:
         rows = by_tier.get(tier, [])
         if rows:
-            cal = by_tier_calibration.get(tier, {})
+            metrics = tier_metrics.get(tier, {})
             lines.append(
-                f"- {tier}: {format_record(rows)} | Brier {cal.get('brier', 0.0):.4f} | Log loss {cal.get('log_loss', 0.0):.4f}"
+                f"- {tier}: {format_record(rows)} | Brier {format_metric(metrics.get('brier_score'))} | Log loss {format_metric(metrics.get('log_loss'))}"
             )
     lines.append("")
 
@@ -472,6 +576,11 @@ def main() -> None:
     parser.add_argument("--csv", type=Path, default=None, help="Predictions CSV file.")
     parser.add_argument("--tracker", type=Path, default=None, help="Tracker CSV output path.")
     parser.add_argument("--summary", type=Path, default=None, help="Summary markdown output path.")
+    parser.add_argument(
+        "--allow-legacy-game-probs",
+        action="store_true",
+        help="Allow legacy model_away_win_pct/model_home_win_pct CSVs for historical compatibility only.",
+    )
     args = parser.parse_args()
 
     slug = slug_from_date_input(args.date)
@@ -479,22 +588,33 @@ def main() -> None:
     tracker_csv = args.tracker or (OUT_DIR / f"model_performance_tracker_{slug}.csv")
     summary_md = args.summary or (OUT_DIR / f"model_performance_summary_{slug}.md")
 
-    date_str, predictions, total_rows = load_predictions(csv_path)
+    date_str, predictions, total_rows, legacy_mode = load_predictions(
+        csv_path,
+        allow_legacy_game_probs=args.allow_legacy_game_probs,
+    )
     actual_winners, source = resolve_actual_winners(date_str)
-    backtest_rows = build_backtest_rows(predictions, actual_winners)
+    backtest_rows = build_backtest_rows(
+        predictions,
+        actual_winners,
+        allow_legacy_game_probs=legacy_mode,
+    )
 
     write_tracker_csv(backtest_rows, date_str, tracker_csv)
     summary = summarize(backtest_rows)
-    write_summary(date_str, summary, summary_md)
+    write_summary(date_str, summary, summary_md, legacy_mode=legacy_mode)
 
     print(f"Backtest complete for {date_str} ({slug}).")
     print(f"Tracker: {tracker_csv}")
     print(f"Summary: {summary_md}")
+    if legacy_mode:
+        print(
+            "Legacy mode: enabled via --allow-legacy-game-probs. "
+            "This output is historical only and is not valid Phase 1 proof."
+        )
     print(f"Scored rows considered: {len(predictions)} / {total_rows}")
     print(f"Model accuracy: {summary['accuracy']:.1f}% ({summary['correct']}/{summary['settled']})")
     print(f"Baseline accuracy: {summary['baseline_accuracy']:.1f}% ({summary['baseline_correct']}/{summary['settled']})")
-    print(f"Brier score: {summary['brier']:.4f}")
-    print(f"Log loss: {summary['log_loss']:.4f}")
+    print(f"Assessment: {sample_assessment(summary)}")
     print(f"Results source: {source}")
 
 

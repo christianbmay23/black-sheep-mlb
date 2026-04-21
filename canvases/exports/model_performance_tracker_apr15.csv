@@ -1,13 +1,13 @@
-report_date,matchup,predicted_winner,market_favorite,actual_winner,was_correct,baseline_was_correct,model_confidence,decision_tier,edge_on_pick_pct,missing_data_flags
-2026-04-15,CHC@PHI,PHI,PHI,CHC,N,N,Low,D,-8.09,away LU; home LU
-2026-04-15,KC@DET,KC,DET,DET,N,Y,Low,B,4.67,away LU; home LU
-2026-04-15,SF@CIN,SF,SF,CIN,N,N,High,D,-6.26,
-2026-04-15,WSH@PIT,PIT,PIT,PIT,Y,Y,Low,D,-0.12,away LU; home LU
-2026-04-15,LAA@NYY,NYY,NYY,NYY,Y,Y,High,D,-12.64,
-2026-04-15,MIA@ATL,ATL,ATL,ATL,Y,Y,High,A+,10.22,
-2026-04-15,TB@CWS,TB,TB,TB,Y,Y,High,D,-0.51,weather risk
-2026-04-15,TOR@MIL,TOR,TOR,MIL,N,N,High,B,4.94,
-2026-04-15,COL@HOU,HOU,HOU,HOU,Y,Y,Medium,C,1.48,home SP xERA; home SP no Savant
-2026-04-15,SEA@SD,SEA,SEA,SD,N,N,High,A+,17.72,
-2026-04-15,TEX@ATH,ATH,ATH,ATH,Y,Y,Medium,A+,16.16,away LU
-2026-04-15,NYM@LAD,LAD,LAD,LAD,Y,Y,High,D,-0.92,
+report_date,matchup,predicted_winner,market_favorite,actual_winner,was_correct,baseline_was_correct,predicted_win_prob,model_confidence,decision_tier,edge_on_pick_pct,missing_data_flags
+2026-04-15,CHC@PHI,PHI,PHI,CHC,N,N,0.4899,Low,D,-8.09,away LU; home LU
+2026-04-15,KC@DET,KC,DET,DET,N,Y,0.4981,Low,B,4.67,away LU; home LU
+2026-04-15,SF@CIN,SF,SF,CIN,N,N,0.4515,High,D,-6.26,
+2026-04-15,WSH@PIT,PIT,PIT,PIT,Y,Y,0.6171,Low,D,-0.12,away LU; home LU
+2026-04-15,LAA@NYY,NYY,NYY,NYY,Y,Y,0.5019,High,D,-12.64,
+2026-04-15,MIA@ATL,ATL,ATL,ATL,Y,Y,0.7018,High,A+,10.22,
+2026-04-15,TB@CWS,TB,TB,TB,Y,Y,0.5112,High,D,-0.51,weather risk
+2026-04-15,TOR@MIL,TOR,TOR,MIL,N,N,0.5780,High,B,4.94,
+2026-04-15,COL@HOU,HOU,HOU,HOU,Y,Y,0.6519,Medium,C,1.48,home SP xERA; home SP no Savant
+2026-04-15,SEA@SD,SEA,SEA,SD,N,N,0.6866,High,A+,17.72,
+2026-04-15,TEX@ATH,ATH,ATH,ATH,Y,Y,0.6932,Medium,A+,16.16,away LU
+2026-04-15,NYM@LAD,LAD,LAD,LAD,Y,Y,0.6253,High,D,-0.92,

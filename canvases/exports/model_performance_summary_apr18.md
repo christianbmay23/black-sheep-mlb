@@ -7,8 +7,8 @@
 - Market-favorite baseline: **0-0** (**0.0%**)
 - Delta vs baseline: **+0.0 pts**
 - Avg model edge on picks: **0.00%**
-- Brier score (lower is better): **0.0000**
-- Log loss (lower is better): **0.0000**
+- Brier score: **NA**
+- Log loss: **NA**
 - Standard: current model performance must beat the market-favorite baseline before improvement claims are credible.
 
 ## Tracker by tier
