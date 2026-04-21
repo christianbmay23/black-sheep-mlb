@@ -95,7 +95,7 @@ def classify_tb_market_status(
     )
     if tb2_prob_pct < min_prob_gate:
         return "priced_below_prob_gate"
-    if prop_tier_rank(tb2_tier) < prop_tier_rank("B"):
+    if prop_tier_rank(tb2_tier) < prop_tier_rank("A"):
         return "priced_below_tier"
     if prop_conf == "Low":
         return "priced_low_conf"

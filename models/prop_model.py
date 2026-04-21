@@ -269,8 +269,9 @@ def batter_hr_two_tb(
             hr += clamp((0.5 - opp_bullpen_score) * 0.03, -0.015, 0.015)
         if starter_recent_form_score is not None:
             hr += clamp((0.5 - starter_recent_form_score) * 0.03, -0.015, 0.015)
-        if vs_pitcher_pa is not None and vs_pitcher_pa >= 10:
-            sample_weight = min(vs_pitcher_pa / 30.0, 1.0)
+        # Keep BvP as a small seasoning, not a driver, unless the sample is more credible.
+        if vs_pitcher_pa is not None and vs_pitcher_pa >= 12:
+            sample_weight = min(vs_pitcher_pa / 36.0, 1.0)
             if vs_pitcher_hr is not None:
                 hr += clamp(((vs_pitcher_hr / vs_pitcher_pa) - 0.03) * 0.12 * sample_weight, -0.012, 0.015)
             if (
@@ -321,13 +322,13 @@ def batter_hr_two_tb(
             tb2 += clamp((0.5 - starter_recent_form_score) * 0.06, -0.03, 0.03)
         if (
             vs_pitcher_pa is not None
-            and vs_pitcher_pa >= 6
+            and vs_pitcher_pa >= 10
             and vs_pitcher_ab is not None
             and vs_pitcher_ab > 0
             and vs_pitcher_hits is not None
             and vs_pitcher_total_bases is not None
         ):
-            sample_weight = min(vs_pitcher_pa / 24.0, 1.0)
+            sample_weight = min(vs_pitcher_pa / 30.0, 1.0)
             pvb_avg = vs_pitcher_hits / vs_pitcher_ab
             pvb_slg = vs_pitcher_total_bases / vs_pitcher_ab
             tb2 += clamp((pvb_avg - 0.245) * 0.10 * sample_weight, -0.018, 0.022)
