@@ -17,6 +17,7 @@ __all__ = [
     "fetch",
     "markets",
     "parseutil",
+    "slate",
     "snapshots",
     "status",
 ]

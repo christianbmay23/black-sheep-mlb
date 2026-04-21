@@ -22,7 +22,7 @@ for path in (REPO_ROOT, EXPORTS_DIR):
     if str(path) not in sys.path:
         sys.path.insert(0, str(path))
 
-from pipeline import canvas_io, markets, snapshots, status  # noqa: E402
+from pipeline import canvas_io, markets, slate, snapshots, status  # noqa: E402
 
 
 # --- Test doubles -----------------------------------------------------------
@@ -254,6 +254,43 @@ class SnapshotTests(unittest.TestCase):
         self.assertEqual(snapshots.scoring_status_for_bucket("final"), "not_scored")
         self.assertEqual(snapshots.scoring_status_for_bucket(""), "not_scored")
         self.assertEqual(snapshots.scoring_status_for_bucket(None), "not_scored")
+
+
+# --- slate tests ------------------------------------------------------------
+
+class SlateTests(unittest.TestCase):
+    def test_slug_from_calendar_date_matches_existing_format(self):
+        self.assertEqual(slate.slug_from_calendar_date("2026-04-16"), "apr16")
+        self.assertEqual(slate.slug_from_calendar_date("2026-04-06"), "apr6")
+
+    def test_slug_from_calendar_date_optional_passthrough(self):
+        self.assertEqual(slate.slug_from_calendar_date("apr16", allow_slug_passthrough=True), "apr16")
+        with self.assertRaises(ValueError):
+            slate.slug_from_calendar_date("apr16")
+
+    def test_validate_game_specs_accepts_current_contract(self):
+        slate.validate_game_specs(
+            [
+                {
+                    "away": "DET",
+                    "home": "BOS",
+                    "time_et": "6:10 PM",
+                    "away_a": 110,
+                    "home_a": -130,
+                    "weather": "Open",
+                    "run_env": "Medium",
+                    "away_xera": 4.15,
+                    "home_xera": 3.95,
+                    "analyst_confidence": "Medium",
+                    "rationale": "Stub rationale",
+                    "extra_flags": ["auto_scaffold_live_odds"],
+                }
+            ]
+        )
+
+    def test_validate_game_specs_rejects_missing_required_keys(self):
+        with self.assertRaises(ValueError):
+            slate.validate_game_specs([{"away": "DET", "home": "BOS"}])
 
     def test_summarize_snapshot_evaluation_eligible(self):
         games = [

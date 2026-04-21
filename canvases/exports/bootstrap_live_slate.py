@@ -18,6 +18,7 @@ for path in (ROOT, EXPORTS_DIR):
 
 from apr16_compute import fetch_schedule_lineups  # noqa: E402
 from live_mlb_data import fetch_live_game_odds  # noqa: E402
+from pipeline.slate import GameSpec, slug_from_calendar_date  # noqa: E402
 
 TEMPLATE_CANVAS = ROOT / "canvases" / "mlb-pregame-intel-apr19.canvas.tsx"
 MODELS_DIR = ROOT / "models"
@@ -47,11 +48,6 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def resolve_slug(date_str: str) -> str:
-    dt = datetime.strptime(date_str, "%Y-%m-%d")
-    return dt.strftime("%b").lower() + str(dt.day)
-
-
 def format_time_et(game_date_utc: str) -> str:
     dt = datetime.fromisoformat(game_date_utc.replace("Z", "+00:00")).astimezone(ET)
     return dt.strftime("%I:%M %p").lstrip("0")
@@ -70,10 +66,10 @@ def ts_string(value: str) -> str:
     return json.dumps(value, ensure_ascii=False)
 
 
-def build_specs(date_str: str, *, include_live: bool, include_final: bool) -> list[dict[str, object]]:
+def build_specs(date_str: str, *, include_live: bool, include_final: bool) -> list[GameSpec]:
     schedule_games = fetch_schedule_lineups(date_str)
     live_odds = fetch_live_game_odds(schedule_games, date_str, required=False)
-    specs: list[dict[str, object]] = []
+    specs: list[GameSpec] = []
     for game_key, game in sorted(
         schedule_games.items(),
         key=lambda item: item[1].get("game_date_utc") or "",
@@ -118,7 +114,7 @@ def build_specs(date_str: str, *, include_live: bool, include_final: bool) -> li
     return specs
 
 
-def emit_inputs_module(date_str: str, slug: str, specs: list[dict[str, object]]) -> str:
+def emit_inputs_module(date_str: str, slug: str, specs: list[GameSpec]) -> str:
     lines = [
         f'"""Auto-generated {human_date(date_str)} slate scaffold from live schedule + odds."""',
         "",
@@ -166,7 +162,7 @@ def emit_inputs_module(date_str: str, slug: str, specs: list[dict[str, object]])
     return "\n".join(lines)
 
 
-def emit_slate(specs: list[dict[str, object]], date_str: str) -> str:
+def emit_slate(specs: list[GameSpec], date_str: str) -> str:
     parts: list[str] = ["const SLATE: SlateGame[] = ["]
     for spec in specs:
         away = str(spec["away"])
@@ -237,7 +233,7 @@ report_date,game,team,batter,opponent_pitcher,hr_prob_pct,tb2_prob_pct,fair_hr_a
 """.strip()
 
 
-def write_canvas(date_str: str, slug: str, specs: list[dict[str, object]]) -> Path:
+def write_canvas(date_str: str, slug: str, specs: list[GameSpec]) -> Path:
     text = TEMPLATE_CANVAS.read_text(encoding="utf-8")
     head, rest = text.split("const SLATE: SlateGame[] = [", 1)
     _old_slate, tail = rest.split("];\n\nconst ACTIONABLE_EDGE_PCT", 1)
@@ -262,7 +258,7 @@ def write_canvas(date_str: str, slug: str, specs: list[dict[str, object]]) -> Pa
 
 def main() -> None:
     args = parse_args()
-    slug = resolve_slug(args.date)
+    slug = slug_from_calendar_date(args.date)
     specs = build_specs(args.date, include_live=args.include_live, include_final=args.include_final)
     if not specs:
         raise SystemExit("No eligible non-final games with live odds were found for this date.")
