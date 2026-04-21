@@ -45,6 +45,65 @@ from models.game_model import (  # noqa: E402
 )
 from models.prop_model import batter_hr_two_tb, lineup_match_key, stronger_tier  # noqa: E402
 
+# --- Extracted pure pipeline modules (pipeline/*) ---------------------------
+# The symbols below are re-exported at the bottom of this module so existing
+# callers (build_ml_exports.py, bootstrap_live_slate.py, _gen_apr*_canvas.py)
+# and any stray imports keep working unchanged.
+from pipeline.canvas_io import (  # noqa: E402
+    assert_no_comment_breaker,
+    canvas_slug,
+    csv_block,
+    extract_game_block,
+    find_field_array_span,
+    insert_field_after,
+    parse_canvas_games as _parse_canvas_games_pure,
+    parse_lineup_rows,
+    patch_float_field,
+    patch_string_field,
+    render_json_string,
+    render_lineup_rows,
+    render_prop_rows,
+    replace_array_field,
+    replace_marker_region,
+    round_or_blank,
+    rows_to_dicts,
+    upsert_literal_field,
+    upsert_string_field,
+)
+from pipeline.markets import (  # noqa: E402
+    HR_EDGE_GATE_PCT,
+    PROP_TIER_RANK,
+    TB_EDGE_GATE_PCT,
+    TB_PARTIAL_RECOMMEND_MIN_PROB_PCT,
+    TB_RECOMMEND_MIN_PROB_PCT,
+    TB_TARGET_LINE,
+    choose_recommended_prop,
+    classify_hr_market_status,
+    classify_tb_market_status,
+    has_any_tb_market,
+    has_hr_market_price,
+    is_aligned_tb_market,
+    prop_tier_rank,
+    summarize_prop_market_coverage as _summarize_prop_market_coverage_pure,
+)
+from pipeline.snapshots import (  # noqa: E402
+    SCORING_STATUS_NOT_SCORED,
+    SCORING_STATUS_SCORED,
+    scoring_status_for_bucket,
+    serialize_game_odds,
+    serialize_prop_market,
+    serialize_weather,
+    summarize_snapshot_evaluation,
+    write_run_snapshot as _write_run_snapshot_pure,
+)
+from pipeline.status import (  # noqa: E402
+    current_inning_label,
+    innings_text_to_outs,
+    parse_stat_date,
+    run_environment_label,
+    summarize_game_status,
+)
+
 GAME_SPECS: list[dict[str, Any]] = []
 REPORT_DATE = ""
 CANVAS: Path = ROOT / "canvases" / "mlb-pregame-intel-apr16.canvas.tsx"
@@ -61,14 +120,56 @@ SAVANT_HEADERS = {
     "Accept": "text/csv,text/html;q=0.9,*/*;q=0.8",
 }
 SNAPSHOT_ROOT = ROOT / "canvases" / "exports" / "snapshots"
-HR_EDGE_GATE_PCT = 2.5
-TB_EDGE_GATE_PCT = 1.5
-TB_RECOMMEND_MIN_PROB_PCT = 48.0
-TB_PARTIAL_RECOMMEND_MIN_PROB_PCT = 50.0
-TB_TARGET_LINE = 1.5
-PROP_TIER_RANK = {"A+": 5, "A": 4, "B": 3, "C": 2, "D": 1}
-SCORING_STATUS_SCORED = "scored"
-SCORING_STATUS_NOT_SCORED = "not_scored"
+
+
+def parse_canvas_games(source: str) -> dict[str, dict[str, Any]]:
+    """Back-compat wrapper: uses the module-level GAME_SPECS."""
+    return _parse_canvas_games_pure(source, GAME_SPECS)
+
+
+def summarize_prop_market_coverage(
+    game_key: str,
+    ctx: dict[str, Any],
+    markets: dict[tuple[str, str], PropMarketLine],
+) -> dict[str, Any]:
+    """Back-compat wrapper: injects `normalize_player_name` from live_mlb_data."""
+    return _summarize_prop_market_coverage_pure(
+        game_key, ctx, markets, normalize_player_name=normalize_player_name
+    )
+
+
+def write_run_snapshot(
+    path: Path,
+    *,
+    allow_partial: bool,
+    lineup_context: dict[str, dict[str, Any]],
+    games_rows: list[list[str]],
+    batter_rows: list[list[str]],
+    game_feature_rows: list[dict[str, Any]],
+    prop_feature_rows: list[dict[str, Any]],
+    team_bullpen_scores: dict[str, dict[str, Any]],
+    runtime_diagnostics: list[dict[str, Any]],
+    prop_market_coverage: list[dict[str, Any]],
+) -> Path:
+    """Back-compat wrapper: supplies the globals the pure writer needs."""
+    return _write_run_snapshot_pure(
+        path,
+        snapshot_root=SNAPSHOT_ROOT,
+        report_date=REPORT_DATE,
+        market_blend_alpha=DEFAULT_MARKET_BLEND_ALPHA,
+        allow_partial=allow_partial,
+        lineup_context=lineup_context,
+        games_rows=games_rows,
+        batter_rows=batter_rows,
+        game_feature_rows=game_feature_rows,
+        prop_feature_rows=prop_feature_rows,
+        team_bullpen_scores=team_bullpen_scores,
+        runtime_diagnostics=runtime_diagnostics,
+        prop_market_coverage=prop_market_coverage,
+        game_odds_cls=GameOdds,
+        prop_market_cls=PropMarketLine,
+        weather_cls=WeatherSnapshot,
+    )
 
 
 def fetch_json(url: str) -> dict:
@@ -112,334 +213,14 @@ def parse_int(value: Any) -> int | None:
         return None
 
 
-def prop_tier_rank(tier: str) -> int:
-    return PROP_TIER_RANK.get((tier or "").strip().upper(), 0)
-
-
-def has_hr_market_price(line: PropMarketLine | None) -> bool:
-    return bool(line and line.over_price is not None)
-
-
-def is_aligned_tb_market(line: PropMarketLine | None) -> bool:
-    return bool(
-        line
-        and line.over_price is not None
-        and line.point is not None
-        and abs(float(line.point) - TB_TARGET_LINE) < 0.001
-    )
-
-
-def has_any_tb_market(line: PropMarketLine | None) -> bool:
-    return bool(line and (line.point is not None or line.over_price is not None))
-
-
-def classify_hr_market_status(edge_hr_pct: float | None, hr_tier: str, prop_conf: str, hr_market: PropMarketLine | None) -> str:
-    if not has_hr_market_price(hr_market):
-        return "unpriced"
-    if edge_hr_pct is None or edge_hr_pct <= 0:
-        return "priced_no_edge"
-    if prop_tier_rank(hr_tier) < prop_tier_rank("A"):
-        return "priced_below_tier"
-    if prop_conf == "Low":
-        return "priced_low_conf"
-    if edge_hr_pct < HR_EDGE_GATE_PCT:
-        return "priced_below_gate"
-    return "qualified"
-
-
-def classify_tb_market_status(
-    edge_tb_pct: float | None,
-    tb2_prob: float | None,
-    tb2_tier: str,
-    prop_conf: str,
-    tb_market: PropMarketLine | None,
-    market_status: str,
-) -> str:
-    if tb_market is None or tb_market.over_price is None:
-        return "unpriced"
-    if tb_market.point is None:
-        return "line_unknown"
-    if not is_aligned_tb_market(tb_market):
-        return f"line_mismatch_{tb_market.point:g}"
-    if edge_tb_pct is None or edge_tb_pct <= 0:
-        return "priced_no_edge"
-    if tb2_prob is None:
-        return "prob_missing"
-    tb2_prob_pct = tb2_prob * 100
-    min_prob_gate = (
-        TB_PARTIAL_RECOMMEND_MIN_PROB_PCT
-        if market_status == "partial"
-        else TB_RECOMMEND_MIN_PROB_PCT
-    )
-    if tb2_prob_pct < min_prob_gate:
-        return "priced_below_prob_gate"
-    if prop_tier_rank(tb2_tier) < prop_tier_rank("B"):
-        return "priced_below_tier"
-    if prop_conf == "Low":
-        return "priced_low_conf"
-    if edge_tb_pct < TB_EDGE_GATE_PCT:
-        return "priced_below_gate"
-    return "qualified"
-
-
-def choose_recommended_prop(
-    hr_status: str,
-    tb_status: str,
-    edge_hr_pct: float | None,
-    edge_tb_pct: float | None,
-    hr_tier: str,
-    tb2_tier: str,
-) -> tuple[str, str]:
-    if hr_status == "qualified" and tb_status == "qualified":
-        if edge_hr_pct is not None and edge_tb_pct is not None and edge_hr_pct >= edge_tb_pct + 1.5:
-            return "HR", hr_tier
-        return "2+ TB", tb2_tier
-    if hr_status == "qualified":
-        return "HR", hr_tier
-    if tb_status == "qualified":
-        return "2+ TB", tb2_tier
-    return "", ""
-
-
 def safe_div(num: float, den: float) -> float | None:
     if den == 0:
         return None
     return num / den
 
 
-def round_or_blank(value: float | None, decimals: int = 2) -> str:
-    if value is None:
-        return ""
-    return f"{value:.{decimals}f}"
-
-
-def scoring_status_for_bucket(bucket: Any) -> str:
-    return SCORING_STATUS_SCORED if str(bucket or "").strip().lower() == "pregame" else SCORING_STATUS_NOT_SCORED
-
-
-def summarize_prop_market_coverage(
-    game_key: str,
-    ctx: dict[str, Any],
-    markets: dict[tuple[str, str], PropMarketLine],
-) -> dict[str, Any]:
-    def coverage(players: list[dict[str, Any]], market_key: str) -> tuple[int, list[str], list[str]]:
-        covered = 0
-        missing: list[str] = []
-        sources: set[str] = set()
-        for player in players:
-            player_name = str(player.get("name") or "")
-            line = markets.get((normalize_player_name(player_name), market_key))
-            if line and line.over_price is not None:
-                covered += 1
-                if line.source:
-                    sources.add(line.source)
-            else:
-                missing.append(player_name)
-        return covered, sorted(missing), sorted(sources)
-
-    away_players = list(ctx.get("away_players") or [])
-    home_players = list(ctx.get("home_players") or [])
-    away_hr_covered, away_hr_missing, away_hr_sources = coverage(away_players, "batter_home_runs")
-    home_hr_covered, home_hr_missing, home_hr_sources = coverage(home_players, "batter_home_runs")
-    away_tb_covered, away_tb_missing, away_tb_sources = coverage(away_players, "batter_total_bases")
-    home_tb_covered, home_tb_missing, home_tb_sources = coverage(home_players, "batter_total_bases")
-    hr_sources = sorted(set(away_hr_sources + home_hr_sources))
-    tb_sources = sorted(set(away_tb_sources + home_tb_sources))
-    notes: list[str] = []
-    if away_hr_covered and not home_hr_covered and hr_sources and all(source.startswith("rotowire") for source in hr_sources):
-        notes.append("rotowire_hr_home_side_missing")
-    if home_hr_covered and not away_hr_covered and hr_sources and all(source.startswith("rotowire") for source in hr_sources):
-        notes.append("rotowire_hr_away_side_missing")
-    if ctx.get("away_moneyline") is None or ctx.get("home_moneyline") is None:
-        notes.append("market_odds_unavailable")
-    return {
-        "game": game_key,
-        "away_lineup_size": len(away_players),
-        "home_lineup_size": len(home_players),
-        "away_hr_covered": away_hr_covered,
-        "home_hr_covered": home_hr_covered,
-        "away_tb_covered": away_tb_covered,
-        "home_tb_covered": home_tb_covered,
-        "away_hr_missing": away_hr_missing,
-        "home_hr_missing": home_hr_missing,
-        "away_tb_missing": away_tb_missing,
-        "home_tb_missing": home_tb_missing,
-        "hr_sources": hr_sources,
-        "tb_sources": tb_sources,
-        "notes": notes,
-    }
-
-
-def summarize_snapshot_evaluation(
-    allow_partial: bool,
-    game_rows: list[dict[str, str]],
-    prop_rows: list[dict[str, str]],
-) -> dict[str, Any]:
-    reasons: list[str] = []
-    if allow_partial:
-        reasons.append("allow_partial")
-    if not game_rows:
-        reasons.append("no_games")
-    if any(
-        str(row.get("game_status_bucket") or "").strip().lower() != "pregame"
-        and str(row.get("scoring_status") or "").strip().lower() == SCORING_STATUS_SCORED
-        for row in game_rows
-    ):
-        reasons.append("contains_non_pregame_scored_games")
-
-    scored_games = sum(1 for row in game_rows if str(row.get("scoring_status") or "").strip().lower() == SCORING_STATUS_SCORED)
-    scored_props = sum(1 for row in prop_rows if str(row.get("scoring_status") or "").strip().lower() == SCORING_STATUS_SCORED)
-    eligible = not reasons
-    return {
-        "eligible": eligible,
-        "status": "eligible" if eligible else "not_evaluable",
-        "reasons": reasons,
-        "scored_games": scored_games,
-        "not_scored_games": len(game_rows) - scored_games,
-        "scored_props": scored_props,
-        "not_scored_props": len(prop_rows) - scored_props,
-    }
-
-
 def report_date_value() -> date:
     return datetime.strptime(REPORT_DATE, "%Y-%m-%d").date()
-
-
-def parse_stat_date(raw: str | None) -> date | None:
-    if not raw:
-        return None
-    try:
-        return datetime.strptime(raw[:10], "%Y-%m-%d").date()
-    except ValueError:
-        return None
-
-
-def innings_text_to_outs(text: str | None) -> int:
-    raw = (text or "").strip()
-    if not raw:
-        return 0
-    if "." not in raw:
-        return int(raw) * 3
-    whole, frac = raw.split(".", 1)
-    outs = int(whole) * 3
-    if frac in {"1", "2"}:
-        outs += int(frac)
-    return outs
-
-
-def run_environment_label(run_factor: float | None) -> str:
-    if run_factor is None:
-        return "Medium"
-    if run_factor >= 1.04:
-        return "High"
-    if run_factor >= 1.01:
-        return "Medium-High"
-    if run_factor <= 0.96:
-        return "Low"
-    if run_factor <= 0.99:
-        return "Low-Medium"
-    return "Medium"
-
-
-def current_inning_label(linescore: dict[str, Any]) -> str:
-    inning_state = str(linescore.get("inningState") or "").strip()
-    inning_half = str(linescore.get("inningHalf") or "").strip()
-    inning_ordinal = str(linescore.get("currentInningOrdinal") or "").strip()
-    if inning_state and inning_ordinal:
-        return f"{inning_state} {inning_ordinal}"
-    if inning_half and inning_ordinal:
-        return f"{inning_half} {inning_ordinal}"
-    if inning_state:
-        return inning_state
-    if inning_ordinal:
-        return inning_ordinal
-    inning_num = parse_int(linescore.get("currentInning"))
-    if inning_num is None:
-        return ""
-    suffix = "th" if 10 <= inning_num % 100 <= 20 else {1: "st", 2: "nd", 3: "rd"}.get(inning_num % 10, "th")
-    return f"{inning_num}{suffix}"
-
-
-def summarize_game_status(game: dict[str, Any]) -> dict[str, Any]:
-    teams = game.get("teams") or {}
-    away = str(((teams.get("away") or {}).get("team") or {}).get("abbreviation") or "")
-    home = str(((teams.get("home") or {}).get("team") or {}).get("abbreviation") or "")
-    status = game.get("status") or {}
-    linescore = game.get("linescore") or {}
-    away_score_raw = parse_int((((linescore.get("teams") or {}).get("away") or {}).get("runs")))
-    home_score_raw = parse_int((((linescore.get("teams") or {}).get("home") or {}).get("runs")))
-    inning_label = current_inning_label(linescore)
-    score_label = (
-        f"{away} {away_score_raw}, {home} {home_score_raw}"
-        if away_score_raw is not None and home_score_raw is not None
-        else ""
-    )
-
-    abstract = str(status.get("abstractGameState") or "").strip()
-    detailed = str(status.get("detailedState") or "").strip()
-    status_code = str(status.get("statusCode") or "").strip().upper()
-    abstract_lower = abstract.lower()
-    detailed_lower = detailed.lower()
-
-    if abstract_lower == "final" or detailed_lower.startswith("final") or status_code.startswith("F"):
-        note = "Final"
-        if score_label:
-            note = f"{note} — {score_label}"
-        return {
-            "game_status_bucket": "final",
-            "game_state": "Final",
-            "game_state_detail": detailed or "Final",
-            "game_status_note": note,
-            "inning_label": inning_label,
-            "away_score": away_score_raw,
-            "home_score": home_score_raw,
-        }
-
-    if abstract_lower == "live" or status_code.startswith("I"):
-        detail = detailed or "In Progress"
-        lead = detail if detail.lower() not in {"in progress", "live"} else (inning_label or "Live")
-        note_parts = [lead]
-        if lead != inning_label and inning_label:
-            note_parts.append(inning_label)
-        if score_label:
-            note_parts.append(score_label)
-        return {
-            "game_status_bucket": "live",
-            "game_state": "Live",
-            "game_state_detail": detail,
-            "game_status_note": " — ".join(part for part in note_parts if part),
-            "inning_label": inning_label,
-            "away_score": away_score_raw,
-            "home_score": home_score_raw,
-        }
-
-    if abstract_lower in {"preview", "pregame"} or status_code in {"S", "P", "PW", "PR", "PO"}:
-        detail = detailed or "Pre-Game"
-        note = detail
-        if detail.lower() in {"scheduled", "preview", "pre-game"}:
-            note = "Yet to begin"
-        return {
-            "game_status_bucket": "pregame",
-            "game_state": "Yet To Begin",
-            "game_state_detail": detail,
-            "game_status_note": note,
-            "inning_label": inning_label,
-            "away_score": None,
-            "home_score": None,
-        }
-
-    note = detailed or abstract or "Status unavailable"
-    if score_label:
-        note = f"{note} — {score_label}"
-    return {
-        "game_status_bucket": "other",
-        "game_state": abstract or "Other",
-        "game_state_detail": detailed or abstract or "Other",
-        "game_status_note": note,
-        "inning_label": inning_label,
-        "away_score": away_score_raw if abstract_lower in {"live", "final"} else None,
-        "home_score": home_score_raw if abstract_lower in {"live", "final"} else None,
-    }
 
 
 def fetch_team_meta(team_ids: dict[str, int], season: str) -> dict[str, dict[str, str]]:
@@ -698,10 +479,6 @@ def fetch_vs_pitcher_stats(matchups: dict[int, set[int]]) -> dict[tuple[int, int
     return out
 
 
-def render_json_string(value: str) -> str:
-    return json.dumps(value, ensure_ascii=False)
-
-
 def lineup_quality_score(features: dict[str, Any]) -> float:
     est_ba = features.get("est_ba")
     xslg = features.get("xslg")
@@ -743,332 +520,6 @@ def build_model_lineup(players: list[dict[str, Any]], batter_features: dict[int,
             ]
         )
     return out
-
-
-def replace_marker_region(source: str, marker_name: str, csv_text: str) -> str:
-    start = f"<!-- {marker_name}:start -->"
-    end = f"<!-- {marker_name}:end -->"
-    pattern = re.compile(re.escape(start) + r"\r?\n" + r".*?" + r"\r?\n" + re.escape(end), re.DOTALL)
-    replacement = start + "\n" + csv_text + "\n" + end
-    new_source, count = pattern.subn(replacement, source, count=1)
-    if count != 1:
-        raise ValueError(f"Expected one {marker_name} block, found {count}")
-    return new_source
-
-
-def assert_no_comment_breaker(text: str, label: str) -> None:
-    if "*/" in text:
-        raise ValueError(f"{label} contains */ — refuse to write")
-
-
-def csv_block(rows: list[list[str]]) -> str:
-    buf = StringIO()
-    writer = csv.writer(buf, lineterminator="\n")
-    writer.writerows(rows)
-    return buf.getvalue().strip()
-
-
-def canvas_slug(path: Path) -> str:
-    return path.name.replace("mlb-pregame-intel-", "").replace(".canvas.tsx", "")
-
-
-def rows_to_dicts(rows: list[list[str]]) -> list[dict[str, str]]:
-    if not rows:
-        return []
-    header = rows[0]
-    return [dict(zip(header, row)) for row in rows[1:]]
-
-
-def serialize_game_odds(odds: GameOdds | None) -> dict[str, Any] | None:
-    if odds is None:
-        return None
-    return {
-        "event_id": odds.event_id,
-        "away_abbr": odds.away_abbr,
-        "home_abbr": odds.home_abbr,
-        "away_moneyline": odds.away_moneyline,
-        "home_moneyline": odds.home_moneyline,
-        "total_line": odds.total_line,
-        "over_price": odds.over_price,
-        "under_price": odds.under_price,
-        "bookmakers_count": odds.bookmakers_count,
-        "last_update": odds.last_update,
-        "source": odds.source,
-    }
-
-
-def serialize_prop_market(line: PropMarketLine | None) -> dict[str, Any] | None:
-    if line is None:
-        return None
-    return {
-        "event_id": line.event_id,
-        "market_key": line.market_key,
-        "player_key": line.player_key,
-        "player_name": line.player_name,
-        "point": line.point,
-        "over_price": line.over_price,
-        "under_price": line.under_price,
-        "bookmakers_count": line.bookmakers_count,
-        "last_update": line.last_update,
-        "source": line.source,
-    }
-
-
-def serialize_weather(snapshot: WeatherSnapshot | None) -> dict[str, Any] | None:
-    if snapshot is None:
-        return None
-    return {
-        "venue_name": snapshot.venue_name,
-        "source": snapshot.source,
-        "forecast_time_utc": snapshot.forecast_time_utc,
-        "roof_type": snapshot.roof_type,
-        "temperature_f": snapshot.temperature_f,
-        "wind_speed_mph": snapshot.wind_speed_mph,
-        "wind_direction_deg": snapshot.wind_direction_deg,
-        "precipitation_probability_pct": snapshot.precipitation_probability_pct,
-        "precipitation_inches": snapshot.precipitation_inches,
-        "weather_code": snapshot.weather_code,
-        "run_factor": snapshot.run_factor,
-        "summary": snapshot.summary,
-    }
-
-
-def write_run_snapshot(
-    path: Path,
-    *,
-    allow_partial: bool,
-    lineup_context: dict[str, dict[str, Any]],
-    games_rows: list[list[str]],
-    batter_rows: list[list[str]],
-    game_feature_rows: list[dict[str, Any]],
-    prop_feature_rows: list[dict[str, Any]],
-    team_bullpen_scores: dict[str, dict[str, Any]],
-    runtime_diagnostics: list[dict[str, Any]],
-    prop_market_coverage: list[dict[str, Any]],
-) -> Path:
-    slug = canvas_slug(path)
-    snapshot_dir = SNAPSHOT_ROOT / slug
-    snapshot_dir.mkdir(parents=True, exist_ok=True)
-    run_ts = datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")
-    game_rows = rows_to_dicts(games_rows)
-    prop_rows = rows_to_dicts(batter_rows)
-    evaluation = summarize_snapshot_evaluation(allow_partial, game_rows, prop_rows)
-    payload = {
-        "slug": slug,
-        "report_date": REPORT_DATE,
-        "run_timestamp_utc": run_ts,
-        "allow_partial": allow_partial,
-        "evaluation_eligible": evaluation["eligible"],
-        "evaluation": evaluation,
-        "game_model": {
-            "market_blend_alpha": DEFAULT_MARKET_BLEND_ALPHA,
-        },
-        "canvas_path": str(path),
-        "games": game_rows,
-        "props": prop_rows,
-        "game_features": game_feature_rows,
-        "prop_features": prop_feature_rows,
-        "team_bullpens": team_bullpen_scores,
-        "runtime_diagnostics": runtime_diagnostics,
-        "prop_market_coverage": prop_market_coverage,
-        "lineup_context": {
-            game_key: {
-                "game_status_bucket": ctx.get("game_status_bucket"),
-                "game_state": ctx.get("game_state"),
-                "game_state_detail": ctx.get("game_state_detail"),
-                "game_status_note": ctx.get("game_status_note"),
-                "inning_label": ctx.get("inning_label"),
-                "away_score": ctx.get("away_score"),
-                "home_score": ctx.get("home_score"),
-                "away_label": ctx.get("away_label"),
-                "home_label": ctx.get("home_label"),
-                "away_pitcher": ctx.get("away_pitcher"),
-                "home_pitcher": ctx.get("home_pitcher"),
-                "away_moneyline": ctx.get("away_moneyline"),
-                "home_moneyline": ctx.get("home_moneyline"),
-                "odds": serialize_game_odds(ctx.get("odds") if isinstance(ctx.get("odds"), GameOdds) else None),
-                "weather": serialize_weather(ctx.get("weather") if isinstance(ctx.get("weather"), WeatherSnapshot) else None),
-                "issues": list(ctx.get("issues") or []),
-                "venue_name": ctx.get("venue_name"),
-                "roof_type": ctx.get("roof_type"),
-                "away_players": ctx.get("away_players"),
-                "home_players": ctx.get("home_players"),
-            }
-            for game_key, ctx in lineup_context.items()
-        },
-        "summary": {
-            "pregame_games": sum(1 for row in game_rows if row.get("game_status_bucket") == "pregame"),
-            "live_games": sum(1 for row in game_rows if row.get("game_status_bucket") == "live"),
-            "final_games": sum(1 for row in game_rows if row.get("game_status_bucket") == "final"),
-            "other_games": sum(1 for row in game_rows if row.get("game_status_bucket") == "other"),
-            "verified_games": sum(1 for row in game_rows if row.get("verification_status") == "Verified"),
-            "partial_games": sum(1 for row in game_rows if row.get("verification_status") == "Partial"),
-            "scored_games": evaluation["scored_games"],
-            "not_scored_games": evaluation["not_scored_games"],
-            "full_prop_markets": sum(1 for row in prop_rows if row.get("market_data_status") == "full"),
-            "partial_prop_markets": sum(1 for row in prop_rows if row.get("market_data_status") == "partial"),
-            "no_prop_markets": sum(1 for row in prop_rows if row.get("market_data_status") == "none"),
-            "scored_props": evaluation["scored_props"],
-            "not_scored_props": evaluation["not_scored_props"],
-            "games_missing_odds": sum(
-                1 for row in prop_market_coverage if "market_odds_unavailable" in list(row.get("notes") or [])
-            ),
-            "one_sided_hr_games": sum(
-                1
-                for row in prop_market_coverage
-                if "rotowire_hr_home_side_missing" in list(row.get("notes") or [])
-                or "rotowire_hr_away_side_missing" in list(row.get("notes") or [])
-            ),
-            "evaluation_eligible": evaluation["eligible"],
-            "evaluation_status": evaluation["status"],
-        },
-    }
-    snapshot_text = json.dumps(payload, indent=2, ensure_ascii=False)
-    snapshot_path = snapshot_dir / f"{slug}-{run_ts}.json"
-    latest_path = snapshot_dir / f"{slug}-latest.json"
-    snapshot_path.write_text(snapshot_text, encoding="utf-8")
-    latest_path.write_text(snapshot_text, encoding="utf-8")
-    return snapshot_path
-
-
-def extract_game_block(text: str, game_key: str) -> tuple[int, int] | None:
-    needle = f'gameKey: "{game_key}"'
-    idx = text.find(needle)
-    if idx < 0:
-        return None
-    start = idx
-    while start > 0 and text[start] != "{":
-        start -= 1
-    depth = 0
-    for pos in range(start, len(text)):
-        if text[pos] == "{":
-            depth += 1
-        elif text[pos] == "}":
-            depth -= 1
-            if depth == 0:
-                return start, pos + 1
-    return None
-
-
-def find_field_array_span(block: str, field: str) -> tuple[int, int] | None:
-    needle = f"{field}:"
-    start = block.find(needle)
-    if start < 0:
-        return None
-    arr_start = block.find("[", start)
-    if arr_start < 0:
-        return None
-    depth = 0
-    for idx in range(arr_start, len(block)):
-        ch = block[idx]
-        if ch == "[":
-            depth += 1
-        elif ch == "]":
-            depth -= 1
-            if depth == 0:
-                return arr_start, idx + 1
-    return None
-
-
-def parse_lineup_rows(block: str, field: str) -> list[dict[str, Any]]:
-    span = find_field_array_span(block, field)
-    if not span:
-        return []
-    rows: list[dict[str, Any]] = []
-    for order, name, pos in re.findall(r'\[\s*"([^"]+)"\s*,\s*"([^"]+)"\s*,\s*"([^"]+)"\s*\]', block[span[0] : span[1]]):
-        rows.append({"order": parse_int(order) or len(rows) + 1, "name": name, "pos": pos})
-    return rows
-
-
-def parse_canvas_games(source: str) -> dict[str, dict[str, Any]]:
-    out: dict[str, dict[str, Any]] = {}
-    for spec in GAME_SPECS:
-        game_key = f"{spec['away']}@{spec['home']}"
-        span = extract_game_block(source, game_key)
-        if not span:
-            continue
-        block = source[span[0] : span[1]]
-        away_label = re.search(r'awayLuLabel:\s*"([^"]+)"', block)
-        home_label = re.search(r'homeLuLabel:\s*"([^"]+)"', block)
-        out[game_key] = {
-            "away_label": away_label.group(1) if away_label else "Projected (canvas fallback)",
-            "home_label": home_label.group(1) if home_label else "Projected (canvas fallback)",
-            "away_lineup": parse_lineup_rows(block, "awayLineup"),
-            "home_lineup": parse_lineup_rows(block, "homeLineup"),
-        }
-    return out
-
-
-def replace_array_field(block: str, field: str, rendered_array: str) -> str:
-    span = find_field_array_span(block, field)
-    if not span:
-        raise ValueError(f"Missing {field} array")
-    return block[: span[0]] + rendered_array + block[span[1] :]
-
-
-def render_lineup_rows(rows: list[dict[str, Any]]) -> str:
-    if not rows:
-        return "[]"
-    pieces = ["["]
-    for row in rows:
-        pieces.append(
-            "\n      ["
-            f"{render_json_string(str(row['order']))}, "
-            f"{render_json_string(row['name'])}, "
-            f"{render_json_string(row['pos'])}"
-            "],"
-        )
-    pieces.append("\n    ]")
-    return "".join(pieces)
-
-
-def render_prop_rows(rows: list[dict[str, Any]]) -> str:
-    if not rows:
-        return "[]"
-    pieces = ["["]
-    for row in rows:
-        pieces.append(
-            "\n      { "
-            f'batter: {render_json_string(row["batter"])}, '
-            f'team: {render_json_string(row["team"])}, '
-            f'hrPct: {row["hrPct"]:.1f}, '
-            f'tb2Pct: {row["tb2Pct"]:.1f}, '
-            f'tier: {render_json_string(row["tier"])}, '
-            f'note: {render_json_string(row["note"])}'
-            " },"
-        )
-    pieces.append("\n    ]")
-    return "".join(pieces)
-
-
-def patch_float_field(block: str, field: str, value: float, decimals: int = 2) -> str:
-    return re.sub(rf"({re.escape(field)}:\s*)[\d.+-]+", rf"\g<1>{value:.{decimals}f}", block, count=1)
-
-
-def patch_string_field(block: str, field: str, value: str) -> str:
-    return re.sub(rf'({re.escape(field)}:\s*")([^"]*)(")', rf'\1{value}\3', block, count=1)
-
-
-def insert_field_after(block: str, after_field: str, rendered_line: str) -> str:
-    match = re.search(rf"^(\s*){re.escape(after_field)}:.*,\n", block, flags=re.MULTILINE)
-    if not match:
-        raise ValueError(f"Missing {after_field} field for insertion")
-    indent = match.group(1)
-    line = rendered_line if rendered_line.startswith(indent) else f"{indent}{rendered_line}"
-    return block[: match.end()] + line + block[match.end() :]
-
-
-def upsert_string_field(block: str, field: str, value: str, *, after_field: str) -> str:
-    if re.search(rf"^\s*{re.escape(field)}:\s*\"", block, flags=re.MULTILINE):
-        return patch_string_field(block, field, value)
-    return insert_field_after(block, after_field, f"{field}: {render_json_string(value)},\n")
-
-
-def upsert_literal_field(block: str, field: str, literal: str, *, after_field: str) -> str:
-    pattern = re.compile(rf"(^\s*{re.escape(field)}:\s*)([^,\n]+)(,?)$", flags=re.MULTILINE)
-    if pattern.search(block):
-        return pattern.sub(lambda match: f"{match.group(1)}{literal}{match.group(3)}", block, count=1)
-    return insert_field_after(block, after_field, f"{field}: {literal},\n")
 
 
 def resolve_named_players(
