@@ -15,6 +15,7 @@ __all__ = [
     "canvas_io",
     "features",
     "fetch",
+    "inputs",
     "markets",
     "parseutil",
     "slate",

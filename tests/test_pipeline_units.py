@@ -15,6 +15,8 @@ import tempfile
 import unittest
 from dataclasses import dataclass
 from pathlib import Path
+from types import SimpleNamespace
+from unittest import mock
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 EXPORTS_DIR = REPO_ROOT / "canvases" / "exports"
@@ -22,7 +24,7 @@ for path in (REPO_ROOT, EXPORTS_DIR):
     if str(path) not in sys.path:
         sys.path.insert(0, str(path))
 
-from pipeline import canvas_io, markets, slate, snapshots, status  # noqa: E402
+from pipeline import canvas_io, inputs, markets, slate, snapshots, status  # noqa: E402
 
 
 # --- Test doubles -----------------------------------------------------------
@@ -292,6 +294,7 @@ class SlateTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             slate.validate_game_specs([{"away": "DET", "home": "BOS"}])
 
+
     def test_summarize_snapshot_evaluation_eligible(self):
         games = [
             {"game_status_bucket": "pregame", "scoring_status": "scored"},
@@ -409,6 +412,42 @@ class SlateTests(unittest.TestCase):
             self.assertEqual(payload["summary"]["scored_games"], 1)
 
 
+# --- inputs tests -----------------------------------------------------------
+
+class SlateInputsTests(unittest.TestCase):
+    def test_load_slate_inputs_real_module(self):
+        loaded = inputs.load_slate_inputs("apr20")
+        self.assertEqual(loaded.slug, "apr20")
+        self.assertEqual(loaded.report_date, "2026-04-20")
+        self.assertEqual(loaded.canvas_slug, "apr20")
+        self.assertTrue(loaded.canvas_path.name.endswith("mlb-pregame-intel-apr20.canvas.tsx"))
+        self.assertIsInstance(loaded.game_specs, list)
+        self.assertTrue(callable(loaded.make_sp_profile))
+
+    def test_load_slate_inputs_requires_exports(self):
+        fake = SimpleNamespace(
+            __name__="models.fake_inputs",
+            REPORT_DATE="2026-04-21",
+            CANVAS_SLUG="apr21",
+            GAME_SPECS=[],
+        )
+        with mock.patch("pipeline.inputs.importlib.import_module", return_value=fake):
+            with self.assertRaises(AttributeError):
+                inputs.load_slate_inputs("fake")
+
+    def test_load_slate_inputs_checks_basic_types(self):
+        fake = SimpleNamespace(
+            __name__="models.fake_inputs",
+            REPORT_DATE="2026-04-21",
+            CANVAS_SLUG="apr21",
+            GAME_SPECS={},
+            make_sp_profile=lambda x: x,
+        )
+        with mock.patch("pipeline.inputs.importlib.import_module", return_value=fake):
+            with self.assertRaises(TypeError):
+                inputs.load_slate_inputs("fake")
+
+
 # --- status tests -----------------------------------------------------------
 
 class StatusTests(unittest.TestCase):
@@ -505,6 +544,16 @@ class Apr16ComputeBackCompatTests(unittest.TestCase):
             "TB_TARGET_LINE",
         ):
             self.assertTrue(hasattr(ac, name), f"apr16_compute should still expose {name}")
+
+    def test_bind_slate_inputs_still_populates_globals(self):
+        import apr16_compute as ac
+
+        ac.bind_slate_inputs("apr20")
+
+        self.assertEqual(ac.REPORT_DATE, "2026-04-20")
+        self.assertTrue(ac.CANVAS.name.endswith("mlb-pregame-intel-apr20.canvas.tsx"))
+        self.assertIsInstance(ac.GAME_SPECS, list)
+        self.assertTrue(callable(ac.make_sp_profile))
 
 
 if __name__ == "__main__":

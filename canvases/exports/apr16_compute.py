@@ -1,7 +1,6 @@
 """Compute dated slate games + props from shared models; update canvas markers + SLATE."""
 from __future__ import annotations
 
-import importlib
 import sys
 from collections.abc import Callable
 from datetime import date, datetime
@@ -99,6 +98,7 @@ from pipeline.fetch import (  # noqa: E402
     fetch_team_rosters,
     fetch_vs_pitcher_stats,
 )
+from pipeline.inputs import load_slate_inputs  # noqa: E402
 from pipeline.features import (  # noqa: E402
     build_data_confidence,
     build_model_lineup,
@@ -182,11 +182,11 @@ def report_date_value() -> date:
 def bind_slate_inputs(slug: str) -> None:
     global GAME_SPECS, REPORT_DATE, CANVAS
     global make_sp_profile
-    mod = importlib.import_module(f"models.{slug}_inputs")
-    GAME_SPECS = mod.GAME_SPECS
-    REPORT_DATE = mod.REPORT_DATE
-    make_sp_profile = mod.make_sp_profile
-    CANVAS = ROOT / "canvases" / f"mlb-pregame-intel-{mod.CANVAS_SLUG}.canvas.tsx"
+    inputs = load_slate_inputs(slug)
+    GAME_SPECS = inputs.game_specs
+    REPORT_DATE = inputs.report_date
+    make_sp_profile = inputs.make_sp_profile
+    CANVAS = inputs.canvas_path
 
 
 def run_slate_pipeline(slug: str, canvas_path: Path | None = None, *, allow_partial: bool = False) -> None:
