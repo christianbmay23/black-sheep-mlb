@@ -168,8 +168,8 @@ const SLATE: SlateGame[] = [
     homeSp: "TBD",
     awayAmerican: null,
     homeAmerican: null,
-    impliedAwayPct: 43.50,
-    impliedHomePct: 56.50,
+    impliedAwayPct: 41.55,
+    impliedHomePct: 58.45,
     modelAwayPct: 0.00,
     modelHomePct: 0.00,
     edgeAwayPct: 0.00,
@@ -179,7 +179,7 @@ const SLATE: SlateGame[] = [
     edgeOnPickPct: 0.00,
     modelConfidence: "Not Scored",
     analystConfidence: "Medium",
-    flags: "rotowire_lineup_mismatch;rotowire_unconfirmed;starter_mismatch_rotowire;not_scored_non_pregame",
+    flags: "rotowire_lineup_mismatch;starter_mismatch_rotowire;not_scored_non_pregame",
     rationale: "Auto-generated live scaffold from MLB schedule + market odds: Spencer Arrighetti vs Slade Cecconi. Run compute to refresh lineups, weather, and model outputs before staking.",
     awayLuLabel: "Posted (MLB API)",
     homeLuLabel: "Posted (MLB API)",
@@ -247,8 +247,8 @@ const SLATE: SlateGame[] = [
     homeSp: "TBD",
     awayAmerican: null,
     homeAmerican: null,
-    impliedAwayPct: 51.32,
-    impliedHomePct: 48.68,
+    impliedAwayPct: 50.89,
+    impliedHomePct: 49.11,
     modelAwayPct: 0.00,
     modelHomePct: 0.00,
     edgeAwayPct: 0.00,
@@ -258,7 +258,7 @@ const SLATE: SlateGame[] = [
     edgeOnPickPct: 0.00,
     modelConfidence: "Not Scored",
     analystConfidence: "Medium",
-    flags: "rotowire_unconfirmed;starter_mismatch_rotowire;not_scored_non_pregame",
+    flags: "rotowire_lineup_mismatch;starter_mismatch_rotowire;not_scored_non_pregame",
     rationale: "Auto-generated live scaffold from MLB schedule + market odds: Rhett Lowder vs Jesse Scholtens. Run compute to refresh lineups, weather, and model outputs before staking.",
     awayLuLabel: "Posted (MLB API)",
     homeLuLabel: "Posted (MLB API)",
@@ -337,10 +337,10 @@ const SLATE: SlateGame[] = [
     edgeOnPickPct: 0.00,
     modelConfidence: "Not Scored",
     analystConfidence: "Medium",
-    flags: "rotowire_unconfirmed;starter_mismatch_rotowire;not_scored_non_pregame",
+    flags: "rotowire_lineup_mismatch;starter_mismatch_rotowire;not_scored_non_pregame",
     rationale: "Auto-generated live scaffold from MLB schedule + market odds: Michael McGreevy vs Max Meyer. Run compute to refresh lineups, weather, and model outputs before staking.",
     awayLuLabel: "Posted (MLB API)",
-    homeLuLabel: "Posted (MLB API)",
+    homeLuLabel: "Confirmed (MLB API + RotoWire)",
     awayLineup: [
       ["1", "JJ Wetherholt", "2B"],
       ["2", "Iván Herrera", "C"],
@@ -405,8 +405,8 @@ const SLATE: SlateGame[] = [
     homeSp: "TBD",
     awayAmerican: null,
     homeAmerican: null,
-    impliedAwayPct: 56.28,
-    impliedHomePct: 43.72,
+    impliedAwayPct: 58.32,
+    impliedHomePct: 41.68,
     modelAwayPct: 0.00,
     modelHomePct: 0.00,
     edgeAwayPct: 0.00,
@@ -416,7 +416,7 @@ const SLATE: SlateGame[] = [
     edgeOnPickPct: 0.00,
     modelConfidence: "Not Scored",
     analystConfidence: "Medium",
-    flags: "rotowire_unconfirmed;starter_mismatch_rotowire;not_scored_non_pregame",
+    flags: "rotowire_lineup_mismatch;starter_mismatch_rotowire;not_scored_non_pregame",
     rationale: "Auto-generated live scaffold from MLB schedule + market odds: Bryce Elder vs Jake Irvin. Run compute to refresh lineups, weather, and model outputs before staking.",
     awayLuLabel: "Posted (MLB API)",
     homeLuLabel: "Posted (MLB API)",
@@ -484,8 +484,8 @@ const SLATE: SlateGame[] = [
     homeSp: "TBD",
     awayAmerican: -115,
     homeAmerican: -105,
-    impliedAwayPct: 46.81,
-    impliedHomePct: 53.19,
+    impliedAwayPct: 46.63,
+    impliedHomePct: 53.37,
     modelAwayPct: 0.00,
     modelHomePct: 0.00,
     edgeAwayPct: 0.00,
@@ -498,7 +498,7 @@ const SLATE: SlateGame[] = [
     flags: "rotowire_unconfirmed;starter_mismatch_rotowire;not_scored_non_pregame",
     rationale: "Auto-generated live scaffold from MLB schedule + market odds: Kyle Bradish vs Seth Lugo. Run compute to refresh lineups, weather, and model outputs before staking.",
     awayLuLabel: "Posted (MLB API)",
-    homeLuLabel: "Posted (MLB API)",
+    homeLuLabel: "Confirmed (MLB API + RotoWire)",
     awayLineup: [
       ["1", "Gunnar Henderson", "SS"],
       ["2", "Taylor Ward", "LF"],
@@ -563,8 +563,8 @@ const SLATE: SlateGame[] = [
     homeSp: "TBD",
     awayAmerican: -105,
     homeAmerican: -115,
-    impliedAwayPct: 46.27,
-    impliedHomePct: 53.73,
+    impliedAwayPct: 46.10,
+    impliedHomePct: 53.90,
     modelAwayPct: 0.00,
     modelHomePct: 0.00,
     edgeAwayPct: 0.00,
@@ -800,8 +800,8 @@ const SLATE: SlateGame[] = [
     homeSp: "TBD",
     awayAmerican: 120,
     homeAmerican: -142,
-    impliedAwayPct: 40.25,
-    impliedHomePct: 59.75,
+    impliedAwayPct: 40.19,
+    impliedHomePct: 59.81,
     modelAwayPct: 0.00,
     modelHomePct: 0.00,
     edgeAwayPct: 0.00,
@@ -1402,15 +1402,15 @@ export default function Apr20Canvas() {
 <!-- games-csv:start -->
 report_date,away,home,start_time_et,away_sp,home_sp,away_american,home_american,market_total,market_over_american,market_under_american,weather_summary,weather_temp_f,weather_wind_mph,weather_precip_pct,bullpen_away_score,bullpen_home_score,recent_form_away_score,recent_form_home_score,game_status_bucket,game_state,game_state_detail,game_status_note,away_score,home_score,verification_status,verification_notes,implied_away_pct_nv,implied_home_pct_nv,raw_model_away_win_pct,raw_model_home_win_pct,final_away_win_pct,final_home_win_pct,market_blend_alpha,model_away_win_pct,model_home_win_pct,edge_away_pct,edge_home_pct,prediction,decision_tier_vs_market,edge_on_pick_pct,model_confidence,missing_data_flags,analyst_confidence,rationale_summary,scoring_status
 2026-04-20,DET,BOS,11:10 AM,Jack Flaherty,Sonny Gray,,,,,,43F / 2 mph wind / 1% precip / Open,43.4,2.0,1,0.416,0.455,0.468,0.406,final,Final,Final,"Final — DET 6, BOS 8",6,8,Partial,market_odds_unavailable|rotowire_missing,50.00,50.00,,,,,,,,,,,not_scored,,not_scored,market_odds_unavailable;rotowire_missing,Medium,"Auto-generated live scaffold from MLB schedule + market odds: Jack Flaherty vs Sonny Gray. Run compute to refresh lineups, weather, and model outputs before staking.",not_scored
-2026-04-20,HOU,CLE,6:10 PM,Spencer Arrighetti,Slade Cecconi,122,-141,9.0,100,-120,38F / 1 mph wind / 0% precip / Open,37.6,1.3,0,0.330,0.331,0.439,0.507,final,Final,Final,"Final — HOU 9, CLE 2",9,2,Partial,rotowire_lineup_mismatch|rotowire_unconfirmed|starter_mismatch_rotowire,43.50,56.50,,,,,,,,,,,not_scored,,not_scored,rotowire_lineup_mismatch;rotowire_unconfirmed;starter_mismatch_rotowire,Medium,"Auto-generated live scaffold from MLB schedule + market odds: Spencer Arrighetti vs Slade Cecconi. Run compute to refresh lineups, weather, and model outputs before staking.",not_scored
-2026-04-20,CIN,TB,6:40 PM,Rhett Lowder,Jesse Scholtens,-115,-103,7.5,-105,-115,Live weather via compute,,,,0.370,0.354,0.421,0.475,final,Final,Final,"Final — CIN 6, TB 1",6,1,Partial,rotowire_unconfirmed|starter_mismatch_rotowire,51.32,48.68,,,,,,,,,,,not_scored,,not_scored,rotowire_unconfirmed;starter_mismatch_rotowire,Medium,"Auto-generated live scaffold from MLB schedule + market odds: Rhett Lowder vs Jesse Scholtens. Run compute to refresh lineups, weather, and model outputs before staking.",not_scored
-2026-04-20,STL,MIA,6:40 PM,Michael McGreevy,Max Meyer,-102,-115,8.5,-115,-105,73F / 10 mph wind / 33% precip / Retractable,73.2,10.5,33,0.283,0.425,0.506,0.511,final,Final,Final,"Final — STL 3, MIA 5",3,5,Partial,rotowire_unconfirmed|starter_mismatch_rotowire,48.56,51.44,,,,,,,,,,,not_scored,,not_scored,rotowire_unconfirmed;starter_mismatch_rotowire,Medium,"Auto-generated live scaffold from MLB schedule + market odds: Michael McGreevy vs Max Meyer. Run compute to refresh lineups, weather, and model outputs before staking.",not_scored
-2026-04-20,ATL,WSH,6:45 PM,Bryce Elder,Jake Irvin,-141,120,8.5,-110,-110,50F / 9 mph wind / 0% precip / Open,49.8,9.3,0,0.472,0.325,0.608,0.487,final,Final,Final,"Final — ATL 9, WSH 4",9,4,Partial,rotowire_unconfirmed|starter_mismatch_rotowire,56.28,43.72,,,,,,,,,,,not_scored,,not_scored,rotowire_unconfirmed;starter_mismatch_rotowire,Medium,"Auto-generated live scaffold from MLB schedule + market odds: Bryce Elder vs Jake Irvin. Run compute to refresh lineups, weather, and model outputs before staking.",not_scored
-2026-04-20,BAL,KC,7:40 PM,Kyle Bradish,Seth Lugo,106,-123,9.0,-105,-115,72F / 14 mph wind / 0% precip / Open,71.8,14.0,0,0.470,0.305,0.476,0.369,final,Final,Final,"Final — BAL 7, KC 5",7,5,Partial,rotowire_unconfirmed|starter_mismatch_rotowire,46.81,53.19,,,,,,,,,,,not_scored,,not_scored,rotowire_unconfirmed;starter_mismatch_rotowire,Medium,"Auto-generated live scaffold from MLB schedule + market odds: Kyle Bradish vs Seth Lugo. Run compute to refresh lineups, weather, and model outputs before staking.",not_scored
-2026-04-20,PHI,CHC,7:40 PM,Aaron Nola,Colin Rea,109,-125,8.5,-115,-105,48F / 9 mph wind / 0% precip / Open,47.9,9.0,0,0.466,0.413,0.429,0.553,final,Final,Final,"Final — PHI 1, CHC 5",1,5,Partial,rotowire_unconfirmed|starter_mismatch_rotowire,46.27,53.73,,,,,,,,,,,not_scored,,not_scored,rotowire_unconfirmed;starter_mismatch_rotowire,Medium,"Auto-generated live scaffold from MLB schedule + market odds: Aaron Nola vs Colin Rea. Run compute to refresh lineups, weather, and model outputs before staking.",not_scored
+2026-04-20,HOU,CLE,6:10 PM,Spencer Arrighetti,Slade Cecconi,132,-154,8.5,-125,105,38F / 1 mph wind / 0% precip / Open,37.6,1.3,0,0.342,0.331,0.439,0.507,final,Final,Final,"Final — HOU 9, CLE 2",9,2,Partial,rotowire_lineup_mismatch|starter_mismatch_rotowire,41.55,58.45,,,,,,,,,,,not_scored,,not_scored,rotowire_lineup_mismatch;starter_mismatch_rotowire,Medium,"Auto-generated live scaffold from MLB schedule + market odds: Spencer Arrighetti vs Slade Cecconi. Run compute to refresh lineups, weather, and model outputs before staking.",not_scored
+2026-04-20,CIN,TB,6:40 PM,Rhett Lowder,Jesse Scholtens,-112,-104,7.5,-120,100,Live weather via compute,,,,0.370,0.354,0.421,0.475,final,Final,Final,"Final — CIN 6, TB 1",6,1,Partial,rotowire_lineup_mismatch|starter_mismatch_rotowire,50.89,49.11,,,,,,,,,,,not_scored,,not_scored,rotowire_lineup_mismatch;starter_mismatch_rotowire,Medium,"Auto-generated live scaffold from MLB schedule + market odds: Rhett Lowder vs Jesse Scholtens. Run compute to refresh lineups, weather, and model outputs before staking.",not_scored
+2026-04-20,STL,MIA,6:40 PM,Michael McGreevy,Max Meyer,-102,-115,8.5,-120,100,73F / 10 mph wind / 33% precip / Retractable,73.2,10.5,33,0.283,0.425,0.506,0.511,final,Final,Final,"Final — STL 3, MIA 5",3,5,Partial,rotowire_lineup_mismatch|starter_mismatch_rotowire,48.56,51.44,,,,,,,,,,,not_scored,,not_scored,rotowire_lineup_mismatch;starter_mismatch_rotowire,Medium,"Auto-generated live scaffold from MLB schedule + market odds: Michael McGreevy vs Max Meyer. Run compute to refresh lineups, weather, and model outputs before staking.",not_scored
+2026-04-20,ATL,WSH,6:45 PM,Bryce Elder,Jake Irvin,-152,132,8.5,-115,-105,50F / 9 mph wind / 0% precip / Open,49.8,9.3,0,0.472,0.325,0.608,0.487,final,Final,Final,"Final — ATL 9, WSH 4",9,4,Partial,rotowire_lineup_mismatch|starter_mismatch_rotowire,58.32,41.68,,,,,,,,,,,not_scored,,not_scored,rotowire_lineup_mismatch;starter_mismatch_rotowire,Medium,"Auto-generated live scaffold from MLB schedule + market odds: Bryce Elder vs Jake Irvin. Run compute to refresh lineups, weather, and model outputs before staking.",not_scored
+2026-04-20,BAL,KC,7:40 PM,Kyle Bradish,Seth Lugo,106,-125,9.0,-105,-115,72F / 14 mph wind / 0% precip / Open,71.8,14.0,0,0.470,0.305,0.476,0.369,final,Final,Final,"Final — BAL 7, KC 5",7,5,Partial,rotowire_unconfirmed|starter_mismatch_rotowire,46.63,53.37,,,,,,,,,,,not_scored,,not_scored,rotowire_unconfirmed;starter_mismatch_rotowire,Medium,"Auto-generated live scaffold from MLB schedule + market odds: Kyle Bradish vs Seth Lugo. Run compute to refresh lineups, weather, and model outputs before staking.",not_scored
+2026-04-20,PHI,CHC,7:40 PM,Aaron Nola,Colin Rea,109,-127,8.5,-115,-105,48F / 9 mph wind / 0% precip / Open,47.9,9.0,0,0.466,0.413,0.429,0.553,final,Final,Final,"Final — PHI 1, CHC 5",1,5,Partial,rotowire_unconfirmed|starter_mismatch_rotowire,46.10,53.90,,,,,,,,,,,not_scored,,not_scored,rotowire_unconfirmed;starter_mismatch_rotowire,Medium,"Auto-generated live scaffold from MLB schedule + market odds: Aaron Nola vs Colin Rea. Run compute to refresh lineups, weather, and model outputs before staking.",not_scored
 2026-04-20,LAD,COL,8:40 PM,Justin Wrobleski,Jose Quintana,-220,184,,,,76F / 8 mph wind / 0% precip / Open,75.8,7.9,0,0.353,0.359,0.610,0.514,final,Final,Final,"Final — LAD 12, COL 3",12,3,Partial,rotowire_missing,66.13,33.87,,,,,,,,,,,not_scored,,not_scored,rotowire_missing,Medium,"Auto-generated live scaffold from MLB schedule + market odds: Justin Wrobleski vs Jose Quintana. Run compute to refresh lineups, weather, and model outputs before staking.",not_scored
-2026-04-20,TOR,LAA,9:38 PM,Dylan Cease,Reid Detmers,-102,-114,9.0,-120,100,67F / 9 mph wind / 0% precip / Open,67.0,8.7,0,0.425,0.386,0.481,0.593,final,Final,Final,"Final — TOR 5, LAA 2",5,2,Partial,rotowire_unconfirmed|starter_mismatch_rotowire,48.66,51.34,,,,,,,,,,,not_scored,,not_scored,rotowire_unconfirmed;starter_mismatch_rotowire,Medium,"Auto-generated live scaffold from MLB schedule + market odds: Dylan Cease vs Reid Detmers. Run compute to refresh lineups, weather, and model outputs before staking.",not_scored
-2026-04-20,ATH,SEA,9:40 PM,J.T. Ginn,Emerson Hancock,139,-164,8.0,-105,-115,67F / 2 mph wind / 3% precip / Retractable,66.7,2.3,3,0.398,0.392,0.480,0.470,final,Final,Final,"Final — ATH 6, SEA 4",6,4,Partial,rotowire_unconfirmed|starter_mismatch_rotowire,40.25,59.75,,,,,,,,,,,not_scored,,not_scored,rotowire_unconfirmed;starter_mismatch_rotowire,Medium,"Auto-generated live scaffold from MLB schedule + market odds: J.T. Ginn vs Emerson Hancock. Run compute to refresh lineups, weather, and model outputs before staking.",not_scored
+2026-04-20,TOR,LAA,9:38 PM,Dylan Cease,Reid Detmers,-102,-114,9.5,-105,-115,67F / 9 mph wind / 0% precip / Open,67.0,8.7,0,0.425,0.386,0.481,0.593,final,Final,Final,"Final — TOR 5, LAA 2",5,2,Partial,rotowire_unconfirmed|starter_mismatch_rotowire,48.66,51.34,,,,,,,,,,,not_scored,,not_scored,rotowire_unconfirmed;starter_mismatch_rotowire,Medium,"Auto-generated live scaffold from MLB schedule + market odds: Dylan Cease vs Reid Detmers. Run compute to refresh lineups, weather, and model outputs before staking.",not_scored
+2026-04-20,ATH,SEA,9:40 PM,J.T. Ginn,Emerson Hancock,139,-165,8.0,-105,-115,67F / 2 mph wind / 3% precip / Retractable,66.7,2.3,3,0.398,0.392,0.480,0.470,final,Final,Final,"Final — ATH 6, SEA 4",6,4,Partial,rotowire_unconfirmed|starter_mismatch_rotowire,40.19,59.81,,,,,,,,,,,not_scored,,not_scored,rotowire_unconfirmed;starter_mismatch_rotowire,Medium,"Auto-generated live scaffold from MLB schedule + market odds: J.T. Ginn vs Emerson Hancock. Run compute to refresh lineups, weather, and model outputs before staking.",not_scored
 <!-- games-csv:end -->
 
 <!-- batter-outlooks-csv:start -->
@@ -1433,167 +1433,167 @@ report_date,game,team,batter,opponent_pitcher,hr_prob_pct,tb2_prob_pct,fair_hr_a
 2026-04-20,DET@BOS,BOS,Caleb Durbin,Jack Flaherty,,,,,NA,,,,,0.375,2,,,,,,not_scored,not_scored,Display only,none,not_scored
 2026-04-20,DET@BOS,BOS,Marcelo Mayer,Jack Flaherty,,,,,NA,,,,,0.212,2,,,,,,not_scored,not_scored,Display only,none,not_scored
 2026-04-20,DET@BOS,BOS,Carlos Narváez,Jack Flaherty,,,,,NA,,,,,0.180,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-20,HOU@CLE,HOU,Carlos Correa,Slade Cecconi,,,,,600,,1.5,124,,0.427,3,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,HOU@CLE,HOU,Yordan Alvarez,Slade Cecconi,,,,,310,,1.5,-105,,0.912,4,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,HOU@CLE,HOU,Jose Altuve,Slade Cecconi,,,,,600,,1.5,125,,0.492,7,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,HOU@CLE,HOU,Christian Walker,Slade Cecconi,,,,,500,,1.5,148,,0.455,3,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,HOU@CLE,HOU,Isaac Paredes,Slade Cecconi,,,,,600,,0.5,-156,,0.256,6,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,HOU@CLE,HOU,Carlos Correa,Slade Cecconi,,,,,588,,1.5,120,,0.427,3,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,HOU@CLE,HOU,Yordan Alvarez,Slade Cecconi,,,,,298,,1.5,-103,,0.912,4,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,HOU@CLE,HOU,Jose Altuve,Slade Cecconi,,,,,525,,1.5,124,,0.492,7,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,HOU@CLE,HOU,Christian Walker,Slade Cecconi,,,,,512,,1.5,143,,0.455,3,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,HOU@CLE,HOU,Isaac Paredes,Slade Cecconi,,,,,588,,0.5,-158,,0.256,6,,,,,,not_scored,not_scored,Display only,partial,not_scored
 2026-04-20,HOU@CLE,HOU,Taylor Trammell,Slade Cecconi,,,,,NA,,,,,0.523,5,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-20,HOU@CLE,HOU,Yainer Diaz,Slade Cecconi,,,,,725,,1.5,152,,0.308,6,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,HOU@CLE,HOU,Dustin Harris,Slade Cecconi,,,,,NA,,,,,0.396,0,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-20,HOU@CLE,HOU,Brice Matthews,Slade Cecconi,,,,,700,,0.5,113,,0.180,1,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,HOU@CLE,CLE,Steven Kwan,Spencer Arrighetti,,,,,1025,,1.5,133,,0.409,8,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,HOU@CLE,CLE,Chase DeLauter,Spencer Arrighetti,,,,,400,,1.5,120,,0.366,3,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,HOU@CLE,CLE,José Ramírez,Spencer Arrighetti,,,,,365,,1.5,108,,0.873,7,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,HOU@CLE,CLE,Kyle Manzardo,Spencer Arrighetti,,,,,425,,0.5,-148,,0.536,4,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,HOU@CLE,CLE,Rhys Hoskins,Spencer Arrighetti,,,,,500,,0.5,-135,,0.413,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,HOU@CLE,CLE,George Valera,Spencer Arrighetti,,,,,500,,1.5,140,,0.479,3,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,HOU@CLE,CLE,Juan Brito,Spencer Arrighetti,,,,,700,,0.5,-156,,0.310,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,HOU@CLE,CLE,Bo Naylor,Spencer Arrighetti,,,,,600,,0.5,-118,,0.463,5,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,HOU@CLE,HOU,Yainer Diaz,Slade Cecconi,,,,,700,,1.5,150,,0.308,7,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,HOU@CLE,HOU,Dustin Harris,Slade Cecconi,,,,,900,,0.5,-122,,0.396,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,HOU@CLE,HOU,Brice Matthews,Slade Cecconi,,,,,775,,0.5,102,,0.180,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,HOU@CLE,CLE,Steven Kwan,Spencer Arrighetti,,,,,950,,1.5,131,,0.409,8,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,HOU@CLE,CLE,Chase DeLauter,Spencer Arrighetti,,,,,385,,1.5,120,,0.366,3,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,HOU@CLE,CLE,José Ramírez,Spencer Arrighetti,,,,,342,,1.5,101,,0.873,7,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,HOU@CLE,CLE,Kyle Manzardo,Spencer Arrighetti,,,,,380,,0.5,-148,,0.536,4,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,HOU@CLE,CLE,Rhys Hoskins,Spencer Arrighetti,,,,,NA,,1.5,150,,0.413,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,HOU@CLE,CLE,George Valera,Spencer Arrighetti,,,,,520,,1.5,135,,0.479,3,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,HOU@CLE,CLE,Juan Brito,Spencer Arrighetti,,,,,NA,,1.5,150,,0.310,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,HOU@CLE,CLE,Bo Naylor,Spencer Arrighetti,,,,,NA,,1.5,50,,0.463,5,,,,,,not_scored,not_scored,Display only,partial,not_scored
 2026-04-20,HOU@CLE,CLE,Brayan Rocchio,Spencer Arrighetti,,,,,900,,0.5,-134,,0.713,4,,,,,,not_scored,not_scored,Display only,partial,not_scored
 2026-04-20,CIN@TB,CIN,TJ Friedl,Jesse Scholtens,,,,,NA,,,,,0.272,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-20,CIN@TB,CIN,Matt McLain,Jesse Scholtens,,,,,600,,1.5,144,,0.285,3,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,CIN@TB,CIN,Matt McLain,Jesse Scholtens,,,,,600,,1.5,140,,0.285,3,,,,,,not_scored,not_scored,Display only,full,not_scored
 2026-04-20,CIN@TB,CIN,Elly De La Cruz,Jesse Scholtens,,,,,538,,1.5,135,,0.682,3,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,CIN@TB,CIN,Sal Stewart,Jesse Scholtens,,,,,405,,1.5,111,,0.707,3,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,CIN@TB,CIN,Eugenio Suárez,Jesse Scholtens,,,,,420,,0.5,-153,,0.523,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,CIN@TB,CIN,Spencer Steer,Jesse Scholtens,,,,,575,,0.5,-157,,0.492,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,CIN@TB,CIN,Tyler Stephenson,Jesse Scholtens,,,,,600,,0.5,-141,,0.456,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,CIN@TB,CIN,Rece Hinds,Jesse Scholtens,,,,,538,,0.5,-136,,0.189,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,CIN@TB,CIN,Ke'Bryan Hayes,Jesse Scholtens,,,,,900,,0.5,-141,,0.180,4,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,CIN@TB,TB,Chandler Simpson,Rhett Lowder,,,,,12400,,1.5,137,,0.406,3,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,CIN@TB,TB,Junior Caminero,Rhett Lowder,,,,,342,,1.5,128,,0.671,3,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,CIN@TB,TB,Jonathan Aranda,Rhett Lowder,,,,,538,,0.5,-164,,0.441,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,CIN@TB,TB,Yandy Díaz,Rhett Lowder,,,,,650,,1.5,145,,0.511,3,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,CIN@TB,TB,Jake Fraley,Rhett Lowder,,,,,800,,0.5,-125,,0.411,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,CIN@TB,TB,Cedric Mullins,Rhett Lowder,,,,,638,,0.5,-116,,0.539,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,CIN@TB,TB,Nick Fortes,Rhett Lowder,,,,,900,,0.5,-132,,0.452,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,CIN@TB,TB,Richie Palacios,Rhett Lowder,,,,,900,,0.5,-103,,0.508,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,CIN@TB,TB,Taylor Walls,Rhett Lowder,,,,,900,,0.5,110,,0.332,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,STL@MIA,STL,JJ Wetherholt,Max Meyer,,,,,575,,1.5,132,,0.515,3,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,CIN@TB,CIN,Sal Stewart,Jesse Scholtens,,,,,395,,1.5,111,,0.707,3,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,CIN@TB,CIN,Eugenio Suárez,Jesse Scholtens,,,,,415,,0.5,-153,,0.523,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,CIN@TB,CIN,Spencer Steer,Jesse Scholtens,,,,,550,,0.5,-157,,0.492,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,CIN@TB,CIN,Tyler Stephenson,Jesse Scholtens,,,,,600,,0.5,-150,,0.456,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,CIN@TB,CIN,Rece Hinds,Jesse Scholtens,,,,,550,,0.5,-130,,0.189,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,CIN@TB,CIN,Ke'Bryan Hayes,Jesse Scholtens,,,,,750,,0.5,-140,,0.180,4,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,CIN@TB,TB,Chandler Simpson,Rhett Lowder,,,,,12400,,1.5,138,,0.406,3,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,CIN@TB,TB,Junior Caminero,Rhett Lowder,,,,,312,,1.5,128,,0.671,3,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,CIN@TB,TB,Jonathan Aranda,Rhett Lowder,,,,,575,,0.5,-164,,0.441,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,CIN@TB,TB,Yandy Díaz,Rhett Lowder,,,,,650,,1.5,143,,0.511,3,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,CIN@TB,TB,Jake Fraley,Rhett Lowder,,,,,800,,0.5,-124,,0.411,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,CIN@TB,TB,Cedric Mullins,Rhett Lowder,,,,,625,,0.5,-120,,0.539,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,CIN@TB,TB,Nick Fortes,Rhett Lowder,,,,,NA,,1.5,100,,0.452,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,CIN@TB,TB,Richie Palacios,Rhett Lowder,,,,,875,,0.5,-104,,0.508,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,CIN@TB,TB,Taylor Walls,Rhett Lowder,,,,,1025,,0.5,107,,0.332,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,STL@MIA,STL,JJ Wetherholt,Max Meyer,,,,,562,,1.5,132,,0.515,3,,,,,,not_scored,not_scored,Display only,full,not_scored
 2026-04-20,STL@MIA,STL,Iván Herrera,Max Meyer,,,,,575,,1.5,114,,0.466,6,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,STL@MIA,STL,Alec Burleson,Max Meyer,,,,,415,,1.5,0,,0.623,5,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,STL@MIA,STL,Jordan Walker,Max Meyer,,,,,410,,1.5,106,,0.889,5,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,STL@MIA,STL,Nolan Gorman,Max Meyer,,,,,430,,0.5,-164,,0.389,5,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,STL@MIA,STL,Masyn Winn,Max Meyer,,,,,825,,1.5,152,,0.533,2,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,STL@MIA,STL,Alec Burleson,Max Meyer,,,,,430,,1.5,0,,0.623,5,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,STL@MIA,STL,Jordan Walker,Max Meyer,,,,,395,,1.5,106,,0.889,5,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,STL@MIA,STL,Nolan Gorman,Max Meyer,,,,,430,,0.5,-160,,0.389,5,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,STL@MIA,STL,Masyn Winn,Max Meyer,,,,,775,,1.5,152,,0.533,2,,,,,,not_scored,not_scored,Display only,full,not_scored
 2026-04-20,STL@MIA,STL,Ramón Urías,Max Meyer,,,,,NA,,,,,0.539,2,,,,,,not_scored,not_scored,Display only,none,not_scored
 2026-04-20,STL@MIA,STL,Thomas Saggese,Max Meyer,,,,,NA,,,,,0.411,2,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-20,STL@MIA,STL,Victor Scott II,Max Meyer,,,,,900,,0.5,-137,,0.190,4,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,STL@MIA,MIA,Jakob Marsee,Michael McGreevy,,,,,825,,1.5,145,,0.308,6,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,STL@MIA,MIA,Kyle Stowers,Michael McGreevy,,,,,455,,1.5,125,,0.950,3,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,STL@MIA,MIA,Otto Lopez,Michael McGreevy,,,,,875,,1.5,120,,0.697,3,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,STL@MIA,MIA,Xavier Edwards,Michael McGreevy,,,,,1025,,1.5,130,,0.431,6,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,STL@MIA,MIA,Liam Hicks,Michael McGreevy,,,,,875,,1.5,145,,0.549,3,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,STL@MIA,MIA,Agustín Ramírez,Michael McGreevy,,,,,725,,1.5,145,,0.438,5,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,STL@MIA,MIA,Owen Caissie,Michael McGreevy,,,,,800,,0.5,-137,,0.343,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,STL@MIA,MIA,Graham Pauley,Michael McGreevy,,,,,900,,0.5,-124,,0.246,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,STL@MIA,MIA,Connor Norby,Michael McGreevy,,,,,900,,0.5,-167,,0.634,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,ATL@WSH,ATL,Ronald Acuña Jr.,Jake Irvin,,,,,405,,1.5,107,,0.572,8,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,ATL@WSH,ATL,Drake Baldwin,Jake Irvin,,,,,550,,1.5,112,,0.516,5,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,ATL@WSH,ATL,Matt Olson,Jake Irvin,,,,,388,,1.5,132,,0.699,19,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,ATL@WSH,ATL,Austin Riley,Jake Irvin,,,,,425,,1.5,116,,0.686,13,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,ATL@WSH,ATL,Ozzie Albies,Jake Irvin,,,,,480,,1.5,109,,0.580,13,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,ATL@WSH,ATL,Michael Harris II,Jake Irvin,,,,,600,,1.5,140,,0.905,22,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,STL@MIA,STL,Victor Scott II,Max Meyer,,,,,1025,,0.5,-133,,0.190,4,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,STL@MIA,MIA,Jakob Marsee,Michael McGreevy,,,,,825,,1.5,140,,0.308,6,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,STL@MIA,MIA,Kyle Stowers,Michael McGreevy,,,,,445,,1.5,122,,0.950,3,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,STL@MIA,MIA,Otto Lopez,Michael McGreevy,,,,,950,,1.5,120,,0.697,6,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,STL@MIA,MIA,Xavier Edwards,Michael McGreevy,,,,,1025,,1.5,128,,0.431,6,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,STL@MIA,MIA,Liam Hicks,Michael McGreevy,,,,,875,,1.5,145,,0.549,6,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,STL@MIA,MIA,Agustín Ramírez,Michael McGreevy,,,,,675,,1.5,140,,0.438,3,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,STL@MIA,MIA,Owen Caissie,Michael McGreevy,,,,,725,,0.5,-134,,0.343,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,STL@MIA,MIA,Graham Pauley,Michael McGreevy,,,,,875,,0.5,-124,,0.246,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,STL@MIA,MIA,Connor Norby,Michael McGreevy,,,,,850,,0.5,-164,,0.634,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,ATL@WSH,ATL,Ronald Acuña Jr.,Jake Irvin,,,,,375,,1.5,101,,0.572,5,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,ATL@WSH,ATL,Drake Baldwin,Jake Irvin,,,,,512,,1.5,105,,0.516,5,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,ATL@WSH,ATL,Matt Olson,Jake Irvin,,,,,405,,1.5,128,,0.699,19,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,ATL@WSH,ATL,Austin Riley,Jake Irvin,,,,,420,,1.5,114,,0.686,11,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,ATL@WSH,ATL,Ozzie Albies,Jake Irvin,,,,,480,,1.5,108,,0.580,15,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,ATL@WSH,ATL,Michael Harris II,Jake Irvin,,,,,550,,1.5,132,,0.905,22,,,,,,not_scored,not_scored,Display only,full,not_scored
 2026-04-20,ATL@WSH,ATL,Dominic Smith,Jake Irvin,,,,,NA,,,,,0.782,8,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-20,ATL@WSH,ATL,Jorge Mateo,Jake Irvin,,,,,700,,0.5,-165,,0.425,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,ATL@WSH,ATL,Mike Yastrzemski,Jake Irvin,,,,,820,,,,,0.309,14,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,ATL@WSH,WSH,James Wood,Bryce Elder,,,,,375,,1.5,128,,0.907,9,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,ATL@WSH,WSH,Luis García Jr.,Bryce Elder,,,,,588,,1.5,146,,0.180,15,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,ATL@WSH,WSH,Brady House,Bryce Elder,,,,,700,,1.5,155,,0.376,3,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,ATL@WSH,WSH,CJ Abrams,Bryce Elder,,,,,512,,1.5,143,,0.775,17,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,ATL@WSH,WSH,Daylen Lile,Bryce Elder,,,,,738,,1.5,136,,0.476,6,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,ATL@WSH,WSH,Jacob Young,Bryce Elder,,,,,950,,0.5,-175,,0.484,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,ATL@WSH,WSH,José Tena,Bryce Elder,,,,,850,,0.5,-142,,0.549,5,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,ATL@WSH,WSH,Drew Millas,Bryce Elder,,,,,NA,,0.5,-140,,0.392,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,ATL@WSH,WSH,Nasim Nuñez,Bryce Elder,,,,,900,,0.5,-119,,0.248,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,BAL@KC,BAL,Gunnar Henderson,Seth Lugo,,,,,512,,1.5,109,,0.646,9,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,BAL@KC,BAL,Taylor Ward,Seth Lugo,,,,,412,,1.5,1,,0.548,7,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,BAL@KC,BAL,Dylan Beavers,Seth Lugo,,,,,NA,,,,,0.210,0,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-20,BAL@KC,BAL,Pete Alonso,Seth Lugo,,,,,375,,1.5,114,,0.439,3,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,ATL@WSH,ATL,Jorge Mateo,Jake Irvin,,,,,700,,1.5,50,,0.425,2,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,ATL@WSH,ATL,Mike Yastrzemski,Jake Irvin,,,,,NA,,,,,0.309,14,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-20,ATL@WSH,WSH,James Wood,Bryce Elder,,,,,362,,1.5,132,,0.907,9,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,ATL@WSH,WSH,Luis García Jr.,Bryce Elder,,,,,570,,1.5,144,,0.180,15,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,ATL@WSH,WSH,Brady House,Bryce Elder,,,,,NA,,1.5,150,,0.376,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,ATL@WSH,WSH,CJ Abrams,Bryce Elder,,,,,588,,1.5,138,,0.775,20,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,ATL@WSH,WSH,Daylen Lile,Bryce Elder,,,,,720,,1.5,138,,0.476,6,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,ATL@WSH,WSH,Jacob Young,Bryce Elder,,,,,1025,,0.5,-192,,0.484,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,ATL@WSH,WSH,José Tena,Bryce Elder,,,,,825,,0.5,-132,,0.549,5,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,ATL@WSH,WSH,Drew Millas,Bryce Elder,,,,,850,,0.5,-128,,0.392,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,ATL@WSH,WSH,Nasim Nuñez,Bryce Elder,,,,,925,,0.5,-124,,0.248,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,BAL@KC,BAL,Gunnar Henderson,Seth Lugo,,,,,525,,1.5,109,,0.646,9,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,BAL@KC,BAL,Taylor Ward,Seth Lugo,,,,,405,,1.5,2,,0.548,10,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,BAL@KC,BAL,Dylan Beavers,Seth Lugo,,,,,NA,,,,,0.210,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-20,BAL@KC,BAL,Pete Alonso,Seth Lugo,,,,,365,,1.5,114,,0.439,3,,,,,,not_scored,not_scored,Display only,full,not_scored
 2026-04-20,BAL@KC,BAL,Samuel Basallo,Seth Lugo,,,,,500,,1.5,120,,0.454,3,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,BAL@KC,BAL,Jeremiah Jackson,Seth Lugo,,,,,625,,1.5,128,,0.912,3,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,BAL@KC,BAL,Jeremiah Jackson,Seth Lugo,,,,,625,,1.5,130,,0.912,0,,,,,,not_scored,not_scored,Display only,full,not_scored
 2026-04-20,BAL@KC,BAL,Colton Cowser,Seth Lugo,,,,,NA,,,,,0.192,5,,,,,,not_scored,not_scored,Display only,none,not_scored
 2026-04-20,BAL@KC,BAL,Leody Taveras,Seth Lugo,,,,,NA,,,,,0.635,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-20,BAL@KC,BAL,Blaze Alexander,Seth Lugo,,,,,700,,0.5,-135,,0.245,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,BAL@KC,KC,Maikel Garcia,Kyle Bradish,,,,,535,,1.5,-2,,0.406,3,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,BAL@KC,KC,Bobby Witt Jr.,Kyle Bradish,,,,,380,,1.5,-117,,0.518,3,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,BAL@KC,KC,Vinnie Pasquantino,Kyle Bradish,,,,,425,,1.5,120,,0.350,3,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,BAL@KC,KC,Salvador Perez,Kyle Bradish,,,,,395,,1.5,120,,0.217,0,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,BAL@KC,KC,Carter Jensen,Kyle Bradish,,,,,505,,0.5,-167,,0.740,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,BAL@KC,KC,Michael Massey,Kyle Bradish,,,,,550,,0.5,-170,,0.291,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,BAL@KC,KC,Jac Caglianone,Kyle Bradish,,,,,588,,0.5,-152,,0.439,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,BAL@KC,KC,Isaac Collins,Kyle Bradish,,,,,725,,0.5,-137,,0.180,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,BAL@KC,KC,Kyle Isbel,Kyle Bradish,,,,,700,,0.5,-154,,0.180,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,BAL@KC,BAL,Blaze Alexander,Seth Lugo,,,,,700,,0.5,-139,,0.245,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,BAL@KC,KC,Maikel Garcia,Kyle Bradish,,,,,580,,1.5,-2,,0.406,3,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,BAL@KC,KC,Bobby Witt Jr.,Kyle Bradish,,,,,385,,1.5,-118,,0.518,3,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,BAL@KC,KC,Vinnie Pasquantino,Kyle Bradish,,,,,450,,1.5,120,,0.350,3,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,BAL@KC,KC,Salvador Perez,Kyle Bradish,,,,,385,,1.5,122,,0.217,0,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,BAL@KC,KC,Carter Jensen,Kyle Bradish,,,,,550,,0.5,-169,,0.740,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,BAL@KC,KC,Michael Massey,Kyle Bradish,,,,,575,,0.5,-168,,0.291,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,BAL@KC,KC,Jac Caglianone,Kyle Bradish,,,,,600,,0.5,-152,,0.439,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,BAL@KC,KC,Isaac Collins,Kyle Bradish,,,,,750,,0.5,-137,,0.180,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,BAL@KC,KC,Kyle Isbel,Kyle Bradish,,,,,825,,0.5,-152,,0.180,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
 2026-04-20,PHI@CHC,PHI,Trea Turner,Colin Rea,,,,,415,,1.5,-106,,0.463,21,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,PHI@CHC,PHI,Kyle Schwarber,Colin Rea,,,,,250,,1.5,114,,0.749,18,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,PHI@CHC,PHI,Kyle Schwarber,Colin Rea,,,,,250,,0.5,-146,,0.749,18,,,,,,not_scored,not_scored,Display only,partial,not_scored
 2026-04-20,PHI@CHC,PHI,Bryce Harper,Colin Rea,,,,,420,,1.5,120,,0.836,17,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,PHI@CHC,PHI,Adolis García,Colin Rea,,,,,345,,1.5,123,,0.268,6,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,PHI@CHC,PHI,Adolis García,Colin Rea,,,,,345,,1.5,120,,0.268,6,,,,,,not_scored,not_scored,Display only,full,not_scored
 2026-04-20,PHI@CHC,PHI,Brandon Marsh,Colin Rea,,,,,700,,0.5,-104,,0.418,12,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,PHI@CHC,PHI,Alec Bohm,Colin Rea,,,,,550,,1.5,132,,0.180,14,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,PHI@CHC,PHI,Alec Bohm,Colin Rea,,,,,550,,1.5,134,,0.180,14,,,,,,not_scored,not_scored,Display only,full,not_scored
 2026-04-20,PHI@CHC,PHI,Bryson Stott,Colin Rea,,,,,NA,,,,,0.290,15,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-20,PHI@CHC,PHI,Justin Crawford,Colin Rea,,,,,NA,,1.5,240,,0.477,5,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,PHI@CHC,PHI,Rafael Marchán,Colin Rea,,,,,900,,0.5,-156,,0.180,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,PHI@CHC,PHI,Justin Crawford,Colin Rea,,,,,NA,,1.5,260,,0.477,5,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,PHI@CHC,PHI,Rafael Marchán,Colin Rea,,,,,900,,0.5,-156,,0.180,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
 2026-04-20,PHI@CHC,CHC,Nico Hoerner,Aaron Nola,,,,,800,,1.5,100,,0.705,21,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,PHI@CHC,CHC,Michael Busch,Aaron Nola,,,,,700,,0.5,-144,,0.197,12,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,PHI@CHC,CHC,Alex Bregman,Aaron Nola,,,,,488,,1.5,127,,0.390,11,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,PHI@CHC,CHC,Ian Happ,Aaron Nola,,,,,500,,1.5,131,,0.673,25,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,PHI@CHC,CHC,Michael Busch,Aaron Nola,,,,,700,,0.5,-148,,0.197,12,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,PHI@CHC,CHC,Alex Bregman,Aaron Nola,,,,,462,,1.5,124,,0.390,14,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,PHI@CHC,CHC,Ian Happ,Aaron Nola,,,,,500,,0.5,-161,,0.673,25,,,,,,not_scored,not_scored,Display only,partial,not_scored
 2026-04-20,PHI@CHC,CHC,Moisés Ballesteros,Aaron Nola,,,,,NA,,,,,0.950,4,,,,,,not_scored,not_scored,Display only,none,not_scored
 2026-04-20,PHI@CHC,CHC,Michael Conforto,Aaron Nola,,,,,NA,,,,,0.720,60,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-20,PHI@CHC,CHC,Miguel Amaya,Aaron Nola,,,,,600,,0.5,-130,,0.299,4,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,PHI@CHC,CHC,Pete Crow-Armstrong,Aaron Nola,,,,,775,,0.5,-135,,0.420,7,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,PHI@CHC,CHC,Dansby Swanson,Aaron Nola,,,,,575,,0.5,-154,,0.624,72,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,PHI@CHC,CHC,Miguel Amaya,Aaron Nola,,,,,600,,0.5,-135,,0.299,4,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,PHI@CHC,CHC,Pete Crow-Armstrong,Aaron Nola,,,,,775,,0.5,-137,,0.420,9,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,PHI@CHC,CHC,Dansby Swanson,Aaron Nola,,,,,575,,0.5,-156,,0.624,72,,,,,,not_scored,not_scored,Display only,partial,not_scored
 2026-04-20,LAD@COL,LAD,Shohei Ohtani,Jose Quintana,,,,,NA,,,,,0.693,6,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-20,LAD@COL,LAD,Alex Call,Jose Quintana,,,,,NA,,,,,0.450,4,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-20,LAD@COL,LAD,Will Smith,Jose Quintana,,,,,NA,,,,,0.465,12,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-20,LAD@COL,LAD,Alex Call,Jose Quintana,,,,,NA,,,,,0.450,7,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-20,LAD@COL,LAD,Will Smith,Jose Quintana,,,,,NA,,,,,0.465,15,,,,,,not_scored,not_scored,Display only,none,not_scored
 2026-04-20,LAD@COL,LAD,Teoscar Hernández,Jose Quintana,,,,,NA,,,,,0.640,9,,,,,,not_scored,not_scored,Display only,none,not_scored
 2026-04-20,LAD@COL,LAD,Andy Pages,Jose Quintana,,,,,NA,,,,,0.633,11,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-20,LAD@COL,LAD,Max Muncy,Jose Quintana,,,,,NA,,,,,0.782,13,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-20,LAD@COL,LAD,Max Muncy,Jose Quintana,,,,,NA,,,,,0.782,16,,,,,,not_scored,not_scored,Display only,none,not_scored
 2026-04-20,LAD@COL,LAD,Miguel Rojas,Jose Quintana,,,,,NA,,,,,0.646,20,,,,,,not_scored,not_scored,Display only,none,not_scored
 2026-04-20,LAD@COL,LAD,Santiago Espinal,Jose Quintana,,,,,NA,,,,,0.231,12,,,,,,not_scored,not_scored,Display only,none,not_scored
 2026-04-20,LAD@COL,LAD,Dalton Rushing,Jose Quintana,,,,,NA,,,,,0.950,4,,,,,,not_scored,not_scored,Display only,none,not_scored
 2026-04-20,LAD@COL,COL,Jordan Beck,Justin Wrobleski,,,,,NA,,,,,0.407,8,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-20,LAD@COL,COL,Brenton Doyle,Justin Wrobleski,,,,,NA,,,,,0.505,3,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-20,LAD@COL,COL,Brenton Doyle,Justin Wrobleski,,,,,NA,,,,,0.505,7,,,,,,not_scored,not_scored,Display only,none,not_scored
 2026-04-20,LAD@COL,COL,Hunter Goodman,Justin Wrobleski,,,,,NA,,,,,0.828,5,,,,,,not_scored,not_scored,Display only,none,not_scored
 2026-04-20,LAD@COL,COL,Tyler Freeman,Justin Wrobleski,,,,,NA,,,,,0.389,2,,,,,,not_scored,not_scored,Display only,none,not_scored
 2026-04-20,LAD@COL,COL,Ezequiel Tovar,Justin Wrobleski,,,,,NA,,,,,0.382,6,,,,,,not_scored,not_scored,Display only,none,not_scored
 2026-04-20,LAD@COL,COL,Troy Johnston,Justin Wrobleski,,,,,NA,,,,,0.692,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-20,LAD@COL,COL,Willi Castro,Justin Wrobleski,,,,,NA,,,,,0.568,0,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-20,LAD@COL,COL,Willi Castro,Justin Wrobleski,,,,,NA,,,,,0.568,3,,,,,,not_scored,not_scored,Display only,none,not_scored
 2026-04-20,LAD@COL,COL,Kyle Karros,Justin Wrobleski,,,,,NA,,,,,0.470,3,,,,,,not_scored,not_scored,Display only,none,not_scored
 2026-04-20,LAD@COL,COL,Brett Sullivan,Justin Wrobleski,,,,,NA,,,,,0.387,3,,,,,,not_scored,not_scored,Display only,none,not_scored
 2026-04-20,TOR@LAA,TOR,Davis Schneider,Reid Detmers,,,,,NA,,,,,0.313,3,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-20,TOR@LAA,TOR,Ernie Clement,Reid Detmers,,,,,975,,1.5,117,,0.496,9,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,TOR@LAA,TOR,Vladimir Guerrero Jr.,Reid Detmers,,,,,445,,1.5,103,,0.575,11,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,TOR@LAA,TOR,Ernie Clement,Reid Detmers,,,,,1100,,1.5,118,,0.496,9,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,TOR@LAA,TOR,Vladimir Guerrero Jr.,Reid Detmers,,,,,440,,1.5,100,,0.575,11,,,,,,not_scored,not_scored,Display only,full,not_scored
 2026-04-20,TOR@LAA,TOR,Eloy Jiménez,Reid Detmers,,,,,600,,1.5,140,,0.427,6,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,TOR@LAA,TOR,Kazuma Okamoto,Reid Detmers,,,,,625,,0.5,-161,,0.404,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,TOR@LAA,TOR,Kazuma Okamoto,Reid Detmers,,,,,625,,0.5,-167,,0.404,0,,,,,,not_scored,not_scored,Display only,partial,not_scored
 2026-04-20,TOR@LAA,TOR,Lenyn Sosa,Reid Detmers,,,,,NA,,,,,0.463,7,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-20,TOR@LAA,TOR,Daulton Varsho,Reid Detmers,,,,,318,,1.5,111,,0.837,6,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,TOR@LAA,TOR,Myles Straw,Reid Detmers,,,,,900,,1.5,152,,0.586,14,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,TOR@LAA,TOR,Tyler Heineman,Reid Detmers,,,,,900,,0.5,-150,,0.225,3,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,TOR@LAA,LAA,Zach Neto,Dylan Cease,,,,,325,,1.5,104,,0.560,8,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,TOR@LAA,LAA,Mike Trout,Dylan Cease,,,,,345,,1.5,118,,0.836,12,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,TOR@LAA,LAA,Nolan Schanuel,Dylan Cease,,,,,NA,,0.5,-165,,0.308,6,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,TOR@LAA,LAA,Jorge Soler,Dylan Cease,,,,,365,,1.5,130,,0.896,30,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,TOR@LAA,TOR,Daulton Varsho,Reid Detmers,,,,,345,,1.5,110,,0.837,3,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,TOR@LAA,TOR,Myles Straw,Reid Detmers,,,,,900,,1.5,150,,0.586,14,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,TOR@LAA,TOR,Tyler Heineman,Reid Detmers,,,,,925,,0.5,-144,,0.225,1,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,TOR@LAA,LAA,Zach Neto,Dylan Cease,,,,,345,,1.5,100,,0.560,8,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,TOR@LAA,LAA,Mike Trout,Dylan Cease,,,,,338,,1.5,118,,0.836,12,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,TOR@LAA,LAA,Nolan Schanuel,Dylan Cease,,,,,NA,,0.5,-165,,0.308,9,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,TOR@LAA,LAA,Jorge Soler,Dylan Cease,,,,,355,,1.5,125,,0.896,30,,,,,,not_scored,not_scored,Display only,full,not_scored
 2026-04-20,TOR@LAA,LAA,Yoán Moncada,Dylan Cease,,,,,700,,1.5,174,,0.565,5,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,TOR@LAA,LAA,Jo Adell,Dylan Cease,,,,,340,,1.5,-107,,0.652,8,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,TOR@LAA,LAA,Josh Lowe,Dylan Cease,,,,,NA,,,,,0.536,8,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-20,TOR@LAA,LAA,Logan O'Hoppe,Dylan Cease,,,,,430,,1.5,140,,0.428,7,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,TOR@LAA,LAA,Jo Adell,Dylan Cease,,,,,338,,1.5,-110,,0.652,6,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,TOR@LAA,LAA,Josh Lowe,Dylan Cease,,,,,NA,,,,,0.536,10,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-20,TOR@LAA,LAA,Logan O'Hoppe,Dylan Cease,,,,,430,,1.5,140,,0.428,5,,,,,,not_scored,not_scored,Display only,full,not_scored
 2026-04-20,TOR@LAA,LAA,Adam Frazier,Dylan Cease,,,,,NA,,,,,0.560,20,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-20,ATH@SEA,ATH,Nick Kurtz,Emerson Hancock,,,,,370,,1.5,129,,0.612,43,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,ATH@SEA,ATH,Shea Langeliers,Emerson Hancock,,,,,430,,1.5,136,,0.574,43,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,ATH@SEA,ATH,Carlos Cortes,Emerson Hancock,,,,,900,,0.5,-154,,0.451,43,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,ATH@SEA,ATH,Tyler Soderstrom,Emerson Hancock,,,,,538,,0.5,-175,,0.486,43,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,ATH@SEA,ATH,Jacob Wilson,Emerson Hancock,,,,,1000,,1.5,151,,0.485,43,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,ATH@SEA,ATH,Jeff McNeil,Emerson Hancock,,,,,725,,1.5,139,,0.530,43,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,ATH@SEA,ATH,Max Muncy,Emerson Hancock,,,,,900,,1.5,224,,0.409,43,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,ATH@SEA,ATH,Lawrence Butler,Emerson Hancock,,,,,625,,0.5,-122,,0.373,43,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,ATH@SEA,ATH,Zack Gelof,Emerson Hancock,,,,,NA,,,,,0.402,43,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-20,ATH@SEA,SEA,J.P. Crawford,J.T. Ginn,,,,,800,,0.5,-125,,0.510,37,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,ATH@SEA,SEA,Cal Raleigh,J.T. Ginn,,,,,275,,0.5,-147,,0.416,37,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,ATH@SEA,SEA,Julio Rodríguez,J.T. Ginn,,,,,390,,1.5,131,,0.494,37,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,ATH@SEA,SEA,Josh Naylor,J.T. Ginn,,,,,600,,1.5,155,,0.415,37,,,,,,not_scored,not_scored,Display only,full,not_scored
-2026-04-20,ATH@SEA,SEA,Randy Arozarena,J.T. Ginn,,,,,445,,0.5,-161,,0.588,37,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,ATH@SEA,SEA,Luke Raley,J.T. Ginn,,,,,NA,,,,,0.819,37,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-20,ATH@SEA,SEA,Dominic Canzone,J.T. Ginn,,,,,NA,,,,,0.449,37,,,,,,not_scored,not_scored,Display only,none,not_scored
-2026-04-20,ATH@SEA,SEA,Cole Young,J.T. Ginn,,,,,900,,0.5,-111,,0.323,37,,,,,,not_scored,not_scored,Display only,partial,not_scored
-2026-04-20,ATH@SEA,SEA,Leo Rivas,J.T. Ginn,,,,,900,,0.5,102,,0.219,37,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,ATH@SEA,ATH,Nick Kurtz,Emerson Hancock,,,,,370,,1.5,130,,0.612,5,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,ATH@SEA,ATH,Shea Langeliers,Emerson Hancock,,,,,430,,1.5,136,,0.574,8,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,ATH@SEA,ATH,Carlos Cortes,Emerson Hancock,,,,,900,,0.5,-154,,0.451,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,ATH@SEA,ATH,Tyler Soderstrom,Emerson Hancock,,,,,538,,1.5,149,,0.486,8,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,ATH@SEA,ATH,Jacob Wilson,Emerson Hancock,,,,,1000,,1.5,151,,0.485,5,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,ATH@SEA,ATH,Jeff McNeil,Emerson Hancock,,,,,725,,1.5,140,,0.530,2,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,ATH@SEA,ATH,Max Muncy,Emerson Hancock,,,,,900,,1.5,226,,0.409,2,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,ATH@SEA,ATH,Lawrence Butler,Emerson Hancock,,,,,625,,0.5,-122,,0.373,8,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,ATH@SEA,ATH,Zack Gelof,Emerson Hancock,,,,,NA,,,,,0.402,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-20,ATH@SEA,SEA,J.P. Crawford,J.T. Ginn,,,,,800,,0.5,-127,,0.510,6,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,ATH@SEA,SEA,Cal Raleigh,J.T. Ginn,,,,,275,,0.5,-143,,0.416,6,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,ATH@SEA,SEA,Julio Rodríguez,J.T. Ginn,,,,,390,,1.5,134,,0.494,6,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,ATH@SEA,SEA,Josh Naylor,J.T. Ginn,,,,,600,,1.5,155,,0.415,0,,,,,,not_scored,not_scored,Display only,full,not_scored
+2026-04-20,ATH@SEA,SEA,Randy Arozarena,J.T. Ginn,,,,,445,,0.5,-156,,0.588,6,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,ATH@SEA,SEA,Luke Raley,J.T. Ginn,,,,,NA,,,,,0.819,4,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-20,ATH@SEA,SEA,Dominic Canzone,J.T. Ginn,,,,,NA,,,,,0.449,2,,,,,,not_scored,not_scored,Display only,none,not_scored
+2026-04-20,ATH@SEA,SEA,Cole Young,J.T. Ginn,,,,,900,,0.5,-116,,0.323,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
+2026-04-20,ATH@SEA,SEA,Leo Rivas,J.T. Ginn,,,,,900,,0.5,104,,0.219,2,,,,,,not_scored,not_scored,Display only,partial,not_scored
 <!-- batter-outlooks-csv:end -->
 */
