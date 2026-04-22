@@ -142,6 +142,10 @@ class MarketsTests(unittest.TestCase):
     def test_classify_hr_market_status_paths(self):
         self.assertEqual(markets.classify_hr_market_status(None, "A", "High", None), "unpriced")
         priced = _FakeMarketLine(over_price=350)
+        self.assertEqual(
+            markets.classify_hr_market_status(4.0, "A", "High", priced, hr_market_integrity="degraded"),
+            "integrity_degraded_projection_only",
+        )
         # No edge
         self.assertEqual(markets.classify_hr_market_status(0.0, "A", "High", priced), "priced_no_edge")
         # Below tier
@@ -242,8 +246,43 @@ class MarketsTests(unittest.TestCase):
         out = markets.summarize_prop_market_coverage("NYY@HOU", ctx, market_map, normalize_player_name=norm)
         self.assertEqual(out["away_hr_covered"], 2)
         self.assertEqual(out["home_hr_covered"], 0)
+        self.assertEqual(out["hr_market_integrity"], "degraded")
         self.assertIn("rotowire_hr_home_side_missing", out["notes"])
         self.assertIn("market_odds_unavailable", out["notes"])
+
+    def test_summarize_prop_market_coverage_classifies_full(self):
+        def norm(name: str) -> str:
+            return name.lower().replace(" ", "-")
+
+        ctx = {
+            "away_players": [{"name": "Juan Soto"}],
+            "home_players": [{"name": "Alex Bregman"}],
+            "away_moneyline": -120,
+            "home_moneyline": 110,
+        }
+        market_map = {
+            (norm("Juan Soto"), "batter_home_runs"): _FakeMarketLine(over_price=400, source="odds_api"),
+            (norm("Alex Bregman"), "batter_home_runs"): _FakeMarketLine(over_price=350, source="odds_api"),
+        }
+        out = markets.summarize_prop_market_coverage("NYY@HOU", ctx, market_map, normalize_player_name=norm)
+        self.assertEqual(out["hr_market_integrity"], "full")
+
+    def test_summarize_prop_market_coverage_classifies_partial(self):
+        def norm(name: str) -> str:
+            return name.lower().replace(" ", "-")
+
+        ctx = {
+            "away_players": [{"name": "Juan Soto"}, {"name": "Aaron Judge"}],
+            "home_players": [{"name": "Alex Bregman"}, {"name": "Yordan Alvarez"}],
+            "away_moneyline": -120,
+            "home_moneyline": 110,
+        }
+        market_map = {
+            (norm("Juan Soto"), "batter_home_runs"): _FakeMarketLine(over_price=400, source="odds_api"),
+            (norm("Alex Bregman"), "batter_home_runs"): _FakeMarketLine(over_price=350, source="odds_api"),
+        }
+        out = markets.summarize_prop_market_coverage("NYY@HOU", ctx, market_map, normalize_player_name=norm)
+        self.assertEqual(out["hr_market_integrity"], "partial")
 
 
 # --- snapshots tests --------------------------------------------------------

@@ -55,9 +55,13 @@ def classify_hr_market_status(
     hr_tier: str,
     prop_conf: str,
     hr_market: _PropMarketLineLike | None,
+    *,
+    hr_market_integrity: str = "partial",
 ) -> str:
     if not has_hr_market_price(hr_market):
         return "unpriced"
+    if hr_market_integrity == "degraded":
+        return "integrity_degraded_projection_only"
     if edge_hr_pct is None or edge_hr_pct <= 0:
         return "priced_no_edge"
     if prop_tier_rank(hr_tier) < prop_tier_rank("A"):
@@ -123,6 +127,30 @@ def choose_recommended_prop(
     return "", ""
 
 
+def classify_hr_market_integrity(
+    *,
+    away_lineup_size: int,
+    home_lineup_size: int,
+    away_hr_covered: int,
+    home_hr_covered: int,
+    notes: list[str],
+) -> str:
+    if (
+        away_lineup_size > 0
+        and home_lineup_size > 0
+        and away_hr_covered == away_lineup_size
+        and home_hr_covered == home_lineup_size
+    ):
+        return "full"
+    if (
+        "rotowire_hr_home_side_missing" in notes
+        or "rotowire_hr_away_side_missing" in notes
+        or ((away_hr_covered > 0) != (home_hr_covered > 0))
+    ):
+        return "degraded"
+    return "partial"
+
+
 # --- Coverage summary -------------------------------------------------------
 
 def summarize_prop_market_coverage(
@@ -168,6 +196,13 @@ def summarize_prop_market_coverage(
         notes.append("rotowire_hr_away_side_missing")
     if ctx.get("away_moneyline") is None or ctx.get("home_moneyline") is None:
         notes.append("market_odds_unavailable")
+    hr_market_integrity = classify_hr_market_integrity(
+        away_lineup_size=len(away_players),
+        home_lineup_size=len(home_players),
+        away_hr_covered=away_hr_covered,
+        home_hr_covered=home_hr_covered,
+        notes=notes,
+    )
     return {
         "game": game_key,
         "away_lineup_size": len(away_players),
@@ -182,6 +217,7 @@ def summarize_prop_market_coverage(
         "home_tb_missing": home_tb_missing,
         "hr_sources": hr_sources,
         "tb_sources": tb_sources,
+        "hr_market_integrity": hr_market_integrity,
         "notes": notes,
     }
 
@@ -200,5 +236,6 @@ __all__ = [
     "classify_hr_market_status",
     "classify_tb_market_status",
     "choose_recommended_prop",
+    "classify_hr_market_integrity",
     "summarize_prop_market_coverage",
 ]

@@ -493,6 +493,10 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
         coverage = summarize_prop_market_coverage(key, lineup_context[key], prop_market_map.get(key, {}))
         coverage_by_game[key] = coverage
         prop_market_coverage.append(coverage)
+        if coverage.get("hr_market_integrity") == "degraded":
+            lineup_context[key]["issues"] = sorted(
+                set(list(lineup_context[key].get("issues") or []) + ["hr_market_integrity_degraded"])
+            )
         if "rotowire_hr_home_side_missing" in coverage["notes"]:
             lineup_context[key]["issues"] = sorted(set(list(lineup_context[key].get("issues") or []) + ["rotowire_hr_home_side_missing"]))
         if "rotowire_hr_away_side_missing" in coverage["notes"]:
@@ -588,6 +592,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
         "recommended_prop",
         "recommended_tier",
         "hr_market_status",
+        "hr_market_integrity",
         "tb2_market_status",
         "data_confidence",
         "market_data_status",
@@ -819,6 +824,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                 hr_market_priced = has_hr_market_price(hr_market)
                 tb_market_any = has_any_tb_market(tb_market)
                 tb_market_aligned = is_aligned_tb_market(tb_market)
+                hr_market_integrity = str(coverage_by_game.get(key, {}).get("hr_market_integrity") or "partial")
                 market_status = "full" if hr_market_priced and tb_market_aligned else "partial" if hr_market_priced or tb_market_any else "none"
                 hr: float | None = None
                 tb2: float | None = None
@@ -880,7 +886,13 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                         if tb_market_aligned and tb_market and tb_market.over_price is not None and tb2 is not None
                         else None
                     )
-                    hr_market_status = classify_hr_market_status(edge_hr_pct, hr_tier, pconf, hr_market)
+                    hr_market_status = classify_hr_market_status(
+                        edge_hr_pct,
+                        hr_tier,
+                        pconf,
+                        hr_market,
+                        hr_market_integrity=hr_market_integrity,
+                    )
                     tb2_market_status = classify_tb_market_status(
                         edge_tb_pct,
                         tb2,
@@ -928,7 +940,11 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                         note = f"{note}; TB book at {tb_market.point:g}, not 1.5-aligned"
                     if recommended_prop and recommended_tier:
                         note = f"{note}; priced lean: {recommended_prop} ({recommended_tier})"
+                    if hr_market_integrity == "degraded":
+                        note = f"{note}; HR market degraded, HR output projection only"
                     dc = build_data_confidence(pconf, lineup_label, market_status)
+                    if hr_market_integrity == "degraded":
+                        dc = f"{dc} — HR market degraded"
                 else:
                     status_note = str(ctx.get("game_status_note") or ctx.get("game_state_detail") or "game no longer pregame")
                     note = f"Not scored — {status_note}"
@@ -946,6 +962,8 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                             display_note = f"{display_note}; TB book at {tb_market.point:g}, not 1.5-aligned"
                         if recommended_prop and recommended_tier:
                             display_note = f"{display_note}; priced lean: {recommended_prop} ({recommended_tier})"
+                        if hr_market_integrity == "degraded":
+                            display_note = f"{display_note}; HR market degraded, HR output projection only"
                         if display_note:
                             note = f"Display only — {status_note}; {display_note}"
                         else:
@@ -975,6 +993,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                         recommended_prop,
                         recommended_tier,
                         hr_market_status,
+                        hr_market_integrity,
                         tb2_market_status,
                         dc,
                         market_status,
@@ -1012,6 +1031,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                         "edge_hr_pct": edge_hr_pct,
                         "edge_tb_pct": edge_tb_pct,
                         "hr_market_status": hr_market_status,
+                        "hr_market_integrity": hr_market_integrity,
                         "tb2_market_status": tb2_market_status,
                         "model_confidence": pconf,
                         "data_confidence": dc,
