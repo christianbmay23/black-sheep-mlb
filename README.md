@@ -93,6 +93,8 @@ printf 'ODDS_API_KEY=%s\n' 'YOUR_REAL_KEY_HERE' > .env
 
 If any of those requirements are not met, `--compute` exits with an error instead of quietly writing partial outputs. Use `--allow-partial` only for early slates, manual scaffolding, or debugging.
 
+In `--allow-partial` mode, weather resolution now degrades to a conservative neutral fallback (`run_factor = 1.0`) instead of throwing, but strict pregame runs still fail on weather-provider issues. Snapshot provenance records the weather provider path plus lineup/starter verification levels without changing the existing CSV contracts.
+
 Every `--compute` run also writes a dated snapshot under:
 
 - `canvases/exports/snapshots/<slug>/<slug>-<timestamp>.json`

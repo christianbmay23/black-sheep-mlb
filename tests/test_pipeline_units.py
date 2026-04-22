@@ -24,7 +24,7 @@ for path in (REPO_ROOT, EXPORTS_DIR):
     if str(path) not in sys.path:
         sys.path.insert(0, str(path))
 
-from pipeline import canvas_io, inputs, markets, slate, snapshots, status  # noqa: E402
+from pipeline import canvas_io, features, inputs, markets, slate, snapshots, status  # noqa: E402
 
 
 # --- Test doubles -----------------------------------------------------------
@@ -183,17 +183,17 @@ class MarketsTests(unittest.TestCase):
         )
         # Low conf
         self.assertEqual(
-            markets.classify_tb_market_status(2.0, 0.55, "B", "Low", aligned, "full"),
+            markets.classify_tb_market_status(2.0, 0.55, "A", "Low", aligned, "full"),
             "priced_low_conf",
         )
         # Below edge gate
         self.assertEqual(
-            markets.classify_tb_market_status(1.0, 0.55, "B", "High", aligned, "full"),
+            markets.classify_tb_market_status(1.0, 0.55, "A", "High", aligned, "full"),
             "priced_below_gate",
         )
         # Qualified
         self.assertEqual(
-            markets.classify_tb_market_status(2.0, 0.55, "B", "High", aligned, "full"),
+            markets.classify_tb_market_status(2.0, 0.55, "A", "High", aligned, "full"),
             "qualified",
         )
 
@@ -388,7 +388,19 @@ class SlateTests(unittest.TestCase):
                 report_date="2026-04-21",
                 market_blend_alpha=0.25,
                 allow_partial=False,
-                lineup_context={"DET@BOS": {"game_status_bucket": "pregame"}},
+                lineup_context={
+                    "DET@BOS": {
+                        "game_status_bucket": "pregame",
+                        "away_lineup_verification": {"verification_level": "confirmed_api_rotowire"},
+                        "home_lineup_verification": {"verification_level": "projected_canvas_fallback"},
+                        "away_starter_verification": {"verification_level": "confirmed_api_rotowire"},
+                        "home_starter_verification": {"verification_level": "api_rotowire_unconfirmed"},
+                        "weather_issue_codes": ["weather_live_missing", "weather_fallback_conservative"],
+                        "weather_provider_path": ["open_meteo", "fallback_neutral"],
+                        "weather_resolution_source": "fallback_neutral",
+                        "weather_resolution_detail": "Open-Meteo forecast returned no hourly data for Fenway Park.",
+                    }
+                },
                 games_rows=games_rows,
                 batter_rows=batter_rows,
                 game_feature_rows=[{"game": "DET@BOS"}],
@@ -410,6 +422,58 @@ class SlateTests(unittest.TestCase):
             self.assertTrue(payload["evaluation_eligible"])
             self.assertEqual(payload["summary"]["pregame_games"], 1)
             self.assertEqual(payload["summary"]["scored_games"], 1)
+            self.assertEqual(
+                payload["lineup_context"]["DET@BOS"]["away_lineup_verification"]["verification_level"],
+                "confirmed_api_rotowire",
+            )
+            self.assertEqual(
+                payload["lineup_context"]["DET@BOS"]["weather_issue_codes"],
+                ["weather_live_missing", "weather_fallback_conservative"],
+            )
+            self.assertEqual(
+                payload["lineup_context"]["DET@BOS"]["weather_provider_path"],
+                ["open_meteo", "fallback_neutral"],
+            )
+
+
+class FeatureResolutionTests(unittest.TestCase):
+    def test_choose_lineup_side_returns_confirmed_api_rotowire_metadata(self):
+        rotowire_side = SimpleNamespace(
+            confirmed=True,
+            players=[{"name": "Player One"}, {"name": "Player Two"}],
+        )
+        rotowire_game = SimpleNamespace(away_side=rotowire_side, home_side=rotowire_side)
+        players, label, issues, meta = features.choose_lineup_side(
+            "DET",
+            [
+                {"id": 1, "name": "Player One", "pos": "SS"},
+                {"id": 2, "name": "Player Two", "pos": "CF"},
+            ],
+            [],
+            "Projected",
+            rotowire_game,
+            "away",
+            {},
+            allow_canvas_fallback=False,
+        )
+        self.assertEqual(label, "Confirmed (MLB API + RotoWire)")
+        self.assertEqual(issues, [])
+        self.assertEqual(meta["selected_source"], "mlb_stats_api")
+        self.assertEqual(meta["verification_level"], "confirmed_api_rotowire")
+        self.assertEqual(meta["provider_path"], ["mlb_stats_api", "rotowire"])
+        self.assertEqual(len(players), 2)
+
+    def test_starter_verification_metadata_captures_unconfirmed_rotowire(self):
+        rotowire_side = SimpleNamespace(confirmed=False, pitcher_name="Tarik Skubal")
+        rotowire_game = SimpleNamespace(away_side=rotowire_side, home_side=rotowire_side)
+        meta = features.starter_verification_metadata(
+            {"id": 1, "name": "Tarik Skubal"},
+            rotowire_game,
+            "away",
+        )
+        self.assertEqual(meta["verification_level"], "api_rotowire_unconfirmed")
+        self.assertEqual(meta["provider_path"], ["mlb_stats_api", "rotowire"])
+        self.assertIn("rotowire_unconfirmed", meta["issue_codes"])
 
 
 # --- inputs tests -----------------------------------------------------------
@@ -554,6 +618,44 @@ class Apr16ComputeBackCompatTests(unittest.TestCase):
         self.assertTrue(ac.CANVAS.name.endswith("mlb-pregame-intel-apr20.canvas.tsx"))
         self.assertIsInstance(ac.GAME_SPECS, list)
         self.assertTrue(callable(ac.make_sp_profile))
+
+    def test_resolve_weather_with_fallback_returns_neutral_snapshot_on_provider_failure(self):
+        import apr16_compute as ac
+
+        schedule_game = {
+            "venue_name": "Fenway Park",
+            "home_location_name": "Boston",
+            "roof_type": "Open",
+            "game_date_utc": "2026-04-21T23:10:00Z",
+        }
+        with mock.patch("apr16_compute.fetch_weather_snapshot", side_effect=RuntimeError("boom")):
+            snapshot, issue_codes, meta = ac.resolve_weather_with_fallback(schedule_game)
+
+        self.assertEqual(snapshot.source, "Fallback")
+        self.assertEqual(snapshot.run_factor, 1.0)
+        self.assertIn("weather_live_missing", issue_codes)
+        self.assertIn("weather_provider_exception", issue_codes)
+        self.assertIn("weather_fallback_conservative", issue_codes)
+        self.assertEqual(meta["provider_path"], ["open_meteo", "fallback_neutral"])
+        self.assertEqual(meta["resolution_source"], "fallback_neutral")
+
+    def test_resolve_weather_with_fallback_preserves_open_meteo_success_path(self):
+        import apr16_compute as ac
+
+        schedule_game = {
+            "venue_name": "Fenway Park",
+            "home_location_name": "Boston",
+            "roof_type": "Open",
+            "game_date_utc": "2026-04-21T23:10:00Z",
+        }
+        fake_snapshot = SimpleNamespace(source="Open-Meteo", run_factor=0.99)
+        with mock.patch("apr16_compute.fetch_weather_snapshot", return_value=fake_snapshot):
+            snapshot, issue_codes, meta = ac.resolve_weather_with_fallback(schedule_game)
+
+        self.assertIs(snapshot, fake_snapshot)
+        self.assertEqual(issue_codes, [])
+        self.assertEqual(meta["provider_path"], ["open_meteo"])
+        self.assertEqual(meta["resolution_source"], "open_meteo")
 
 
 if __name__ == "__main__":

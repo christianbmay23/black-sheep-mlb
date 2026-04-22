@@ -104,6 +104,7 @@ from pipeline.features import (  # noqa: E402
     build_model_lineup,
     build_prop_note,
     choose_lineup_side,
+    starter_verification_metadata,
     starter_matches,
     summarize_hitter_features,
     summarize_pitcher_features,
@@ -123,6 +124,67 @@ def _make_sp_profile_unbound(_x: float) -> list[list[str]]:
 make_sp_profile: Callable[[float], list[list[str]]] = _make_sp_profile_unbound
 
 SNAPSHOT_ROOT = ROOT / "canvases" / "exports" / "snapshots"
+
+
+def _classify_weather_exception(exc: Exception) -> str:
+    message = str(exc).lower()
+    if "geocoding failed" in message:
+        return "weather_geocode_failed"
+    if "no hourly data" in message:
+        return "weather_hourly_data_missing"
+    return "weather_provider_exception"
+
+
+def _fallback_weather_snapshot(
+    venue_name: str,
+    roof_type: str,
+    game_time_utc: str,
+) -> WeatherSnapshot:
+    roof = str(roof_type or "Open")
+    summary = f"Conservative fallback / {roof}"
+    return WeatherSnapshot(
+        venue_name=venue_name,
+        source="Fallback",
+        forecast_time_utc=game_time_utc,
+        roof_type=roof,
+        temperature_f=None,
+        wind_speed_mph=None,
+        wind_direction_deg=None,
+        precipitation_probability_pct=None,
+        precipitation_inches=None,
+        weather_code=None,
+        run_factor=1.0,
+        summary=summary,
+    )
+
+
+def resolve_weather_with_fallback(schedule_game: dict[str, Any]) -> tuple[WeatherSnapshot, list[str], dict[str, Any]]:
+    venue_name = str(schedule_game.get("venue_name") or "")
+    roof_type = str(schedule_game.get("roof_type") or "Open")
+    game_time_utc = str(schedule_game.get("game_date_utc") or "")
+    try:
+        snapshot = fetch_weather_snapshot(
+            venue_name,
+            str(schedule_game.get("home_location_name") or ""),
+            roof_type,
+            game_time_utc,
+        )
+        return snapshot, [], {
+            "provider_path": ["open_meteo"],
+            "resolution_source": "open_meteo",
+            "resolution_detail": "live_forecast",
+        }
+    except Exception as exc:
+        issue_code = _classify_weather_exception(exc)
+        return _fallback_weather_snapshot(venue_name, roof_type, game_time_utc), [
+            "weather_live_missing",
+            issue_code,
+            "weather_fallback_conservative",
+        ], {
+            "provider_path": ["open_meteo", "fallback_neutral"],
+            "resolution_source": "fallback_neutral",
+            "resolution_detail": str(exc),
+        }
 
 
 def parse_canvas_games(source: str) -> dict[str, dict[str, Any]]:
@@ -231,7 +293,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
         is_pregame = str(schedule_game.get("game_status_bucket") or "pregame") == "pregame"
         rotowire_game = rotowire_games.get(game_key)
         canvas_ctx = canvas_games.get(game_key, {})
-        away_players, away_label, away_issues = choose_lineup_side(
+        away_players, away_label, away_issues, away_lineup_verification = choose_lineup_side(
             str(spec["away"]),
             list(schedule_game.get("away_players", [])),
             list(canvas_ctx.get("away_lineup", [])),
@@ -241,7 +303,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
             rosters,
             allow_canvas_fallback=allow_partial or not is_pregame,
         )
-        home_players, home_label, home_issues = choose_lineup_side(
+        home_players, home_label, home_issues, home_lineup_verification = choose_lineup_side(
             str(spec["home"]),
             list(schedule_game.get("home_players", [])),
             list(canvas_ctx.get("home_lineup", [])),
@@ -254,23 +316,16 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
 
         away_pitcher = dict(schedule_game.get("away_pitcher") or {"id": None, "name": "TBD"})
         home_pitcher = dict(schedule_game.get("home_pitcher") or {"id": None, "name": "TBD"})
+        away_starter_verification = starter_verification_metadata(away_pitcher, rotowire_game, "away")
+        home_starter_verification = starter_verification_metadata(home_pitcher, rotowire_game, "home")
         issues = away_issues + home_issues
         issues.extend(starter_matches(away_pitcher, rotowire_game, "away"))
         issues.extend(starter_matches(home_pitcher, rotowire_game, "home"))
 
-        weather_snapshot: WeatherSnapshot | None = None
-        try:
-            weather_snapshot = fetch_weather_snapshot(
-                str(schedule_game.get("venue_name") or ""),
-                str(schedule_game.get("home_location_name") or ""),
-                str(schedule_game.get("roof_type") or "Open"),
-                str(schedule_game.get("game_date_utc") or ""),
-            )
-        except Exception as exc:
-            if is_pregame and allow_partial:
-                issues.append("weather_live_missing")
-            elif is_pregame:
-                blocking_issues.append(f"{game_key}: live weather unavailable ({exc})")
+        weather_snapshot, weather_issue_codes, weather_provenance = resolve_weather_with_fallback(schedule_game)
+        issues.extend(weather_issue_codes)
+        if is_pregame and not allow_partial and weather_issue_codes:
+            blocking_issues.append(f"{game_key}: live weather unavailable ({weather_provenance['resolution_detail']})")
 
         odds = live_game_odds.get(game_key)
         away_moneyline = odds.away_moneyline if odds and odds.away_moneyline is not None else parse_int(spec["away_a"])
@@ -307,12 +362,20 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
             "home_players": home_players,
             "away_label": away_label,
             "home_label": home_label,
+            "away_lineup_verification": away_lineup_verification,
+            "home_lineup_verification": home_lineup_verification,
+            "away_starter_verification": away_starter_verification,
+            "home_starter_verification": home_starter_verification,
             "away_pitcher": away_pitcher,
             "home_pitcher": home_pitcher,
             "away_moneyline": away_moneyline,
             "home_moneyline": home_moneyline,
             "odds": odds,
             "weather": weather_snapshot,
+            "weather_issue_codes": weather_issue_codes,
+            "weather_provider_path": weather_provenance["provider_path"],
+            "weather_resolution_source": weather_provenance["resolution_source"],
+            "weather_resolution_detail": weather_provenance["resolution_detail"],
             "issues": sorted(set(issues)),
             "venue_name": schedule_game.get("venue_name", ""),
             "roof_type": schedule_game.get("roof_type", ""),
@@ -717,6 +780,14 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                 "home_score": ctx.get("home_score"),
                 "away_lineup_label": ctx["away_label"],
                 "home_lineup_label": ctx["home_label"],
+                "away_lineup_verification": ctx.get("away_lineup_verification"),
+                "home_lineup_verification": ctx.get("home_lineup_verification"),
+                "away_starter_verification": ctx.get("away_starter_verification"),
+                "home_starter_verification": ctx.get("home_starter_verification"),
+                "weather_issue_codes": list(ctx.get("weather_issue_codes") or []),
+                "weather_provider_path": list(ctx.get("weather_provider_path") or []),
+                "weather_resolution_source": ctx.get("weather_resolution_source"),
+                "weather_resolution_detail": ctx.get("weather_resolution_detail"),
                 "issues": sorted(set(ctx["issues"])),
                 "missing_data_flags": flags,
                 "scoring_status": scoring_status,

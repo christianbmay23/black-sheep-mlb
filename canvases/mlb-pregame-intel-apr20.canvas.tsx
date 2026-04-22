@@ -31,8 +31,8 @@ type SlateGame = {
   homeScore?: number | null;
   awaySp: string;
   homeSp: string;
-  awayAmerican: number;
-  homeAmerican: number;
+  awayAmerican: number | null;
+  homeAmerican: number | null;
   impliedAwayPct: number;
   impliedHomePct: number;
   modelAwayPct: number;
@@ -1187,7 +1187,8 @@ function confTone(c: string): "success" | "warning" | "info" | "neutral" {
 }
 
 function GameCard({ g }: { g: SlateGame }) {
-  const ml = `${g.away} ${g.awayAmerican > 0 ? `+${g.awayAmerican}` : g.awayAmerican} / ${g.home} ${g.homeAmerican > 0 ? `+${g.homeAmerican}` : g.homeAmerican}`;
+  const fmtAmerican = (price: number | null) => (price === null ? "N/A" : price > 0 ? `+${price}` : `${price}`);
+  const ml = `${g.away} ${fmtAmerican(g.awayAmerican)} / ${g.home} ${fmtAmerican(g.homeAmerican)}`;
   const gameBucket = normalizeGameStateBucket(g.gameStatusBucket);
   const statusLabel = gameStatusLabel(g);
   const score = scoreLabel(g);
