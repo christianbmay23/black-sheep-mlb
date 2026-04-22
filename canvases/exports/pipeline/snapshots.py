@@ -176,6 +176,7 @@ def write_run_snapshot(
                 "weather_provider_path": list(ctx.get("weather_provider_path") or []),
                 "weather_resolution_source": ctx.get("weather_resolution_source"),
                 "weather_resolution_detail": ctx.get("weather_resolution_detail"),
+                "hr_provider_path": ctx.get("hr_provider_path"),
                 "away_pitcher": ctx.get("away_pitcher"),
                 "home_pitcher": ctx.get("home_pitcher"),
                 "away_moneyline": ctx.get("away_moneyline"),
@@ -210,7 +211,9 @@ def write_run_snapshot(
             "one_sided_hr_games": sum(
                 1
                 for row in prop_market_coverage
-                if "rotowire_hr_home_side_missing" in list(row.get("notes") or [])
+                if "draftkings_hr_home_side_missing" in list(row.get("notes") or [])
+                or "draftkings_hr_away_side_missing" in list(row.get("notes") or [])
+                or "rotowire_hr_home_side_missing" in list(row.get("notes") or [])
                 or "rotowire_hr_away_side_missing" in list(row.get("notes") or [])
             ),
             "evaluation_eligible": evaluation["eligible"],

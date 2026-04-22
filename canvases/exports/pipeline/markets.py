@@ -57,7 +57,7 @@ def classify_hr_market_status(
     prop_conf: str,
     hr_market: _PropMarketLineLike | None,
     *,
-    hr_market_integrity: str = "partial",
+    hr_market_integrity: str = "full",
 ) -> str:
     if not has_hr_market_price(hr_market):
         return "unpriced"
@@ -71,6 +71,8 @@ def classify_hr_market_status(
         return "priced_low_conf"
     if edge_hr_pct < HR_EDGE_GATE_PCT:
         return "priced_below_gate"
+    if hr_market_integrity == "partial":
+        return "qualified_partial"
     return "qualified"
 
 
@@ -118,39 +120,33 @@ def choose_recommended_prop(
     hr_tier: str,
     tb2_tier: str,
 ) -> tuple[str, str]:
-    if hr_status == "qualified" and tb_status == "qualified":
+    hr_qualified = hr_status in {"qualified", "qualified_partial"}
+    tb_qualified = tb_status == "qualified"
+    if hr_qualified and tb_qualified:
         if edge_hr_pct is not None and edge_tb_pct is not None and edge_hr_pct >= edge_tb_pct + 1.5:
             return "HR", hr_tier
         return "2+ TB", tb2_tier
-    if hr_status == "qualified":
+    if hr_qualified:
         return "HR", hr_tier
-    if tb_status == "qualified":
+    if tb_qualified:
         return "2+ TB", tb2_tier
     return "", ""
 
 
 def classify_hr_market_integrity(
     *,
-    away_lineup_size: int,
-    home_lineup_size: int,
-    away_hr_covered: int,
-    home_hr_covered: int,
-    notes: list[str],
+    dk_away: bool,
+    dk_home: bool,
+    rotowire_away: bool,
+    rotowire_home: bool,
 ) -> str:
-    if (
-        away_lineup_size > 0
-        and home_lineup_size > 0
-        and away_hr_covered == away_lineup_size
-        and home_hr_covered == home_lineup_size
-    ):
+    if dk_away and dk_home:
         return "full"
-    if (
-        "rotowire_hr_home_side_missing" in notes
-        or "rotowire_hr_away_side_missing" in notes
-        or ((away_hr_covered > 0) != (home_hr_covered > 0))
-    ):
-        return "degraded"
-    return "partial"
+    if rotowire_away and rotowire_home:
+        return "full"
+    if (dk_away != dk_home) or (rotowire_away != rotowire_home):
+        return "partial"
+    return "degraded"
 
 
 # --- Coverage summary -------------------------------------------------------
@@ -183,27 +179,63 @@ def summarize_prop_market_coverage(
                 missing.append(player_name)
         return covered, sorted(missing), sorted(sources)
 
+    def hr_provider_side(players: list[dict[str, Any]], provider: str) -> bool:
+        for player in players:
+            player_name = str(player.get("name") or "")
+            line = markets.get((normalize_player_name(player_name), "batter_home_runs"))
+            source = str(getattr(line, "source", "") or "")
+            if line and line.over_price is not None:
+                if provider == "draftkings" and source.startswith("draftkings"):
+                    return True
+                if provider == "rotowire" and source.startswith("rotowire"):
+                    return True
+        return False
+
+    def classify_hr_provider_path(
+        *,
+        dk_away: bool,
+        dk_home: bool,
+        rotowire_away: bool,
+        rotowire_home: bool,
+    ) -> str:
+        if dk_away and dk_home:
+            return "draftkings->rotowire" if rotowire_away or rotowire_home else "draftkings"
+        if rotowire_away and rotowire_home:
+            return "draftkings->rotowire" if dk_away or dk_home else "rotowire_only"
+        if dk_away or dk_home:
+            return "draftkings->rotowire" if rotowire_away or rotowire_home else "draftkings"
+        if rotowire_away or rotowire_home:
+            return "rotowire_only"
+        return "projection_only"
+
     away_players = list(ctx.get("away_players") or [])
     home_players = list(ctx.get("home_players") or [])
     away_hr_covered, away_hr_missing, away_hr_sources = coverage(away_players, "batter_home_runs")
     home_hr_covered, home_hr_missing, home_hr_sources = coverage(home_players, "batter_home_runs")
     away_tb_covered, away_tb_missing, away_tb_sources = coverage(away_players, "batter_total_bases")
     home_tb_covered, home_tb_missing, home_tb_sources = coverage(home_players, "batter_total_bases")
+    dk_away = hr_provider_side(away_players, "draftkings")
+    dk_home = hr_provider_side(home_players, "draftkings")
+    rotowire_away = hr_provider_side(away_players, "rotowire")
+    rotowire_home = hr_provider_side(home_players, "rotowire")
     hr_sources = sorted(set(away_hr_sources + home_hr_sources))
     tb_sources = sorted(set(away_tb_sources + home_tb_sources))
     notes: list[str] = []
-    if away_hr_covered and not home_hr_covered and hr_sources and all(source.startswith("rotowire") for source in hr_sources):
+    if dk_away and not dk_home:
+        notes.append("draftkings_hr_home_side_missing")
+    if dk_home and not dk_away:
+        notes.append("draftkings_hr_away_side_missing")
+    if rotowire_away and not rotowire_home:
         notes.append("rotowire_hr_home_side_missing")
-    if home_hr_covered and not away_hr_covered and hr_sources and all(source.startswith("rotowire") for source in hr_sources):
+    if rotowire_home and not rotowire_away:
         notes.append("rotowire_hr_away_side_missing")
     if ctx.get("away_moneyline") is None or ctx.get("home_moneyline") is None:
         notes.append("market_odds_unavailable")
     hr_market_integrity = classify_hr_market_integrity(
-        away_lineup_size=len(away_players),
-        home_lineup_size=len(home_players),
-        away_hr_covered=away_hr_covered,
-        home_hr_covered=home_hr_covered,
-        notes=notes,
+        dk_away=dk_away,
+        dk_home=dk_home,
+        rotowire_away=rotowire_away,
+        rotowire_home=rotowire_home,
     )
     return {
         "game": game_key,
@@ -220,6 +252,16 @@ def summarize_prop_market_coverage(
         "hr_sources": hr_sources,
         "tb_sources": tb_sources,
         "hr_market_integrity": hr_market_integrity,
+        "hr_provider_path": classify_hr_provider_path(
+            dk_away=dk_away,
+            dk_home=dk_home,
+            rotowire_away=rotowire_away,
+            rotowire_home=rotowire_home,
+        ),
+        "dk_away": dk_away,
+        "dk_home": dk_home,
+        "rotowire_away": rotowire_away,
+        "rotowire_home": rotowire_home,
         "notes": notes,
     }
 

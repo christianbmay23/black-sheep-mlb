@@ -25,6 +25,7 @@ for path in (REPO_ROOT, EXPORTS_DIR):
         sys.path.insert(0, str(path))
 
 from pipeline import canvas_io, features, inputs, markets, slate, snapshots, status  # noqa: E402
+import live_mlb_data  # noqa: E402
 
 
 # --- Test doubles -----------------------------------------------------------
@@ -146,6 +147,10 @@ class MarketsTests(unittest.TestCase):
             markets.classify_hr_market_status(4.0, "A", "High", priced, hr_market_integrity="degraded"),
             "integrity_degraded_projection_only",
         )
+        self.assertEqual(
+            markets.classify_hr_market_status(4.0, "A", "High", priced, hr_market_integrity="partial"),
+            "qualified_partial",
+        )
         # No edge
         self.assertEqual(markets.classify_hr_market_status(0.0, "A", "High", priced), "priced_no_edge")
         # Below tier
@@ -232,6 +237,10 @@ class MarketsTests(unittest.TestCase):
             markets.choose_recommended_prop("qualified", "priced_no_edge", 5.0, -1.0, "A", "C"),
             ("HR", "A"),
         )
+        self.assertEqual(
+            markets.choose_recommended_prop("qualified_partial", "priced_no_edge", 5.0, -1.0, "A", "C"),
+            ("HR", "A"),
+        )
         # Only TB qualified
         self.assertEqual(
             markets.choose_recommended_prop("unpriced", "qualified", None, 2.0, "C", "A"),
@@ -261,11 +270,12 @@ class MarketsTests(unittest.TestCase):
         out = markets.summarize_prop_market_coverage("NYY@HOU", ctx, market_map, normalize_player_name=norm)
         self.assertEqual(out["away_hr_covered"], 2)
         self.assertEqual(out["home_hr_covered"], 0)
-        self.assertEqual(out["hr_market_integrity"], "degraded")
+        self.assertEqual(out["hr_market_integrity"], "partial")
+        self.assertEqual(out["hr_provider_path"], "rotowire_only")
         self.assertIn("rotowire_hr_home_side_missing", out["notes"])
         self.assertIn("market_odds_unavailable", out["notes"])
 
-    def test_summarize_prop_market_coverage_classifies_full(self):
+    def test_summarize_prop_market_coverage_classifies_full_via_draftkings(self):
         def norm(name: str) -> str:
             return name.lower().replace(" ", "-")
 
@@ -276,13 +286,14 @@ class MarketsTests(unittest.TestCase):
             "home_moneyline": 110,
         }
         market_map = {
-            (norm("Juan Soto"), "batter_home_runs"): _FakeMarketLine(over_price=400, source="odds_api"),
-            (norm("Alex Bregman"), "batter_home_runs"): _FakeMarketLine(over_price=350, source="odds_api"),
+            (norm("Juan Soto"), "batter_home_runs"): _FakeMarketLine(over_price=400, source="draftkings"),
+            (norm("Alex Bregman"), "batter_home_runs"): _FakeMarketLine(over_price=350, source="draftkings"),
         }
         out = markets.summarize_prop_market_coverage("NYY@HOU", ctx, market_map, normalize_player_name=norm)
         self.assertEqual(out["hr_market_integrity"], "full")
+        self.assertEqual(out["hr_provider_path"], "draftkings")
 
-    def test_summarize_prop_market_coverage_classifies_partial(self):
+    def test_summarize_prop_market_coverage_classifies_partial_with_one_sided_fallback(self):
         def norm(name: str) -> str:
             return name.lower().replace(" ", "-")
 
@@ -293,11 +304,29 @@ class MarketsTests(unittest.TestCase):
             "home_moneyline": 110,
         }
         market_map = {
-            (norm("Juan Soto"), "batter_home_runs"): _FakeMarketLine(over_price=400, source="odds_api"),
-            (norm("Alex Bregman"), "batter_home_runs"): _FakeMarketLine(over_price=350, source="odds_api"),
+            (norm("Juan Soto"), "batter_home_runs"): _FakeMarketLine(over_price=400, source="draftkings"),
+            (norm("Alex Bregman"), "batter_home_runs"): _FakeMarketLine(over_price=350, source="rotowire_props_yes_only"),
         }
         out = markets.summarize_prop_market_coverage("NYY@HOU", ctx, market_map, normalize_player_name=norm)
         self.assertEqual(out["hr_market_integrity"], "partial")
+        self.assertEqual(out["hr_provider_path"], "draftkings->rotowire")
+        self.assertIn("draftkings_hr_home_side_missing", out["notes"])
+        self.assertIn("rotowire_hr_away_side_missing", out["notes"])
+
+    def test_summarize_prop_market_coverage_classifies_degraded_when_both_missing(self):
+        def norm(name: str) -> str:
+            return name.lower().replace(" ", "-")
+
+        ctx = {
+            "away_players": [{"name": "Juan Soto"}],
+            "home_players": [{"name": "Alex Bregman"}],
+            "away_moneyline": -120,
+            "home_moneyline": 110,
+        }
+        out = markets.summarize_prop_market_coverage("NYY@HOU", ctx, {}, normalize_player_name=norm)
+        self.assertEqual(out["hr_market_integrity"], "degraded")
+        self.assertEqual(out["hr_provider_path"], "projection_only")
+        self.assertEqual(out["notes"], [])
 
 
 # --- snapshots tests --------------------------------------------------------
@@ -459,6 +488,7 @@ class SlateTests(unittest.TestCase):
                         "weather_provider_path": ["open_meteo", "fallback_neutral"],
                         "weather_resolution_source": "fallback_neutral",
                         "weather_resolution_detail": "Open-Meteo forecast returned no hourly data for Fenway Park.",
+                        "hr_provider_path": "draftkings->rotowire",
                     }
                 },
                 games_rows=games_rows,
@@ -498,6 +528,63 @@ class SlateTests(unittest.TestCase):
                 payload["lineup_context"]["DET@BOS"]["weather_provider_path"],
                 ["open_meteo", "fallback_neutral"],
             )
+            self.assertEqual(
+                payload["lineup_context"]["DET@BOS"]["hr_provider_path"],
+                "draftkings->rotowire",
+            )
+
+
+class LiveDataPropSourceTests(unittest.TestCase):
+    def test_fetch_slate_prop_markets_prefers_draftkings_hr_before_rotowire(self):
+        player_key = "juansoto"
+        dk_hr = _FakeMarketLine(
+            over_price=400,
+            source="draftkings",
+            market_key="batter_home_runs",
+            player_key=player_key,
+            player_name="Juan Soto",
+        )
+        live_hr = _FakeMarketLine(
+            over_price=330,
+            source="odds_api",
+            market_key="batter_home_runs",
+            player_key=player_key,
+            player_name="Juan Soto",
+        )
+        live_tb = _FakeMarketLine(
+            over_price=-105,
+            point=1.5,
+            source="odds_api",
+            market_key="batter_total_bases",
+            player_key=player_key,
+            player_name="Juan Soto",
+        )
+        rotowire_hr = _FakeMarketLine(
+            over_price=360,
+            source="rotowire_props_yes_only",
+            market_key="batter_home_runs",
+            player_key=player_key,
+            player_name="Juan Soto",
+        )
+        with mock.patch.object(
+            live_mlb_data,
+            "fetch_live_prop_markets",
+            return_value={
+                (player_key, "batter_home_runs"): live_hr,
+                (player_key, "batter_total_bases"): live_tb,
+            },
+        ), mock.patch.object(
+            live_mlb_data,
+            "fetch_rotowire_prop_markets",
+            return_value={"WSH@NYM": {(player_key, "batter_home_runs"): rotowire_hr}},
+        ):
+            out = live_mlb_data.fetch_slate_prop_markets(
+                "2026-04-22",
+                {"WSH@NYM": "evt1"},
+                dk_hr_props={"WSH@NYM": {(player_key, "batter_home_runs"): dk_hr}},
+            )
+        self.assertEqual(out["WSH@NYM"][(player_key, "batter_home_runs")].source, "draftkings")
+        self.assertEqual(out["WSH@NYM"][(player_key, "batter_total_bases")].source, "odds_api")
 
 
 class FeatureResolutionTests(unittest.TestCase):

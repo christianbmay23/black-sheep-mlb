@@ -71,13 +71,13 @@ Strict `--compute` requires all of the following before it writes the canvas:
 - RotoWire confirmation without pitcher or lineup mismatches
 - Open-Meteo weather for every venue
 - Odds API moneylines and totals for every game
-- Odds API prop markets for every modeled batter row
+- DraftKings-backed HR props plus Odds API / RotoWire batter prop markets where available
 - Recent-form and bullpen features resolvable from MLB Stats API / Savant inputs
 
 Provider chain:
 
 - Game odds: Odds API first, then RotoWire MLB odds tables
-- HR props: Odds API first, then RotoWire lineup HR odds feed
+- HR props: DraftKings first, then RotoWire lineup HR odds feed, then projection-only when unresolved
 - TB props: Odds API first, then RotoWire MLB player props tables
 - Lineup verification: MLB Stats API plus FanGraphs / RotoWire secondary confirmation
 

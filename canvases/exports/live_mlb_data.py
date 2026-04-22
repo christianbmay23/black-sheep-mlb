@@ -67,6 +67,12 @@ ROTOWIRE_PROP_PAGE_KEYS = {
     "batter_home_runs": "onehomerun",
     "batter_total_bases": "bases",
 }
+DK_HR_CONTROLDATA_URL = (
+    "https://sportsbook-nash.draftkings.com/sites/US-LA-SB/api/sportscontent/controldata/"
+    "league/leagueSubcategory/v1/markets"
+)
+DK_MLB_LEAGUE_ID = "84240"
+DK_HR_SUBCATEGORY_ID = "17319"
 RUNTIME_DIAGNOSTICS: list[dict[str, Any]] = []
 
 TEAM_NAME_ALIASES = {
@@ -1179,6 +1185,150 @@ def fetch_rotowire_team_hr_markets(team_abbr: str) -> list[dict[str, Any]]:
     return payload if isinstance(payload, list) else []
 
 
+def _draftkings_hr_payload() -> dict[str, Any]:
+    params = {
+        "isBatchable": "false",
+        "templateVars": f"{DK_MLB_LEAGUE_ID},{DK_HR_SUBCATEGORY_ID}",
+        "eventsQuery": (
+            f"$filter=leagueId eq '{DK_MLB_LEAGUE_ID}' "
+            f"AND clientMetadata/Subcategories/any(s: s/Id eq '{DK_HR_SUBCATEGORY_ID}')"
+        ),
+        "marketsQuery": (
+            f"$filter=clientMetadata/subCategoryId eq '{DK_HR_SUBCATEGORY_ID}' "
+            "AND tags/all(t: t ne 'SportcastBetBuilder')"
+        ),
+        "include": "Events",
+        "entity": "events",
+        "format": "json",
+    }
+    return fetch_json(
+        DK_HR_CONTROLDATA_URL + "?" + urllib.parse.urlencode(params),
+        headers={"User-Agent": "Mozilla/5.0", "Accept": "application/json"},
+    )
+
+
+def _draftkings_event_game_key(event: dict[str, Any]) -> tuple[str, str]:
+    away = ""
+    home = ""
+    for participant in event.get("participants") or []:
+        if not isinstance(participant, dict):
+            continue
+        metadata = participant.get("metadata") or {}
+        short_name = normalize_team_abbr(str(metadata.get("shortName") or ""))
+        venue_role = str(participant.get("venueRole") or "").lower()
+        if venue_role == "away":
+            away = short_name
+        elif venue_role == "home":
+            home = short_name
+    return away, home
+
+
+def fetch_dk_hr_props(date_str: str) -> dict[str, dict[tuple[str, str], PropMarketLine]]:
+    try:
+        payload = _draftkings_hr_payload()
+    except Exception as exc:
+        record_runtime_diagnostic(
+            "draftkings_hr_props_unavailable",
+            f"DraftKings HR props unavailable: {exc}",
+            source="draftkings",
+            context={"date": date_str},
+        )
+        return {}
+
+    events = payload.get("events") or []
+    markets = payload.get("markets") or []
+    selections = payload.get("selections") or []
+    if not isinstance(events, list) or not isinstance(markets, list) or not isinstance(selections, list):
+        record_runtime_diagnostic(
+            "draftkings_hr_props_invalid_payload",
+            "DraftKings HR props payload was missing event, market, or selection arrays.",
+            source="draftkings",
+            context={"date": date_str},
+        )
+        return {}
+
+    event_map: dict[str, tuple[str, str]] = {}
+    for event in events:
+        if not isinstance(event, dict):
+            continue
+        start_dt = parse_iso_utc(event.get("startEventDate"))
+        if start_dt is None or start_dt.date().isoformat() != date_str:
+            continue
+        away, home = _draftkings_event_game_key(event)
+        if not away or not home:
+            continue
+        event_map[str(event.get("id") or "")] = (away, home)
+
+    if not event_map:
+        record_runtime_diagnostic(
+            "draftkings_hr_props_no_games",
+            "DraftKings HR props returned no date-matched MLB games.",
+            source="draftkings",
+            context={"date": date_str},
+        )
+        return {}
+
+    market_map: dict[str, tuple[str, str, str]] = {}
+    for market in markets:
+        if not isinstance(market, dict):
+            continue
+        event_id = str(market.get("eventId") or "")
+        teams = event_map.get(event_id)
+        if teams is None:
+            continue
+        market_id = str(market.get("id") or "")
+        if not market_id:
+            continue
+        market_map[market_id] = (event_id, teams[0], teams[1])
+
+    out: dict[str, dict[tuple[str, str], PropMarketLine]] = defaultdict(dict)
+    for selection in selections:
+        if not isinstance(selection, dict):
+            continue
+        if parse_int(selection.get("milestoneValue")) != 1 and str(selection.get("label") or "").strip() != "1+":
+            continue
+        market_ref = market_map.get(str(selection.get("marketId") or ""))
+        if market_ref is None:
+            continue
+        participants = selection.get("participants") or []
+        player = next(
+            (
+                participant
+                for participant in participants
+                if isinstance(participant, dict) and str(participant.get("type") or "").lower() == "player"
+            ),
+            None,
+        )
+        player_name = str((player or {}).get("name") or "").strip()
+        player_key = normalize_player_name(player_name)
+        over_price = parse_int(((selection.get("displayOdds") or {}).get("american")))
+        if not player_name or not player_key or over_price is None:
+            continue
+        event_id, away, home = market_ref
+        game_key = f"{away}@{home}"
+        out[game_key][(player_key, "batter_home_runs")] = PropMarketLine(
+            event_id=f"draftkings:{event_id}",
+            market_key="batter_home_runs",
+            player_key=player_key,
+            player_name=player_name,
+            point=0.5,
+            over_price=over_price,
+            under_price=None,
+            bookmakers_count=1,
+            last_update=date_str,
+            source="draftkings",
+        )
+
+    if not out:
+        record_runtime_diagnostic(
+            "draftkings_hr_props_empty",
+            "DraftKings HR props returned no usable player selections after normalization.",
+            source="draftkings",
+            context={"date": date_str, "events": len(event_map)},
+        )
+    return {game_key: dict(lines) for game_key, lines in out.items()}
+
+
 def fetch_rotowire_prop_markets(date_str: str) -> dict[str, dict[tuple[str, str], PropMarketLine]]:
     rotowire_games = fetch_rotowire_lineups(date_str)
     team_to_game: dict[str, str] = {}
@@ -1249,6 +1399,8 @@ def fetch_rotowire_prop_markets(date_str: str) -> dict[str, dict[tuple[str, str]
 def fetch_slate_prop_markets(
     date_str: str,
     event_ids_by_game: dict[str, str],
+    *,
+    dk_hr_props: dict[str, dict[tuple[str, str], PropMarketLine]] | None = None,
 ) -> dict[str, dict[tuple[str, str], PropMarketLine]]:
     out: dict[str, dict[tuple[str, str], PropMarketLine]] = {game_key: {} for game_key in event_ids_by_game}
     rotowire_only_games = sorted(game_key for game_key, event_id in event_ids_by_game.items() if str(event_id).startswith("rotowire:"))
@@ -1263,9 +1415,21 @@ def fetch_slate_prop_markets(
         if not event_id or event_id.startswith("rotowire:"):
             continue
         try:
-            out[game_key] = fetch_live_prop_markets(event_id, required=False)
+            live_markets = fetch_live_prop_markets(event_id, required=False)
+            out[game_key] = {
+                market_key: line
+                for market_key, line in live_markets.items()
+                if line.market_key != "batter_home_runs"
+            }
         except Exception:
             out[game_key] = {}
+
+    for game_key, markets in (dk_hr_props or {}).items():
+        current = out.setdefault(game_key, {})
+        for market_key, line in markets.items():
+            if line.market_key != "batter_home_runs":
+                continue
+            current[market_key] = line
 
     fallback = fetch_rotowire_prop_markets(date_str)
     for game_key, markets in fallback.items():

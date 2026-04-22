@@ -17,6 +17,7 @@ from live_mlb_data import (  # noqa: E402
     LiveDataError,
     PropMarketLine,
     WeatherSnapshot,
+    fetch_dk_hr_props,
     fetch_fangraphs_lineups,
     fetch_fangraphs_probables,
     fetch_live_game_odds,
@@ -136,6 +137,29 @@ def _classify_weather_exception(exc: Exception) -> str:
     if "no hourly data" in message:
         return "weather_hourly_data_missing"
     return "weather_provider_exception"
+
+
+def _downgrade_prop_tier(tier: str) -> str:
+    normalized = str(tier or "").strip().upper()
+    return {
+        "A+": "A",
+        "A": "B",
+        "B": "C",
+        "C": "D",
+        "D": "D",
+    }.get(normalized, normalized)
+
+
+def _hr_missing_market_reason(team_is_away: bool, coverage_notes: list[str]) -> str:
+    if "draftkings_hr_home_side_missing" in coverage_notes and not team_is_away:
+        return " (DraftKings HR feed returned no home-side markets for this game)"
+    if "draftkings_hr_away_side_missing" in coverage_notes and team_is_away:
+        return " (DraftKings HR feed returned no away-side markets for this game)"
+    if "rotowire_hr_home_side_missing" in coverage_notes and not team_is_away:
+        return " (RotoWire HR fallback returned no home-side markets for this game)"
+    if "rotowire_hr_away_side_missing" in coverage_notes and team_is_away:
+        return " (RotoWire HR fallback returned no away-side markets for this game)"
+    return ""
 
 
 def _fallback_weather_snapshot(
@@ -503,7 +527,8 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
         game_key: (ctx["odds"].event_id if isinstance(ctx.get("odds"), GameOdds) else "")
         for game_key, ctx in lineup_context.items()
     }
-    prop_market_map = fetch_slate_prop_markets(REPORT_DATE, event_ids_by_game)
+    dk_hr_props = fetch_dk_hr_props(REPORT_DATE)
+    prop_market_map = fetch_slate_prop_markets(REPORT_DATE, event_ids_by_game, dk_hr_props=dk_hr_props)
     prop_market_coverage: list[dict[str, Any]] = []
     coverage_by_game: dict[str, dict[str, Any]] = {}
     for spec in GAME_SPECS:
@@ -511,16 +536,15 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
         coverage = summarize_prop_market_coverage(key, lineup_context[key], prop_market_map.get(key, {}))
         coverage_by_game[key] = coverage
         prop_market_coverage.append(coverage)
+        lineup_context[key]["hr_provider_path"] = coverage.get("hr_provider_path") or "projection_only"
         if coverage.get("hr_market_integrity") == "degraded":
             lineup_context[key]["issues"] = sorted(
                 set(list(lineup_context[key].get("issues") or []) + ["hr_market_integrity_degraded"])
             )
-        if "rotowire_hr_home_side_missing" in coverage["notes"]:
-            lineup_context[key]["issues"] = sorted(set(list(lineup_context[key].get("issues") or []) + ["rotowire_hr_home_side_missing"]))
-        if "rotowire_hr_away_side_missing" in coverage["notes"]:
-            lineup_context[key]["issues"] = sorted(set(list(lineup_context[key].get("issues") or []) + ["rotowire_hr_away_side_missing"]))
-        if "market_odds_unavailable" in coverage["notes"]:
-            lineup_context[key]["issues"] = sorted(set(list(lineup_context[key].get("issues") or []) + ["market_odds_unavailable"]))
+        if coverage["notes"]:
+            lineup_context[key]["issues"] = sorted(
+                set(list(lineup_context[key].get("issues") or []) + list(coverage["notes"]))
+            )
         note_text = ", ".join(coverage["notes"]) or "ok"
         print(
             f"Prop coverage {key}: "
@@ -528,6 +552,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
             f"home {coverage['home_hr_covered']}/{coverage['home_lineup_size']} | "
             f"TB away {coverage['away_tb_covered']}/{coverage['away_lineup_size']} "
             f"home {coverage['home_tb_covered']}/{coverage['home_lineup_size']} | "
+            f"path={coverage.get('hr_provider_path') or 'projection_only'} | "
             f"notes={note_text}"
         )
     for diagnostic in get_runtime_diagnostics():
@@ -811,6 +836,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                 "weather_provider_path": list(ctx.get("weather_provider_path") or []),
                 "weather_resolution_source": ctx.get("weather_resolution_source"),
                 "weather_resolution_detail": ctx.get("weather_resolution_detail"),
+                "hr_provider_path": ctx.get("hr_provider_path"),
                 "issues": sorted(set(ctx["issues"])),
                 "missing_data_flags": flags,
                 "scoring_status": scoring_status,
@@ -843,6 +869,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                 tb_market_any = has_any_tb_market(tb_market)
                 tb_market_aligned = is_aligned_tb_market(tb_market)
                 hr_market_integrity = str(coverage_by_game.get(key, {}).get("hr_market_integrity") or "partial")
+                hr_provider_path = str(coverage_by_game.get(key, {}).get("hr_provider_path") or "projection_only")
                 market_status = "full" if hr_market_priced and tb_market_aligned else "partial" if hr_market_priced or tb_market_any else "none"
                 hr: float | None = None
                 tb2: float | None = None
@@ -858,6 +885,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                 recommended_prop = ""
                 recommended_tier = ""
                 display_tier = ""
+                hr_display_tier = ""
                 should_render_prop_projection = game_status_bucket != "final"
                 if should_render_prop_projection:
                     hr, tb2, fair_hr, fair_2tb, hr_tier, tb2_tier, pconf = batter_hr_two_tb(
@@ -911,6 +939,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                         hr_market,
                         hr_market_integrity=hr_market_integrity,
                     )
+                    hr_display_tier = _downgrade_prop_tier(hr_tier) if hr_market_status == "qualified_partial" else hr_tier
                     tb2_market_status = classify_tb_market_status(
                         edge_tb_pct,
                         tb2,
@@ -927,15 +956,13 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                         hr_tier,
                         tb2_tier,
                     )
-                    display_tier = recommended_tier or stronger_tier(hr_tier, tb2_tier)
+                    if recommended_prop == "HR" and recommended_tier:
+                        recommended_tier = hr_display_tier
+                    display_tier = recommended_tier or stronger_tier(hr_display_tier or hr_tier, tb2_tier)
                 if not allow_partial and is_pregame:
                     if not hr_market_priced:
                         coverage_notes = list(coverage_by_game.get(key, {}).get("notes") or [])
-                        reason = ""
-                        if "rotowire_hr_home_side_missing" in coverage_notes and not team_is_away:
-                            reason = " (Rotowire fallback returned no home-side HR markets for this game)"
-                        elif "rotowire_hr_away_side_missing" in coverage_notes and team_is_away:
-                            reason = " (Rotowire fallback returned no away-side HR markets for this game)"
+                        reason = _hr_missing_market_reason(team_is_away, coverage_notes)
                         late_blocking_issues.append(f"{key}: missing HR market for {player['name']}{reason}")
                     if tb_market is None or tb_market.over_price is None:
                         late_blocking_issues.append(f"{key}: missing TB market for {player['name']}")
@@ -960,9 +987,13 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                         note = f"{note}; priced lean: {recommended_prop} ({recommended_tier})"
                     if hr_market_integrity == "degraded":
                         note = f"{note}; HR market degraded, HR output projection only"
+                    elif hr_market_integrity == "partial":
+                        note = f"{note}; HR market partial via {hr_provider_path}, HR tier downgraded"
                     dc = build_data_confidence(pconf, lineup_label, market_status)
                     if hr_market_integrity == "degraded":
                         dc = f"{dc} — HR market degraded"
+                    elif hr_market_integrity == "partial":
+                        dc = f"{dc} — HR market partial via {hr_provider_path}"
                 else:
                     status_note = str(ctx.get("game_status_note") or ctx.get("game_state_detail") or "game no longer pregame")
                     note = f"Not scored — {status_note}"
@@ -982,6 +1013,8 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                             display_note = f"{display_note}; priced lean: {recommended_prop} ({recommended_tier})"
                         if hr_market_integrity == "degraded":
                             display_note = f"{display_note}; HR market degraded, HR output projection only"
+                        elif hr_market_integrity == "partial":
+                            display_note = f"{display_note}; HR market partial via {hr_provider_path}, HR tier downgraded"
                         if display_note:
                             note = f"Display only — {status_note}; {display_note}"
                         else:
@@ -1050,6 +1083,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                         "edge_tb_pct": edge_tb_pct,
                         "hr_market_status": hr_market_status,
                         "hr_market_integrity": hr_market_integrity,
+                        "hr_provider_path": hr_provider_path,
                         "tb2_market_status": tb2_market_status,
                         "model_confidence": pconf,
                         "data_confidence": dc,
