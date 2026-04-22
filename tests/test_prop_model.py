@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import unittest
 
-from models.prop_model import batter_hr_two_tb
+from models.prop_model import batter_hr_two_tb, intrinsic_tier_2tb
 
 
 class PropModelBvpThresholdTests(unittest.TestCase):
@@ -62,6 +62,13 @@ class PropModelBvpThresholdTests(unittest.TestCase):
         )
         self.assertEqual(base[:2], small_bvp[:2])
         self.assertEqual(base[4:], small_bvp[4:])
+
+    def test_intrinsic_tier_2tb_thresholds_are_more_selective(self):
+        self.assertEqual(intrinsic_tier_2tb(0.43), "A+")
+        self.assertEqual(intrinsic_tier_2tb(0.39), "A")
+        self.assertEqual(intrinsic_tier_2tb(0.31), "B")
+        self.assertEqual(intrinsic_tier_2tb(0.24), "C")
+        self.assertEqual(intrinsic_tier_2tb(0.19), "D")
 
 
 if __name__ == "__main__":

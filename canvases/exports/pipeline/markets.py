@@ -11,9 +11,10 @@ from typing import Any, Protocol
 # --- Gating constants -------------------------------------------------------
 
 HR_EDGE_GATE_PCT = 2.5
-TB_EDGE_GATE_PCT = 1.5
-TB_RECOMMEND_MIN_PROB_PCT = 48.0
-TB_PARTIAL_RECOMMEND_MIN_PROB_PCT = 50.0
+TB_EDGE_GATE_PCT = 2.0
+TB_PARTIAL_EDGE_GATE_PCT = 3.0
+TB_RECOMMEND_MIN_PROB_PCT = 49.0
+TB_PARTIAL_RECOMMEND_MIN_PROB_PCT = 52.0
 TB_TARGET_LINE = 1.5
 
 PROP_TIER_RANK: dict[str, int] = {"A+": 5, "A": 4, "B": 3, "C": 2, "D": 1}
@@ -97,13 +98,14 @@ def classify_tb_market_status(
         if market_status == "partial"
         else TB_RECOMMEND_MIN_PROB_PCT
     )
+    edge_gate = TB_PARTIAL_EDGE_GATE_PCT if market_status == "partial" else TB_EDGE_GATE_PCT
     if tb2_prob_pct < min_prob_gate:
         return "priced_below_prob_gate"
     if prop_tier_rank(tb2_tier) < prop_tier_rank("A"):
         return "priced_below_tier"
     if prop_conf == "Low":
         return "priced_low_conf"
-    if edge_tb_pct < TB_EDGE_GATE_PCT:
+    if edge_tb_pct < edge_gate:
         return "priced_below_gate"
     return "qualified"
 
@@ -225,6 +227,7 @@ def summarize_prop_market_coverage(
 __all__ = [
     "HR_EDGE_GATE_PCT",
     "TB_EDGE_GATE_PCT",
+    "TB_PARTIAL_EDGE_GATE_PCT",
     "TB_RECOMMEND_MIN_PROB_PCT",
     "TB_PARTIAL_RECOMMEND_MIN_PROB_PCT",
     "TB_TARGET_LINE",

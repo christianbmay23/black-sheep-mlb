@@ -88,13 +88,13 @@ def intrinsic_tier_hr(hr: float) -> Tier:
 
 
 def intrinsic_tier_2tb(p: float) -> Tier:
-    if p >= 0.38:
+    if p >= 0.42:
         return "A+"
-    if p >= 0.32:
+    if p >= 0.35:
         return "A"
-    if p >= 0.26:
+    if p >= 0.28:
         return "B"
-    if p >= 0.2:
+    if p >= 0.22:
         return "C"
     return "D"
 

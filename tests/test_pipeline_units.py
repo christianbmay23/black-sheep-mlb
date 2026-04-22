@@ -201,6 +201,21 @@ class MarketsTests(unittest.TestCase):
             "qualified",
         )
 
+    def test_classify_tb_market_status_partial_market_is_more_conservative(self):
+        aligned = _FakeMarketLine(over_price=-105, point=1.5)
+        self.assertEqual(
+            markets.classify_tb_market_status(2.5, 0.51, "A", "High", aligned, "partial"),
+            "priced_below_prob_gate",
+        )
+        self.assertEqual(
+            markets.classify_tb_market_status(2.5, 0.54, "A", "High", aligned, "partial"),
+            "priced_below_gate",
+        )
+        self.assertEqual(
+            markets.classify_tb_market_status(3.0, 0.54, "A", "High", aligned, "partial"),
+            "qualified",
+        )
+
     def test_choose_recommended_prop_selects_hr_only_on_clear_edge_gap(self):
         # Both qualified, TB preferred by default
         self.assertEqual(
