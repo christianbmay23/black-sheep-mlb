@@ -445,7 +445,13 @@ class SlateTests(unittest.TestCase):
                 lineup_context={
                     "DET@BOS": {
                         "game_status_bucket": "pregame",
-                        "away_lineup_verification": {"verification_level": "confirmed_api_rotowire"},
+                        "away_lineup_verification": {
+                            "verification_level": "confirmed_api_rotowire",
+                            "provider_results": {
+                                "fangraphs": {"status": "missing"},
+                                "rotowire": {"status": "matched"},
+                            },
+                        },
                         "home_lineup_verification": {"verification_level": "projected_canvas_fallback"},
                         "away_starter_verification": {"verification_level": "confirmed_api_rotowire"},
                         "home_starter_verification": {"verification_level": "api_rotowire_unconfirmed"},
@@ -481,6 +487,10 @@ class SlateTests(unittest.TestCase):
                 "confirmed_api_rotowire",
             )
             self.assertEqual(
+                payload["lineup_context"]["DET@BOS"]["away_lineup_verification"]["provider_results"]["rotowire"]["status"],
+                "matched",
+            )
+            self.assertEqual(
                 payload["lineup_context"]["DET@BOS"]["weather_issue_codes"],
                 ["weather_live_missing", "weather_fallback_conservative"],
             )
@@ -491,13 +501,69 @@ class SlateTests(unittest.TestCase):
 
 
 class FeatureResolutionTests(unittest.TestCase):
-    def test_choose_lineup_side_returns_confirmed_api_rotowire_metadata(self):
-        rotowire_side = SimpleNamespace(
-            confirmed=True,
-            players=[{"name": "Player One"}, {"name": "Player Two"}],
+    @staticmethod
+    def _rotowire_game(*, players=None, pitcher_name="", confirmed=True):
+        side = SimpleNamespace(
+            confirmed=confirmed,
+            players=players or [],
+            pitcher_name=pitcher_name,
         )
-        rotowire_game = SimpleNamespace(away_side=rotowire_side, home_side=rotowire_side)
+        return SimpleNamespace(away_side=side, home_side=side)
+
+    @staticmethod
+    def _fangraphs_game(*, players=None, pitcher_name=""):
+        side = SimpleNamespace(
+            players=players or [],
+            pitcher_name=pitcher_name,
+        )
+        return SimpleNamespace(away_side=side, home_side=side)
+
+    def test_choose_lineup_side_accepts_fangraphs_when_rotowire_missing(self):
+        fangraphs_game = self._fangraphs_game(players=[{"name": "Player One"}, {"name": "Player Two"}])
         players, label, issues, meta = features.choose_lineup_side(
+            "DET",
+            [
+                {"id": 1, "name": "Player One", "pos": "SS"},
+                {"id": 2, "name": "Player Two", "pos": "CF"},
+            ],
+            [],
+            "Projected",
+            None,
+            "away",
+            {},
+            allow_canvas_fallback=False,
+            fangraphs_game=fangraphs_game,
+        )
+        self.assertEqual(label, "Confirmed (MLB API + FanGraphs)")
+        self.assertEqual(issues, [])
+        self.assertEqual(meta["selected_source"], "mlb_stats_api")
+        self.assertEqual(meta["verification_level"], "confirmed_api_fangraphs")
+        self.assertEqual(meta["provider_path"], ["mlb_stats_api", "fangraphs_lineup_tracker"])
+        self.assertEqual(meta["provider_results"]["rotowire"]["status"], "missing")
+        self.assertEqual(meta["provider_results"]["fangraphs"]["status"], "matched")
+        self.assertEqual(len(players), 2)
+
+    def test_starter_verification_metadata_accepts_fangraphs_when_rotowire_missing(self):
+        fangraphs_game = self._fangraphs_game(pitcher_name="Tarik Skubal")
+        meta = features.starter_verification_metadata(
+            {"id": 1, "name": "Tarik Skubal"},
+            None,
+            "away",
+            fangraphs_game=fangraphs_game,
+        )
+        self.assertEqual(meta["verification_level"], "confirmed_api_fangraphs")
+        self.assertEqual(meta["provider_path"], ["mlb_stats_api", "fangraphs_probables_grid"])
+        self.assertEqual(meta["issue_codes"], [])
+        self.assertEqual(meta["provider_results"]["rotowire"]["status"], "missing")
+        self.assertEqual(meta["provider_results"]["fangraphs"]["status"], "matched")
+
+    def test_choose_lineup_side_records_provider_disagreement_without_failing_match(self):
+        rotowire_game = self._rotowire_game(
+            players=[{"name": "Player One"}, {"name": "Player Two"}],
+            confirmed=True,
+        )
+        fangraphs_game = self._fangraphs_game(players=[{"name": "Player One"}, {"name": "Different Two"}])
+        _, label, issues, meta = features.choose_lineup_side(
             "DET",
             [
                 {"id": 1, "name": "Player One", "pos": "SS"},
@@ -509,25 +575,34 @@ class FeatureResolutionTests(unittest.TestCase):
             "away",
             {},
             allow_canvas_fallback=False,
+            fangraphs_game=fangraphs_game,
         )
         self.assertEqual(label, "Confirmed (MLB API + RotoWire)")
         self.assertEqual(issues, [])
-        self.assertEqual(meta["selected_source"], "mlb_stats_api")
         self.assertEqual(meta["verification_level"], "confirmed_api_rotowire")
-        self.assertEqual(meta["provider_path"], ["mlb_stats_api", "rotowire"])
-        self.assertEqual(len(players), 2)
+        self.assertEqual(meta["provider_results"]["fangraphs"]["status"], "mismatch")
+        self.assertIn("fangraphs_lineup_mismatch", meta["provider_results"]["fangraphs"]["issue_codes"])
 
-    def test_starter_verification_metadata_captures_unconfirmed_rotowire(self):
-        rotowire_side = SimpleNamespace(confirmed=False, pitcher_name="Tarik Skubal")
-        rotowire_game = SimpleNamespace(away_side=rotowire_side, home_side=rotowire_side)
-        meta = features.starter_verification_metadata(
-            {"id": 1, "name": "Tarik Skubal"},
-            rotowire_game,
+    def test_missing_secondary_verifiers_return_aggregate_verification_failures(self):
+        _, _, lineup_issues, lineup_meta = features.choose_lineup_side(
+            "DET",
+            [
+                {"id": 1, "name": "Player One", "pos": "SS"},
+                {"id": 2, "name": "Player Two", "pos": "CF"},
+            ],
+            [],
+            "Projected",
+            None,
             "away",
+            {},
+            allow_canvas_fallback=False,
         )
-        self.assertEqual(meta["verification_level"], "api_rotowire_unconfirmed")
-        self.assertEqual(meta["provider_path"], ["mlb_stats_api", "rotowire"])
-        self.assertIn("rotowire_unconfirmed", meta["issue_codes"])
+        starter_issues = features.starter_matches({"id": 1, "name": "Tarik Skubal"}, None, "away")
+        starter_meta = features.starter_verification_metadata({"id": 1, "name": "Tarik Skubal"}, None, "away")
+        self.assertEqual(lineup_issues, ["lineup_verification_missing"])
+        self.assertEqual(lineup_meta["verification_level"], "posted_api_only")
+        self.assertEqual(starter_issues, ["starter_verification_missing"])
+        self.assertEqual(starter_meta["verification_level"], "api_only_verification_missing")
 
 
 # --- inputs tests -----------------------------------------------------------

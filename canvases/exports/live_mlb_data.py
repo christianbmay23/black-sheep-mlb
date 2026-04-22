@@ -180,6 +180,22 @@ class RotoWireGame:
 
 
 @dataclass
+class FanGraphsLineupSide:
+    pitcher_name: str
+    pitcher_hand: str
+    status: str
+    players: list[dict[str, str]]
+
+
+@dataclass
+class FanGraphsGame:
+    away: str
+    home: str
+    away_side: FanGraphsLineupSide
+    home_side: FanGraphsLineupSide
+
+
+@dataclass
 class WeatherSnapshot:
     venue_name: str
     source: str
@@ -253,7 +269,7 @@ def normalize_venue_key(name: str) -> str:
 
 
 def fetch_text(url: str, headers: dict[str, str] | None = None) -> str:
-    req = urllib.request.Request(url, headers=headers or {"User-Agent": "Mozilla/5.0"})
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"} if headers is None else headers)
     with urllib.request.urlopen(req, timeout=60) as response:
         return response.read().decode("utf-8", "ignore")
 
@@ -415,6 +431,169 @@ def extract_inline_json_array(text: str, anchor: str) -> list[dict[str, Any]]:
     if not isinstance(payload, list):
         raise LiveDataError(f"Embedded data payload is not a list for anchor: {anchor}")
     return payload
+
+
+def extract_next_data_payload(text: str) -> list[dict[str, Any]]:
+    match = re.search(r'<script id="__NEXT_DATA__" type="application/json">(.*?)</script>', text, flags=re.DOTALL)
+    if not match:
+        raise LiveDataError("Unable to find FanGraphs __NEXT_DATA__ payload.")
+    try:
+        payload = json.loads(match.group(1))
+    except json.JSONDecodeError as exc:
+        raise LiveDataError("Unable to parse FanGraphs __NEXT_DATA__ payload.") from exc
+    queries = (((payload.get("props") or {}).get("pageProps") or {}).get("dehydratedState") or {}).get("queries") or []
+    if not queries:
+        raise LiveDataError("FanGraphs __NEXT_DATA__ payload missing dehydrated queries.")
+    data = ((queries[0].get("state") or {}).get("data"))
+    if not isinstance(data, list):
+        raise LiveDataError("FanGraphs __NEXT_DATA__ payload missing list data.")
+    return data
+
+
+def empty_fangraphs_side() -> FanGraphsLineupSide:
+    return FanGraphsLineupSide(pitcher_name="", pitcher_hand="", status="Missing", players=[])
+
+
+def copy_fangraphs_game(game: FanGraphsGame) -> FanGraphsGame:
+    return FanGraphsGame(
+        away=game.away,
+        home=game.home,
+        away_side=FanGraphsLineupSide(
+            pitcher_name=game.away_side.pitcher_name,
+            pitcher_hand=game.away_side.pitcher_hand,
+            status=game.away_side.status,
+            players=list(game.away_side.players),
+        ),
+        home_side=FanGraphsLineupSide(
+            pitcher_name=game.home_side.pitcher_name,
+            pitcher_hand=game.home_side.pitcher_hand,
+            status=game.home_side.status,
+            players=list(game.home_side.players),
+        ),
+    )
+
+
+def _fangraphs_date_key(value: Any) -> str:
+    dt = parse_iso_utc(value)
+    if dt is not None:
+        return dt.date().isoformat()
+    raw = str(value or "").strip()
+    if not raw:
+        return ""
+    try:
+        return datetime.strptime(raw, "%m/%d/%Y %I:%M:%S %p").date().isoformat()
+    except ValueError:
+        return ""
+
+
+def fetch_fangraphs_probables(date_str: str) -> dict[str, FanGraphsGame]:
+    try:
+        text = fetch_text("https://www.fangraphs.com/roster-resource/probables-grid", headers={})
+        rows = extract_next_data_payload(text)
+    except Exception as exc:
+        record_runtime_diagnostic(
+            "fangraphs_probables_unavailable",
+            f"FanGraphs probables unavailable: {exc}",
+            source="fangraphs",
+            context={"date": date_str},
+        )
+        return {}
+
+    games: dict[str, FanGraphsGame] = {}
+    for row in rows:
+        if _fangraphs_date_key(row.get("GameDate")) != date_str:
+            continue
+        team_abbr = normalize_team_abbr(str(row.get("AbbName") or ""))
+        opp_abbr = normalize_team_abbr(str(row.get("OpponentAbbName") or ""))
+        if not team_abbr or not opp_abbr:
+            continue
+        is_home = bool(int(str(row.get("isHome") or "0")))
+        away = opp_abbr if is_home else team_abbr
+        home = team_abbr if is_home else opp_abbr
+        game_key = f"{away}@{home}"
+        game = games.setdefault(
+            game_key,
+            FanGraphsGame(
+                away=away,
+                home=home,
+                away_side=empty_fangraphs_side(),
+                home_side=empty_fangraphs_side(),
+            ),
+        )
+        side = game.home_side if is_home else game.away_side
+        side.pitcher_name = str(row.get("teamSPPlayerName") or "").strip()
+        side.pitcher_hand = str(row.get("Throws") or "").strip()
+        side.status = "Available" if side.pitcher_name else "Missing"
+    return games
+
+
+def fetch_fangraphs_lineups(
+    date_str: str,
+    games: dict[str, FanGraphsGame] | None = None,
+) -> dict[str, FanGraphsGame]:
+    out = {game_key: copy_fangraphs_game(game) for game_key, game in (games or {}).items()}
+    if not out:
+        record_runtime_diagnostic(
+            "fangraphs_lineups_skipped",
+            "FanGraphs lineup parsing skipped because no probable starter map was available.",
+            source="fangraphs",
+            context={"date": date_str},
+        )
+        return out
+
+    team_lookup: dict[tuple[str, int], tuple[str, str]] = {}
+    for game_key, game in out.items():
+        team_lookup[(game.away, 0)] = (game_key, "away")
+        team_lookup[(game.home, 0)] = (game_key, "home")
+
+    try:
+        text = fetch_text("https://www.fangraphs.com/roster-resource/lineup-tracker", headers={})
+        teams = extract_next_data_payload(text)
+    except Exception as exc:
+        record_runtime_diagnostic(
+            "fangraphs_lineups_unavailable",
+            f"FanGraphs lineups unavailable: {exc}",
+            source="fangraphs",
+            context={"date": date_str},
+        )
+        return out
+
+    for team in teams:
+        team_info = team.get("teamInfo") or {}
+        team_abbr = normalize_team_abbr(str(team_info.get("AbbName") or ""))
+        if not team_abbr:
+            continue
+        tracker = ((team.get("lineupData") or {}).get("lineupTracker") or [])
+        for entry in tracker:
+            game_info = entry.get("gameList") or {}
+            if _fangraphs_date_key(game_info.get("gameDate")) != date_str:
+                continue
+            dh = parse_int(game_info.get("dh")) or 0
+            game_ref = team_lookup.get((team_abbr, dh)) or team_lookup.get((team_abbr, 0))
+            if game_ref is None:
+                continue
+            players = []
+            raw_players = entry.get("dataPlayers") or []
+            for row in sorted(
+                raw_players,
+                key=lambda item: (
+                    parse_int(item.get("BO")) if parse_int(item.get("BO")) is not None else 99,
+                    str(item.get("playerName") or ""),
+                ),
+            ):
+                bo = parse_int(row.get("BO"))
+                name = str(row.get("playerName") or "").strip()
+                if bo is None or bo <= 0 or not name:
+                    continue
+                players.append({"name": name, "pos": str(row.get("Position") or "").strip()})
+            if not players:
+                continue
+            game_key, side_key = game_ref
+            game = out[game_key]
+            side = game.away_side if side_key == "away" else game.home_side
+            side.players = players
+            side.status = "Available"
+    return out
 
 
 def parse_rotowire_side(block: str, side: str) -> RotoWireLineupSide:

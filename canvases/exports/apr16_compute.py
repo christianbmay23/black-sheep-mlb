@@ -12,10 +12,13 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from live_mlb_data import (  # noqa: E402
+    FanGraphsGame,
     GameOdds,
     LiveDataError,
     PropMarketLine,
     WeatherSnapshot,
+    fetch_fangraphs_lineups,
+    fetch_fangraphs_probables,
     fetch_live_game_odds,
     fetch_rotowire_lineups,
     fetch_slate_prop_markets,
@@ -272,6 +275,8 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
     api = fetch_schedule_lineups(REPORT_DATE)
     season = REPORT_DATE[:4]
     rotowire_games = fetch_rotowire_lineups(REPORT_DATE)
+    fangraphs_probables = fetch_fangraphs_probables(REPORT_DATE)
+    fangraphs_games: dict[str, FanGraphsGame] = fetch_fangraphs_lineups(REPORT_DATE, fangraphs_probables)
     live_game_odds = fetch_live_game_odds(api, REPORT_DATE, required=not allow_partial)
 
     team_ids: dict[str, int] = {}
@@ -292,6 +297,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
             continue
         is_pregame = str(schedule_game.get("game_status_bucket") or "pregame") == "pregame"
         rotowire_game = rotowire_games.get(game_key)
+        fangraphs_game = fangraphs_games.get(game_key)
         canvas_ctx = canvas_games.get(game_key, {})
         away_players, away_label, away_issues, away_lineup_verification = choose_lineup_side(
             str(spec["away"]),
@@ -302,6 +308,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
             "away",
             rosters,
             allow_canvas_fallback=allow_partial or not is_pregame,
+            fangraphs_game=fangraphs_game,
         )
         home_players, home_label, home_issues, home_lineup_verification = choose_lineup_side(
             str(spec["home"]),
@@ -312,15 +319,26 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
             "home",
             rosters,
             allow_canvas_fallback=allow_partial or not is_pregame,
+            fangraphs_game=fangraphs_game,
         )
 
         away_pitcher = dict(schedule_game.get("away_pitcher") or {"id": None, "name": "TBD"})
         home_pitcher = dict(schedule_game.get("home_pitcher") or {"id": None, "name": "TBD"})
-        away_starter_verification = starter_verification_metadata(away_pitcher, rotowire_game, "away")
-        home_starter_verification = starter_verification_metadata(home_pitcher, rotowire_game, "home")
+        away_starter_verification = starter_verification_metadata(
+            away_pitcher,
+            rotowire_game,
+            "away",
+            fangraphs_game=fangraphs_game,
+        )
+        home_starter_verification = starter_verification_metadata(
+            home_pitcher,
+            rotowire_game,
+            "home",
+            fangraphs_game=fangraphs_game,
+        )
         issues = away_issues + home_issues
-        issues.extend(starter_matches(away_pitcher, rotowire_game, "away"))
-        issues.extend(starter_matches(home_pitcher, rotowire_game, "home"))
+        issues.extend(starter_matches(away_pitcher, rotowire_game, "away", fangraphs_game=fangraphs_game))
+        issues.extend(starter_matches(home_pitcher, rotowire_game, "home", fangraphs_game=fangraphs_game))
 
         weather_snapshot, weather_issue_codes, weather_provenance = resolve_weather_with_fallback(schedule_game)
         issues.extend(weather_issue_codes)
@@ -344,11 +362,11 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
         if not allow_partial and is_pregame:
             critical = {
                 "lineup_not_posted_api",
-                "rotowire_missing",
-                "rotowire_unconfirmed",
-                "rotowire_lineup_mismatch",
-                "starter_mismatch_rotowire",
                 "starter_missing",
+                "lineup_verification_missing",
+                "lineup_verification_failed",
+                "starter_verification_missing",
+                "starter_verification_failed",
                 "weather_live_missing",
                 "approx_market_ml",
                 "market_total_missing",
