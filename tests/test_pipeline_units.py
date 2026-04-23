@@ -308,7 +308,7 @@ class MarketsTests(unittest.TestCase):
             (norm("Alex Bregman"), "batter_home_runs"): _FakeMarketLine(over_price=350, source="rotowire_props_yes_only"),
         }
         out = markets.summarize_prop_market_coverage("NYY@HOU", ctx, market_map, normalize_player_name=norm)
-        self.assertEqual(out["hr_market_integrity"], "partial")
+        self.assertEqual(out["hr_market_integrity"], "full")
         self.assertEqual(out["hr_provider_path"], "draftkings->rotowire")
         self.assertIn("draftkings_hr_home_side_missing", out["notes"])
         self.assertIn("rotowire_hr_away_side_missing", out["notes"])
@@ -327,6 +327,78 @@ class MarketsTests(unittest.TestCase):
         self.assertEqual(out["hr_market_integrity"], "degraded")
         self.assertEqual(out["hr_provider_path"], "projection_only")
         self.assertEqual(out["notes"], [])
+
+    def test_summarize_prop_market_coverage_propline_full_both_sides(self):
+        def norm(name: str) -> str:
+            return live_mlb_data.normalize_player_name(name)
+
+        ctx = {
+            "away_players": [{"name": "Juan Soto"}],
+            "home_players": [{"name": "Alex Bregman"}],
+            "away_moneyline": -120,
+            "home_moneyline": 110,
+        }
+        market_map = {
+            (norm("Juan Soto"), "batter_home_runs"): _FakeMarketLine(over_price=400, source="propline"),
+            (norm("Alex Bregman"), "batter_home_runs"): _FakeMarketLine(over_price=350, source="propline"),
+        }
+        out = markets.summarize_prop_market_coverage("NYY@HOU", ctx, market_map, normalize_player_name=norm)
+        self.assertEqual(out["hr_market_integrity"], "full")
+        self.assertEqual(out["hr_provider_path"], "propline")
+
+    def test_summarize_prop_market_coverage_propline_partial_one_side(self):
+        def norm(name: str) -> str:
+            return live_mlb_data.normalize_player_name(name)
+
+        ctx = {
+            "away_players": [{"name": "Juan Soto"}, {"name": "Aaron Judge"}],
+            "home_players": [{"name": "Alex Bregman"}],
+            "away_moneyline": -120,
+            "home_moneyline": 110,
+        }
+        market_map = {
+            (norm("Juan Soto"), "batter_home_runs"): _FakeMarketLine(over_price=400, source="propline"),
+        }
+        out = markets.summarize_prop_market_coverage("NYY@HOU", ctx, market_map, normalize_player_name=norm)
+        self.assertEqual(out["hr_market_integrity"], "partial")
+        self.assertEqual(out["hr_provider_path"], "propline")
+        self.assertIn("propline_hr_home_side_missing", out["notes"])
+
+    def test_summarize_prop_market_coverage_propline_to_draftkings_fallback(self):
+        def norm(name: str) -> str:
+            return live_mlb_data.normalize_player_name(name)
+
+        ctx = {
+            "away_players": [{"name": "Juan Soto"}],
+            "home_players": [{"name": "Alex Bregman"}],
+            "away_moneyline": -120,
+            "home_moneyline": 110,
+        }
+        market_map = {
+            (norm("Juan Soto"), "batter_home_runs"): _FakeMarketLine(over_price=400, source="propline"),
+            (norm("Alex Bregman"), "batter_home_runs"): _FakeMarketLine(over_price=350, source="draftkings"),
+        }
+        out = markets.summarize_prop_market_coverage("NYY@HOU", ctx, market_map, normalize_player_name=norm)
+        self.assertEqual(out["hr_market_integrity"], "full")
+        self.assertEqual(out["hr_provider_path"], "propline->draftkings")
+
+    def test_summarize_prop_market_coverage_fallback_to_rotowire_only(self):
+        def norm(name: str) -> str:
+            return live_mlb_data.normalize_player_name(name)
+
+        ctx = {
+            "away_players": [{"name": "Juan Soto"}],
+            "home_players": [{"name": "Alex Bregman"}],
+            "away_moneyline": -120,
+            "home_moneyline": 110,
+        }
+        market_map = {
+            (norm("Juan Soto"), "batter_home_runs"): _FakeMarketLine(over_price=400, source="rotowire_props_yes_only"),
+            (norm("Alex Bregman"), "batter_home_runs"): _FakeMarketLine(over_price=350, source="rotowire_props_yes_only"),
+        }
+        out = markets.summarize_prop_market_coverage("NYY@HOU", ctx, market_map, normalize_player_name=norm)
+        self.assertEqual(out["hr_market_integrity"], "full")
+        self.assertEqual(out["hr_provider_path"], "rotowire_only")
 
 
 # --- snapshots tests --------------------------------------------------------
@@ -535,8 +607,15 @@ class SlateTests(unittest.TestCase):
 
 
 class LiveDataPropSourceTests(unittest.TestCase):
-    def test_fetch_slate_prop_markets_prefers_draftkings_hr_before_rotowire(self):
+    def test_fetch_slate_prop_markets_prefers_propline_hr_then_draftkings_then_rotowire(self):
         player_key = "juansoto"
+        pl_hr = _FakeMarketLine(
+            over_price=310,
+            source="propline",
+            market_key="batter_home_runs",
+            player_key=player_key,
+            player_name="Juan Soto",
+        )
         dk_hr = _FakeMarketLine(
             over_price=400,
             source="draftkings",
@@ -581,10 +660,159 @@ class LiveDataPropSourceTests(unittest.TestCase):
             out = live_mlb_data.fetch_slate_prop_markets(
                 "2026-04-22",
                 {"WSH@NYM": "evt1"},
+                propline_hr_props={"WSH@NYM": {(player_key, "batter_home_runs"): pl_hr}},
+                dk_hr_props={"WSH@NYM": {(player_key, "batter_home_runs"): dk_hr}},
+            )
+        self.assertEqual(out["WSH@NYM"][(player_key, "batter_home_runs")].source, "propline")
+        self.assertEqual(out["WSH@NYM"][(player_key, "batter_total_bases")].source, "odds_api")
+
+    def test_fetch_slate_prop_markets_dk_hr_fills_when_propline_missing_price(self):
+        player_key = "juansoto"
+        pl_hr = _FakeMarketLine(
+            over_price=None,
+            source="propline",
+            market_key="batter_home_runs",
+            player_key=player_key,
+            player_name="Juan Soto",
+        )
+        dk_hr = _FakeMarketLine(
+            over_price=400,
+            source="draftkings",
+            market_key="batter_home_runs",
+            player_key=player_key,
+            player_name="Juan Soto",
+        )
+        live_tb = _FakeMarketLine(
+            over_price=-105,
+            point=1.5,
+            source="odds_api",
+            market_key="batter_total_bases",
+            player_key=player_key,
+            player_name="Juan Soto",
+        )
+        with mock.patch.object(
+            live_mlb_data,
+            "fetch_live_prop_markets",
+            return_value={(player_key, "batter_total_bases"): live_tb},
+        ), mock.patch.object(
+            live_mlb_data,
+            "fetch_rotowire_prop_markets",
+            return_value={},
+        ):
+            out = live_mlb_data.fetch_slate_prop_markets(
+                "2026-04-22",
+                {"WSH@NYM": "evt1"},
+                propline_hr_props={"WSH@NYM": {(player_key, "batter_home_runs"): pl_hr}},
                 dk_hr_props={"WSH@NYM": {(player_key, "batter_home_runs"): dk_hr}},
             )
         self.assertEqual(out["WSH@NYM"][(player_key, "batter_home_runs")].source, "draftkings")
-        self.assertEqual(out["WSH@NYM"][(player_key, "batter_total_bases")].source, "odds_api")
+
+    def test_fetch_slate_prop_markets_rotowire_hr_fills_when_propline_and_dk_missing_price(self):
+        player_key = "juansoto"
+        pl_hr = _FakeMarketLine(
+            over_price=None,
+            source="propline",
+            market_key="batter_home_runs",
+            player_key=player_key,
+            player_name="Juan Soto",
+        )
+        dk_hr = _FakeMarketLine(
+            over_price=None,
+            source="draftkings",
+            market_key="batter_home_runs",
+            player_key=player_key,
+            player_name="Juan Soto",
+        )
+        rw_hr = _FakeMarketLine(
+            over_price=360,
+            source="rotowire_props_yes_only",
+            market_key="batter_home_runs",
+            player_key=player_key,
+            player_name="Juan Soto",
+        )
+        live_tb = _FakeMarketLine(
+            over_price=-105,
+            point=1.5,
+            source="odds_api",
+            market_key="batter_total_bases",
+            player_key=player_key,
+            player_name="Juan Soto",
+        )
+        with mock.patch.object(
+            live_mlb_data,
+            "fetch_live_prop_markets",
+            return_value={(player_key, "batter_total_bases"): live_tb},
+        ), mock.patch.object(
+            live_mlb_data,
+            "fetch_rotowire_prop_markets",
+            return_value={"WSH@NYM": {(player_key, "batter_home_runs"): rw_hr}},
+        ):
+            out = live_mlb_data.fetch_slate_prop_markets(
+                "2026-04-22",
+                {"WSH@NYM": "evt1"},
+                propline_hr_props={"WSH@NYM": {(player_key, "batter_home_runs"): pl_hr}},
+                dk_hr_props={"WSH@NYM": {(player_key, "batter_home_runs"): dk_hr}},
+            )
+        self.assertEqual(out["WSH@NYM"][(player_key, "batter_home_runs")].source, "rotowire_props_yes_only")
+
+
+class LiveDataProplineHrTests(unittest.TestCase):
+    def test_fetch_propline_hr_props_skips_prizepicks_and_keeps_sportsbook_lines(self):
+        events = [
+            {
+                "id": "ev1",
+                "commence_time": "2026-04-22T23:05:00Z",
+                "away_team": "Los Angeles Dodgers",
+                "home_team": "New York Mets",
+            }
+        ]
+        odds_payload = {
+            "bookmakers": [
+                {
+                    "key": "prizepicks",
+                    "markets": [
+                        {
+                            "key": "batter_home_runs",
+                            "outcomes": [
+                                {
+                                    "description": "Juan Soto",
+                                    "name": "Over",
+                                    "point": 0.5,
+                                    "price": 999,
+                                }
+                            ],
+                        }
+                    ],
+                },
+                {
+                    "key": "fanduel",
+                    "markets": [
+                        {
+                            "key": "batter_home_runs",
+                            "last_update": "2026-04-22T12:00:00Z",
+                            "outcomes": [
+                                {
+                                    "description": "Juan Soto",
+                                    "name": "Over",
+                                    "point": 0.5,
+                                    "price": 400,
+                                }
+                            ],
+                        }
+                    ],
+                },
+            ]
+        }
+        with mock.patch.object(
+            live_mlb_data,
+            "fetch_json",
+            side_effect=[events, odds_payload],
+        ), mock.patch.object(live_mlb_data, "propline_api_key", return_value="test-key"):
+            out = live_mlb_data.fetch_propline_hr_props("2026-04-22")
+        pk = live_mlb_data.normalize_player_name("Juan Soto")
+        line = out["LAD@NYM"][(pk, "batter_home_runs")]
+        self.assertEqual(line.over_price, 400)
+        self.assertEqual(line.source, "propline")
 
 
 class FeatureResolutionTests(unittest.TestCase):
