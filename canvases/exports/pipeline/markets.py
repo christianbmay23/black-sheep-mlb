@@ -135,16 +135,19 @@ def choose_recommended_prop(
 
 def classify_hr_market_integrity(
     *,
+    pl_away: bool,
+    pl_home: bool,
     dk_away: bool,
     dk_home: bool,
     rotowire_away: bool,
     rotowire_home: bool,
 ) -> str:
-    if dk_away and dk_home:
+    """FULL when both teams have HR lines from any allowed source; else partial / degraded."""
+    away = pl_away or dk_away or rotowire_away
+    home = pl_home or dk_home or rotowire_home
+    if away and home:
         return "full"
-    if rotowire_away and rotowire_home:
-        return "full"
-    if (dk_away != dk_home) or (rotowire_away != rotowire_home):
+    if away or home:
         return "partial"
     return "degraded"
 
@@ -185,6 +188,8 @@ def summarize_prop_market_coverage(
             line = markets.get((normalize_player_name(player_name), "batter_home_runs"))
             source = str(getattr(line, "source", "") or "")
             if line and line.over_price is not None:
+                if provider == "propline" and source.startswith("propline"):
+                    return True
                 if provider == "draftkings" and source.startswith("draftkings"):
                     return True
                 if provider == "rotowire" and source.startswith("rotowire"):
@@ -193,19 +198,38 @@ def summarize_prop_market_coverage(
 
     def classify_hr_provider_path(
         *,
+        pl_away: bool,
+        pl_home: bool,
         dk_away: bool,
         dk_home: bool,
         rotowire_away: bool,
         rotowire_home: bool,
     ) -> str:
-        if dk_away and dk_home:
-            return "draftkings->rotowire" if rotowire_away or rotowire_home else "draftkings"
-        if rotowire_away and rotowire_home:
-            return "draftkings->rotowire" if dk_away or dk_home else "rotowire_only"
-        if dk_away or dk_home:
-            return "draftkings->rotowire" if rotowire_away or rotowire_home else "draftkings"
-        if rotowire_away or rotowire_home:
+        pl_any = pl_away or pl_home
+        dk_any = dk_away or dk_home
+        rw_any = rotowire_away or rotowire_home
+        pl_both = pl_away and pl_home
+        dk_both = dk_away and dk_home
+        rw_both = rotowire_away and rotowire_home
+
+        if not pl_any and not dk_any and not rw_any:
+            return "projection_only"
+        if pl_both and not dk_any and not rw_any:
+            return "propline"
+        if pl_any and dk_any:
+            return "propline->draftkings"
+        if pl_any and rw_any and not dk_any:
+            return "draftkings->rotowire"
+        if dk_both:
+            return "draftkings->rotowire" if rw_any else "draftkings"
+        if rw_both:
+            return "draftkings->rotowire" if dk_any or pl_any else "rotowire_only"
+        if dk_any:
+            return "draftkings->rotowire" if rw_any or pl_any else "draftkings"
+        if rw_any:
             return "rotowire_only"
+        if pl_any:
+            return "propline"
         return "projection_only"
 
     away_players = list(ctx.get("away_players") or [])
@@ -214,6 +238,8 @@ def summarize_prop_market_coverage(
     home_hr_covered, home_hr_missing, home_hr_sources = coverage(home_players, "batter_home_runs")
     away_tb_covered, away_tb_missing, away_tb_sources = coverage(away_players, "batter_total_bases")
     home_tb_covered, home_tb_missing, home_tb_sources = coverage(home_players, "batter_total_bases")
+    pl_away = hr_provider_side(away_players, "propline")
+    pl_home = hr_provider_side(home_players, "propline")
     dk_away = hr_provider_side(away_players, "draftkings")
     dk_home = hr_provider_side(home_players, "draftkings")
     rotowire_away = hr_provider_side(away_players, "rotowire")
@@ -221,6 +247,10 @@ def summarize_prop_market_coverage(
     hr_sources = sorted(set(away_hr_sources + home_hr_sources))
     tb_sources = sorted(set(away_tb_sources + home_tb_sources))
     notes: list[str] = []
+    if pl_away and not pl_home:
+        notes.append("propline_hr_home_side_missing")
+    if pl_home and not pl_away:
+        notes.append("propline_hr_away_side_missing")
     if dk_away and not dk_home:
         notes.append("draftkings_hr_home_side_missing")
     if dk_home and not dk_away:
@@ -232,6 +262,8 @@ def summarize_prop_market_coverage(
     if ctx.get("away_moneyline") is None or ctx.get("home_moneyline") is None:
         notes.append("market_odds_unavailable")
     hr_market_integrity = classify_hr_market_integrity(
+        pl_away=pl_away,
+        pl_home=pl_home,
         dk_away=dk_away,
         dk_home=dk_home,
         rotowire_away=rotowire_away,
@@ -253,11 +285,15 @@ def summarize_prop_market_coverage(
         "tb_sources": tb_sources,
         "hr_market_integrity": hr_market_integrity,
         "hr_provider_path": classify_hr_provider_path(
+            pl_away=pl_away,
+            pl_home=pl_home,
             dk_away=dk_away,
             dk_home=dk_home,
             rotowire_away=rotowire_away,
             rotowire_home=rotowire_home,
         ),
+        "pl_away": pl_away,
+        "pl_home": pl_home,
         "dk_away": dk_away,
         "dk_home": dk_home,
         "rotowire_away": rotowire_away,
