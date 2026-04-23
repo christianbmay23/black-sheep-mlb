@@ -33,6 +33,21 @@ def devig_two_way(away_a: float, home_a: float) -> tuple[float, float]:
     return ia / s, ih / s
 
 
+def recalibrate_win_probability(p: float) -> float:
+    """Compress mild edges toward 50%; amplify stronger leanings before hard caps.
+
+    ``p`` is win probability for one side (e.g. home). Symmetric around 0.5.
+    """
+    x = clamp(p, 0.001, 0.999) - 0.5
+    t = abs(x) / 0.5
+    gain = 0.78 + 0.72 * (t**0.82)
+    return clamp(0.5 + x * gain, 0.001, 0.999)
+
+
+def cap_win_probability(p: float, lo: float = 0.25, hi: float = 0.75) -> float:
+    return clamp(p, lo, hi)
+
+
 def blend_with_market(model_prob: float, market_prob: float, *, alpha: float = DEFAULT_MARKET_BLEND_ALPHA) -> float:
     weight = clamp(alpha, 0.0, 1.0)
     return clamp((weight * model_prob) + ((1.0 - weight) * market_prob), 0.001, 0.999)
@@ -74,6 +89,20 @@ def starter_score(xera: float | None) -> float:
     if xera is None or math.isnan(xera):
         return 0.5
     return clamp((4.85 - xera) / 2.85, 0, 1)
+
+
+def xera_nonlinear_margin(xa: float | None, xh: float | None) -> float:
+    """Extra margin added to ``d = s_h - s_a`` (positive favors home).
+
+    Uses ``(xERA_home - xERA_away)`` in run units with a superlinear magnitude so
+    large starter mismatches move win probability more than the linear ``starter_score`` gap alone.
+    """
+    if xa is None or xh is None or math.isnan(xa) or math.isnan(xh):
+        return 0.0
+    delta = clamp(xh - xa, -4.25, 4.25)
+    mag = abs(delta) ** 1.38
+    # delta > 0 => home SP worse on paper => shift d negative (favor away)
+    return -0.102 * math.copysign(mag, delta)
 
 
 def lineup_score(rows: list[list[str]]) -> float:
@@ -165,25 +194,32 @@ def win_probability_model(
     bull_h = home_bullpen_score if home_bullpen_score is not None else 0.5
     recent_a = away_recent_form_score if away_recent_form_score is not None else 0.5
     recent_h = home_recent_form_score if home_recent_form_score is not None else 0.5
-    s_a = (
-        0.33 * starter_score(xa)
-        + 0.20 * bull_a
-        + 0.22 * lineup_score(away_lineup)
-        + 0.15 * recent_a
-        + 0.07 * pa_away
-        + 0.03 * variance_score(away_sp_profile)
-    )
-    s_h = (
-        0.33 * starter_score(xh)
-        + 0.20 * bull_h
-        + 0.22 * lineup_score(home_lineup)
-        + 0.15 * recent_h
-        + 0.07 * pa_home
-        + 0.03 * variance_score(home_sp_profile)
-    )
-    d = s_h - s_a
-    p_home = 1 / (1 + math.exp(-3.1 * d))
-    p_away = 1 - p_home
+    sa = starter_score(xa)
+    sh = starter_score(xh)
+    lu_a = lineup_score(away_lineup)
+    lu_h = lineup_score(home_lineup)
+    va = variance_score(away_sp_profile)
+    vh = variance_score(home_sp_profile)
+
+    # Fixed slice: SP + recent (L10 proxy) + park + variance (no bullpen / no raw lineup yet).
+    w_sp = 0.41
+    w_rec = 0.07
+    w_pa = 0.07
+    w_var = 0.03
+    core_a = w_sp * sa + w_rec * recent_a + w_pa * pa_away + w_var * va
+    core_h = w_sp * sh + w_rec * recent_h + w_pa * pa_home + w_var * vh
+    d_core = core_h - core_a
+    close_boost = math.exp(-28.0 * d_core * d_core)
+    w_bull = 0.20 + 0.10 * close_boost
+    w_lu = 0.22 - 0.10 * close_boost
+
+    s_a = w_sp * sa + w_bull * bull_a + w_lu * lu_a + w_rec * recent_a + w_pa * pa_away + w_var * va
+    s_h = w_sp * sh + w_bull * bull_h + w_lu * lu_h + w_rec * recent_h + w_pa * pa_home + w_var * vh
+    d = s_h - s_a + xera_nonlinear_margin(xa, xh)
+    p_home = 1 / (1 + math.exp(-3.55 * d))
+    p_home = recalibrate_win_probability(p_home)
+    p_home = cap_win_probability(p_home)
+    p_away = 1.0 - p_home
 
     model_conf: ModelConf = "Medium"
     if len(miss) >= 2:
