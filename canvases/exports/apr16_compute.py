@@ -1,7 +1,6 @@
 """Compute dated slate games + props from shared models; update canvas markers + SLATE."""
 from __future__ import annotations
 
-import importlib
 import sys
 from collections.abc import Callable
 from datetime import date, datetime
@@ -13,11 +12,16 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from live_mlb_data import (  # noqa: E402
+    FanGraphsGame,
     GameOdds,
     LiveDataError,
     PropMarketLine,
     WeatherSnapshot,
+    fetch_dk_hr_props,
+    fetch_fangraphs_lineups,
+    fetch_fangraphs_probables,
     fetch_live_game_odds,
+    fetch_propline_hr_props,
     fetch_rotowire_lineups,
     fetch_slate_prop_markets,
     fetch_weather_snapshot,
@@ -99,11 +103,13 @@ from pipeline.fetch import (  # noqa: E402
     fetch_team_rosters,
     fetch_vs_pitcher_stats,
 )
+from pipeline.inputs import load_slate_inputs  # noqa: E402
 from pipeline.features import (  # noqa: E402
     build_data_confidence,
     build_model_lineup,
     build_prop_note,
     choose_lineup_side,
+    starter_verification_metadata,
     starter_matches,
     summarize_hitter_features,
     summarize_pitcher_features,
@@ -123,6 +129,90 @@ def _make_sp_profile_unbound(_x: float) -> list[list[str]]:
 make_sp_profile: Callable[[float], list[list[str]]] = _make_sp_profile_unbound
 
 SNAPSHOT_ROOT = ROOT / "canvases" / "exports" / "snapshots"
+
+
+def _classify_weather_exception(exc: Exception) -> str:
+    message = str(exc).lower()
+    if "geocoding failed" in message:
+        return "weather_geocode_failed"
+    if "no hourly data" in message:
+        return "weather_hourly_data_missing"
+    return "weather_provider_exception"
+
+
+def _downgrade_prop_tier(tier: str) -> str:
+    normalized = str(tier or "").strip().upper()
+    return {
+        "A+": "A",
+        "A": "B",
+        "B": "C",
+        "C": "D",
+        "D": "D",
+    }.get(normalized, normalized)
+
+
+def _hr_missing_market_reason(team_is_away: bool, coverage_notes: list[str]) -> str:
+    if "draftkings_hr_home_side_missing" in coverage_notes and not team_is_away:
+        return " (DraftKings HR feed returned no home-side markets for this game)"
+    if "draftkings_hr_away_side_missing" in coverage_notes and team_is_away:
+        return " (DraftKings HR feed returned no away-side markets for this game)"
+    if "rotowire_hr_home_side_missing" in coverage_notes and not team_is_away:
+        return " (RotoWire HR fallback returned no home-side markets for this game)"
+    if "rotowire_hr_away_side_missing" in coverage_notes and team_is_away:
+        return " (RotoWire HR fallback returned no away-side markets for this game)"
+    return ""
+
+
+def _fallback_weather_snapshot(
+    venue_name: str,
+    roof_type: str,
+    game_time_utc: str,
+) -> WeatherSnapshot:
+    roof = str(roof_type or "Open")
+    summary = f"Conservative fallback / {roof}"
+    return WeatherSnapshot(
+        venue_name=venue_name,
+        source="Fallback",
+        forecast_time_utc=game_time_utc,
+        roof_type=roof,
+        temperature_f=None,
+        wind_speed_mph=None,
+        wind_direction_deg=None,
+        precipitation_probability_pct=None,
+        precipitation_inches=None,
+        weather_code=None,
+        run_factor=1.0,
+        summary=summary,
+    )
+
+
+def resolve_weather_with_fallback(schedule_game: dict[str, Any]) -> tuple[WeatherSnapshot, list[str], dict[str, Any]]:
+    venue_name = str(schedule_game.get("venue_name") or "")
+    roof_type = str(schedule_game.get("roof_type") or "Open")
+    game_time_utc = str(schedule_game.get("game_date_utc") or "")
+    try:
+        snapshot = fetch_weather_snapshot(
+            venue_name,
+            str(schedule_game.get("home_location_name") or ""),
+            roof_type,
+            game_time_utc,
+        )
+        return snapshot, [], {
+            "provider_path": ["open_meteo"],
+            "resolution_source": "open_meteo",
+            "resolution_detail": "live_forecast",
+        }
+    except Exception as exc:
+        issue_code = _classify_weather_exception(exc)
+        return _fallback_weather_snapshot(venue_name, roof_type, game_time_utc), [
+            "weather_live_missing",
+            issue_code,
+            "weather_fallback_conservative",
+        ], {
+            "provider_path": ["open_meteo", "fallback_neutral"],
+            "resolution_source": "fallback_neutral",
+            "resolution_detail": str(exc),
+        }
 
 
 def parse_canvas_games(source: str) -> dict[str, dict[str, Any]]:
@@ -182,11 +272,11 @@ def report_date_value() -> date:
 def bind_slate_inputs(slug: str) -> None:
     global GAME_SPECS, REPORT_DATE, CANVAS
     global make_sp_profile
-    mod = importlib.import_module(f"models.{slug}_inputs")
-    GAME_SPECS = mod.GAME_SPECS
-    REPORT_DATE = mod.REPORT_DATE
-    make_sp_profile = mod.make_sp_profile
-    CANVAS = ROOT / "canvases" / f"mlb-pregame-intel-{mod.CANVAS_SLUG}.canvas.tsx"
+    inputs = load_slate_inputs(slug)
+    GAME_SPECS = inputs.game_specs
+    REPORT_DATE = inputs.report_date
+    make_sp_profile = inputs.make_sp_profile
+    CANVAS = inputs.canvas_path
 
 
 def run_slate_pipeline(slug: str, canvas_path: Path | None = None, *, allow_partial: bool = False) -> None:
@@ -210,6 +300,8 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
     api = fetch_schedule_lineups(REPORT_DATE)
     season = REPORT_DATE[:4]
     rotowire_games = fetch_rotowire_lineups(REPORT_DATE)
+    fangraphs_probables = fetch_fangraphs_probables(REPORT_DATE)
+    fangraphs_games: dict[str, FanGraphsGame] = fetch_fangraphs_lineups(REPORT_DATE, fangraphs_probables)
     live_game_odds = fetch_live_game_odds(api, REPORT_DATE, required=not allow_partial)
 
     team_ids: dict[str, int] = {}
@@ -230,8 +322,9 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
             continue
         is_pregame = str(schedule_game.get("game_status_bucket") or "pregame") == "pregame"
         rotowire_game = rotowire_games.get(game_key)
+        fangraphs_game = fangraphs_games.get(game_key)
         canvas_ctx = canvas_games.get(game_key, {})
-        away_players, away_label, away_issues = choose_lineup_side(
+        away_players, away_label, away_issues, away_lineup_verification = choose_lineup_side(
             str(spec["away"]),
             list(schedule_game.get("away_players", [])),
             list(canvas_ctx.get("away_lineup", [])),
@@ -240,8 +333,9 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
             "away",
             rosters,
             allow_canvas_fallback=allow_partial or not is_pregame,
+            fangraphs_game=fangraphs_game,
         )
-        home_players, home_label, home_issues = choose_lineup_side(
+        home_players, home_label, home_issues, home_lineup_verification = choose_lineup_side(
             str(spec["home"]),
             list(schedule_game.get("home_players", [])),
             list(canvas_ctx.get("home_lineup", [])),
@@ -250,27 +344,31 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
             "home",
             rosters,
             allow_canvas_fallback=allow_partial or not is_pregame,
+            fangraphs_game=fangraphs_game,
         )
 
         away_pitcher = dict(schedule_game.get("away_pitcher") or {"id": None, "name": "TBD"})
         home_pitcher = dict(schedule_game.get("home_pitcher") or {"id": None, "name": "TBD"})
+        away_starter_verification = starter_verification_metadata(
+            away_pitcher,
+            rotowire_game,
+            "away",
+            fangraphs_game=fangraphs_game,
+        )
+        home_starter_verification = starter_verification_metadata(
+            home_pitcher,
+            rotowire_game,
+            "home",
+            fangraphs_game=fangraphs_game,
+        )
         issues = away_issues + home_issues
-        issues.extend(starter_matches(away_pitcher, rotowire_game, "away"))
-        issues.extend(starter_matches(home_pitcher, rotowire_game, "home"))
+        issues.extend(starter_matches(away_pitcher, rotowire_game, "away", fangraphs_game=fangraphs_game))
+        issues.extend(starter_matches(home_pitcher, rotowire_game, "home", fangraphs_game=fangraphs_game))
 
-        weather_snapshot: WeatherSnapshot | None = None
-        try:
-            weather_snapshot = fetch_weather_snapshot(
-                str(schedule_game.get("venue_name") or ""),
-                str(schedule_game.get("home_location_name") or ""),
-                str(schedule_game.get("roof_type") or "Open"),
-                str(schedule_game.get("game_date_utc") or ""),
-            )
-        except Exception as exc:
-            if is_pregame and allow_partial:
-                issues.append("weather_live_missing")
-            elif is_pregame:
-                blocking_issues.append(f"{game_key}: live weather unavailable ({exc})")
+        weather_snapshot, weather_issue_codes, weather_provenance = resolve_weather_with_fallback(schedule_game)
+        issues.extend(weather_issue_codes)
+        if is_pregame and not allow_partial and weather_issue_codes:
+            blocking_issues.append(f"{game_key}: live weather unavailable ({weather_provenance['resolution_detail']})")
 
         odds = live_game_odds.get(game_key)
         away_moneyline = odds.away_moneyline if odds and odds.away_moneyline is not None else parse_int(spec["away_a"])
@@ -289,11 +387,11 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
         if not allow_partial and is_pregame:
             critical = {
                 "lineup_not_posted_api",
-                "rotowire_missing",
-                "rotowire_unconfirmed",
-                "rotowire_lineup_mismatch",
-                "starter_mismatch_rotowire",
                 "starter_missing",
+                "lineup_verification_missing",
+                "lineup_verification_failed",
+                "starter_verification_missing",
+                "starter_verification_failed",
                 "weather_live_missing",
                 "approx_market_ml",
                 "market_total_missing",
@@ -307,12 +405,20 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
             "home_players": home_players,
             "away_label": away_label,
             "home_label": home_label,
+            "away_lineup_verification": away_lineup_verification,
+            "home_lineup_verification": home_lineup_verification,
+            "away_starter_verification": away_starter_verification,
+            "home_starter_verification": home_starter_verification,
             "away_pitcher": away_pitcher,
             "home_pitcher": home_pitcher,
             "away_moneyline": away_moneyline,
             "home_moneyline": home_moneyline,
             "odds": odds,
             "weather": weather_snapshot,
+            "weather_issue_codes": weather_issue_codes,
+            "weather_provider_path": weather_provenance["provider_path"],
+            "weather_resolution_source": weather_provenance["resolution_source"],
+            "weather_resolution_detail": weather_provenance["resolution_detail"],
             "issues": sorted(set(issues)),
             "venue_name": schedule_game.get("venue_name", ""),
             "roof_type": schedule_game.get("roof_type", ""),
@@ -422,7 +528,14 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
         game_key: (ctx["odds"].event_id if isinstance(ctx.get("odds"), GameOdds) else "")
         for game_key, ctx in lineup_context.items()
     }
-    prop_market_map = fetch_slate_prop_markets(REPORT_DATE, event_ids_by_game)
+    propline_hr_props = fetch_propline_hr_props(REPORT_DATE, event_ids_by_game=event_ids_by_game)
+    dk_hr_props = fetch_dk_hr_props(REPORT_DATE)
+    prop_market_map = fetch_slate_prop_markets(
+        REPORT_DATE,
+        event_ids_by_game,
+        propline_hr_props=propline_hr_props,
+        dk_hr_props=dk_hr_props,
+    )
     prop_market_coverage: list[dict[str, Any]] = []
     coverage_by_game: dict[str, dict[str, Any]] = {}
     for spec in GAME_SPECS:
@@ -430,12 +543,15 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
         coverage = summarize_prop_market_coverage(key, lineup_context[key], prop_market_map.get(key, {}))
         coverage_by_game[key] = coverage
         prop_market_coverage.append(coverage)
-        if "rotowire_hr_home_side_missing" in coverage["notes"]:
-            lineup_context[key]["issues"] = sorted(set(list(lineup_context[key].get("issues") or []) + ["rotowire_hr_home_side_missing"]))
-        if "rotowire_hr_away_side_missing" in coverage["notes"]:
-            lineup_context[key]["issues"] = sorted(set(list(lineup_context[key].get("issues") or []) + ["rotowire_hr_away_side_missing"]))
-        if "market_odds_unavailable" in coverage["notes"]:
-            lineup_context[key]["issues"] = sorted(set(list(lineup_context[key].get("issues") or []) + ["market_odds_unavailable"]))
+        lineup_context[key]["hr_provider_path"] = coverage.get("hr_provider_path") or "projection_only"
+        if coverage.get("hr_market_integrity") == "degraded":
+            lineup_context[key]["issues"] = sorted(
+                set(list(lineup_context[key].get("issues") or []) + ["hr_market_integrity_degraded"])
+            )
+        if coverage["notes"]:
+            lineup_context[key]["issues"] = sorted(
+                set(list(lineup_context[key].get("issues") or []) + list(coverage["notes"]))
+            )
         note_text = ", ".join(coverage["notes"]) or "ok"
         print(
             f"Prop coverage {key}: "
@@ -443,6 +559,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
             f"home {coverage['home_hr_covered']}/{coverage['home_lineup_size']} | "
             f"TB away {coverage['away_tb_covered']}/{coverage['away_lineup_size']} "
             f"home {coverage['home_tb_covered']}/{coverage['home_lineup_size']} | "
+            f"path={coverage.get('hr_provider_path') or 'projection_only'} | "
             f"notes={note_text}"
         )
     for diagnostic in get_runtime_diagnostics():
@@ -525,6 +642,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
         "recommended_prop",
         "recommended_tier",
         "hr_market_status",
+        "hr_market_integrity",
         "tb2_market_status",
         "data_confidence",
         "market_data_status",
@@ -717,6 +835,15 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                 "home_score": ctx.get("home_score"),
                 "away_lineup_label": ctx["away_label"],
                 "home_lineup_label": ctx["home_label"],
+                "away_lineup_verification": ctx.get("away_lineup_verification"),
+                "home_lineup_verification": ctx.get("home_lineup_verification"),
+                "away_starter_verification": ctx.get("away_starter_verification"),
+                "home_starter_verification": ctx.get("home_starter_verification"),
+                "weather_issue_codes": list(ctx.get("weather_issue_codes") or []),
+                "weather_provider_path": list(ctx.get("weather_provider_path") or []),
+                "weather_resolution_source": ctx.get("weather_resolution_source"),
+                "weather_resolution_detail": ctx.get("weather_resolution_detail"),
+                "hr_provider_path": ctx.get("hr_provider_path"),
                 "issues": sorted(set(ctx["issues"])),
                 "missing_data_flags": flags,
                 "scoring_status": scoring_status,
@@ -748,6 +875,8 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                 hr_market_priced = has_hr_market_price(hr_market)
                 tb_market_any = has_any_tb_market(tb_market)
                 tb_market_aligned = is_aligned_tb_market(tb_market)
+                hr_market_integrity = str(coverage_by_game.get(key, {}).get("hr_market_integrity") or "partial")
+                hr_provider_path = str(coverage_by_game.get(key, {}).get("hr_provider_path") or "projection_only")
                 market_status = "full" if hr_market_priced and tb_market_aligned else "partial" if hr_market_priced or tb_market_any else "none"
                 hr: float | None = None
                 tb2: float | None = None
@@ -763,6 +892,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                 recommended_prop = ""
                 recommended_tier = ""
                 display_tier = ""
+                hr_display_tier = ""
                 should_render_prop_projection = game_status_bucket != "final"
                 if should_render_prop_projection:
                     hr, tb2, fair_hr, fair_2tb, hr_tier, tb2_tier, pconf = batter_hr_two_tb(
@@ -809,7 +939,14 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                         if tb_market_aligned and tb_market and tb_market.over_price is not None and tb2 is not None
                         else None
                     )
-                    hr_market_status = classify_hr_market_status(edge_hr_pct, hr_tier, pconf, hr_market)
+                    hr_market_status = classify_hr_market_status(
+                        edge_hr_pct,
+                        hr_tier,
+                        pconf,
+                        hr_market,
+                        hr_market_integrity=hr_market_integrity,
+                    )
+                    hr_display_tier = _downgrade_prop_tier(hr_tier) if hr_market_status == "qualified_partial" else hr_tier
                     tb2_market_status = classify_tb_market_status(
                         edge_tb_pct,
                         tb2,
@@ -826,15 +963,13 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                         hr_tier,
                         tb2_tier,
                     )
-                    display_tier = recommended_tier or stronger_tier(hr_tier, tb2_tier)
+                    if recommended_prop == "HR" and recommended_tier:
+                        recommended_tier = hr_display_tier
+                    display_tier = recommended_tier or stronger_tier(hr_display_tier or hr_tier, tb2_tier)
                 if not allow_partial and is_pregame:
                     if not hr_market_priced:
                         coverage_notes = list(coverage_by_game.get(key, {}).get("notes") or [])
-                        reason = ""
-                        if "rotowire_hr_home_side_missing" in coverage_notes and not team_is_away:
-                            reason = " (Rotowire fallback returned no home-side HR markets for this game)"
-                        elif "rotowire_hr_away_side_missing" in coverage_notes and team_is_away:
-                            reason = " (Rotowire fallback returned no away-side HR markets for this game)"
+                        reason = _hr_missing_market_reason(team_is_away, coverage_notes)
                         late_blocking_issues.append(f"{key}: missing HR market for {player['name']}{reason}")
                     if tb_market is None or tb_market.over_price is None:
                         late_blocking_issues.append(f"{key}: missing TB market for {player['name']}")
@@ -857,7 +992,15 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                         note = f"{note}; TB book at {tb_market.point:g}, not 1.5-aligned"
                     if recommended_prop and recommended_tier:
                         note = f"{note}; priced lean: {recommended_prop} ({recommended_tier})"
+                    if hr_market_integrity == "degraded":
+                        note = f"{note}; HR market degraded, HR output projection only"
+                    elif hr_market_integrity == "partial":
+                        note = f"{note}; HR market partial via {hr_provider_path}, HR tier downgraded"
                     dc = build_data_confidence(pconf, lineup_label, market_status)
+                    if hr_market_integrity == "degraded":
+                        dc = f"{dc} — HR market degraded"
+                    elif hr_market_integrity == "partial":
+                        dc = f"{dc} — HR market partial via {hr_provider_path}"
                 else:
                     status_note = str(ctx.get("game_status_note") or ctx.get("game_state_detail") or "game no longer pregame")
                     note = f"Not scored — {status_note}"
@@ -875,6 +1018,10 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                             display_note = f"{display_note}; TB book at {tb_market.point:g}, not 1.5-aligned"
                         if recommended_prop and recommended_tier:
                             display_note = f"{display_note}; priced lean: {recommended_prop} ({recommended_tier})"
+                        if hr_market_integrity == "degraded":
+                            display_note = f"{display_note}; HR market degraded, HR output projection only"
+                        elif hr_market_integrity == "partial":
+                            display_note = f"{display_note}; HR market partial via {hr_provider_path}, HR tier downgraded"
                         if display_note:
                             note = f"Display only — {status_note}; {display_note}"
                         else:
@@ -904,6 +1051,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                         recommended_prop,
                         recommended_tier,
                         hr_market_status,
+                        hr_market_integrity,
                         tb2_market_status,
                         dc,
                         market_status,
@@ -941,6 +1089,8 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                         "edge_hr_pct": edge_hr_pct,
                         "edge_tb_pct": edge_tb_pct,
                         "hr_market_status": hr_market_status,
+                        "hr_market_integrity": hr_market_integrity,
+                        "hr_provider_path": hr_provider_path,
                         "tb2_market_status": tb2_market_status,
                         "model_confidence": pconf,
                         "data_confidence": dc,

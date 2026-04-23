@@ -71,15 +71,15 @@ Strict `--compute` requires all of the following before it writes the canvas:
 - RotoWire confirmation without pitcher or lineup mismatches
 - Open-Meteo weather for every venue
 - Odds API moneylines and totals for every game
-- Odds API prop markets for every modeled batter row
+- DraftKings-backed HR props plus Odds API / RotoWire batter prop markets where available
 - Recent-form and bullpen features resolvable from MLB Stats API / Savant inputs
 
 Provider chain:
 
 - Game odds: Odds API first, then RotoWire MLB odds tables
-- HR props: Odds API first, then RotoWire lineup HR odds feed
+- HR props: DraftKings first, then RotoWire lineup HR odds feed, then projection-only when unresolved
 - TB props: Odds API first, then RotoWire MLB player props tables
-- Lineup verification: MLB Stats API plus RotoWire confirmation
+- Lineup verification: MLB Stats API plus FanGraphs / RotoWire secondary confirmation
 
 Required environment:
 
@@ -92,6 +92,8 @@ printf 'ODDS_API_KEY=%s\n' 'YOUR_REAL_KEY_HERE' > .env
 ```
 
 If any of those requirements are not met, `--compute` exits with an error instead of quietly writing partial outputs. Use `--allow-partial` only for early slates, manual scaffolding, or debugging.
+
+In `--allow-partial` mode, weather resolution now degrades to a conservative neutral fallback (`run_factor = 1.0`) instead of throwing, but strict pregame runs still fail on unresolved weather-provider issues. Snapshot provenance records the weather provider path plus lineup/starter verification levels and provider results without changing the existing CSV contracts.
 
 Every `--compute` run also writes a dated snapshot under:
 
@@ -108,7 +110,7 @@ For [`mlb-pregame-intel-apr16.canvas.tsx`](canvases/mlb-pregame-intel-apr16.canv
 - **Regenerate** games + props from the shared model and sync markers + SLATE numbers:  
   `python3 canvases/exports/build_ml_exports.py --date 2026-04-16 --compute`  
   or `python3 canvases/exports/_gen_apr16_canvas.py` (same command).  
-  This pulls **probables / lineups** from MLB Stats API, verifies against **RotoWire**, adds **Open-Meteo weather**, **recent form**, **bullpen scoring**, and **live odds / prop markets**, runs **`win_probability_model`** and **`batter_hr_two_tb`**, then updates the marker CSV blocks and **numeric** fields inside `SLATE` (same values as the CSV). It does **not** replace layout or `GameCard` structure.
+  This pulls **probables / lineups** from MLB Stats API, verifies them against **FanGraphs** and **RotoWire** when available, adds **Open-Meteo weather**, **recent form**, **bullpen scoring**, and **live odds / prop markets**, runs **`win_probability_model`** and **`batter_hr_two_tb`**, then updates the marker CSV blocks and **numeric** fields inside `SLATE` (same values as the CSV). It does **not** replace layout or `GameCard` structure.
   Export-only (no recompute): `python3 canvases/exports/build_ml_exports.py --date 2026-04-16`.
 
 ### Apr 18, 2026: same pipeline

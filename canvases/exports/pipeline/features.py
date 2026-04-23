@@ -8,7 +8,7 @@ import re
 from datetime import date, timedelta
 from typing import Any
 
-from live_mlb_data import RotoWireGame, normalize_player_name, strip_accents
+from live_mlb_data import FanGraphsGame, RotoWireGame, normalize_player_name, strip_accents
 from models.game_model import clamp
 from models.prop_model import lineup_match_key
 
@@ -129,6 +129,244 @@ def starter_names_match(api_name: str, rotowire_name: str) -> bool:
     return api_tokens[0][:1] == rw_tokens[0][:1]
 
 
+def verification_side(game: Any, side: str) -> Any | None:
+    if game is None:
+        return None
+    return game.away_side if side == "away" else game.home_side
+
+
+def rotowire_lineup_result(api_players: list[dict[str, Any]], side_data: Any | None) -> dict[str, Any]:
+    players = list((getattr(side_data, "players", None) or []))
+    confirmed = bool(getattr(side_data, "confirmed", False))
+    issues: list[str] = []
+    status = "missing"
+    verifiable = False
+    matched = False
+    if not players:
+        issues.append("rotowire_missing")
+    elif not confirmed:
+        issues.append("rotowire_unconfirmed")
+        status = "unconfirmed"
+    else:
+        verifiable = True
+        if lineup_players_match(api_players, players):
+            matched = True
+            status = "matched"
+        else:
+            status = "mismatch"
+            issues.append("rotowire_lineup_mismatch")
+    return {
+        "available": bool(players),
+        "verifiable": verifiable,
+        "matched": matched,
+        "status": status,
+        "confirmed": confirmed,
+        "provider_path": ["rotowire"],
+        "issue_codes": issues,
+        "lineup_size": len(players),
+    }
+
+
+def fangraphs_lineup_result(api_players: list[dict[str, Any]], side_data: Any | None) -> dict[str, Any]:
+    players = list((getattr(side_data, "players", None) or []))
+    issues: list[str] = []
+    status = "missing"
+    verifiable = False
+    matched = False
+    if not players:
+        issues.append("fangraphs_lineup_missing")
+    else:
+        verifiable = True
+        if lineup_players_match(api_players, players):
+            matched = True
+            status = "matched"
+        else:
+            status = "mismatch"
+            issues.append("fangraphs_lineup_mismatch")
+    return {
+        "available": bool(players),
+        "verifiable": verifiable,
+        "matched": matched,
+        "status": status,
+        "provider_path": ["fangraphs_lineup_tracker"],
+        "issue_codes": issues,
+        "lineup_size": len(players),
+    }
+
+
+def lineup_verification_details(
+    api_players: list[dict[str, Any]],
+    rotowire_game: RotoWireGame | None,
+    side: str,
+    *,
+    fangraphs_game: FanGraphsGame | None = None,
+) -> dict[str, Any]:
+    rotowire_result = rotowire_lineup_result(api_players, verification_side(rotowire_game, side))
+    fangraphs_result = fangraphs_lineup_result(api_players, verification_side(fangraphs_game, side))
+    matched_paths: list[str] = []
+    if fangraphs_result["matched"]:
+        matched_paths.append("fangraphs_lineup_tracker")
+    if rotowire_result["matched"]:
+        matched_paths.append("rotowire")
+    issues = []
+    if not matched_paths:
+        verifiable = bool(fangraphs_result["verifiable"] or rotowire_result["verifiable"])
+        issues = ["lineup_verification_failed" if verifiable else "lineup_verification_missing"]
+    return {
+        "issues": issues,
+        "matched_paths": matched_paths,
+        "provider_results": {
+            "mlb_stats_api": {
+                "available": bool(api_players),
+                "status": "selected" if api_players else "missing",
+                "provider_path": ["mlb_stats_api"],
+                "issue_codes": [],
+                "lineup_size": len(api_players),
+            },
+            "fangraphs": fangraphs_result,
+            "rotowire": rotowire_result,
+        },
+    }
+
+
+def rotowire_starter_result(api_name: str, side_data: Any | None) -> dict[str, Any]:
+    pitcher_name = str(getattr(side_data, "pitcher_name", "") or "").strip()
+    confirmed = bool(getattr(side_data, "confirmed", False))
+    issues: list[str] = []
+    status = "missing"
+    verifiable = False
+    matched = False
+    if not pitcher_name:
+        issues.append("rotowire_missing")
+    elif not confirmed:
+        issues.append("rotowire_unconfirmed")
+        status = "unconfirmed"
+    else:
+        verifiable = True
+        if starter_names_match(api_name, pitcher_name):
+            matched = True
+            status = "matched"
+        else:
+            status = "mismatch"
+            issues.append("starter_mismatch_rotowire")
+    return {
+        "available": bool(pitcher_name),
+        "verifiable": verifiable,
+        "matched": matched,
+        "status": status,
+        "confirmed": confirmed,
+        "provider_path": ["rotowire"],
+        "issue_codes": issues,
+        "pitcher_name": pitcher_name,
+    }
+
+
+def fangraphs_starter_result(api_name: str, side_data: Any | None) -> dict[str, Any]:
+    pitcher_name = str(getattr(side_data, "pitcher_name", "") or "").strip()
+    issues: list[str] = []
+    status = "missing"
+    verifiable = False
+    matched = False
+    if not pitcher_name:
+        issues.append("fangraphs_starter_missing")
+    else:
+        verifiable = True
+        if starter_names_match(api_name, pitcher_name):
+            matched = True
+            status = "matched"
+        else:
+            status = "mismatch"
+            issues.append("starter_mismatch_fangraphs")
+    return {
+        "available": bool(pitcher_name),
+        "verifiable": verifiable,
+        "matched": matched,
+        "status": status,
+        "provider_path": ["fangraphs_probables_grid"],
+        "issue_codes": issues,
+        "pitcher_name": pitcher_name,
+    }
+
+
+def starter_verification_details(
+    api_pitcher: dict[str, Any],
+    rotowire_game: RotoWireGame | None,
+    side: str,
+    *,
+    fangraphs_game: FanGraphsGame | None = None,
+) -> dict[str, Any]:
+    api_name = str(api_pitcher.get("name") or "")
+    rotowire_result = rotowire_starter_result(api_name, verification_side(rotowire_game, side))
+    fangraphs_result = fangraphs_starter_result(api_name, verification_side(fangraphs_game, side))
+    matched_paths: list[str] = []
+    if fangraphs_result["matched"]:
+        matched_paths.append("fangraphs_probables_grid")
+    if rotowire_result["matched"]:
+        matched_paths.append("rotowire")
+    issues: list[str] = []
+    if not api_name:
+        issues = ["starter_missing"]
+    elif not matched_paths:
+        verifiable = bool(fangraphs_result["verifiable"] or rotowire_result["verifiable"])
+        issues = ["starter_verification_failed" if verifiable else "starter_verification_missing"]
+    return {
+        "issues": issues,
+        "matched_paths": matched_paths,
+        "provider_results": {
+            "mlb_stats_api": {
+                "available": bool(api_name),
+                "status": "selected" if api_name else "missing",
+                "provider_path": ["mlb_stats_api"],
+                "issue_codes": ["starter_missing"] if not api_name else [],
+                "pitcher_name": api_name,
+            },
+            "fangraphs": fangraphs_result,
+            "rotowire": rotowire_result,
+        },
+    }
+
+
+def lineup_source_provider_results(
+    api_players: list[dict[str, Any]],
+    rotowire_side: Any | None,
+    fangraphs_side: Any | None,
+) -> dict[str, Any]:
+    return {
+        "mlb_stats_api": {
+            "available": bool(api_players),
+            "status": "selected" if api_players else "missing",
+            "provider_path": ["mlb_stats_api"],
+            "issue_codes": [] if api_players else ["lineup_not_posted_api"],
+            "lineup_size": len(api_players),
+        },
+        "fangraphs": {
+            "available": bool(list((getattr(fangraphs_side, "players", None) or []))),
+            "status": "available" if list((getattr(fangraphs_side, "players", None) or [])) else "missing",
+            "provider_path": ["fangraphs_lineup_tracker"],
+            "issue_codes": [] if list((getattr(fangraphs_side, "players", None) or [])) else ["fangraphs_lineup_missing"],
+            "lineup_size": len(list((getattr(fangraphs_side, "players", None) or []))),
+        },
+        "rotowire": {
+            "available": bool(list((getattr(rotowire_side, "players", None) or []))),
+            "status": "confirmed"
+            if bool(getattr(rotowire_side, "confirmed", False))
+            else "unconfirmed"
+            if list((getattr(rotowire_side, "players", None) or []))
+            else "missing",
+            "confirmed": bool(getattr(rotowire_side, "confirmed", False)),
+            "provider_path": ["rotowire"],
+            "issue_codes": (
+                []
+                if bool(getattr(rotowire_side, "confirmed", False))
+                else ["rotowire_unconfirmed"]
+                if list((getattr(rotowire_side, "players", None) or []))
+                else ["rotowire_missing"]
+            ),
+            "lineup_size": len(list((getattr(rotowire_side, "players", None) or []))),
+        },
+    }
+
+
 def choose_lineup_side(
     team_abbr: str,
     api_players: list[dict[str, Any]],
@@ -139,22 +377,46 @@ def choose_lineup_side(
     rosters: dict[str, dict[str, dict[str, Any]]],
     *,
     allow_canvas_fallback: bool,
-) -> tuple[list[dict[str, Any]], str, list[str]]:
+    fangraphs_game: FanGraphsGame | None = None,
+) -> tuple[list[dict[str, Any]], str, list[str], dict[str, Any]]:
     issues: list[str] = []
-    rotowire_side = rotowire_game.away_side if rotowire_game and side == "away" else rotowire_game.home_side if rotowire_game else None
+    rotowire_side = verification_side(rotowire_game, side)
+    fangraphs_side = verification_side(fangraphs_game, side)
 
     if api_players:
+        verification = lineup_verification_details(
+            api_players,
+            rotowire_game,
+            side,
+            fangraphs_game=fangraphs_game,
+        )
+        issues = list(verification["issues"])
+        matched_paths = list(verification["matched_paths"])
+        provider_results = dict(verification["provider_results"])
         label = "Posted (MLB API)"
-        if rotowire_side is None:
-            issues.append("rotowire_missing")
-        else:
-            if not rotowire_side.confirmed:
-                issues.append("rotowire_unconfirmed")
-            elif not lineup_players_match(api_players, rotowire_side.players):
-                issues.append("rotowire_lineup_mismatch")
-            else:
-                label = "Confirmed (MLB API + RotoWire)"
-        return api_players, label, issues
+        verification_level = "posted_api_only"
+        provider_path = ["mlb_stats_api"]
+        if len(matched_paths) > 1:
+            label = "Confirmed (MLB API + Multi-Source)"
+            verification_level = "confirmed_api_multi_source"
+            provider_path = ["mlb_stats_api"] + matched_paths
+        elif matched_paths == ["fangraphs_lineup_tracker"]:
+            label = "Confirmed (MLB API + FanGraphs)"
+            verification_level = "confirmed_api_fangraphs"
+            provider_path = ["mlb_stats_api", "fangraphs_lineup_tracker"]
+        elif matched_paths == ["rotowire"]:
+            label = "Confirmed (MLB API + RotoWire)"
+            verification_level = "confirmed_api_rotowire"
+            provider_path = ["mlb_stats_api", "rotowire"]
+        elif issues == ["lineup_verification_failed"]:
+            verification_level = "posted_api_verification_failed"
+        return api_players, label, issues, {
+            "selected_source": "mlb_stats_api",
+            "verification_level": verification_level,
+            "provider_path": provider_path,
+            "issue_codes": list(issues),
+            "provider_results": provider_results,
+        }
 
     if rotowire_side and rotowire_side.confirmed:
         resolved = resolve_named_players(
@@ -162,29 +424,92 @@ def choose_lineup_side(
             [{"name": player["name"], "pos": player["pos"]} for player in rotowire_side.players],
             rosters,
         )
-        return resolved, "Confirmed (RotoWire)", ["lineup_not_posted_api"]
+        issues = ["lineup_not_posted_api"]
+        return resolved, "Confirmed (RotoWire)", issues, {
+            "selected_source": "rotowire",
+            "verification_level": "confirmed_rotowire_fallback",
+            "provider_path": ["rotowire", "mlb_stats_api_roster"],
+            "issue_codes": list(issues),
+            "provider_results": lineup_source_provider_results(api_players, rotowire_side, fangraphs_side),
+        }
 
     if allow_canvas_fallback and canvas_rows:
         resolved = resolve_named_players(team_abbr, canvas_rows, rosters)
-        return resolved, canvas_label, ["lineup_projected_canvas", "lineup_not_posted_api"]
+        issues = ["lineup_projected_canvas", "lineup_not_posted_api"]
+        return resolved, canvas_label, issues, {
+            "selected_source": "canvas",
+            "verification_level": "projected_canvas_fallback",
+            "provider_path": ["canvas", "mlb_stats_api_roster"],
+            "issue_codes": list(issues),
+            "provider_results": lineup_source_provider_results(api_players, rotowire_side, fangraphs_side),
+        }
 
-    return [], "Not Posted", ["lineup_not_posted_api"]
+    issues = ["lineup_not_posted_api"]
+    return [], "Not Posted", issues, {
+        "selected_source": "none",
+        "verification_level": "missing",
+        "provider_path": [],
+        "issue_codes": list(issues),
+        "provider_results": lineup_source_provider_results(api_players, rotowire_side, fangraphs_side),
+    }
 
 
-def starter_matches(api_pitcher: dict[str, Any], rotowire_game: RotoWireGame | None, side: str) -> list[str]:
-    if rotowire_game is None:
-        return ["rotowire_missing"]
-    rotowire_side = rotowire_game.away_side if side == "away" else rotowire_game.home_side
+def starter_matches(
+    api_pitcher: dict[str, Any],
+    rotowire_game: RotoWireGame | None,
+    side: str,
+    *,
+    fangraphs_game: FanGraphsGame | None = None,
+) -> list[str]:
+    return list(
+        starter_verification_details(
+            api_pitcher,
+            rotowire_game,
+            side,
+            fangraphs_game=fangraphs_game,
+        )["issues"]
+    )
+
+
+def starter_verification_metadata(
+    api_pitcher: dict[str, Any],
+    rotowire_game: RotoWireGame | None,
+    side: str,
+    *,
+    fangraphs_game: FanGraphsGame | None = None,
+) -> dict[str, Any]:
+    verification = starter_verification_details(
+        api_pitcher,
+        rotowire_game,
+        side,
+        fangraphs_game=fangraphs_game,
+    )
+    issues = list(verification["issues"])
+    matched_paths = list(verification["matched_paths"])
+    provider_results = dict(verification["provider_results"])
     api_name = str(api_pitcher.get("name") or "")
-    rotowire_name = rotowire_side.pitcher_name
-    issues: list[str] = []
-    if not rotowire_side.confirmed:
-        issues.append("rotowire_unconfirmed")
-    if not api_name or not rotowire_name:
-        issues.append("starter_missing")
-    elif not starter_names_match(api_name, rotowire_name):
-        issues.append("starter_mismatch_rotowire")
-    return issues
+    provider_path = ["mlb_stats_api"]
+    verification_level = "api_only_verification_missing"
+    if len(matched_paths) > 1:
+        provider_path = ["mlb_stats_api"] + matched_paths
+        verification_level = "confirmed_api_multi_source"
+    elif matched_paths == ["fangraphs_probables_grid"]:
+        provider_path = ["mlb_stats_api", "fangraphs_probables_grid"]
+        verification_level = "confirmed_api_fangraphs"
+    elif matched_paths == ["rotowire"]:
+        provider_path = ["mlb_stats_api", "rotowire"]
+        verification_level = "confirmed_api_rotowire"
+    elif issues == ["starter_verification_failed"]:
+        verification_level = "api_verification_failed"
+    elif not api_name:
+        verification_level = "starter_missing"
+    return {
+        "selected_source": "mlb_stats_api",
+        "verification_level": verification_level,
+        "provider_path": provider_path,
+        "issue_codes": list(issues),
+        "provider_results": provider_results,
+    }
 
 
 def collect_recent_splits(

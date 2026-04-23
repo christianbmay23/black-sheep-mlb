@@ -168,6 +168,15 @@ def write_run_snapshot(
                 "home_score": ctx.get("home_score"),
                 "away_label": ctx.get("away_label"),
                 "home_label": ctx.get("home_label"),
+                "away_lineup_verification": ctx.get("away_lineup_verification"),
+                "home_lineup_verification": ctx.get("home_lineup_verification"),
+                "away_starter_verification": ctx.get("away_starter_verification"),
+                "home_starter_verification": ctx.get("home_starter_verification"),
+                "weather_issue_codes": list(ctx.get("weather_issue_codes") or []),
+                "weather_provider_path": list(ctx.get("weather_provider_path") or []),
+                "weather_resolution_source": ctx.get("weather_resolution_source"),
+                "weather_resolution_detail": ctx.get("weather_resolution_detail"),
+                "hr_provider_path": ctx.get("hr_provider_path"),
                 "away_pitcher": ctx.get("away_pitcher"),
                 "home_pitcher": ctx.get("home_pitcher"),
                 "away_moneyline": ctx.get("away_moneyline"),
@@ -202,7 +211,9 @@ def write_run_snapshot(
             "one_sided_hr_games": sum(
                 1
                 for row in prop_market_coverage
-                if "rotowire_hr_home_side_missing" in list(row.get("notes") or [])
+                if "draftkings_hr_home_side_missing" in list(row.get("notes") or [])
+                or "draftkings_hr_away_side_missing" in list(row.get("notes") or [])
+                or "rotowire_hr_home_side_missing" in list(row.get("notes") or [])
                 or "rotowire_hr_away_side_missing" in list(row.get("notes") or [])
             ),
             "evaluation_eligible": evaluation["eligible"],

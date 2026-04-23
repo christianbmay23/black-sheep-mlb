@@ -11,9 +11,10 @@ from typing import Any, Protocol
 # --- Gating constants -------------------------------------------------------
 
 HR_EDGE_GATE_PCT = 2.5
-TB_EDGE_GATE_PCT = 1.5
-TB_RECOMMEND_MIN_PROB_PCT = 48.0
-TB_PARTIAL_RECOMMEND_MIN_PROB_PCT = 50.0
+TB_EDGE_GATE_PCT = 2.0
+TB_PARTIAL_EDGE_GATE_PCT = 3.0
+TB_RECOMMEND_MIN_PROB_PCT = 49.0
+TB_PARTIAL_RECOMMEND_MIN_PROB_PCT = 52.0
 TB_TARGET_LINE = 1.5
 
 PROP_TIER_RANK: dict[str, int] = {"A+": 5, "A": 4, "B": 3, "C": 2, "D": 1}
@@ -55,9 +56,13 @@ def classify_hr_market_status(
     hr_tier: str,
     prop_conf: str,
     hr_market: _PropMarketLineLike | None,
+    *,
+    hr_market_integrity: str = "full",
 ) -> str:
     if not has_hr_market_price(hr_market):
         return "unpriced"
+    if hr_market_integrity == "degraded":
+        return "integrity_degraded_projection_only"
     if edge_hr_pct is None or edge_hr_pct <= 0:
         return "priced_no_edge"
     if prop_tier_rank(hr_tier) < prop_tier_rank("A"):
@@ -66,6 +71,8 @@ def classify_hr_market_status(
         return "priced_low_conf"
     if edge_hr_pct < HR_EDGE_GATE_PCT:
         return "priced_below_gate"
+    if hr_market_integrity == "partial":
+        return "qualified_partial"
     return "qualified"
 
 
@@ -93,13 +100,14 @@ def classify_tb_market_status(
         if market_status == "partial"
         else TB_RECOMMEND_MIN_PROB_PCT
     )
+    edge_gate = TB_PARTIAL_EDGE_GATE_PCT if market_status == "partial" else TB_EDGE_GATE_PCT
     if tb2_prob_pct < min_prob_gate:
         return "priced_below_prob_gate"
-    if prop_tier_rank(tb2_tier) < prop_tier_rank("B"):
+    if prop_tier_rank(tb2_tier) < prop_tier_rank("A"):
         return "priced_below_tier"
     if prop_conf == "Low":
         return "priced_low_conf"
-    if edge_tb_pct < TB_EDGE_GATE_PCT:
+    if edge_tb_pct < edge_gate:
         return "priced_below_gate"
     return "qualified"
 
@@ -112,15 +120,33 @@ def choose_recommended_prop(
     hr_tier: str,
     tb2_tier: str,
 ) -> tuple[str, str]:
-    if hr_status == "qualified" and tb_status == "qualified":
+    hr_qualified = hr_status in {"qualified", "qualified_partial"}
+    tb_qualified = tb_status == "qualified"
+    if hr_qualified and tb_qualified:
         if edge_hr_pct is not None and edge_tb_pct is not None and edge_hr_pct >= edge_tb_pct + 1.5:
             return "HR", hr_tier
         return "2+ TB", tb2_tier
-    if hr_status == "qualified":
+    if hr_qualified:
         return "HR", hr_tier
-    if tb_status == "qualified":
+    if tb_qualified:
         return "2+ TB", tb2_tier
     return "", ""
+
+
+def classify_hr_market_integrity(
+    *,
+    dk_away: bool,
+    dk_home: bool,
+    rotowire_away: bool,
+    rotowire_home: bool,
+) -> str:
+    if dk_away and dk_home:
+        return "full"
+    if rotowire_away and rotowire_home:
+        return "full"
+    if (dk_away != dk_home) or (rotowire_away != rotowire_home):
+        return "partial"
+    return "degraded"
 
 
 # --- Coverage summary -------------------------------------------------------
@@ -153,21 +179,64 @@ def summarize_prop_market_coverage(
                 missing.append(player_name)
         return covered, sorted(missing), sorted(sources)
 
+    def hr_provider_side(players: list[dict[str, Any]], provider: str) -> bool:
+        for player in players:
+            player_name = str(player.get("name") or "")
+            line = markets.get((normalize_player_name(player_name), "batter_home_runs"))
+            source = str(getattr(line, "source", "") or "")
+            if line and line.over_price is not None:
+                if provider == "draftkings" and source.startswith("draftkings"):
+                    return True
+                if provider == "rotowire" and source.startswith("rotowire"):
+                    return True
+        return False
+
+    def classify_hr_provider_path(
+        *,
+        dk_away: bool,
+        dk_home: bool,
+        rotowire_away: bool,
+        rotowire_home: bool,
+    ) -> str:
+        if dk_away and dk_home:
+            return "draftkings->rotowire" if rotowire_away or rotowire_home else "draftkings"
+        if rotowire_away and rotowire_home:
+            return "draftkings->rotowire" if dk_away or dk_home else "rotowire_only"
+        if dk_away or dk_home:
+            return "draftkings->rotowire" if rotowire_away or rotowire_home else "draftkings"
+        if rotowire_away or rotowire_home:
+            return "rotowire_only"
+        return "projection_only"
+
     away_players = list(ctx.get("away_players") or [])
     home_players = list(ctx.get("home_players") or [])
     away_hr_covered, away_hr_missing, away_hr_sources = coverage(away_players, "batter_home_runs")
     home_hr_covered, home_hr_missing, home_hr_sources = coverage(home_players, "batter_home_runs")
     away_tb_covered, away_tb_missing, away_tb_sources = coverage(away_players, "batter_total_bases")
     home_tb_covered, home_tb_missing, home_tb_sources = coverage(home_players, "batter_total_bases")
+    dk_away = hr_provider_side(away_players, "draftkings")
+    dk_home = hr_provider_side(home_players, "draftkings")
+    rotowire_away = hr_provider_side(away_players, "rotowire")
+    rotowire_home = hr_provider_side(home_players, "rotowire")
     hr_sources = sorted(set(away_hr_sources + home_hr_sources))
     tb_sources = sorted(set(away_tb_sources + home_tb_sources))
     notes: list[str] = []
-    if away_hr_covered and not home_hr_covered and hr_sources and all(source.startswith("rotowire") for source in hr_sources):
+    if dk_away and not dk_home:
+        notes.append("draftkings_hr_home_side_missing")
+    if dk_home and not dk_away:
+        notes.append("draftkings_hr_away_side_missing")
+    if rotowire_away and not rotowire_home:
         notes.append("rotowire_hr_home_side_missing")
-    if home_hr_covered and not away_hr_covered and hr_sources and all(source.startswith("rotowire") for source in hr_sources):
+    if rotowire_home and not rotowire_away:
         notes.append("rotowire_hr_away_side_missing")
     if ctx.get("away_moneyline") is None or ctx.get("home_moneyline") is None:
         notes.append("market_odds_unavailable")
+    hr_market_integrity = classify_hr_market_integrity(
+        dk_away=dk_away,
+        dk_home=dk_home,
+        rotowire_away=rotowire_away,
+        rotowire_home=rotowire_home,
+    )
     return {
         "game": game_key,
         "away_lineup_size": len(away_players),
@@ -182,6 +251,17 @@ def summarize_prop_market_coverage(
         "home_tb_missing": home_tb_missing,
         "hr_sources": hr_sources,
         "tb_sources": tb_sources,
+        "hr_market_integrity": hr_market_integrity,
+        "hr_provider_path": classify_hr_provider_path(
+            dk_away=dk_away,
+            dk_home=dk_home,
+            rotowire_away=rotowire_away,
+            rotowire_home=rotowire_home,
+        ),
+        "dk_away": dk_away,
+        "dk_home": dk_home,
+        "rotowire_away": rotowire_away,
+        "rotowire_home": rotowire_home,
         "notes": notes,
     }
 
@@ -189,6 +269,7 @@ def summarize_prop_market_coverage(
 __all__ = [
     "HR_EDGE_GATE_PCT",
     "TB_EDGE_GATE_PCT",
+    "TB_PARTIAL_EDGE_GATE_PCT",
     "TB_RECOMMEND_MIN_PROB_PCT",
     "TB_PARTIAL_RECOMMEND_MIN_PROB_PCT",
     "TB_TARGET_LINE",
@@ -200,5 +281,6 @@ __all__ = [
     "classify_hr_market_status",
     "classify_tb_market_status",
     "choose_recommended_prop",
+    "classify_hr_market_integrity",
     "summarize_prop_market_coverage",
 ]

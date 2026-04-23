@@ -13,6 +13,8 @@ from datetime import datetime
 from io import StringIO
 from pathlib import Path
 
+from pipeline.slate import slug_from_calendar_date
+
 OUT_DIR = Path(__file__).resolve().parent
 REPO_ROOT = OUT_DIR.parent.parent
 CANVAS_DIR = OUT_DIR.parent
@@ -123,15 +125,12 @@ def parse_args() -> argparse.Namespace:
 
 
 def resolve_slug(raw_date: str) -> str:
-    token = raw_date.strip().lower()
-    if re.fullmatch(r"\d{4}-\d{2}-\d{2}", token):
-        dt = datetime.strptime(token, "%Y-%m-%d")
-        return dt.strftime("%b").lower() + str(dt.day)
-    if re.fullmatch(r"[a-z]{3}\d{1,2}", token):
-        return token
-    raise ValueError(
-        "Invalid --date value. Use YYYY-MM-DD (e.g., 2026-04-16) or slug (e.g., apr16)."
-    )
+    try:
+        return slug_from_calendar_date(raw_date, allow_slug_passthrough=True)
+    except ValueError as exc:
+        raise ValueError(
+            "Invalid --date value. Use YYYY-MM-DD (e.g., 2026-04-16) or slug (e.g., apr16)."
+        ) from exc
 
 
 def extract_marker_block(source: str, marker_name: str) -> str | None:
