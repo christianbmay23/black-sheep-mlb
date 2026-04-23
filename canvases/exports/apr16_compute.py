@@ -21,6 +21,7 @@ from live_mlb_data import (  # noqa: E402
     fetch_fangraphs_lineups,
     fetch_fangraphs_probables,
     fetch_live_game_odds,
+    fetch_propline_hr_props,
     fetch_rotowire_lineups,
     fetch_slate_prop_markets,
     fetch_weather_snapshot,
@@ -527,8 +528,14 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
         game_key: (ctx["odds"].event_id if isinstance(ctx.get("odds"), GameOdds) else "")
         for game_key, ctx in lineup_context.items()
     }
+    propline_hr_props = fetch_propline_hr_props(REPORT_DATE, event_ids_by_game=event_ids_by_game)
     dk_hr_props = fetch_dk_hr_props(REPORT_DATE)
-    prop_market_map = fetch_slate_prop_markets(REPORT_DATE, event_ids_by_game, dk_hr_props=dk_hr_props)
+    prop_market_map = fetch_slate_prop_markets(
+        REPORT_DATE,
+        event_ids_by_game,
+        propline_hr_props=propline_hr_props,
+        dk_hr_props=dk_hr_props,
+    )
     prop_market_coverage: list[dict[str, Any]] = []
     coverage_by_game: dict[str, dict[str, Any]] = {}
     for spec in GAME_SPECS:
