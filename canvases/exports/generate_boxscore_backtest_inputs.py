@@ -14,6 +14,28 @@ from prop_backtest_tracker import alias_player_name, slug_from_date_input
 
 OUT_DIR = Path(__file__).resolve().parent
 BOX_DIR = OUT_DIR / "boxscores"
+PROP_RESULTS_HEADERS = [
+    "date",
+    "game",
+    "player",
+    "team",
+    "prop_type",
+    "line",
+    "market_odds",
+    "closing_odds",
+    "result",
+    "notes",
+    "market_odds_time",
+    "result_source",
+    "result_source_detail",
+]
+
+
+def artifact_path(path: Path) -> str:
+    try:
+        return str(path.relative_to(OUT_DIR))
+    except ValueError:
+        return str(path)
 
 
 @dataclass
@@ -61,16 +83,38 @@ def fetch_boxscore(game_pk: int) -> dict:
     return fetch_json(f"https://statsapi.mlb.com/api/v1/game/{game_pk}/boxscore")
 
 
-def save_boxscores(games: list[GameMeta], date_str: str, slug: str) -> dict[str, dict]:
+def load_cached_boxscores(slug: str) -> tuple[dict[str, dict], dict[str, str]]:
+    out_dir = BOX_DIR / slug
+    manifest_path = out_dir / "manifest.json"
+    if not manifest_path.exists():
+        return {}, {}
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    cached: dict[str, dict] = {}
+    detail: dict[str, str] = {}
+    for item in manifest:
+        game = str(item.get("game") or "").upper()
+        file_path = Path(str(item.get("file") or ""))
+        if not file_path.is_absolute():
+            file_path = out_dir / file_path
+        if not game or not file_path.exists():
+            continue
+        cached[game] = json.loads(file_path.read_text(encoding="utf-8"))
+        detail[game] = artifact_path(file_path)
+    return cached, detail
+
+
+def save_boxscores(games: list[GameMeta], date_str: str, slug: str) -> tuple[dict[str, dict], dict[str, str]]:
     out_dir = BOX_DIR / slug
     out_dir.mkdir(parents=True, exist_ok=True)
     saved: dict[str, dict] = {}
+    detail: dict[str, str] = {}
     manifest: list[dict[str, object]] = []
     for game in games:
         boxscore = fetch_boxscore(game.game_pk)
         path = out_dir / f"{game.game.replace('@', '_')}-{game.game_pk}.json"
         path.write_text(json.dumps(boxscore, indent=2, ensure_ascii=False), encoding="utf-8")
         saved[game.game] = boxscore
+        detail[game.game] = artifact_path(path)
         manifest.append(
             {
                 "report_date": date_str,
@@ -81,7 +125,7 @@ def save_boxscores(games: list[GameMeta], date_str: str, slug: str) -> dict[str,
             }
         )
     (out_dir / "manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
-    return saved
+    return saved, detail
 
 
 def parse_int(value: object) -> int:
@@ -126,6 +170,7 @@ def build_prop_results(
     results_csv: Path,
     date_str: str,
     boxscores: dict[str, dict],
+    boxscore_files: dict[str, str] | None = None,
 ) -> tuple[int, int]:
     with outlook_csv.open(newline="", encoding="utf-8") as fh:
         outlook_rows = list(csv.DictReader(fh))
@@ -139,9 +184,11 @@ def build_prop_results(
             continue
         player_stats.update(build_player_stats(game, team, boxscore))
 
+    boxscore_files = boxscore_files or {}
+
     with results_csv.open("w", newline="", encoding="utf-8") as fh:
-        writer = csv.writer(fh)
-        writer.writerow(["date", "game", "player", "team", "prop_type", "line", "market_odds", "closing_odds", "result", "notes"])
+        writer = csv.writer(fh, lineterminator="\n")
+        writer.writerow(PROP_RESULTS_HEADERS)
 
         rows_written = 0
         roi_eligible = 0
@@ -150,11 +197,15 @@ def build_prop_results(
             team = row["team"].strip().upper()
             batter = row["batter"].strip()
             stats = player_stats.get((game, team, alias_player_name(batter)))
+            result_source = "mlb_stats_api" if game in boxscores else "unavailable"
+            result_source_detail = boxscore_files.get(game, "")
 
             if stats is None:
                 hr_result = "P"
                 tb_result = "P"
                 actual_note = "player not in final boxscore"
+                if result_source == "mlb_stats_api":
+                    result_source_detail = "player_not_in_boxscore"
             else:
                 hr_result = "W" if stats["home_runs"] > 0 else "L"
                 tb_result = "W" if stats["total_bases"] >= 2 else "L"
@@ -179,6 +230,9 @@ def build_prop_results(
                     "",
                     hr_result,
                     actual_note,
+                    "pregame" if hr_market else "",
+                    result_source,
+                    result_source_detail,
                 ]
             )
             rows_written += 1
@@ -202,6 +256,9 @@ def build_prop_results(
                     "",
                     tb_result,
                     tb_note,
+                    "pregame" if tb_market_for_roi else "",
+                    result_source,
+                    result_source_detail,
                 ]
             )
             rows_written += 1
@@ -216,6 +273,7 @@ def main() -> None:
     parser.add_argument("--date", required=True, help="Date slug (apr18) or YYYY-MM-DD.")
     parser.add_argument("--outlook", type=Path, default=None, help="Override outlook CSV path.")
     parser.add_argument("--results", type=Path, default=None, help="Override generated prop-results CSV path.")
+    parser.add_argument("--refresh-boxscores", action="store_true", help="Fetch boxscores even when cached boxscore files already exist.")
     args = parser.parse_args()
 
     slug = slug_from_date_input(args.date)
@@ -230,14 +288,22 @@ def main() -> None:
     outlook_csv = args.outlook or (OUT_DIR / f"mlb-pregame-intel-{slug}-batter-outlooks.csv")
     results_csv = args.results or (OUT_DIR / f"prop_results_{slug}.csv")
 
-    games = fetch_schedule_games(date_str)
-    if not games:
-        raise SystemExit(f"No MLB games found for {date_str}.")
+    boxscores, boxscore_files = ({}, {}) if args.refresh_boxscores else load_cached_boxscores(slug)
+    if not boxscores:
+        games = fetch_schedule_games(date_str)
+        if not games:
+            raise SystemExit(f"No MLB games found for {date_str}.")
+        boxscores, boxscore_files = save_boxscores(games, date_str, slug)
+        fetched_count = len(games)
+    else:
+        fetched_count = 0
 
-    boxscores = save_boxscores(games, date_str, slug)
-    rows_written, roi_eligible = build_prop_results(outlook_csv, results_csv, date_str, boxscores)
+    rows_written, roi_eligible = build_prop_results(outlook_csv, results_csv, date_str, boxscores, boxscore_files)
 
-    print(f"Fetched {len(games)} boxscores for {date_str} ({slug}).")
+    if fetched_count:
+        print(f"Fetched {fetched_count} boxscores for {date_str} ({slug}).")
+    else:
+        print(f"Loaded {len(boxscores)} cached boxscores for {date_str} ({slug}).")
     print(f"Boxscores: {BOX_DIR / slug}")
     print(f"Prop results: {results_csv}")
     print(f"Rows written: {rows_written}")

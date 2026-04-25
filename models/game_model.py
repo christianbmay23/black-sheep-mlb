@@ -10,7 +10,9 @@ ModelConf = Literal["Low", "Medium", "High"]
 DecisionTier = Literal["A+", "A", "B", "C", "D"]
 
 Profile = list[list[str]]
-DEFAULT_MARKET_BLEND_ALPHA = 0.25
+DEFAULT_MODEL_WEIGHT_ALPHA = 0.25  # 0.25 = model gets 25% weight; market gets 75% weight.
+DEFAULT_MARKET_BLEND_ALPHA = DEFAULT_MODEL_WEIGHT_ALPHA
+WIN_PROB_SHRINKAGE_FACTOR = 1.0
 
 
 def clamp(n: float, lo: float, hi: float) -> float:
@@ -34,21 +36,20 @@ def devig_two_way(away_a: float, home_a: float) -> tuple[float, float]:
 
 
 def recalibrate_win_probability(p: float) -> float:
-    """Compress mild edges toward 50%; amplify stronger leanings before hard caps.
+    """Apply documented linear shrinkage only.
 
-    ``p`` is win probability for one side (e.g. home). Symmetric around 0.5.
+    Keep the factor at 1.0 until strict-slate calibration data justifies moving
+    probabilities toward 50%.
     """
     x = clamp(p, 0.001, 0.999) - 0.5
-    t = abs(x) / 0.5
-    gain = 0.78 + 0.72 * (t**0.82)
-    return clamp(0.5 + x * gain, 0.001, 0.999)
+    return clamp(0.5 + x * WIN_PROB_SHRINKAGE_FACTOR, 0.001, 0.999)
 
 
 def cap_win_probability(p: float, lo: float = 0.25, hi: float = 0.75) -> float:
     return clamp(p, lo, hi)
 
 
-def blend_with_market(model_prob: float, market_prob: float, *, alpha: float = DEFAULT_MARKET_BLEND_ALPHA) -> float:
+def blend_with_market(model_prob: float, market_prob: float, *, alpha: float = DEFAULT_MODEL_WEIGHT_ALPHA) -> float:
     weight = clamp(alpha, 0.0, 1.0)
     return clamp((weight * model_prob) + ((1.0 - weight) * market_prob), 0.001, 0.999)
 
@@ -59,7 +60,7 @@ def blended_win_probabilities(
     market_away: float,
     market_home: float,
     *,
-    alpha: float = DEFAULT_MARKET_BLEND_ALPHA,
+    alpha: float = DEFAULT_MODEL_WEIGHT_ALPHA,
 ) -> tuple[float, float]:
     away = blend_with_market(raw_away, market_away, alpha=alpha)
     home = blend_with_market(raw_home, market_home, alpha=alpha)
@@ -88,7 +89,7 @@ def parse_xera(profile: Profile) -> float | None:
 def starter_score(xera: float | None) -> float:
     if xera is None or math.isnan(xera):
         return 0.5
-    return clamp((4.85 - xera) / 2.85, 0, 1)
+    return clamp((5.50 - xera) / 5.00, -0.35, 1.0)
 
 
 def xera_nonlinear_margin(xa: float | None, xh: float | None) -> float:

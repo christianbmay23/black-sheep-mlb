@@ -1,5 +1,7 @@
 # Model Performance Backtest — 2026-04-15
 
+- Provenance mode: **legacy_compatibility**
+
 > Legacy compatibility mode: generated with `--allow-legacy-game-probs` from a pre-Phase-1 game CSV. This output is historical only and is not valid Phase 1 proof.
 
 ## Headline
@@ -15,10 +17,10 @@
 - Standard: current model performance must beat the market-favorite baseline before improvement claims are credible.
 
 ## Tracker by tier
-- A+: 2-1 (66.7%) | Brier 0.218 | Log loss 0.627
-- B: 0-2 (0.0%) | Brier 0.291 | Log loss 0.776
-- C: 1-0 (100.0%) | Brier 0.121 | Log loss 0.428
-- D: 4-2 (66.7%) | Brier 0.203 | Log loss 0.598
+- A+: 2-1 (66.7%) | Brier 0.218 | Log loss 0.627 | Avg edge 14.700%
+- B: 0-2 (0.0%) | Brier 0.291 | Log loss 0.776 | Avg edge 4.805%
+- C: 1-0 (100.0%) | Brier 0.121 | Log loss 0.428 | Avg edge 1.480%
+- D: 4-2 (66.7%) | Brier 0.203 | Log loss 0.598 | Avg edge -4.757%
 
 ## Tracker by confidence
 - High: 4-3 (57.1%)

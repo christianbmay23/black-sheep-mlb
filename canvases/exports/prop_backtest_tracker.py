@@ -31,6 +31,12 @@ TEMPLATE_HEADERS = [
     "result",
     "notes",
 ]
+AUDIT_HEADERS = [
+    "market_odds_time",
+    "result_source",
+    "result_source_detail",
+]
+MISSING_ODDS_VALUES = {"", "—", "na", "n/a", "none", "null"}
 
 # alias key => canonical name (normalized and punctuation-free)
 PLAYER_ALIASES = {
@@ -83,6 +89,9 @@ class TrackerRow:
     closing_line_value: float | None
     notes: str
     eval_mode: str
+    market_odds_time: str
+    result_source: str
+    result_source_detail: str
 
 
 def slug_from_date_input(date_input: str) -> str:
@@ -107,12 +116,24 @@ def alias_player_name(value: str) -> str:
 
 def parse_american(odds_value: str) -> int | None:
     text = (odds_value or "").strip().replace("−", "-")
-    if text in {"", "—", "NA", "N/A", "None", "none", "null"}:
+    if text.lower() in MISSING_ODDS_VALUES:
         return None
     try:
-        return int(text)
+        odds = int(text)
     except ValueError:
         return None
+    if abs(odds) < 100:
+        return None
+    return odds
+
+
+def has_odds_text(odds_value: str) -> bool:
+    return (odds_value or "").strip().replace("−", "-").lower() not in MISSING_ODDS_VALUES
+
+
+def append_note(notes: str, note: str) -> str:
+    clean_notes = (notes or "").strip()
+    return f"{clean_notes}; {note}" if clean_notes else note
 
 
 def implied_probability_from_american(odds: int | None) -> float | None:
@@ -155,8 +176,8 @@ def profit_loss_units(outcome: str, market_odds: int | None) -> float | None:
 
 def build_template(results_csv: Path) -> None:
     with results_csv.open("w", newline="", encoding="utf-8") as f:
-        writer = csv.writer(f)
-        writer.writerow(TEMPLATE_HEADERS)
+        writer = csv.writer(f, lineterminator="\n")
+        writer.writerow([*TEMPLATE_HEADERS, *AUDIT_HEADERS])
 
 
 def load_model_props(outlook_csv: Path) -> dict[tuple[str, str, str, str], ModelProp]:
@@ -242,8 +263,20 @@ def build_tracker_rows(
 
         market_odds_raw = (row.get("market_odds") or "").strip()
         closing_odds_raw = (row.get("closing_odds") or "").strip()
+        market_odds_time = (row.get("market_odds_time") or "").strip()
+        result_source = (row.get("result_source") or "").strip()
+        result_source_detail = (row.get("result_source_detail") or "").strip()
         market_odds = parse_american(market_odds_raw)
         closing_odds = parse_american(closing_odds_raw)
+        invalid_market_odds = has_odds_text(market_odds_raw) and market_odds is None
+        invalid_closing_odds = has_odds_text(closing_odds_raw) and closing_odds is None
+        notes = (row.get("notes") or "").strip()
+        if invalid_market_odds:
+            warnings.append(f"row {idx}: invalid market_odds '{market_odds_raw}' for {game} | {player} | {team} | {prop_type}")
+            notes = append_note(notes, f"invalid_market_odds={market_odds_raw}")
+        if invalid_closing_odds:
+            warnings.append(f"row {idx}: invalid closing_odds '{closing_odds_raw}' for {game} | {player} | {team} | {prop_type}")
+            notes = append_note(notes, f"invalid_closing_odds={closing_odds_raw}")
 
         model_probability = model.model_probability if model else None
         fair_odds = model.fair_odds if model else ""
@@ -269,7 +302,10 @@ def build_tracker_rows(
                 clv = (open_ip - close_ip) * 100
 
         pnl = profit_loss_units(outcome, market_odds)
-        eval_mode = "betting_roi" if market_odds is not None else "target_accuracy"
+        if invalid_market_odds:
+            eval_mode = "invalid_market_odds"
+        else:
+            eval_mode = "betting_roi" if market_odds is not None else "target_accuracy"
 
         output.append(
             TrackerRow(
@@ -291,8 +327,11 @@ def build_tracker_rows(
                 profit_loss_units=pnl,
                 closing_odds=closing_odds_raw,
                 closing_line_value=clv,
-                notes=(row.get("notes") or "").strip(),
+                notes=notes,
                 eval_mode=eval_mode,
+                market_odds_time=market_odds_time,
+                result_source=result_source,
+                result_source_detail=result_source_detail,
             )
         )
 
@@ -305,10 +344,14 @@ def validate_rows(rows: list[TrackerRow], unmatched_players: list[str]) -> list[
         validations.append(f"unmatched player mappings: {len(unmatched_players)}")
 
     for r in rows:
-        if r.market_odds and r.eval_mode != "betting_roi":
+        has_market_text = has_odds_text(r.market_odds)
+        has_valid_market = parse_american(r.market_odds) is not None
+        if has_valid_market and r.eval_mode != "betting_roi":
             validations.append(f"eval_mode mismatch (priced row set to target_accuracy): {r.game} {r.player} {r.prop_type}")
-        if not r.market_odds and r.eval_mode != "target_accuracy":
+        if not has_market_text and r.eval_mode != "target_accuracy":
             validations.append(f"eval_mode mismatch (unpriced row set to betting_roi): {r.game} {r.player} {r.prop_type}")
+        if has_market_text and not has_valid_market and r.eval_mode != "invalid_market_odds":
+            validations.append(f"eval_mode mismatch (invalid odds row not rejected): {r.game} {r.player} {r.prop_type}")
         if r.closing_line_value is not None and abs(r.closing_line_value) > 25:
             validations.append(f"CLV sanity check triggered (>25 pts): {r.game} {r.player} {r.prop_type} ({r.closing_line_value:.2f})")
     return validations
@@ -316,7 +359,7 @@ def validate_rows(rows: list[TrackerRow], unmatched_players: list[str]) -> list[
 
 def write_tracker(rows: list[TrackerRow], tracker_csv: Path) -> None:
     with tracker_csv.open("w", newline="", encoding="utf-8") as f:
-        writer = csv.writer(f)
+        writer = csv.writer(f, lineterminator="\n")
         writer.writerow(
             [
                 "date",
@@ -339,6 +382,9 @@ def write_tracker(rows: list[TrackerRow], tracker_csv: Path) -> None:
                 "closing_line_value",
                 "notes",
                 "evaluation_mode",
+                "market_odds_time",
+                "result_source",
+                "result_source_detail",
             ]
         )
         for r in rows:
@@ -364,6 +410,9 @@ def write_tracker(rows: list[TrackerRow], tracker_csv: Path) -> None:
                     "" if r.closing_line_value is None else f"{r.closing_line_value:.2f}",
                     r.notes,
                     r.eval_mode,
+                    r.market_odds_time,
+                    r.result_source,
+                    r.result_source_detail,
                 ]
             )
 

@@ -120,7 +120,7 @@ def choose_recommended_prop(
     hr_tier: str,
     tb2_tier: str,
 ) -> tuple[str, str]:
-    hr_qualified = hr_status in {"qualified", "qualified_partial"}
+    hr_qualified = hr_status == "qualified"
     tb_qualified = tb_status == "qualified"
     if hr_qualified and tb_qualified:
         if edge_hr_pct is not None and edge_tb_pct is not None and edge_hr_pct >= edge_tb_pct + 1.5:
@@ -181,6 +181,16 @@ def summarize_prop_market_coverage(
             else:
                 missing.append(player_name)
         return covered, sorted(missing), sorted(sources)
+
+    def latest_update(players: list[dict[str, Any]], market_key: str) -> str:
+        updates: list[str] = []
+        for player in players:
+            player_name = str(player.get("name") or "")
+            line = markets.get((normalize_player_name(player_name), market_key))
+            update = str(getattr(line, "last_update", "") or "") if line is not None else ""
+            if update:
+                updates.append(update)
+        return max(updates) if updates else ""
 
     def hr_provider_side(players: list[dict[str, Any]], provider: str) -> bool:
         for player in players:
@@ -246,6 +256,7 @@ def summarize_prop_market_coverage(
     rotowire_home = hr_provider_side(home_players, "rotowire")
     hr_sources = sorted(set(away_hr_sources + home_hr_sources))
     tb_sources = sorted(set(away_tb_sources + home_tb_sources))
+    odds = ctx.get("odds")
     notes: list[str] = []
     if pl_away and not pl_home:
         notes.append("propline_hr_home_side_missing")
@@ -283,6 +294,17 @@ def summarize_prop_market_coverage(
         "home_tb_missing": home_tb_missing,
         "hr_sources": hr_sources,
         "tb_sources": tb_sources,
+        "game_odds_source": getattr(odds, "source", "") if odds is not None else "",
+        "game_odds_last_update": getattr(odds, "last_update", "") if odds is not None else "",
+        "hr_last_update": max(
+            latest_update(away_players, "batter_home_runs"),
+            latest_update(home_players, "batter_home_runs"),
+        ),
+        "tb_last_update": max(
+            latest_update(away_players, "batter_total_bases"),
+            latest_update(home_players, "batter_total_bases"),
+        ),
+        "missing_provider_reason": ";".join(notes),
         "hr_market_integrity": hr_market_integrity,
         "hr_provider_path": classify_hr_provider_path(
             pl_away=pl_away,

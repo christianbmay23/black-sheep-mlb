@@ -14,6 +14,7 @@ from io import StringIO
 from pathlib import Path
 
 from pipeline.slate import slug_from_calendar_date
+from pipeline.inputs import load_slate_inputs
 
 OUT_DIR = Path(__file__).resolve().parent
 REPO_ROOT = OUT_DIR.parent.parent
@@ -100,6 +101,22 @@ BATTER_HEADERS = [
 
 SCORING_STATUS_SCORED = "scored"
 SCORING_STATUS_NOT_SCORED = "not_scored"
+SCORING_STATUS_SCAFFOLD_UNVERIFIED = "scaffold_unverified"
+SCORING_STATUS_DATA_BLOCKED = "data_blocked"
+MODEL_OUTPUT_FIELDS = {
+    "raw_model_away_win_pct",
+    "raw_model_home_win_pct",
+    "final_away_win_pct",
+    "final_home_win_pct",
+    "market_blend_alpha",
+    "model_away_win_pct",
+    "model_home_win_pct",
+    "edge_away_pct",
+    "edge_home_pct",
+    "prediction",
+    "decision_tier_vs_market",
+    "edge_on_pick_pct",
+}
 
 
 def parse_args() -> argparse.Namespace:
@@ -120,6 +137,11 @@ def parse_args() -> argparse.Namespace:
         "--allow-partial",
         action="store_true",
         help="Allow fallbacks when strict live-data requirements are not fully satisfied.",
+    )
+    parser.add_argument(
+        "--include-bvp",
+        action="store_true",
+        help="Opt into batter-vs-pitcher matchup history. Disabled by default because the current source is not as-of-safe for historical validation.",
     )
     return parser.parse_args()
 
@@ -161,7 +183,7 @@ def parse_csv_block(block: str | None, fallback_headers: list[str], label: str) 
 
 def write_csv(path: Path, rows: list[list[str]]) -> None:
     with path.open("w", newline="", encoding="utf-8") as fh:
-        writer = csv.writer(fh)
+        writer = csv.writer(fh, lineterminator="\n")
         writer.writerows(rows)
 
 
@@ -224,7 +246,12 @@ def game_key_for_row(row: dict[str, str]) -> str:
 
 def normalized_scoring_status(row: dict[str, object], fallback_bucket: str | None = None) -> str:
     raw = str(row.get("scoring_status") or "").strip().lower()
-    if raw in {SCORING_STATUS_SCORED, SCORING_STATUS_NOT_SCORED}:
+    if raw in {
+        SCORING_STATUS_SCORED,
+        SCORING_STATUS_NOT_SCORED,
+        SCORING_STATUS_SCAFFOLD_UNVERIFIED,
+        SCORING_STATUS_DATA_BLOCKED,
+    }:
         return raw
     bucket = str(row.get("game_status_bucket") or fallback_bucket or "").strip().lower()
     if not bucket:
@@ -236,12 +263,78 @@ def is_scored_row(row: dict[str, object], fallback_bucket: str | None = None) ->
     return normalized_scoring_status(row, fallback_bucket) == SCORING_STATUS_SCORED
 
 
+def _append_flag(existing: str, flag: str) -> str:
+    parts = [part.strip() for part in (existing or "").split(";") if part.strip()]
+    if flag not in parts:
+        parts.append(flag)
+    return ";".join(parts)
+
+
+def _is_placeholder_xera_game(spec: dict[str, object]) -> bool:
+    try:
+        return float(spec.get("away_xera")) == 4.15 and float(spec.get("home_xera")) == 4.15
+    except (TypeError, ValueError):
+        return False
+
+
+def _has_compute_refreshed_game_fields(row: dict[str, str]) -> bool:
+    return all((row.get(field) or "").strip() for field in [
+        "raw_model_away_win_pct",
+        "raw_model_home_win_pct",
+        "final_away_win_pct",
+        "final_home_win_pct",
+    ])
+
+
+def apply_scaffold_export_guard(slug: str, games_rows: list[list[str]]) -> list[str]:
+    if not games_rows:
+        return []
+    try:
+        if str(REPO_ROOT) not in sys.path:
+            sys.path.insert(0, str(REPO_ROOT))
+        slate_inputs = load_slate_inputs(slug)
+    except Exception:
+        return []
+
+    header = games_rows[0]
+    idx = {name: pos for pos, name in enumerate(header)}
+    specs = {
+        f"{str(spec.get('away', '')).upper()}@{str(spec.get('home', '')).upper()}": spec
+        for spec in slate_inputs.game_specs
+        if _is_placeholder_xera_game(spec)
+    }
+    warnings: list[str] = []
+    if not specs:
+        return warnings
+
+    for row in games_rows[1:]:
+        padded = row + [""] * (len(header) - len(row))
+        row_dict = dict(zip(header, padded[: len(header)]))
+        game_key = f"{row_dict.get('away', '').strip().upper()}@{row_dict.get('home', '').strip().upper()}"
+        if game_key not in specs or _has_compute_refreshed_game_fields(row_dict):
+            continue
+        for field in MODEL_OUTPUT_FIELDS:
+            if field in idx:
+                padded[idx[field]] = ""
+        if "decision_tier_vs_market" in idx:
+            padded[idx["decision_tier_vs_market"]] = SCORING_STATUS_SCAFFOLD_UNVERIFIED
+        if "model_confidence" in idx:
+            padded[idx["model_confidence"]] = SCORING_STATUS_SCAFFOLD_UNVERIFIED
+        if "missing_data_flags" in idx:
+            padded[idx["missing_data_flags"]] = _append_flag(padded[idx["missing_data_flags"]], "scaffold_xera_unverified")
+        if "scoring_status" in idx:
+            padded[idx["scoring_status"]] = SCORING_STATUS_SCAFFOLD_UNVERIFIED
+        row[:] = padded[: len(header)]
+        warnings.append(game_key)
+    return warnings
+
+
 def evaluation_reason_text(reason: str) -> str:
     return {
         "allow_partial": "run used allow-partial fallback mode",
         "no_games": "snapshot contains no games",
-        "contains_live_or_final_games": "snapshot includes live or final games",
         "contains_non_pregame_scored_games": "a non-pregame game was still scored",
+        "no_scored_games": "snapshot contains no scored games",
     }.get(reason, reason.replace("_", " "))
 
 
@@ -262,15 +355,22 @@ def summarize_snapshot_evaluation(
         reasons.append("contains_non_pregame_scored_games")
 
     scored_games = sum(1 for row in game_rows if is_scored_row(row))
+    blocked_games = sum(1 for row in game_rows if normalized_scoring_status(row) == SCORING_STATUS_DATA_BLOCKED)
     scored_props = sum(1 for row in prop_rows if is_scored_row(row))
+    blocked_props = sum(1 for row in prop_rows if normalized_scoring_status(row) == SCORING_STATUS_DATA_BLOCKED)
+    if scored_games <= 0:
+        reasons.append("no_scored_games")
     eligible = not reasons
     return {
         "eligible": eligible,
         "status": "eligible" if eligible else "not_evaluable",
         "reasons": reasons,
         "scored_games": scored_games,
+        "actionable_games": scored_games,
+        "blocked_games": blocked_games,
         "not_scored_games": len(game_rows) - scored_games,
         "scored_props": scored_props,
+        "blocked_props": blocked_props,
         "not_scored_props": len(prop_rows) - scored_props,
     }
 
@@ -660,17 +760,19 @@ def prop_edge_label(feature: dict[str, object]) -> str:
 
 def summary_cards_html(summary: dict[str, object], evaluation: dict[str, object]) -> str:
     cards = [
-        ("Evaluation", "Eligible" if evaluation.get("eligible") else "Not Evaluable"),
+        ("Trust Status", str(evaluation.get("trust_status") or ("strict_evaluable" if evaluation.get("eligible") else "not_evaluable"))),
         ("Pregame", str(summary.get("pregame_games", 0))),
         ("Live", str(summary.get("live_games", 0))),
         ("Final", str(summary.get("final_games", 0))),
         ("Scored Games", str(summary.get("scored_games", 0))),
+        ("Blocked Games", str(summary.get("blocked_games", 0))),
         ("Not Scored", str(summary.get("not_scored_games", 0))),
         ("Verified", str(summary.get("verified_games", 0))),
         ("Partial", str(summary.get("partial_games", 0))),
         ("Full Markets", str(summary.get("full_prop_markets", 0))),
         ("Partial Markets", str(summary.get("partial_prop_markets", 0))),
         ("Scored Props", str(summary.get("scored_props", 0))),
+        ("Blocked Props", str(summary.get("blocked_props", 0))),
     ]
     if "games_missing_odds" in summary:
         cards.append(("Missing Odds", str(summary.get("games_missing_odds", 0))))
@@ -682,6 +784,7 @@ def summary_cards_html(summary: dict[str, object], evaluation: dict[str, object]
 def evaluation_banner_html(evaluation: dict[str, object]) -> str:
     eligible = bool(evaluation.get("eligible"))
     reasons = [evaluation_reason_text(str(reason)) for reason in evaluation.get("reasons", []) if str(reason).strip()]
+    trust_status = str(evaluation.get("trust_status") or ("strict_evaluable" if eligible else "not_evaluable"))
     title = "Evaluation Eligible" if eligible else "Not Evaluable"
     body = (
         "Strict pregame snapshot: all games are pregame and scoring is evaluation-safe."
@@ -691,9 +794,22 @@ def evaluation_banner_html(evaluation: dict[str, object]) -> str:
     tone = "success" if eligible else "warning"
     return (
         f"<div class='eval-banner eval-banner-{tone}'>"
-        f"<strong>{html.escape(title)}</strong><span>{html.escape(body)}</span>"
+        f"<strong>{html.escape(title)}</strong><span><b>{html.escape(trust_status)}</b> — {html.escape(body)}</span>"
         "</div>"
     )
+
+
+def derive_trust_status(snapshot: dict | None, game_rows: list[dict[str, str]], evaluation: dict[str, object]) -> str:
+    if any(normalized_scoring_status(row) == SCORING_STATUS_SCAFFOLD_UNVERIFIED for row in game_rows):
+        return "scaffold_unverified"
+    if bool(evaluation.get("eligible")):
+        return "strict_evaluable"
+    if isinstance(snapshot, dict) and snapshot.get("allow_partial"):
+        return "partial_not_evaluable"
+    fieldset = set(game_rows[0].keys()) if game_rows else set()
+    if game_rows and not {"raw_model_away_win_pct", "final_away_win_pct"}.issubset(fieldset):
+        return "legacy_context_only"
+    return "not_evaluable"
 
 
 def diagnostics_section_html(runtime_diagnostics: list[dict[str, object]], prop_market_coverage: list[dict[str, object]]) -> str:
@@ -996,14 +1112,18 @@ def build_html(report_path: Path, slug: str, games_rows: list[list[str]], batter
             "verified_games": sum(1 for row in game_rows if row.get("verification_status") == "Verified"),
             "partial_games": sum(1 for row in game_rows if row.get("verification_status") == "Partial"),
             "scored_games": sum(1 for row in game_rows if is_scored_row(row)),
+            "actionable_games": sum(1 for row in game_rows if is_scored_row(row)),
+            "blocked_games": sum(1 for row in game_rows if normalized_scoring_status(row) == SCORING_STATUS_DATA_BLOCKED),
             "not_scored_games": sum(1 for row in game_rows if not is_scored_row(row)),
             "full_prop_markets": sum(1 for row in prop_rows if row.get("market_data_status") == "full"),
             "partial_prop_markets": sum(1 for row in prop_rows if row.get("market_data_status") == "partial"),
             "no_prop_markets": sum(1 for row in prop_rows if row.get("market_data_status") == "none"),
             "scored_props": sum(1 for row in prop_rows if is_scored_row(row)),
+            "blocked_props": sum(1 for row in prop_rows if normalized_scoring_status(row) == SCORING_STATUS_DATA_BLOCKED),
             "not_scored_props": sum(1 for row in prop_rows if not is_scored_row(row)),
         }
     evaluation = derive_evaluation(snapshot if isinstance(snapshot, dict) else None, game_rows, prop_rows)
+    evaluation["trust_status"] = derive_trust_status(snapshot if isinstance(snapshot, dict) else None, game_rows, evaluation)
 
     game_feature_map = {str(row.get("game") or "").upper(): row for row in snapshot_game_features if isinstance(row, dict)}
     prop_feature_rows = [row for row in snapshot_prop_features if isinstance(row, dict)] or [
@@ -1142,7 +1262,7 @@ def main() -> None:
             sys.path.insert(0, str(REPO_ROOT))
         from apr16_compute import run_slate_pipeline
 
-        run_slate_pipeline(slug, allow_partial=args.allow_partial)
+        run_slate_pipeline(slug, allow_partial=args.allow_partial, include_bvp=args.include_bvp)
 
     canvas_path = CANVAS_DIR / f"mlb-pregame-intel-{slug}.canvas.tsx"
     if not canvas_path.exists():
@@ -1154,6 +1274,14 @@ def main() -> None:
 
     games_rows = parse_csv_block(games_block, GAMES_HEADERS, "games-csv")
     batter_rows = parse_csv_block(batter_block, BATTER_HEADERS, "batter-outlooks-csv")
+    if not args.compute:
+        scaffold_games = apply_scaffold_export_guard(slug, games_rows)
+        if scaffold_games:
+            print(
+                "Warning: export-only scaffold xERA placeholders suppressed model outputs for: "
+                + ", ".join(scaffold_games),
+                file=sys.stderr,
+            )
 
     games_path = OUT_DIR / f"mlb-pregame-intel-{slug}-games.csv"
     batter_path = OUT_DIR / f"mlb-pregame-intel-{slug}-batter-outlooks.csv"

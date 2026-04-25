@@ -88,10 +88,15 @@ class WinProbabilityModelTests(unittest.TestCase):
         self.assertLess(m_large, m_small)
         self.assertLess(m_large, 0.0)
 
-    def test_recalibrate_pulls_mild_edges_toward_half(self):
+    def test_recalibrate_is_linear_noop_until_strict_sample_justifies_shrinkage(self):
         p_in = 0.535
         p_out = game_model.recalibrate_win_probability(p_in)
-        self.assertLess(abs(p_out - 0.5), abs(p_in - 0.5))
+        self.assertEqual(p_out, p_in)
+
+    def test_starter_score_keeps_bad_starters_differentiated(self):
+        self.assertGreater(game_model.starter_score(5.0), game_model.starter_score(6.0))
+        self.assertGreater(game_model.starter_score(6.0), game_model.starter_score(7.0))
+        self.assertLess(game_model.starter_score(7.0), 0)
 
     def test_recent_form_weight_is_light(self):
         """Same SP/lineup/park; form tilt alone should move prob only modestly."""

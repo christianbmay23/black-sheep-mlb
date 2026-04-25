@@ -11,6 +11,10 @@ from models.game_model import clamp, parse_xera, prob_to_american
 ModelConf = Literal["Low", "Medium", "High"]
 Tier = Literal["A+", "A", "B", "C", "D"]
 Profile = list[list[str]]
+BVP_HR_MIN_PA = 24
+BVP_TB_MIN_PA = 20
+RICH_FEATURE_HIGH_PRESENT_MIN = 12
+RICH_FEATURE_MEDIUM_PRESENT_MIN = 8
 
 
 def strip_accents(text: str) -> str:
@@ -153,6 +157,7 @@ def batter_hr_two_tb(
     vs_pitcher_hits: int | None = None,
     vs_pitcher_hr: int | None = None,
     vs_pitcher_total_bases: int | None = None,
+    include_bvp: bool = True,
 ) -> tuple[float, float, str, str, Tier, Tier, ModelConf]:
     row = find_lineup_row(lineup, batter)
     brl = parse_brl(row)
@@ -186,6 +191,7 @@ def batter_hr_two_tb(
     )
 
     if not use_real_features:
+        feature_slots_total = 3
         miss = 0
         if brl is None:
             miss += 1
@@ -235,6 +241,7 @@ def batter_hr_two_tb(
             opp_bullpen_score,
             starter_recent_form_score,
         )
+        feature_slots_total = len(feature_slots)
         miss = sum(value is None for value in feature_slots)
 
         platoon = platoon_hr_bump(batter_hand, pitcher_hand)
@@ -270,10 +277,10 @@ def batter_hr_two_tb(
         if starter_recent_form_score is not None:
             hr += clamp((0.5 - starter_recent_form_score) * 0.03, -0.015, 0.015)
         # Keep BvP as a small seasoning, not a driver, unless the sample is more credible.
-        if vs_pitcher_pa is not None and vs_pitcher_pa >= 12:
-            sample_weight = min(vs_pitcher_pa / 36.0, 1.0)
+        if include_bvp and vs_pitcher_pa is not None and vs_pitcher_pa >= BVP_HR_MIN_PA:
+            sample_weight = min(vs_pitcher_pa / 60.0, 1.0)
             if vs_pitcher_hr is not None:
-                hr += clamp(((vs_pitcher_hr / vs_pitcher_pa) - 0.03) * 0.12 * sample_weight, -0.012, 0.015)
+                hr += clamp(((vs_pitcher_hr / vs_pitcher_pa) - 0.03) * 0.06 * sample_weight, -0.006, 0.008)
             if (
                 vs_pitcher_ab is not None
                 and vs_pitcher_ab > 0
@@ -282,7 +289,7 @@ def batter_hr_two_tb(
             ):
                 pvb_avg = vs_pitcher_hits / vs_pitcher_ab
                 pvb_slg = vs_pitcher_total_bases / vs_pitcher_ab
-                hr += clamp((pvb_slg - 0.4) * 0.04 * sample_weight, -0.008, 0.012)
+                hr += clamp((pvb_slg - 0.4) * 0.02 * sample_weight, -0.004, 0.006)
         hr = clamp(hr + (pk - 1) * 0.024, 0.004, 0.25)
 
         tb2 = 0.16 + platoon * 1.5
@@ -321,18 +328,19 @@ def batter_hr_two_tb(
         if starter_recent_form_score is not None:
             tb2 += clamp((0.5 - starter_recent_form_score) * 0.06, -0.03, 0.03)
         if (
-            vs_pitcher_pa is not None
-            and vs_pitcher_pa >= 10
+            include_bvp
+            and vs_pitcher_pa is not None
+            and vs_pitcher_pa >= BVP_TB_MIN_PA
             and vs_pitcher_ab is not None
             and vs_pitcher_ab > 0
             and vs_pitcher_hits is not None
             and vs_pitcher_total_bases is not None
         ):
-            sample_weight = min(vs_pitcher_pa / 30.0, 1.0)
+            sample_weight = min(vs_pitcher_pa / 50.0, 1.0)
             pvb_avg = vs_pitcher_hits / vs_pitcher_ab
             pvb_slg = vs_pitcher_total_bases / vs_pitcher_ab
-            tb2 += clamp((pvb_avg - 0.245) * 0.10 * sample_weight, -0.018, 0.022)
-            tb2 += clamp((pvb_slg - 0.4) * 0.10 * sample_weight, -0.02, 0.028)
+            tb2 += clamp((pvb_avg - 0.245) * 0.05 * sample_weight, -0.009, 0.011)
+            tb2 += clamp((pvb_slg - 0.4) * 0.05 * sample_weight, -0.010, 0.014)
         tb2 = clamp(tb2 + (pk - 1) * 0.1, 0.06, 0.55)
 
     fair_hr = prob_to_american(hr)
@@ -340,8 +348,15 @@ def batter_hr_two_tb(
     th = intrinsic_tier_hr(hr)
     t2 = intrinsic_tier_2tb(tb2)
     conf: ModelConf = "Medium"
-    if miss >= 5:
-        conf = "Low"
-    elif miss == 0:
-        conf = "High"
+    present = feature_slots_total - miss
+    if use_real_features:
+        if present >= RICH_FEATURE_HIGH_PRESENT_MIN:
+            conf = "High"
+        elif present < RICH_FEATURE_MEDIUM_PRESENT_MIN:
+            conf = "Low"
+    else:
+        if miss >= 2:
+            conf = "Low"
+        elif miss == 0:
+            conf = "High"
     return hr, tb2, fair_hr, fair_2tb, th, t2, conf

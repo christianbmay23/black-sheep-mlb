@@ -2,6 +2,16 @@
 
 Research canvas + probability engine for MLB slates: implied vs model win probability, batter HR / 2+ TB fair odds, tier ladder (A+ through D). Sources of record: **MLB Stats API**, **Baseball Savant**, **RotoWire**, **Open-Meteo**, **Odds API** (moneylines + props). No FanGraphs requirement.
 
+The provider-based daily pipeline can also run without live odds:
+
+```bash
+python -m black_sheep_mlb.pipelines.run_daily_predictions --date YYYY-MM-DD --no-odds
+python -m black_sheep_mlb.pipelines.run_daily_predictions --date YYYY-MM-DD --odds-provider manual
+ODDS_API_KEY=your_key_here python -m black_sheep_mlb.pipelines.run_daily_predictions --date YYYY-MM-DD --odds-provider oddsapi --odds-max-games 6 --markets h2h,spreads,totals
+```
+
+See [`docs/data_sources.md`](docs/data_sources.md) for optional-odds settings, cache behavior, manual CSV format, and output files.
+
 ## Repository layout
 
 | Path | Purpose |
@@ -156,6 +166,12 @@ Outputs:
 - `canvases/exports/model_performance_tracker_apr15.csv`
 - `canvases/exports/model_performance_summary_apr15.md`
 
+Current tracker rows include a `provenance_mode` column:
+
+- `strict_current`: current-schema scored rows
+- `legacy_compatibility`: generated only with `--allow-legacy-game-probs`
+- `not_evaluable`: no scored current rows
+
 The script will try MLB Stats API first. If the environment blocks outbound calls, it falls back to a locally maintained result map for supported dates.
 
 ### Phase 1 proof gate
@@ -171,6 +187,30 @@ Before Phase 2, require one fresh strict pregame slate from the current compute 
 4. After that slate settles, run `python3 canvases/exports/backtest_tracker.py --date YYYY-MM-DD` without `--allow-legacy-game-probs`.
 
 Only that fresh strict slate should be used as the Phase 1 proof surface. Older legacy backtests are historical context only.
+
+Current compute disables batter-vs-pitcher matchup history by default because the MLB Stats API `vsPlayer` pull is not point-in-time safe for historical validation. Use `--include-bvp` only for an explicitly labeled exploratory live run.
+
+Validate proof snapshots before citing them:
+
+```bash
+python3 canvases/exports/validate_strict_snapshot.py --slug apr24
+```
+
+If strict compute fails, record the blocker category exactly: lineup/starter, weather, moneyline/total odds, prop market coverage, API/auth, or schema. `--allow-partial` remains available for early slates, manual scaffolding, and debugging, but those outputs are `partial_not_evaluable`.
+
+For provider diagnostics without writing slate outputs:
+
+```bash
+python3 canvases/exports/provider_health_check.py --date YYYY-MM-DD
+```
+
+For rolling game-performance review, strict-current rows are included by default:
+
+```bash
+python3 canvases/exports/aggregate_game_backtests.py
+```
+
+Export-only runs protect against scaffold inputs: if a dated `models/<slug>_inputs.py` file still contains placeholder `4.15` / `4.15` xERA values and no compute-refreshed raw/final model fields are present, game model output is suppressed and rows are marked `scaffold_unverified`.
 
 ## Prop Backtesting Workflow
 
@@ -201,7 +241,16 @@ If `canvases/exports/prop_results_apr15.csv` does not exist, the script creates 
 - `result`
 - `notes`
 
-Populate one row per tracked prop result, then rerun the same command.
+Generated result files may also include audit columns: `market_odds_time`, `result_source`, and `result_source_detail`.
+
+Prefer generated result files over manual transcription:
+
+```bash
+python3 canvases/exports/generate_boxscore_backtest_inputs.py --date YYYY-MM-DD
+python3 canvases/exports/prop_backtest_tracker.py --date YYYY-MM-DD
+```
+
+Populate one row per tracked prop result only when automated boxscore generation is unavailable, then rerun the same command. Do not fill missing closing odds unless they came from an auditable source. Invalid American odds such as `-2` or `50` are retained for audit but excluded from betting ROI.
 
 Date-driven paths are derived from `--date`:
 - Outlook: `mlb-pregame-intel-<slug>-batter-outlooks.csv`

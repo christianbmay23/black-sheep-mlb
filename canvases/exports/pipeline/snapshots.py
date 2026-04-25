@@ -7,7 +7,7 @@ parameterized so callers must pass those in explicitly.
 from __future__ import annotations
 
 import json
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -16,6 +16,7 @@ from .canvas_io import canvas_slug, rows_to_dicts
 
 SCORING_STATUS_SCORED = "scored"
 SCORING_STATUS_NOT_SCORED = "not_scored"
+SCORING_STATUS_DATA_BLOCKED = "data_blocked"
 
 
 def scoring_status_for_bucket(bucket: Any) -> str:
@@ -98,15 +99,26 @@ def summarize_snapshot_evaluation(
         reasons.append("contains_non_pregame_scored_games")
 
     scored_games = sum(1 for row in game_rows if str(row.get("scoring_status") or "").strip().lower() == SCORING_STATUS_SCORED)
+    blocked_games = sum(
+        1 for row in game_rows if str(row.get("scoring_status") or "").strip().lower() == SCORING_STATUS_DATA_BLOCKED
+    )
     scored_props = sum(1 for row in prop_rows if str(row.get("scoring_status") or "").strip().lower() == SCORING_STATUS_SCORED)
+    blocked_props = sum(
+        1 for row in prop_rows if str(row.get("scoring_status") or "").strip().lower() == SCORING_STATUS_DATA_BLOCKED
+    )
+    if scored_games <= 0:
+        reasons.append("no_scored_games")
     eligible = not reasons
     return {
         "eligible": eligible,
         "status": "eligible" if eligible else "not_evaluable",
         "reasons": reasons,
         "scored_games": scored_games,
+        "actionable_games": scored_games,
+        "blocked_games": blocked_games,
         "not_scored_games": len(game_rows) - scored_games,
         "scored_props": scored_props,
+        "blocked_props": blocked_props,
         "not_scored_props": len(prop_rows) - scored_props,
     }
 
@@ -135,7 +147,7 @@ def write_run_snapshot(
     slug = canvas_slug(path)
     snapshot_dir = snapshot_root / slug
     snapshot_dir.mkdir(parents=True, exist_ok=True)
-    run_ts = datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")
+    run_ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     game_rows = rows_to_dicts(games_rows)
     prop_rows = rows_to_dicts(batter_rows)
     evaluation = summarize_snapshot_evaluation(allow_partial, game_rows, prop_rows)
@@ -199,11 +211,14 @@ def write_run_snapshot(
             "verified_games": sum(1 for row in game_rows if row.get("verification_status") == "Verified"),
             "partial_games": sum(1 for row in game_rows if row.get("verification_status") == "Partial"),
             "scored_games": evaluation["scored_games"],
+            "actionable_games": evaluation["actionable_games"],
+            "blocked_games": evaluation["blocked_games"],
             "not_scored_games": evaluation["not_scored_games"],
             "full_prop_markets": sum(1 for row in prop_rows if row.get("market_data_status") == "full"),
             "partial_prop_markets": sum(1 for row in prop_rows if row.get("market_data_status") == "partial"),
             "no_prop_markets": sum(1 for row in prop_rows if row.get("market_data_status") == "none"),
             "scored_props": evaluation["scored_props"],
+            "blocked_props": evaluation["blocked_props"],
             "not_scored_props": evaluation["not_scored_props"],
             "games_missing_odds": sum(
                 1 for row in prop_market_coverage if "market_odds_unavailable" in list(row.get("notes") or [])
@@ -231,6 +246,7 @@ def write_run_snapshot(
 __all__ = [
     "SCORING_STATUS_SCORED",
     "SCORING_STATUS_NOT_SCORED",
+    "SCORING_STATUS_DATA_BLOCKED",
     "scoring_status_for_bucket",
     "serialize_game_odds",
     "serialize_prop_market",

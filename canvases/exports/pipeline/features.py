@@ -869,7 +869,7 @@ def build_prop_note(
     return "; ".join(parts[:3])
 
 
-def build_data_confidence(prop_conf: str, lineup_label: str, market_status: str) -> str:
+def build_data_confidence(prop_conf: str, lineup_label: str, market_status: str, *, include_bvp: bool = True) -> str:
     label_lower = lineup_label.lower()
     if "confirmed" in label_lower:
         lineup_desc = "confirmed lineup"
@@ -882,4 +882,5 @@ def build_data_confidence(prop_conf: str, lineup_label: str, market_status: str)
         "partial": "limited or misaligned live markets",
         "none": "no live markets",
     }.get(market_status, "market status unknown")
-    return f"{prop_conf} — stats+savant+recent+BvP, {lineup_desc}, {market_desc}"
+    feature_desc = "stats+savant+recent+BvP" if include_bvp else "stats+savant+recent; BvP disabled"
+    return f"{prop_conf} — {feature_desc}, {lineup_desc}, {market_desc}"

@@ -26,6 +26,7 @@ for path in (REPO_ROOT, EXPORTS_DIR):
 
 from pipeline import canvas_io, features, inputs, markets, slate, snapshots, status  # noqa: E402
 import live_mlb_data  # noqa: E402
+import build_ml_exports  # noqa: E402
 
 
 # --- Test doubles -----------------------------------------------------------
@@ -239,7 +240,7 @@ class MarketsTests(unittest.TestCase):
         )
         self.assertEqual(
             markets.choose_recommended_prop("qualified_partial", "priced_no_edge", 5.0, -1.0, "A", "C"),
-            ("HR", "A"),
+            ("", ""),
         )
         # Only TB qualified
         self.assertEqual(
@@ -449,6 +450,66 @@ class SlateTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             slate.validate_game_specs([{"away": "DET", "home": "BOS"}])
 
+    def test_export_only_scaffold_guard_suppresses_unverified_model_outputs(self):
+        rows = [
+            build_ml_exports.GAMES_HEADERS,
+            [
+                "2026-04-21",
+                "HOU",
+                "CLE",
+                "1:10 PM",
+                "Ryan Weiss",
+                "Parker Messick",
+                "110",
+                "-130",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "pregame",
+                "Pre-Game",
+                "",
+                "",
+                "",
+                "",
+                "Verified",
+                "",
+                "48",
+                "52",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "51",
+                "49",
+                "3",
+                "-3",
+                "COL",
+                "A",
+                "3",
+                "High",
+                "",
+                "Medium",
+                "scaffold",
+                "scored",
+            ],
+        ]
+        warnings = build_ml_exports.apply_scaffold_export_guard("apr21", rows)
+        self.assertIn("HOU@CLE", warnings)
+        row = dict(zip(rows[0], rows[1]))
+        self.assertEqual(row["scoring_status"], "scaffold_unverified")
+        self.assertEqual(row["model_away_win_pct"], "")
+        self.assertEqual(row["prediction"], "")
+        self.assertIn("scaffold_xera_unverified", row["missing_data_flags"])
+
 
     def test_summarize_snapshot_evaluation_eligible(self):
         games = [
@@ -480,6 +541,18 @@ class SlateTests(unittest.TestCase):
         out = snapshots.summarize_snapshot_evaluation(False, games, [])
         self.assertIn("contains_non_pregame_scored_games", out["reasons"])
         self.assertFalse(out["eligible"])
+
+    def test_summarize_snapshot_evaluation_allows_blocked_games(self):
+        games = [
+            {"game_status_bucket": "pregame", "scoring_status": "scored"},
+            {"game_status_bucket": "pregame", "scoring_status": "data_blocked"},
+        ]
+        props = [{"scoring_status": "scored"}, {"scoring_status": "data_blocked"}]
+        out = snapshots.summarize_snapshot_evaluation(False, games, props)
+        self.assertTrue(out["eligible"])
+        self.assertEqual(out["scored_games"], 1)
+        self.assertEqual(out["blocked_games"], 1)
+        self.assertEqual(out["blocked_props"], 1)
 
     def test_write_run_snapshot_writes_latest_and_timestamped(self):
         @dataclass
@@ -604,6 +677,18 @@ class SlateTests(unittest.TestCase):
                 payload["lineup_context"]["DET@BOS"]["hr_provider_path"],
                 "draftkings->rotowire",
             )
+
+
+class FeatureSummaryTests(unittest.TestCase):
+    def test_build_data_confidence_labels_disabled_bvp(self):
+        label = features.build_data_confidence(
+            "High",
+            "Confirmed lineup",
+            "full",
+            include_bvp=False,
+        )
+        self.assertIn("BvP disabled", label)
+        self.assertNotIn("recent+BvP", label)
 
 
 class LiveDataPropSourceTests(unittest.TestCase):
@@ -1047,6 +1132,7 @@ class Apr16ComputeBackCompatTests(unittest.TestCase):
             "replace_marker_region",
             "SCORING_STATUS_SCORED",
             "SCORING_STATUS_NOT_SCORED",
+            "SCORING_STATUS_DATA_BLOCKED",
             "HR_EDGE_GATE_PCT",
             "TB_EDGE_GATE_PCT",
             "TB_TARGET_LINE",
@@ -1083,6 +1169,23 @@ class Apr16ComputeBackCompatTests(unittest.TestCase):
         self.assertEqual(meta["provider_path"], ["open_meteo", "fallback_neutral"])
         self.assertEqual(meta["resolution_source"], "fallback_neutral")
 
+    def test_resolve_weather_with_fallback_uses_neutral_roof_path_for_domes(self):
+        import apr16_compute as ac
+
+        schedule_game = {
+            "venue_name": "Tropicana Field",
+            "home_location_name": "St. Petersburg",
+            "roof_type": "Dome",
+            "game_date_utc": "2026-04-21T23:10:00Z",
+        }
+        with mock.patch("apr16_compute.fetch_weather_snapshot", side_effect=RuntimeError("boom")):
+            snapshot, issue_codes, meta = ac.resolve_weather_with_fallback(schedule_game)
+
+        self.assertEqual(snapshot.source, "Fallback")
+        self.assertEqual(issue_codes, [])
+        self.assertEqual(meta["provider_path"], ["open_meteo", "roof_weather_neutral"])
+        self.assertEqual(meta["resolution_source"], "roof_weather_neutral")
+
     def test_resolve_weather_with_fallback_preserves_open_meteo_success_path(self):
         import apr16_compute as ac
 
@@ -1100,6 +1203,49 @@ class Apr16ComputeBackCompatTests(unittest.TestCase):
         self.assertEqual(issue_codes, [])
         self.assertEqual(meta["provider_path"], ["open_meteo"])
         self.assertEqual(meta["resolution_source"], "open_meteo")
+
+    def test_static_venue_aliases_cover_failed_apr24_names(self):
+        expected = {
+            "Citi Field",
+            "Tropicana Field",
+            "Rate Field",
+            "American Family Field",
+            "UNIQLO Field at Dodger Stadium",
+        }
+        for venue in expected:
+            key = live_mlb_data.normalize_venue_key(venue)
+            self.assertIn(key, live_mlb_data.VENUE_COORDS)
+
+    def test_strict_game_actionability_blocks_one_game_without_blocking_others(self):
+        import apr16_compute as ac
+
+        scored, scored_reasons = ac.strict_game_actionability(
+            game_status_bucket="pregame",
+            issues=[],
+            odds=live_mlb_data.GameOdds("e1", "DET", "BOS", -110, 100, 8.5, -110, -110, 3, "ts", "rotowire_game_odds"),
+            away_moneyline=-110,
+            home_moneyline=100,
+            away_recent_score=0.5,
+            home_recent_score=0.5,
+            away_bullpen_score=0.5,
+            home_bullpen_score=0.5,
+        )
+        blocked, blocked_reasons = ac.strict_game_actionability(
+            game_status_bucket="pregame",
+            issues=["lineup_not_posted_api"],
+            odds=live_mlb_data.GameOdds("e2", "NYY", "TOR", -120, 105, 8.0, -112, -108, 2, "ts", "draftkings"),
+            away_moneyline=-120,
+            home_moneyline=105,
+            away_recent_score=0.5,
+            home_recent_score=0.5,
+            away_bullpen_score=0.5,
+            home_bullpen_score=0.5,
+        )
+
+        self.assertEqual(scored, "scored")
+        self.assertEqual(scored_reasons, [])
+        self.assertEqual(blocked, "data_blocked")
+        self.assertEqual(blocked_reasons, ["lineup_not_posted_api"])
 
 
 if __name__ == "__main__":

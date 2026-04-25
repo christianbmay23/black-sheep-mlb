@@ -76,6 +76,7 @@ class BacktestRow:
     edge_on_pick_pct: float
     missing_data_flags: str
     rationale_summary: str
+    provenance_mode: str
 
 
 def slug_from_date_input(date_input: str) -> str:
@@ -257,11 +258,27 @@ def load_predictions(
     return date_str, [row for row in rows if is_scored_prediction_row(row)], len(rows), legacy_mode
 
 
+def snapshot_provenance_mode(slug: str) -> str:
+    snapshot_path = OUT_DIR / "snapshots" / slug / f"{slug}-latest.json"
+    if not snapshot_path.exists():
+        return "not_evaluable"
+    try:
+        payload = json.loads(snapshot_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return "not_evaluable"
+    if payload.get("evaluation_eligible") is True and payload.get("allow_partial") is False:
+        return "strict_current"
+    if payload.get("allow_partial") is True:
+        return "partial_not_evaluable"
+    return "not_evaluable"
+
+
 def build_backtest_rows(
     predictions: list[dict[str, str]],
     actual_winners: dict[str, str],
     *,
     allow_legacy_game_probs: bool,
+    provenance_mode: str,
 ) -> list[BacktestRow]:
     rows: list[BacktestRow] = []
     for pred in predictions:
@@ -291,6 +308,7 @@ def build_backtest_rows(
                 edge_on_pick_pct=parse_float(pred.get("edge_on_pick_pct", "")) or 0.0,
                 missing_data_flags=pred["missing_data_flags"],
                 rationale_summary=pred["rationale_summary"],
+                provenance_mode=provenance_mode,
             )
         )
     return rows
@@ -298,7 +316,7 @@ def build_backtest_rows(
 
 def write_tracker_csv(rows: list[BacktestRow], date_str: str, tracker_csv: Path) -> None:
     with tracker_csv.open("w", newline="", encoding="utf-8") as f:
-        writer = csv.writer(f)
+        writer = csv.writer(f, lineterminator="\n")
         writer.writerow(
             [
                 "report_date",
@@ -313,6 +331,7 @@ def write_tracker_csv(rows: list[BacktestRow], date_str: str, tracker_csv: Path)
                 "decision_tier",
                 "edge_on_pick_pct",
                 "missing_data_flags",
+                "provenance_mode",
             ]
         )
         for r in rows:
@@ -330,6 +349,7 @@ def write_tracker_csv(rows: list[BacktestRow], date_str: str, tracker_csv: Path)
                     r.decision_tier,
                     f"{r.edge_on_pick_pct:.2f}",
                     r.missing_data_flags,
+                    r.provenance_mode,
                 ]
             )
 
@@ -345,8 +365,11 @@ def log_loss(rows: list[BacktestRow]) -> float | None:
     scored = [r for r in rows if r.actual_winner and r.predicted_win_prob is not None]
     if not scored:
         return None
+    def clipped(prob: float) -> float:
+        return min(max(prob, 0.001), 0.999)
+
     return mean(
-        -(math.log(r.predicted_win_prob) if r.was_correct else math.log(1.0 - r.predicted_win_prob))
+        -(math.log(clipped(r.predicted_win_prob)) if r.was_correct else math.log(1.0 - clipped(r.predicted_win_prob)))
         for r in scored
     )
 
@@ -402,6 +425,7 @@ def summarize(rows: list[BacktestRow]) -> dict[str, object]:
                 "record": format_record(tier_rows),
                 "brier_score": brier_score(tier_rows),
                 "log_loss": log_loss(tier_rows),
+                "avg_edge": mean(r.edge_on_pick_pct for r in tier_rows) if tier_rows else None,
             }
             for tier, tier_rows in by_tier.items()
         },
@@ -476,6 +500,7 @@ def write_summary(
     summary_md: Path,
     *,
     legacy_mode: bool,
+    provenance_mode: str,
 ) -> None:
     by_tier = summary["by_tier"]
     by_conf = summary["by_conf"]
@@ -485,6 +510,8 @@ def write_summary(
 
     lines: list[str] = []
     lines.append(f"# Model Performance Backtest — {date_str}")
+    lines.append("")
+    lines.append(f"- Provenance mode: **{provenance_mode}**")
     lines.append("")
     if legacy_mode:
         lines.append(
@@ -518,7 +545,7 @@ def write_summary(
         if rows:
             metrics = tier_metrics.get(tier, {})
             lines.append(
-                f"- {tier}: {format_record(rows)} | Brier {format_metric(metrics.get('brier_score'))} | Log loss {format_metric(metrics.get('log_loss'))}"
+                f"- {tier}: {format_record(rows)} | Brier {format_metric(metrics.get('brier_score'))} | Log loss {format_metric(metrics.get('log_loss'))} | Avg edge {format_metric(metrics.get('avg_edge'))}%"
             )
     lines.append("")
 
@@ -592,16 +619,20 @@ def main() -> None:
         csv_path,
         allow_legacy_game_probs=args.allow_legacy_game_probs,
     )
+    provenance_mode = "legacy_compatibility" if legacy_mode else snapshot_provenance_mode(slug)
+    if not legacy_mode and provenance_mode != "strict_current":
+        predictions = []
     actual_winners, source = resolve_actual_winners(date_str)
     backtest_rows = build_backtest_rows(
         predictions,
         actual_winners,
         allow_legacy_game_probs=legacy_mode,
+        provenance_mode=provenance_mode,
     )
 
     write_tracker_csv(backtest_rows, date_str, tracker_csv)
     summary = summarize(backtest_rows)
-    write_summary(date_str, summary, summary_md, legacy_mode=legacy_mode)
+    write_summary(date_str, summary, summary_md, legacy_mode=legacy_mode, provenance_mode=provenance_mode)
 
     print(f"Backtest complete for {date_str} ({slug}).")
     print(f"Tracker: {tracker_csv}")

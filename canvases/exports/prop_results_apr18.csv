@@ -1,541 +1,541 @@
-date,game,player,team,prop_type,line,market_odds,closing_odds,result,notes
-2026-04-18,KC@NYY,Maikel Garcia,KC,HR,0.5,700,,L,"1 H, 2 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,KC@NYY,Maikel Garcia,KC,2+ TB,1.5,128,,W,"1 H, 2 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,KC@NYY,Bobby Witt Jr.,KC,HR,0.5,420,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,KC@NYY,Bobby Witt Jr.,KC,2+ TB,1.5,-105,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,KC@NYY,Vinnie Pasquantino,KC,HR,0.5,600,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,KC@NYY,Vinnie Pasquantino,KC,2+ TB,1.5,160,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,KC@NYY,Jac Caglianone,KC,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,KC@NYY,Jac Caglianone,KC,2+ TB,1.5,100,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,KC@NYY,Carter Jensen,KC,HR,0.5,,,W,"2 H, 5 TB, 1 HR, 2 R, 2 RBI"
-2026-04-18,KC@NYY,Carter Jensen,KC,2+ TB,1.5,100,,W,"2 H, 5 TB, 1 HR, 2 R, 2 RBI"
-2026-04-18,KC@NYY,Michael Massey,KC,HR,0.5,900,,L,"1 H, 2 TB, 0 HR, 0 R, 2 RBI"
-2026-04-18,KC@NYY,Michael Massey,KC,2+ TB,1.5,220,,W,"1 H, 2 TB, 0 HR, 0 R, 2 RBI"
-2026-04-18,KC@NYY,Isaac Collins,KC,HR,0.5,820,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,KC@NYY,Isaac Collins,KC,2+ TB,1.5,205,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,KC@NYY,Lane Thomas,KC,HR,0.5,790,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,KC@NYY,Lane Thomas,KC,2+ TB,1.5,190,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,KC@NYY,Kyle Isbel,KC,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,KC@NYY,Kyle Isbel,KC,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,KC@NYY,Amed Rosario,NYY,HR,0.5,,,W,"2 H, 5 TB, 1 HR, 2 R, 3 RBI"
-2026-04-18,KC@NYY,Amed Rosario,NYY,2+ TB,1.5,170,,W,"2 H, 5 TB, 1 HR, 2 R, 3 RBI"
-2026-04-18,KC@NYY,Aaron Judge,NYY,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,KC@NYY,Aaron Judge,NYY,2+ TB,1.5,120,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,KC@NYY,Cody Bellinger,NYY,HR,0.5,,,W,"3 H, 9 TB, 2 HR, 2 R, 5 RBI"
-2026-04-18,KC@NYY,Cody Bellinger,NYY,2+ TB,1.5,145,,W,"3 H, 9 TB, 2 HR, 2 R, 5 RBI"
-2026-04-18,KC@NYY,Giancarlo Stanton,NYY,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,KC@NYY,Giancarlo Stanton,NYY,2+ TB,1.5,150,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,KC@NYY,Ben Rice,NYY,HR,0.5,,,W,"1 H, 4 TB, 1 HR, 1 R, 1 RBI"
-2026-04-18,KC@NYY,Ben Rice,NYY,2+ TB,1.5,145,,W,"1 H, 4 TB, 1 HR, 1 R, 1 RBI"
-2026-04-18,KC@NYY,Randal Grichuk,NYY,HR,0.5,,,L,"1 H, 2 TB, 0 HR, 1 R, 1 RBI"
-2026-04-18,KC@NYY,Randal Grichuk,NYY,2+ TB,1.5,150,,W,"1 H, 2 TB, 0 HR, 1 R, 1 RBI"
-2026-04-18,KC@NYY,Jazz Chisholm Jr.,NYY,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,KC@NYY,Jazz Chisholm Jr.,NYY,2+ TB,1.5,100,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,KC@NYY,José Caballero,NYY,HR,0.5,,,L,"2 H, 2 TB, 0 HR, 3 R, 0 RBI"
-2026-04-18,KC@NYY,José Caballero,NYY,2+ TB,1.5,270,,W,"2 H, 2 TB, 0 HR, 3 R, 0 RBI"
-2026-04-18,KC@NYY,J.C. Escarra,NYY,HR,0.5,,,L,"2 H, 5 TB, 0 HR, 2 R, 3 RBI"
-2026-04-18,KC@NYY,J.C. Escarra,NYY,2+ TB,1.5,,,W,"2 H, 5 TB, 0 HR, 2 R, 3 RBI"
-2026-04-18,CIN@MIN,TJ Friedl,CIN,HR,0.5,1000,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,CIN@MIN,TJ Friedl,CIN,2+ TB,1.5,205,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,CIN@MIN,Will Benson,CIN,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,CIN@MIN,Will Benson,CIN,2+ TB,1.5,150,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,CIN@MIN,Elly De La Cruz,CIN,HR,0.5,525,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,CIN@MIN,Elly De La Cruz,CIN,2+ TB,1.5,160,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,CIN@MIN,Sal Stewart,CIN,HR,0.5,525,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,CIN@MIN,Sal Stewart,CIN,2+ TB,1.5,170,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,CIN@MIN,Eugenio Suárez,CIN,HR,0.5,,,L,"2 H, 3 TB, 0 HR, 2 R, 0 RBI"
-2026-04-18,CIN@MIN,Eugenio Suárez,CIN,2+ TB,1.5,100,,W,"2 H, 3 TB, 0 HR, 2 R, 0 RBI"
-2026-04-18,CIN@MIN,Nathaniel Lowe,CIN,HR,0.5,,,L,"2 H, 3 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,CIN@MIN,Nathaniel Lowe,CIN,2+ TB,1.5,,,W,"2 H, 3 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,CIN@MIN,Tyler Stephenson,CIN,HR,0.5,525,,L,"1 H, 1 TB, 0 HR, 0 R, 2 RBI"
-2026-04-18,CIN@MIN,Tyler Stephenson,CIN,2+ TB,1.5,148,,L,"1 H, 1 TB, 0 HR, 0 R, 2 RBI"
-2026-04-18,CIN@MIN,Rece Hinds,CIN,HR,0.5,430,,L,"1 H, 1 TB, 0 HR, 1 R, 1 RBI"
-2026-04-18,CIN@MIN,Rece Hinds,CIN,2+ TB,1.5,150,,L,"1 H, 1 TB, 0 HR, 1 R, 1 RBI"
-2026-04-18,CIN@MIN,Ke'Bryan Hayes,CIN,HR,0.5,950,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,CIN@MIN,Ke'Bryan Hayes,CIN,2+ TB,1.5,210,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,CIN@MIN,Byron Buxton,MIN,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,CIN@MIN,Byron Buxton,MIN,2+ TB,1.5,-151,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,CIN@MIN,Austin Martin,MIN,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 2 R, 0 RBI"
-2026-04-18,CIN@MIN,Austin Martin,MIN,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 2 R, 0 RBI"
-2026-04-18,CIN@MIN,Josh Bell,MIN,HR,0.5,,,L,"2 H, 2 TB, 0 HR, 2 R, 0 RBI"
-2026-04-18,CIN@MIN,Josh Bell,MIN,2+ TB,1.5,192,,W,"2 H, 2 TB, 0 HR, 2 R, 0 RBI"
-2026-04-18,CIN@MIN,Ryan Jeffers,MIN,HR,0.5,,,L,"1 H, 3 TB, 0 HR, 0 R, 2 RBI"
-2026-04-18,CIN@MIN,Ryan Jeffers,MIN,2+ TB,1.5,,,W,"1 H, 3 TB, 0 HR, 0 R, 2 RBI"
-2026-04-18,CIN@MIN,Luke Keaschall,MIN,HR,0.5,,,L,"2 H, 3 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,CIN@MIN,Luke Keaschall,MIN,2+ TB,1.5,162,,W,"2 H, 3 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,CIN@MIN,Trevor Larnach,MIN,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,CIN@MIN,Trevor Larnach,MIN,2+ TB,1.5,228,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,CIN@MIN,Brooks Lee,MIN,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,CIN@MIN,Brooks Lee,MIN,2+ TB,1.5,180,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,CIN@MIN,Ryan Kreidler,MIN,HR,0.5,,,L,"1 H, 2 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,CIN@MIN,Ryan Kreidler,MIN,2+ TB,1.5,,,W,"1 H, 2 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,CIN@MIN,Tristan Gray,MIN,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,CIN@MIN,Tristan Gray,MIN,2+ TB,1.5,200,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,NYM@CHC,Carson Benge,NYM,HR,0.5,1150,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,NYM@CHC,Carson Benge,NYM,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI; market line 0.5 excluded from 2+ TB ROI"
-2026-04-18,NYM@CHC,Bo Bichette,NYM,HR,0.5,975,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,NYM@CHC,Bo Bichette,NYM,2+ TB,1.5,160,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,NYM@CHC,Francisco Lindor,NYM,HR,0.5,700,,L,"2 H, 2 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,NYM@CHC,Francisco Lindor,NYM,2+ TB,1.5,210,,W,"2 H, 2 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,NYM@CHC,Luis Robert Jr.,NYM,HR,0.5,588,,L,"2 H, 3 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,NYM@CHC,Luis Robert Jr.,NYM,2+ TB,1.5,145,,W,"2 H, 3 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,NYM@CHC,MJ Melendez,NYM,HR,0.5,575,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,NYM@CHC,MJ Melendez,NYM,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI; market line 0.5 excluded from 2+ TB ROI"
-2026-04-18,NYM@CHC,Francisco Alvarez,NYM,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,NYM@CHC,Francisco Alvarez,NYM,2+ TB,1.5,50,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,NYM@CHC,Mark Vientos,NYM,HR,0.5,625,,W,"1 H, 4 TB, 1 HR, 1 R, 1 RBI"
-2026-04-18,NYM@CHC,Mark Vientos,NYM,2+ TB,1.5,170,,W,"1 H, 4 TB, 1 HR, 1 R, 1 RBI"
-2026-04-18,NYM@CHC,Brett Baty,NYM,HR,0.5,900,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,NYM@CHC,Brett Baty,NYM,2+ TB,1.5,260,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,NYM@CHC,Marcus Semien,NYM,HR,0.5,800,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,NYM@CHC,Marcus Semien,NYM,2+ TB,1.5,175,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,NYM@CHC,Nico Hoerner,CHC,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,NYM@CHC,Nico Hoerner,CHC,2+ TB,1.5,170,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,NYM@CHC,Michael Busch,CHC,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,NYM@CHC,Michael Busch,CHC,2+ TB,1.5,128,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,NYM@CHC,Alex Bregman,CHC,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,NYM@CHC,Alex Bregman,CHC,2+ TB,1.5,130,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,NYM@CHC,Ian Happ,CHC,HR,0.5,,,W,"1 H, 4 TB, 1 HR, 2 R, 1 RBI"
-2026-04-18,NYM@CHC,Ian Happ,CHC,2+ TB,1.5,148,,W,"1 H, 4 TB, 1 HR, 2 R, 1 RBI"
-2026-04-18,NYM@CHC,Seiya Suzuki,CHC,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,NYM@CHC,Seiya Suzuki,CHC,2+ TB,1.5,140,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,NYM@CHC,Moisés Ballesteros,CHC,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,NYM@CHC,Moisés Ballesteros,CHC,2+ TB,1.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI; market line 0.5 excluded from 2+ TB ROI"
-2026-04-18,NYM@CHC,Miguel Amaya,CHC,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,NYM@CHC,Miguel Amaya,CHC,2+ TB,1.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,NYM@CHC,Pete Crow-Armstrong,CHC,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,NYM@CHC,Pete Crow-Armstrong,CHC,2+ TB,1.5,160,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,NYM@CHC,Dansby Swanson,CHC,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,NYM@CHC,Dansby Swanson,CHC,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI; market line 0.5 excluded from 2+ TB ROI"
-2026-04-18,TB@PIT,Chandler Simpson,TB,HR,0.5,2000,,L,"2 H, 2 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TB@PIT,Chandler Simpson,TB,2+ TB,1.5,-103,,W,"2 H, 2 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TB@PIT,Junior Caminero,TB,HR,0.5,1025,,L,"2 H, 3 TB, 0 HR, 1 R, 1 RBI"
-2026-04-18,TB@PIT,Junior Caminero,TB,2+ TB,1.5,372,,W,"2 H, 3 TB, 0 HR, 1 R, 1 RBI"
-2026-04-18,TB@PIT,Jonathan Aranda,TB,HR,0.5,1350,,L,"2 H, 2 TB, 0 HR, 1 R, 1 RBI"
-2026-04-18,TB@PIT,Jonathan Aranda,TB,2+ TB,1.5,405,,W,"2 H, 2 TB, 0 HR, 1 R, 1 RBI"
-2026-04-18,TB@PIT,Yandy Díaz,TB,HR,0.5,1250,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,TB@PIT,Yandy Díaz,TB,2+ TB,1.5,245,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,TB@PIT,Jake Fraley,TB,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TB@PIT,Jake Fraley,TB,2+ TB,1.5,50,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TB@PIT,Cedric Mullins,TB,HR,0.5,1150,,W,"2 H, 5 TB, 1 HR, 1 R, 3 RBI"
-2026-04-18,TB@PIT,Cedric Mullins,TB,2+ TB,1.5,290,,W,"2 H, 5 TB, 1 HR, 1 R, 3 RBI"
-2026-04-18,TB@PIT,Richie Palacios,TB,HR,0.5,1600,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TB@PIT,Richie Palacios,TB,2+ TB,1.5,420,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TB@PIT,Hunter Feduccia,TB,HR,0.5,2000,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,TB@PIT,Hunter Feduccia,TB,2+ TB,1.5,475,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,TB@PIT,Taylor Walls,TB,HR,0.5,2700,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,TB@PIT,Taylor Walls,TB,2+ TB,1.5,490,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,TB@PIT,Oneil Cruz,PIT,HR,0.5,,,L,"1 H, 2 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TB@PIT,Oneil Cruz,PIT,2+ TB,1.5,232,,W,"1 H, 2 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TB@PIT,Brandon Lowe,PIT,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,TB@PIT,Brandon Lowe,PIT,2+ TB,1.5,100,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,TB@PIT,Bryan Reynolds,PIT,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,TB@PIT,Bryan Reynolds,PIT,2+ TB,1.5,420,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,TB@PIT,Ryan O'Hearn,PIT,HR,0.5,,,W,"2 H, 5 TB, 1 HR, 2 R, 2 RBI"
-2026-04-18,TB@PIT,Ryan O'Hearn,PIT,2+ TB,1.5,150,,W,"2 H, 5 TB, 1 HR, 2 R, 2 RBI"
-2026-04-18,TB@PIT,Marcell Ozuna,PIT,HR,0.5,,,W,"2 H, 5 TB, 1 HR, 1 R, 2 RBI"
-2026-04-18,TB@PIT,Marcell Ozuna,PIT,2+ TB,1.5,100,,W,"2 H, 5 TB, 1 HR, 1 R, 2 RBI"
-2026-04-18,TB@PIT,Nick Yorke,PIT,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 1 R, 1 RBI"
-2026-04-18,TB@PIT,Nick Yorke,PIT,2+ TB,1.5,275,,L,"1 H, 1 TB, 0 HR, 1 R, 1 RBI"
-2026-04-18,TB@PIT,Spencer Horwitz,PIT,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TB@PIT,Spencer Horwitz,PIT,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TB@PIT,Konnor Griffin,PIT,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 2 RBI"
-2026-04-18,TB@PIT,Konnor Griffin,PIT,2+ TB,1.5,290,,L,"1 H, 1 TB, 0 HR, 0 R, 2 RBI"
-2026-04-18,TB@PIT,Henry Davis,PIT,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TB@PIT,Henry Davis,PIT,2+ TB,1.5,100,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,SF@WSH,Willy Adames,SF,HR,0.5,800,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,SF@WSH,Willy Adames,SF,2+ TB,1.5,225,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,SF@WSH,Luis Arraez,SF,HR,0.5,2100,,L,"2 H, 2 TB, 0 HR, 2 R, 0 RBI"
-2026-04-18,SF@WSH,Luis Arraez,SF,2+ TB,1.5,230,,W,"2 H, 2 TB, 0 HR, 2 R, 0 RBI"
-2026-04-18,SF@WSH,Matt Chapman,SF,HR,0.5,825,,L,"2 H, 2 TB, 0 HR, 1 R, 1 RBI"
-2026-04-18,SF@WSH,Matt Chapman,SF,2+ TB,1.5,-111,,W,"2 H, 2 TB, 0 HR, 1 R, 1 RBI"
-2026-04-18,SF@WSH,Rafael Devers,SF,HR,0.5,700,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,SF@WSH,Rafael Devers,SF,2+ TB,1.5,-110,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,SF@WSH,Casey Schmitt,SF,HR,0.5,1200,,L,"2 H, 3 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,SF@WSH,Casey Schmitt,SF,2+ TB,1.5,312,,W,"2 H, 3 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,SF@WSH,Jung Hoo Lee,SF,HR,0.5,1300,,L,"2 H, 2 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,SF@WSH,Jung Hoo Lee,SF,2+ TB,1.5,170,,W,"2 H, 2 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,SF@WSH,Heliot Ramos,SF,HR,0.5,850,,W,"3 H, 7 TB, 1 HR, 2 R, 2 RBI"
-2026-04-18,SF@WSH,Heliot Ramos,SF,2+ TB,1.5,192,,W,"3 H, 7 TB, 1 HR, 2 R, 2 RBI"
-2026-04-18,SF@WSH,Drew Gilbert,SF,HR,0.5,1400,,L,"2 H, 2 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,SF@WSH,Drew Gilbert,SF,2+ TB,1.5,-2,,W,"2 H, 2 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,SF@WSH,Patrick Bailey,SF,HR,0.5,1300,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,SF@WSH,Patrick Bailey,SF,2+ TB,1.5,275,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,SF@WSH,James Wood,WSH,HR,0.5,,,W,"1 H, 4 TB, 1 HR, 3 R, 2 RBI"
-2026-04-18,SF@WSH,James Wood,WSH,2+ TB,1.5,150,,W,"1 H, 4 TB, 1 HR, 3 R, 2 RBI"
-2026-04-18,SF@WSH,Luis García Jr.,WSH,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 2 RBI"
-2026-04-18,SF@WSH,Luis García Jr.,WSH,2+ TB,1.5,255,,L,"1 H, 1 TB, 0 HR, 0 R, 2 RBI"
-2026-04-18,SF@WSH,José Tena,WSH,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,SF@WSH,José Tena,WSH,2+ TB,1.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,SF@WSH,CJ Abrams,WSH,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,SF@WSH,CJ Abrams,WSH,2+ TB,1.5,202,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,SF@WSH,Jacob Young,WSH,HR,0.5,,,L,"2 H, 2 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,SF@WSH,Jacob Young,WSH,2+ TB,1.5,-115,,W,"2 H, 2 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,SF@WSH,Daylen Lile,WSH,HR,0.5,,,L,"2 H, 3 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,SF@WSH,Daylen Lile,WSH,2+ TB,1.5,150,,W,"2 H, 3 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,SF@WSH,Nasim Nuñez,WSH,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,SF@WSH,Nasim Nuñez,WSH,2+ TB,1.5,325,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,SF@WSH,Jorbit Vivas,WSH,HR,0.5,,,L,"1 H, 2 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,SF@WSH,Jorbit Vivas,WSH,2+ TB,1.5,100,,W,"1 H, 2 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,SF@WSH,Drew Millas,WSH,HR,0.5,,,L,"1 H, 2 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,SF@WSH,Drew Millas,WSH,2+ TB,1.5,,,W,"1 H, 2 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,CWS@ATH,Andrew Benintendi,CWS,HR,0.5,,,W,"1 H, 4 TB, 1 HR, 1 R, 3 RBI"
-2026-04-18,CWS@ATH,Andrew Benintendi,CWS,2+ TB,1.5,,,W,"1 H, 4 TB, 1 HR, 1 R, 3 RBI"
-2026-04-18,CWS@ATH,Munetaka Murakami,CWS,HR,0.5,372,,W,"1 H, 4 TB, 1 HR, 1 R, 1 RBI"
-2026-04-18,CWS@ATH,Munetaka Murakami,CWS,2+ TB,1.5,124,,W,"1 H, 4 TB, 1 HR, 1 R, 1 RBI"
-2026-04-18,CWS@ATH,Miguel Vargas,CWS,HR,0.5,562,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,CWS@ATH,Miguel Vargas,CWS,2+ TB,1.5,127,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,CWS@ATH,Colson Montgomery,CWS,HR,0.5,418,,W,"1 H, 4 TB, 1 HR, 1 R, 1 RBI"
-2026-04-18,CWS@ATH,Colson Montgomery,CWS,2+ TB,1.5,126,,W,"1 H, 4 TB, 1 HR, 1 R, 1 RBI"
-2026-04-18,CWS@ATH,Everson Pereira,CWS,HR,0.5,665,,L,"2 H, 4 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,CWS@ATH,Everson Pereira,CWS,2+ TB,1.5,150,,W,"2 H, 4 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,CWS@ATH,Sam Antonacci,CWS,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,CWS@ATH,Sam Antonacci,CWS,2+ TB,1.5,100,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,CWS@ATH,Chase Meidroth,CWS,HR,0.5,975,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,CWS@ATH,Chase Meidroth,CWS,2+ TB,1.5,128,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,CWS@ATH,Tristan Peters,CWS,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,CWS@ATH,Tristan Peters,CWS,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,CWS@ATH,Reese McGuire,CWS,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 1 R, 1 RBI"
-2026-04-18,CWS@ATH,Reese McGuire,CWS,2+ TB,1.5,,,L,"1 H, 1 TB, 0 HR, 1 R, 1 RBI"
-2026-04-18,CWS@ATH,Jeff McNeil,ATH,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,CWS@ATH,Jeff McNeil,ATH,2+ TB,1.5,50,,L,"0 H, 0 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,CWS@ATH,Shea Langeliers,ATH,HR,0.5,,,L,"2 H, 2 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,CWS@ATH,Shea Langeliers,ATH,2+ TB,1.5,-116,,W,"2 H, 2 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,CWS@ATH,Nick Kurtz,ATH,HR,0.5,,,W,"2 H, 5 TB, 1 HR, 1 R, 2 RBI"
-2026-04-18,CWS@ATH,Nick Kurtz,ATH,2+ TB,1.5,127,,W,"2 H, 5 TB, 1 HR, 1 R, 2 RBI"
-2026-04-18,CWS@ATH,Tyler Soderstrom,ATH,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,CWS@ATH,Tyler Soderstrom,ATH,2+ TB,1.5,135,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,CWS@ATH,Jacob Wilson,ATH,HR,0.5,,,W,"2 H, 5 TB, 1 HR, 2 R, 1 RBI"
-2026-04-18,CWS@ATH,Jacob Wilson,ATH,2+ TB,1.5,-110,,W,"2 H, 5 TB, 1 HR, 2 R, 1 RBI"
-2026-04-18,CWS@ATH,Carlos Cortes,ATH,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,CWS@ATH,Carlos Cortes,ATH,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,CWS@ATH,Max Muncy,ATH,HR,0.5,,,L,"1 H, 3 TB, 0 HR, 1 R, 1 RBI"
-2026-04-18,CWS@ATH,Max Muncy,ATH,2+ TB,1.5,127,,W,"1 H, 3 TB, 0 HR, 1 R, 1 RBI"
-2026-04-18,CWS@ATH,Lawrence Butler,ATH,HR,0.5,,,L,"1 H, 2 TB, 0 HR, 1 R, 1 RBI"
-2026-04-18,CWS@ATH,Lawrence Butler,ATH,2+ TB,1.5,,,W,"1 H, 2 TB, 0 HR, 1 R, 1 RBI"
-2026-04-18,CWS@ATH,Austin Wynns,ATH,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,CWS@ATH,Austin Wynns,ATH,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,DET@BOS,Kevin McGonigle,DET,HR,0.5,,,L,"2 H, 2 TB, 0 HR, 1 R, 1 RBI"
-2026-04-18,DET@BOS,Kevin McGonigle,DET,2+ TB,1.5,150,,W,"2 H, 2 TB, 0 HR, 1 R, 1 RBI"
-2026-04-18,DET@BOS,Gleyber Torres,DET,HR,0.5,800,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,DET@BOS,Gleyber Torres,DET,2+ TB,1.5,154,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,DET@BOS,Colt Keith,DET,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,DET@BOS,Colt Keith,DET,2+ TB,1.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,DET@BOS,Riley Greene,DET,HR,0.5,1000,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,DET@BOS,Riley Greene,DET,2+ TB,1.5,198,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,DET@BOS,Spencer Torkelson,DET,HR,0.5,700,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,DET@BOS,Spencer Torkelson,DET,2+ TB,1.5,185,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,DET@BOS,Kerry Carpenter,DET,HR,0.5,,,W,"2 H, 5 TB, 1 HR, 1 R, 2 RBI"
-2026-04-18,DET@BOS,Kerry Carpenter,DET,2+ TB,1.5,,,W,"2 H, 5 TB, 1 HR, 1 R, 2 RBI"
-2026-04-18,DET@BOS,Wenceel Pérez,DET,HR,0.5,710,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,DET@BOS,Wenceel Pérez,DET,2+ TB,1.5,166,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,DET@BOS,Javier Báez,DET,HR,0.5,1070,,L,"1 H, 2 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,DET@BOS,Javier Báez,DET,2+ TB,1.5,200,,W,"1 H, 2 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,DET@BOS,Jake Rogers,DET,HR,0.5,,,L,"1 H, 2 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,DET@BOS,Jake Rogers,DET,2+ TB,1.5,,,W,"1 H, 2 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,DET@BOS,Roman Anthony,BOS,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,DET@BOS,Roman Anthony,BOS,2+ TB,1.5,164,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,DET@BOS,Andruw Monasterio,BOS,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,DET@BOS,Andruw Monasterio,BOS,2+ TB,1.5,153,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,DET@BOS,Willson Contreras,BOS,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,DET@BOS,Willson Contreras,BOS,2+ TB,1.5,147,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,DET@BOS,Trevor Story,BOS,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,DET@BOS,Trevor Story,BOS,2+ TB,1.5,132,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,DET@BOS,Wilyer Abreu,BOS,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,DET@BOS,Wilyer Abreu,BOS,2+ TB,1.5,135,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,DET@BOS,Ceddanne Rafaela,BOS,HR,0.5,,,L,"1 H, 2 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,DET@BOS,Ceddanne Rafaela,BOS,2+ TB,1.5,150,,W,"1 H, 2 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,DET@BOS,Caleb Durbin,BOS,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,DET@BOS,Caleb Durbin,BOS,2+ TB,1.5,195,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,DET@BOS,Connor Wong,BOS,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,DET@BOS,Connor Wong,BOS,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,DET@BOS,Isiah Kiner-Falefa,BOS,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,DET@BOS,Isiah Kiner-Falefa,BOS,2+ TB,1.5,202,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,MIL@MIA,Sal Frelick,MIL,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,MIL@MIA,Sal Frelick,MIL,2+ TB,1.5,150,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,MIL@MIA,William Contreras,MIL,HR,0.5,,,L,"1 H, 2 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,MIL@MIA,William Contreras,MIL,2+ TB,1.5,150,,W,"1 H, 2 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,MIL@MIA,Brice Turang,MIL,HR,0.5,1300,,W,"2 H, 5 TB, 1 HR, 1 R, 3 RBI"
-2026-04-18,MIL@MIA,Brice Turang,MIL,2+ TB,1.5,230,,W,"2 H, 5 TB, 1 HR, 1 R, 3 RBI"
-2026-04-18,MIL@MIA,Gary Sánchez,MIL,HR,0.5,650,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,MIL@MIA,Gary Sánchez,MIL,2+ TB,1.5,280,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,MIL@MIA,Jake Bauers,MIL,HR,0.5,700,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,MIL@MIA,Jake Bauers,MIL,2+ TB,1.5,300,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,MIL@MIA,Luis Rengifo,MIL,HR,0.5,1300,,L,"1 H, 2 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,MIL@MIA,Luis Rengifo,MIL,2+ TB,1.5,-120,,W,"1 H, 2 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,MIL@MIA,Garrett Mitchell,MIL,HR,0.5,1000,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,MIL@MIA,Garrett Mitchell,MIL,2+ TB,1.5,260,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,MIL@MIA,Brandon Lockridge,MIL,HR,0.5,2200,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,MIL@MIA,Brandon Lockridge,MIL,2+ TB,1.5,360,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,MIL@MIA,Joey Ortiz,MIL,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,MIL@MIA,Joey Ortiz,MIL,2+ TB,1.5,100,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,MIL@MIA,Jakob Marsee,MIA,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,MIL@MIA,Jakob Marsee,MIA,2+ TB,1.5,150,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,MIL@MIA,Xavier Edwards,MIA,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,MIL@MIA,Xavier Edwards,MIA,2+ TB,1.5,150,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,MIL@MIA,Agustín Ramírez,MIA,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,MIL@MIA,Agustín Ramírez,MIA,2+ TB,1.5,240,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,MIL@MIA,Liam Hicks,MIA,HR,0.5,,,L,"2 H, 2 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,MIL@MIA,Liam Hicks,MIA,2+ TB,1.5,-110,,W,"2 H, 2 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,MIL@MIA,Otto Lopez,MIA,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,MIL@MIA,Otto Lopez,MIA,2+ TB,1.5,180,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,MIL@MIA,Connor Norby,MIA,HR,0.5,,,L,"2 H, 2 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,MIL@MIA,Connor Norby,MIA,2+ TB,1.5,250,,W,"2 H, 2 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,MIL@MIA,Owen Caissie,MIA,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,MIL@MIA,Owen Caissie,MIA,2+ TB,1.5,360,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,MIL@MIA,Heriberto Hernández,MIA,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,MIL@MIA,Heriberto Hernández,MIA,2+ TB,1.5,100,,L,"0 H, 0 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,MIL@MIA,Javier Sanoja,MIA,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,MIL@MIA,Javier Sanoja,MIA,2+ TB,1.5,150,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,BAL@CLE,Gunnar Henderson,BAL,HR,0.5,900,,W,"2 H, 5 TB, 1 HR, 1 R, 1 RBI"
-2026-04-18,BAL@CLE,Gunnar Henderson,BAL,2+ TB,1.5,150,,W,"2 H, 5 TB, 1 HR, 1 R, 1 RBI"
-2026-04-18,BAL@CLE,Taylor Ward,BAL,HR,0.5,1050,,L,"1 H, 2 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,BAL@CLE,Taylor Ward,BAL,2+ TB,1.5,150,,W,"1 H, 2 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,BAL@CLE,Pete Alonso,BAL,HR,0.5,850,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,BAL@CLE,Pete Alonso,BAL,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI; market line 0.5 excluded from 2+ TB ROI"
-2026-04-18,BAL@CLE,Dylan Beavers,BAL,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,BAL@CLE,Dylan Beavers,BAL,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,BAL@CLE,Colton Cowser,BAL,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,BAL@CLE,Colton Cowser,BAL,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,BAL@CLE,Leody Taveras,BAL,HR,0.5,,,W,"1 H, 4 TB, 1 HR, 1 R, 1 RBI"
-2026-04-18,BAL@CLE,Leody Taveras,BAL,2+ TB,1.5,150,,W,"1 H, 4 TB, 1 HR, 1 R, 1 RBI"
-2026-04-18,BAL@CLE,Samuel Basallo,BAL,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,BAL@CLE,Samuel Basallo,BAL,2+ TB,1.5,150,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,BAL@CLE,Coby Mayo,BAL,HR,0.5,850,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,BAL@CLE,Coby Mayo,BAL,2+ TB,1.5,325,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,BAL@CLE,Jeremiah Jackson,BAL,HR,0.5,800,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,BAL@CLE,Jeremiah Jackson,BAL,2+ TB,1.5,150,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,BAL@CLE,Steven Kwan,CLE,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,BAL@CLE,Steven Kwan,CLE,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI; market line 0.5 excluded from 2+ TB ROI"
-2026-04-18,BAL@CLE,Chase DeLauter,CLE,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,BAL@CLE,Chase DeLauter,CLE,2+ TB,1.5,50,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,BAL@CLE,José Ramírez,CLE,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,BAL@CLE,José Ramírez,CLE,2+ TB,1.5,175,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,BAL@CLE,Kyle Manzardo,CLE,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,BAL@CLE,Kyle Manzardo,CLE,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,BAL@CLE,George Valera,CLE,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,BAL@CLE,George Valera,CLE,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,BAL@CLE,Rhys Hoskins,CLE,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,BAL@CLE,Rhys Hoskins,CLE,2+ TB,1.5,275,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,BAL@CLE,Daniel Schneemann,CLE,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,BAL@CLE,Daniel Schneemann,CLE,2+ TB,1.5,400,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,BAL@CLE,Bo Naylor,CLE,HR,0.5,,,W,"1 H, 4 TB, 1 HR, 1 R, 1 RBI"
-2026-04-18,BAL@CLE,Bo Naylor,CLE,2+ TB,1.5,,,W,"1 H, 4 TB, 1 HR, 1 R, 1 RBI"
-2026-04-18,BAL@CLE,Brayan Rocchio,CLE,HR,0.5,,,W,"1 H, 4 TB, 1 HR, 1 R, 3 RBI"
-2026-04-18,BAL@CLE,Brayan Rocchio,CLE,2+ TB,1.5,135,,W,"1 H, 4 TB, 1 HR, 1 R, 3 RBI"
-2026-04-18,STL@HOU,JJ Wetherholt,STL,HR,0.5,800,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,STL@HOU,JJ Wetherholt,STL,2+ TB,1.5,185,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,STL@HOU,Iván Herrera,STL,HR,0.5,750,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,STL@HOU,Iván Herrera,STL,2+ TB,1.5,180,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,STL@HOU,Alec Burleson,STL,HR,0.5,600,,W,"2 H, 6 TB, 1 HR, 1 R, 1 RBI"
-2026-04-18,STL@HOU,Alec Burleson,STL,2+ TB,1.5,180,,W,"2 H, 6 TB, 1 HR, 1 R, 1 RBI"
-2026-04-18,STL@HOU,Jordan Walker,STL,HR,0.5,700,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,STL@HOU,Jordan Walker,STL,2+ TB,1.5,180,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,STL@HOU,Nolan Gorman,STL,HR,0.5,600,,L,"2 H, 2 TB, 0 HR, 1 R, 2 RBI"
-2026-04-18,STL@HOU,Nolan Gorman,STL,2+ TB,1.5,275,,W,"2 H, 2 TB, 0 HR, 1 R, 2 RBI"
-2026-04-18,STL@HOU,Masyn Winn,STL,HR,0.5,1100,,W,"1 H, 4 TB, 1 HR, 1 R, 2 RBI"
-2026-04-18,STL@HOU,Masyn Winn,STL,2+ TB,1.5,250,,W,"1 H, 4 TB, 1 HR, 1 R, 2 RBI"
-2026-04-18,STL@HOU,Ramón Urías,STL,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,STL@HOU,Ramón Urías,STL,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,STL@HOU,Nathan Church,STL,HR,0.5,850,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,STL@HOU,Nathan Church,STL,2+ TB,1.5,195,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,STL@HOU,José Fermín,STL,HR,0.5,,,W,"1 H, 4 TB, 1 HR, 1 R, 1 RBI"
-2026-04-18,STL@HOU,José Fermín,STL,2+ TB,1.5,,,W,"1 H, 4 TB, 1 HR, 1 R, 1 RBI"
-2026-04-18,STL@HOU,Jose Altuve,HOU,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,STL@HOU,Jose Altuve,HOU,2+ TB,1.5,190,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,STL@HOU,Yordan Alvarez,HOU,HR,0.5,,,W,"2 H, 6 TB, 1 HR, 1 R, 1 RBI"
-2026-04-18,STL@HOU,Yordan Alvarez,HOU,2+ TB,1.5,155,,W,"2 H, 6 TB, 1 HR, 1 R, 1 RBI"
-2026-04-18,STL@HOU,Carlos Correa,HOU,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,STL@HOU,Carlos Correa,HOU,2+ TB,1.5,168,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,STL@HOU,Christian Walker,HOU,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,STL@HOU,Christian Walker,HOU,2+ TB,1.5,125,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,STL@HOU,Isaac Paredes,HOU,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,STL@HOU,Isaac Paredes,HOU,2+ TB,1.5,162,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,STL@HOU,Taylor Trammell,HOU,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,STL@HOU,Taylor Trammell,HOU,2+ TB,1.5,275,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,STL@HOU,Cam Smith,HOU,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,STL@HOU,Cam Smith,HOU,2+ TB,1.5,165,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,STL@HOU,Christian Vázquez,HOU,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,STL@HOU,Christian Vázquez,HOU,2+ TB,1.5,150,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,STL@HOU,Shay Whitcomb,HOU,HR,0.5,,,W,"1 H, 4 TB, 1 HR, 1 R, 3 RBI"
-2026-04-18,STL@HOU,Shay Whitcomb,HOU,2+ TB,1.5,200,,W,"1 H, 4 TB, 1 HR, 1 R, 3 RBI"
-2026-04-18,TEX@SEA,Brandon Nimmo,TEX,HR,0.5,562,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TEX@SEA,Brandon Nimmo,TEX,2+ TB,1.5,145,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TEX@SEA,Corey Seager,TEX,HR,0.5,360,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TEX@SEA,Corey Seager,TEX,2+ TB,1.5,130,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TEX@SEA,Wyatt Langford,TEX,HR,0.5,628,,L,"3 H, 4 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,TEX@SEA,Wyatt Langford,TEX,2+ TB,1.5,157,,W,"3 H, 4 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,TEX@SEA,Jake Burger,TEX,HR,0.5,475,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TEX@SEA,Jake Burger,TEX,2+ TB,1.5,152,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TEX@SEA,Joc Pederson,TEX,HR,0.5,550,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TEX@SEA,Joc Pederson,TEX,2+ TB,1.5,200,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TEX@SEA,Josh Jung,TEX,HR,0.5,895,,W,"2 H, 5 TB, 1 HR, 1 R, 1 RBI"
-2026-04-18,TEX@SEA,Josh Jung,TEX,2+ TB,1.5,195,,W,"2 H, 5 TB, 1 HR, 1 R, 1 RBI"
-2026-04-18,TEX@SEA,Evan Carter,TEX,HR,0.5,805,,L,"0 H, 0 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,TEX@SEA,Evan Carter,TEX,2+ TB,1.5,202,,L,"0 H, 0 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,TEX@SEA,Ezequiel Duran,TEX,HR,0.5,,,L,"3 H, 4 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,TEX@SEA,Ezequiel Duran,TEX,2+ TB,1.5,,,W,"3 H, 4 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,TEX@SEA,Kyle Higashioka,TEX,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TEX@SEA,Kyle Higashioka,TEX,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TEX@SEA,J.P. Crawford,SEA,HR,0.5,,,L,"2 H, 4 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,TEX@SEA,J.P. Crawford,SEA,2+ TB,1.5,227,,W,"2 H, 4 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,TEX@SEA,Cal Raleigh,SEA,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TEX@SEA,Cal Raleigh,SEA,2+ TB,1.5,146,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TEX@SEA,Julio Rodríguez,SEA,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,TEX@SEA,Julio Rodríguez,SEA,2+ TB,1.5,140,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,TEX@SEA,Josh Naylor,SEA,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TEX@SEA,Josh Naylor,SEA,2+ TB,1.5,100,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TEX@SEA,Randy Arozarena,SEA,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,TEX@SEA,Randy Arozarena,SEA,2+ TB,1.5,182,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,TEX@SEA,Luke Raley,SEA,HR,0.5,,,W,"1 H, 4 TB, 1 HR, 3 R, 1 RBI"
-2026-04-18,TEX@SEA,Luke Raley,SEA,2+ TB,1.5,,,W,"1 H, 4 TB, 1 HR, 3 R, 1 RBI"
-2026-04-18,TEX@SEA,Dominic Canzone,SEA,HR,0.5,,,L,"3 H, 4 TB, 0 HR, 1 R, 2 RBI"
-2026-04-18,TEX@SEA,Dominic Canzone,SEA,2+ TB,1.5,,,W,"3 H, 4 TB, 0 HR, 1 R, 2 RBI"
-2026-04-18,TEX@SEA,Cole Young,SEA,HR,0.5,,,L,"2 H, 2 TB, 0 HR, 1 R, 2 RBI"
-2026-04-18,TEX@SEA,Cole Young,SEA,2+ TB,1.5,256,,W,"2 H, 2 TB, 0 HR, 1 R, 2 RBI"
-2026-04-18,TEX@SEA,Leo Rivas,SEA,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,TEX@SEA,Leo Rivas,SEA,2+ TB,1.5,295,,L,"0 H, 0 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,ATL@PHI,Ronald Acuña Jr.,ATL,HR,0.5,415,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,ATL@PHI,Ronald Acuña Jr.,ATL,2+ TB,1.5,100,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,ATL@PHI,Drake Baldwin,ATL,HR,0.5,550,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,ATL@PHI,Drake Baldwin,ATL,2+ TB,1.5,130,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,ATL@PHI,Ozzie Albies,ATL,HR,0.5,770,,L,"2 H, 3 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,ATL@PHI,Ozzie Albies,ATL,2+ TB,1.5,150,,W,"2 H, 3 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,ATL@PHI,Matt Olson,ATL,HR,0.5,410,,L,"1 H, 2 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,ATL@PHI,Matt Olson,ATL,2+ TB,1.5,130,,W,"1 H, 2 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,ATL@PHI,Austin Riley,ATL,HR,0.5,510,,L,"2 H, 2 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,ATL@PHI,Austin Riley,ATL,2+ TB,1.5,130,,W,"2 H, 2 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,ATL@PHI,Mauricio Dubón,ATL,HR,0.5,1075,,L,"1 H, 1 TB, 0 HR, 0 R, 2 RBI"
-2026-04-18,ATL@PHI,Mauricio Dubón,ATL,2+ TB,1.5,190,,L,"1 H, 1 TB, 0 HR, 0 R, 2 RBI"
-2026-04-18,ATL@PHI,Eli White,ATL,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,ATL@PHI,Eli White,ATL,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,ATL@PHI,Jonah Heim,ATL,HR,0.5,,,L,"2 H, 3 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,ATL@PHI,Jonah Heim,ATL,2+ TB,1.5,,,W,"2 H, 3 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,ATL@PHI,Jorge Mateo,ATL,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,ATL@PHI,Jorge Mateo,ATL,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,ATL@PHI,Trea Turner,PHI,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,ATL@PHI,Trea Turner,PHI,2+ TB,1.5,118,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,ATL@PHI,Kyle Schwarber,PHI,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,ATL@PHI,Kyle Schwarber,PHI,2+ TB,1.5,155,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,ATL@PHI,Bryce Harper,PHI,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,ATL@PHI,Bryce Harper,PHI,2+ TB,1.5,125,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,ATL@PHI,Adolis García,PHI,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,ATL@PHI,Adolis García,PHI,2+ TB,1.5,145,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,ATL@PHI,J.T. Realmuto,PHI,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,ATL@PHI,J.T. Realmuto,PHI,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,ATL@PHI,Alec Bohm,PHI,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,ATL@PHI,Alec Bohm,PHI,2+ TB,1.5,150,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,ATL@PHI,Felix Reyes,PHI,HR,0.5,,,W,"1 H, 4 TB, 1 HR, 1 R, 1 RBI"
-2026-04-18,ATL@PHI,Felix Reyes,PHI,2+ TB,1.5,,,W,"1 H, 4 TB, 1 HR, 1 R, 1 RBI"
-2026-04-18,ATL@PHI,Edmundo Sosa,PHI,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,ATL@PHI,Edmundo Sosa,PHI,2+ TB,1.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,ATL@PHI,Brandon Marsh,PHI,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,ATL@PHI,Brandon Marsh,PHI,2+ TB,1.5,172,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,LAD@COL,Shohei Ohtani,LAD,HR,0.5,194,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,LAD@COL,Shohei Ohtani,LAD,2+ TB,1.5,,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI; market line 2.5 excluded from 2+ TB ROI"
-2026-04-18,LAD@COL,Kyle Tucker,LAD,HR,0.5,410,,W,"3 H, 6 TB, 1 HR, 1 R, 2 RBI"
-2026-04-18,LAD@COL,Kyle Tucker,LAD,2+ TB,1.5,-132,,W,"3 H, 6 TB, 1 HR, 1 R, 2 RBI"
-2026-04-18,LAD@COL,Andy Pages,LAD,HR,0.5,480,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,LAD@COL,Andy Pages,LAD,2+ TB,1.5,-148,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,LAD@COL,Freddie Freeman,LAD,HR,0.5,,,L,"2 H, 4 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,LAD@COL,Freddie Freeman,LAD,2+ TB,1.5,150,,W,"2 H, 4 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,LAD@COL,Teoscar Hernández,LAD,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,LAD@COL,Teoscar Hernández,LAD,2+ TB,1.5,150,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,LAD@COL,Max Muncy,LAD,HR,0.5,300,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,LAD@COL,Max Muncy,LAD,2+ TB,1.5,-110,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,LAD@COL,Dalton Rushing,LAD,HR,0.5,,,W,"1 H, 4 TB, 1 HR, 1 R, 1 RBI"
-2026-04-18,LAD@COL,Dalton Rushing,LAD,2+ TB,1.5,150,,W,"1 H, 4 TB, 1 HR, 1 R, 1 RBI"
-2026-04-18,LAD@COL,Alex Freeland,LAD,HR,0.5,775,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,LAD@COL,Alex Freeland,LAD,2+ TB,1.5,133,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,LAD@COL,Miguel Rojas,LAD,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,LAD@COL,Miguel Rojas,LAD,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,LAD@COL,Edouard Julien,COL,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,LAD@COL,Edouard Julien,COL,2+ TB,1.5,167,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,LAD@COL,Mickey Moniak,COL,HR,0.5,,,L,"1 H, 2 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,LAD@COL,Mickey Moniak,COL,2+ TB,1.5,110,,W,"1 H, 2 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,LAD@COL,TJ Rumfield,COL,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,LAD@COL,TJ Rumfield,COL,2+ TB,1.5,134,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,LAD@COL,Hunter Goodman,COL,HR,0.5,,,L,"1 H, 2 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,LAD@COL,Hunter Goodman,COL,2+ TB,1.5,113,,W,"1 H, 2 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,LAD@COL,Ezequiel Tovar,COL,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,LAD@COL,Ezequiel Tovar,COL,2+ TB,1.5,150,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,LAD@COL,Troy Johnston,COL,HR,0.5,,,L,"3 H, 5 TB, 0 HR, 1 R, 2 RBI"
-2026-04-18,LAD@COL,Troy Johnston,COL,2+ TB,1.5,138,,W,"3 H, 5 TB, 0 HR, 1 R, 2 RBI"
-2026-04-18,LAD@COL,Brenton Doyle,COL,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,LAD@COL,Brenton Doyle,COL,2+ TB,1.5,150,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,LAD@COL,Kyle Karros,COL,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,LAD@COL,Kyle Karros,COL,2+ TB,1.5,186,,L,"0 H, 0 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,LAD@COL,Jordan Beck,COL,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,LAD@COL,Jordan Beck,COL,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TOR@AZ,Nathan Lukes,TOR,HR,0.5,950,,L,"3 H, 3 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,TOR@AZ,Nathan Lukes,TOR,2+ TB,1.5,114,,W,"3 H, 3 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,TOR@AZ,Ernie Clement,TOR,HR,0.5,1060,,L,"2 H, 3 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TOR@AZ,Ernie Clement,TOR,2+ TB,1.5,100,,W,"2 H, 3 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TOR@AZ,Vladimir Guerrero Jr.,TOR,HR,0.5,425,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TOR@AZ,Vladimir Guerrero Jr.,TOR,2+ TB,1.5,-109,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TOR@AZ,Jesús Sánchez,TOR,HR,0.5,510,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,TOR@AZ,Jesús Sánchez,TOR,2+ TB,1.5,130,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,TOR@AZ,Eloy Jiménez,TOR,HR,0.5,500,,L,"2 H, 2 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,TOR@AZ,Eloy Jiménez,TOR,2+ TB,1.5,128,,W,"2 H, 2 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,TOR@AZ,Andrés Giménez,TOR,HR,0.5,1000,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TOR@AZ,Andrés Giménez,TOR,2+ TB,1.5,150,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TOR@AZ,Kazuma Okamoto,TOR,HR,0.5,650,,L,"2 H, 2 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,TOR@AZ,Kazuma Okamoto,TOR,2+ TB,1.5,167,,W,"2 H, 2 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,TOR@AZ,Myles Straw,TOR,HR,0.5,1200,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TOR@AZ,Myles Straw,TOR,2+ TB,1.5,206,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TOR@AZ,Tyler Heineman,TOR,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TOR@AZ,Tyler Heineman,TOR,2+ TB,1.5,350,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TOR@AZ,Ketel Marte,AZ,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,TOR@AZ,Ketel Marte,AZ,2+ TB,1.5,118,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,TOR@AZ,Corbin Carroll,AZ,HR,0.5,,,W,"1 H, 4 TB, 1 HR, 2 R, 4 RBI"
-2026-04-18,TOR@AZ,Corbin Carroll,AZ,2+ TB,1.5,120,,W,"1 H, 4 TB, 1 HR, 2 R, 4 RBI"
-2026-04-18,TOR@AZ,Geraldo Perdomo,AZ,HR,0.5,,,L,"3 H, 3 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,TOR@AZ,Geraldo Perdomo,AZ,2+ TB,1.5,150,,W,"3 H, 3 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,TOR@AZ,Lourdes Gurriel Jr.,AZ,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TOR@AZ,Lourdes Gurriel Jr.,AZ,2+ TB,1.5,115,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TOR@AZ,Adrian Del Castillo,AZ,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TOR@AZ,Adrian Del Castillo,AZ,2+ TB,1.5,170,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TOR@AZ,Jose Fernandez,AZ,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,TOR@AZ,Jose Fernandez,AZ,2+ TB,1.5,152,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,TOR@AZ,Nolan Arenado,AZ,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TOR@AZ,Nolan Arenado,AZ,2+ TB,1.5,166,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,TOR@AZ,Ildemaro Vargas,AZ,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,TOR@AZ,Ildemaro Vargas,AZ,2+ TB,1.5,168,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,TOR@AZ,Alek Thomas,AZ,HR,0.5,,,L,"2 H, 3 TB, 0 HR, 1 R, 1 RBI"
-2026-04-18,TOR@AZ,Alek Thomas,AZ,2+ TB,1.5,196,,W,"2 H, 3 TB, 0 HR, 1 R, 1 RBI"
-2026-04-18,SD@LAA,Ramón Laureano,SD,HR,0.5,438,,L,"1 H, 1 TB, 0 HR, 0 R, 2 RBI"
-2026-04-18,SD@LAA,Ramón Laureano,SD,2+ TB,1.5,-104,,L,"1 H, 1 TB, 0 HR, 0 R, 2 RBI"
-2026-04-18,SD@LAA,Fernando Tatis Jr.,SD,HR,0.5,405,,L,"2 H, 2 TB, 0 HR, 0 R, 2 RBI"
-2026-04-18,SD@LAA,Fernando Tatis Jr.,SD,2+ TB,1.5,110,,W,"2 H, 2 TB, 0 HR, 0 R, 2 RBI"
-2026-04-18,SD@LAA,Jackson Merrill,SD,HR,0.5,400,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,SD@LAA,Jackson Merrill,SD,2+ TB,1.5,-2,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,SD@LAA,Manny Machado,SD,HR,0.5,475,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,SD@LAA,Manny Machado,SD,2+ TB,1.5,126,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,SD@LAA,Xander Bogaerts,SD,HR,0.5,900,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,SD@LAA,Xander Bogaerts,SD,2+ TB,1.5,135,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,SD@LAA,Miguel Andujar,SD,HR,0.5,990,,L,"2 H, 3 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,SD@LAA,Miguel Andujar,SD,2+ TB,1.5,138,,W,"2 H, 3 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,SD@LAA,Ty France,SD,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,SD@LAA,Ty France,SD,2+ TB,1.5,150,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,SD@LAA,Freddy Fermin,SD,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 2 R, 0 RBI"
-2026-04-18,SD@LAA,Freddy Fermin,SD,2+ TB,1.5,100,,L,"1 H, 1 TB, 0 HR, 2 R, 0 RBI"
-2026-04-18,SD@LAA,Jake Cronenworth,SD,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,SD@LAA,Jake Cronenworth,SD,2+ TB,1.5,150,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,SD@LAA,Zach Neto,LAA,HR,0.5,,,L,"1 H, 2 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,SD@LAA,Zach Neto,LAA,2+ TB,1.5,130,,W,"1 H, 2 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,SD@LAA,Mike Trout,LAA,HR,0.5,,,L,"1 H, 2 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,SD@LAA,Mike Trout,LAA,2+ TB,1.5,118,,W,"1 H, 2 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,SD@LAA,Nolan Schanuel,LAA,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,SD@LAA,Nolan Schanuel,LAA,2+ TB,1.5,150,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI"
-2026-04-18,SD@LAA,Jo Adell,LAA,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,SD@LAA,Jo Adell,LAA,2+ TB,1.5,140,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,SD@LAA,Yoán Moncada,LAA,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,SD@LAA,Yoán Moncada,LAA,2+ TB,1.5,185,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,SD@LAA,Oswald Peraza,LAA,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,SD@LAA,Oswald Peraza,LAA,2+ TB,1.5,50,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,SD@LAA,Josh Lowe,LAA,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,SD@LAA,Josh Lowe,LAA,2+ TB,1.5,188,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,SD@LAA,Logan O'Hoppe,LAA,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,SD@LAA,Logan O'Hoppe,LAA,2+ TB,1.5,150,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI"
-2026-04-18,SD@LAA,Adam Frazier,LAA,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
-2026-04-18,SD@LAA,Adam Frazier,LAA,2+ TB,1.5,232,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI"
+date,game,player,team,prop_type,line,market_odds,closing_odds,result,notes,market_odds_time,result_source,result_source_detail
+2026-04-18,KC@NYY,Maikel Garcia,KC,HR,0.5,700,,L,"1 H, 2 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/KC_NYY-823558.json
+2026-04-18,KC@NYY,Maikel Garcia,KC,2+ TB,1.5,128,,W,"1 H, 2 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/KC_NYY-823558.json
+2026-04-18,KC@NYY,Bobby Witt Jr.,KC,HR,0.5,420,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/KC_NYY-823558.json
+2026-04-18,KC@NYY,Bobby Witt Jr.,KC,2+ TB,1.5,-105,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/KC_NYY-823558.json
+2026-04-18,KC@NYY,Vinnie Pasquantino,KC,HR,0.5,600,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/KC_NYY-823558.json
+2026-04-18,KC@NYY,Vinnie Pasquantino,KC,2+ TB,1.5,160,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/KC_NYY-823558.json
+2026-04-18,KC@NYY,Jac Caglianone,KC,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI",,mlb_stats_api,boxscores/apr18/KC_NYY-823558.json
+2026-04-18,KC@NYY,Jac Caglianone,KC,2+ TB,1.5,100,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/KC_NYY-823558.json
+2026-04-18,KC@NYY,Carter Jensen,KC,HR,0.5,,,W,"2 H, 5 TB, 1 HR, 2 R, 2 RBI",,mlb_stats_api,boxscores/apr18/KC_NYY-823558.json
+2026-04-18,KC@NYY,Carter Jensen,KC,2+ TB,1.5,100,,W,"2 H, 5 TB, 1 HR, 2 R, 2 RBI",pregame,mlb_stats_api,boxscores/apr18/KC_NYY-823558.json
+2026-04-18,KC@NYY,Michael Massey,KC,HR,0.5,900,,L,"1 H, 2 TB, 0 HR, 0 R, 2 RBI",pregame,mlb_stats_api,boxscores/apr18/KC_NYY-823558.json
+2026-04-18,KC@NYY,Michael Massey,KC,2+ TB,1.5,220,,W,"1 H, 2 TB, 0 HR, 0 R, 2 RBI",pregame,mlb_stats_api,boxscores/apr18/KC_NYY-823558.json
+2026-04-18,KC@NYY,Isaac Collins,KC,HR,0.5,820,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/KC_NYY-823558.json
+2026-04-18,KC@NYY,Isaac Collins,KC,2+ TB,1.5,205,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/KC_NYY-823558.json
+2026-04-18,KC@NYY,Lane Thomas,KC,HR,0.5,790,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/KC_NYY-823558.json
+2026-04-18,KC@NYY,Lane Thomas,KC,2+ TB,1.5,190,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/KC_NYY-823558.json
+2026-04-18,KC@NYY,Kyle Isbel,KC,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/KC_NYY-823558.json
+2026-04-18,KC@NYY,Kyle Isbel,KC,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/KC_NYY-823558.json
+2026-04-18,KC@NYY,Amed Rosario,NYY,HR,0.5,,,W,"2 H, 5 TB, 1 HR, 2 R, 3 RBI",,mlb_stats_api,boxscores/apr18/KC_NYY-823558.json
+2026-04-18,KC@NYY,Amed Rosario,NYY,2+ TB,1.5,170,,W,"2 H, 5 TB, 1 HR, 2 R, 3 RBI",pregame,mlb_stats_api,boxscores/apr18/KC_NYY-823558.json
+2026-04-18,KC@NYY,Aaron Judge,NYY,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI",,mlb_stats_api,boxscores/apr18/KC_NYY-823558.json
+2026-04-18,KC@NYY,Aaron Judge,NYY,2+ TB,1.5,120,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/KC_NYY-823558.json
+2026-04-18,KC@NYY,Cody Bellinger,NYY,HR,0.5,,,W,"3 H, 9 TB, 2 HR, 2 R, 5 RBI",,mlb_stats_api,boxscores/apr18/KC_NYY-823558.json
+2026-04-18,KC@NYY,Cody Bellinger,NYY,2+ TB,1.5,145,,W,"3 H, 9 TB, 2 HR, 2 R, 5 RBI",pregame,mlb_stats_api,boxscores/apr18/KC_NYY-823558.json
+2026-04-18,KC@NYY,Giancarlo Stanton,NYY,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/KC_NYY-823558.json
+2026-04-18,KC@NYY,Giancarlo Stanton,NYY,2+ TB,1.5,150,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/KC_NYY-823558.json
+2026-04-18,KC@NYY,Ben Rice,NYY,HR,0.5,,,W,"1 H, 4 TB, 1 HR, 1 R, 1 RBI",,mlb_stats_api,boxscores/apr18/KC_NYY-823558.json
+2026-04-18,KC@NYY,Ben Rice,NYY,2+ TB,1.5,145,,W,"1 H, 4 TB, 1 HR, 1 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/KC_NYY-823558.json
+2026-04-18,KC@NYY,Randal Grichuk,NYY,HR,0.5,,,L,"1 H, 2 TB, 0 HR, 1 R, 1 RBI",,mlb_stats_api,boxscores/apr18/KC_NYY-823558.json
+2026-04-18,KC@NYY,Randal Grichuk,NYY,2+ TB,1.5,150,,W,"1 H, 2 TB, 0 HR, 1 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/KC_NYY-823558.json
+2026-04-18,KC@NYY,Jazz Chisholm Jr.,NYY,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/KC_NYY-823558.json
+2026-04-18,KC@NYY,Jazz Chisholm Jr.,NYY,2+ TB,1.5,100,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/KC_NYY-823558.json
+2026-04-18,KC@NYY,José Caballero,NYY,HR,0.5,,,L,"2 H, 2 TB, 0 HR, 3 R, 0 RBI",,mlb_stats_api,boxscores/apr18/KC_NYY-823558.json
+2026-04-18,KC@NYY,José Caballero,NYY,2+ TB,1.5,270,,W,"2 H, 2 TB, 0 HR, 3 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/KC_NYY-823558.json
+2026-04-18,KC@NYY,J.C. Escarra,NYY,HR,0.5,,,L,"2 H, 5 TB, 0 HR, 2 R, 3 RBI",,mlb_stats_api,boxscores/apr18/KC_NYY-823558.json
+2026-04-18,KC@NYY,J.C. Escarra,NYY,2+ TB,1.5,,,W,"2 H, 5 TB, 0 HR, 2 R, 3 RBI",,mlb_stats_api,boxscores/apr18/KC_NYY-823558.json
+2026-04-18,CIN@MIN,TJ Friedl,CIN,HR,0.5,1000,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/CIN_MIN-823721.json
+2026-04-18,CIN@MIN,TJ Friedl,CIN,2+ TB,1.5,205,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/CIN_MIN-823721.json
+2026-04-18,CIN@MIN,Will Benson,CIN,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/CIN_MIN-823721.json
+2026-04-18,CIN@MIN,Will Benson,CIN,2+ TB,1.5,150,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/CIN_MIN-823721.json
+2026-04-18,CIN@MIN,Elly De La Cruz,CIN,HR,0.5,525,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/CIN_MIN-823721.json
+2026-04-18,CIN@MIN,Elly De La Cruz,CIN,2+ TB,1.5,160,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/CIN_MIN-823721.json
+2026-04-18,CIN@MIN,Sal Stewart,CIN,HR,0.5,525,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/CIN_MIN-823721.json
+2026-04-18,CIN@MIN,Sal Stewart,CIN,2+ TB,1.5,170,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/CIN_MIN-823721.json
+2026-04-18,CIN@MIN,Eugenio Suárez,CIN,HR,0.5,,,L,"2 H, 3 TB, 0 HR, 2 R, 0 RBI",,mlb_stats_api,boxscores/apr18/CIN_MIN-823721.json
+2026-04-18,CIN@MIN,Eugenio Suárez,CIN,2+ TB,1.5,100,,W,"2 H, 3 TB, 0 HR, 2 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/CIN_MIN-823721.json
+2026-04-18,CIN@MIN,Nathaniel Lowe,CIN,HR,0.5,,,L,"2 H, 3 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/CIN_MIN-823721.json
+2026-04-18,CIN@MIN,Nathaniel Lowe,CIN,2+ TB,1.5,,,W,"2 H, 3 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/CIN_MIN-823721.json
+2026-04-18,CIN@MIN,Tyler Stephenson,CIN,HR,0.5,525,,L,"1 H, 1 TB, 0 HR, 0 R, 2 RBI",pregame,mlb_stats_api,boxscores/apr18/CIN_MIN-823721.json
+2026-04-18,CIN@MIN,Tyler Stephenson,CIN,2+ TB,1.5,148,,L,"1 H, 1 TB, 0 HR, 0 R, 2 RBI",pregame,mlb_stats_api,boxscores/apr18/CIN_MIN-823721.json
+2026-04-18,CIN@MIN,Rece Hinds,CIN,HR,0.5,430,,L,"1 H, 1 TB, 0 HR, 1 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/CIN_MIN-823721.json
+2026-04-18,CIN@MIN,Rece Hinds,CIN,2+ TB,1.5,150,,L,"1 H, 1 TB, 0 HR, 1 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/CIN_MIN-823721.json
+2026-04-18,CIN@MIN,Ke'Bryan Hayes,CIN,HR,0.5,950,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/CIN_MIN-823721.json
+2026-04-18,CIN@MIN,Ke'Bryan Hayes,CIN,2+ TB,1.5,210,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/CIN_MIN-823721.json
+2026-04-18,CIN@MIN,Byron Buxton,MIN,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/CIN_MIN-823721.json
+2026-04-18,CIN@MIN,Byron Buxton,MIN,2+ TB,1.5,-151,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/CIN_MIN-823721.json
+2026-04-18,CIN@MIN,Austin Martin,MIN,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 2 R, 0 RBI",,mlb_stats_api,boxscores/apr18/CIN_MIN-823721.json
+2026-04-18,CIN@MIN,Austin Martin,MIN,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 2 R, 0 RBI",,mlb_stats_api,boxscores/apr18/CIN_MIN-823721.json
+2026-04-18,CIN@MIN,Josh Bell,MIN,HR,0.5,,,L,"2 H, 2 TB, 0 HR, 2 R, 0 RBI",,mlb_stats_api,boxscores/apr18/CIN_MIN-823721.json
+2026-04-18,CIN@MIN,Josh Bell,MIN,2+ TB,1.5,192,,W,"2 H, 2 TB, 0 HR, 2 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/CIN_MIN-823721.json
+2026-04-18,CIN@MIN,Ryan Jeffers,MIN,HR,0.5,,,L,"1 H, 3 TB, 0 HR, 0 R, 2 RBI",,mlb_stats_api,boxscores/apr18/CIN_MIN-823721.json
+2026-04-18,CIN@MIN,Ryan Jeffers,MIN,2+ TB,1.5,,,W,"1 H, 3 TB, 0 HR, 0 R, 2 RBI",,mlb_stats_api,boxscores/apr18/CIN_MIN-823721.json
+2026-04-18,CIN@MIN,Luke Keaschall,MIN,HR,0.5,,,L,"2 H, 3 TB, 0 HR, 0 R, 1 RBI",,mlb_stats_api,boxscores/apr18/CIN_MIN-823721.json
+2026-04-18,CIN@MIN,Luke Keaschall,MIN,2+ TB,1.5,162,,W,"2 H, 3 TB, 0 HR, 0 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/CIN_MIN-823721.json
+2026-04-18,CIN@MIN,Trevor Larnach,MIN,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/CIN_MIN-823721.json
+2026-04-18,CIN@MIN,Trevor Larnach,MIN,2+ TB,1.5,228,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/CIN_MIN-823721.json
+2026-04-18,CIN@MIN,Brooks Lee,MIN,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI",,mlb_stats_api,boxscores/apr18/CIN_MIN-823721.json
+2026-04-18,CIN@MIN,Brooks Lee,MIN,2+ TB,1.5,180,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/CIN_MIN-823721.json
+2026-04-18,CIN@MIN,Ryan Kreidler,MIN,HR,0.5,,,L,"1 H, 2 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/CIN_MIN-823721.json
+2026-04-18,CIN@MIN,Ryan Kreidler,MIN,2+ TB,1.5,,,W,"1 H, 2 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/CIN_MIN-823721.json
+2026-04-18,CIN@MIN,Tristan Gray,MIN,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/CIN_MIN-823721.json
+2026-04-18,CIN@MIN,Tristan Gray,MIN,2+ TB,1.5,200,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/CIN_MIN-823721.json
+2026-04-18,NYM@CHC,Carson Benge,NYM,HR,0.5,1150,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/NYM_CHC-824694.json
+2026-04-18,NYM@CHC,Carson Benge,NYM,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI; market line 0.5 excluded from 2+ TB ROI",,mlb_stats_api,boxscores/apr18/NYM_CHC-824694.json
+2026-04-18,NYM@CHC,Bo Bichette,NYM,HR,0.5,975,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/NYM_CHC-824694.json
+2026-04-18,NYM@CHC,Bo Bichette,NYM,2+ TB,1.5,160,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/NYM_CHC-824694.json
+2026-04-18,NYM@CHC,Francisco Lindor,NYM,HR,0.5,700,,L,"2 H, 2 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/NYM_CHC-824694.json
+2026-04-18,NYM@CHC,Francisco Lindor,NYM,2+ TB,1.5,210,,W,"2 H, 2 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/NYM_CHC-824694.json
+2026-04-18,NYM@CHC,Luis Robert Jr.,NYM,HR,0.5,588,,L,"2 H, 3 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/NYM_CHC-824694.json
+2026-04-18,NYM@CHC,Luis Robert Jr.,NYM,2+ TB,1.5,145,,W,"2 H, 3 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/NYM_CHC-824694.json
+2026-04-18,NYM@CHC,MJ Melendez,NYM,HR,0.5,575,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/NYM_CHC-824694.json
+2026-04-18,NYM@CHC,MJ Melendez,NYM,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI; market line 0.5 excluded from 2+ TB ROI",,mlb_stats_api,boxscores/apr18/NYM_CHC-824694.json
+2026-04-18,NYM@CHC,Francisco Alvarez,NYM,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/NYM_CHC-824694.json
+2026-04-18,NYM@CHC,Francisco Alvarez,NYM,2+ TB,1.5,50,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/NYM_CHC-824694.json
+2026-04-18,NYM@CHC,Mark Vientos,NYM,HR,0.5,625,,W,"1 H, 4 TB, 1 HR, 1 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/NYM_CHC-824694.json
+2026-04-18,NYM@CHC,Mark Vientos,NYM,2+ TB,1.5,170,,W,"1 H, 4 TB, 1 HR, 1 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/NYM_CHC-824694.json
+2026-04-18,NYM@CHC,Brett Baty,NYM,HR,0.5,900,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/NYM_CHC-824694.json
+2026-04-18,NYM@CHC,Brett Baty,NYM,2+ TB,1.5,260,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/NYM_CHC-824694.json
+2026-04-18,NYM@CHC,Marcus Semien,NYM,HR,0.5,800,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/NYM_CHC-824694.json
+2026-04-18,NYM@CHC,Marcus Semien,NYM,2+ TB,1.5,175,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/NYM_CHC-824694.json
+2026-04-18,NYM@CHC,Nico Hoerner,CHC,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/NYM_CHC-824694.json
+2026-04-18,NYM@CHC,Nico Hoerner,CHC,2+ TB,1.5,170,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/NYM_CHC-824694.json
+2026-04-18,NYM@CHC,Michael Busch,CHC,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/NYM_CHC-824694.json
+2026-04-18,NYM@CHC,Michael Busch,CHC,2+ TB,1.5,128,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/NYM_CHC-824694.json
+2026-04-18,NYM@CHC,Alex Bregman,CHC,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/NYM_CHC-824694.json
+2026-04-18,NYM@CHC,Alex Bregman,CHC,2+ TB,1.5,130,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/NYM_CHC-824694.json
+2026-04-18,NYM@CHC,Ian Happ,CHC,HR,0.5,,,W,"1 H, 4 TB, 1 HR, 2 R, 1 RBI",,mlb_stats_api,boxscores/apr18/NYM_CHC-824694.json
+2026-04-18,NYM@CHC,Ian Happ,CHC,2+ TB,1.5,148,,W,"1 H, 4 TB, 1 HR, 2 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/NYM_CHC-824694.json
+2026-04-18,NYM@CHC,Seiya Suzuki,CHC,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI",,mlb_stats_api,boxscores/apr18/NYM_CHC-824694.json
+2026-04-18,NYM@CHC,Seiya Suzuki,CHC,2+ TB,1.5,140,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/NYM_CHC-824694.json
+2026-04-18,NYM@CHC,Moisés Ballesteros,CHC,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/NYM_CHC-824694.json
+2026-04-18,NYM@CHC,Moisés Ballesteros,CHC,2+ TB,1.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI; market line 0.5 excluded from 2+ TB ROI",,mlb_stats_api,boxscores/apr18/NYM_CHC-824694.json
+2026-04-18,NYM@CHC,Miguel Amaya,CHC,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/NYM_CHC-824694.json
+2026-04-18,NYM@CHC,Miguel Amaya,CHC,2+ TB,1.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/NYM_CHC-824694.json
+2026-04-18,NYM@CHC,Pete Crow-Armstrong,CHC,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/NYM_CHC-824694.json
+2026-04-18,NYM@CHC,Pete Crow-Armstrong,CHC,2+ TB,1.5,160,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/NYM_CHC-824694.json
+2026-04-18,NYM@CHC,Dansby Swanson,CHC,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/NYM_CHC-824694.json
+2026-04-18,NYM@CHC,Dansby Swanson,CHC,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI; market line 0.5 excluded from 2+ TB ROI",,mlb_stats_api,boxscores/apr18/NYM_CHC-824694.json
+2026-04-18,TB@PIT,Chandler Simpson,TB,HR,0.5,2000,,L,"2 H, 2 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TB_PIT-823394.json
+2026-04-18,TB@PIT,Chandler Simpson,TB,2+ TB,1.5,-103,,W,"2 H, 2 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TB_PIT-823394.json
+2026-04-18,TB@PIT,Junior Caminero,TB,HR,0.5,1025,,L,"2 H, 3 TB, 0 HR, 1 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/TB_PIT-823394.json
+2026-04-18,TB@PIT,Junior Caminero,TB,2+ TB,1.5,372,,W,"2 H, 3 TB, 0 HR, 1 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/TB_PIT-823394.json
+2026-04-18,TB@PIT,Jonathan Aranda,TB,HR,0.5,1350,,L,"2 H, 2 TB, 0 HR, 1 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/TB_PIT-823394.json
+2026-04-18,TB@PIT,Jonathan Aranda,TB,2+ TB,1.5,405,,W,"2 H, 2 TB, 0 HR, 1 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/TB_PIT-823394.json
+2026-04-18,TB@PIT,Yandy Díaz,TB,HR,0.5,1250,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TB_PIT-823394.json
+2026-04-18,TB@PIT,Yandy Díaz,TB,2+ TB,1.5,245,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TB_PIT-823394.json
+2026-04-18,TB@PIT,Jake Fraley,TB,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/TB_PIT-823394.json
+2026-04-18,TB@PIT,Jake Fraley,TB,2+ TB,1.5,50,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TB_PIT-823394.json
+2026-04-18,TB@PIT,Cedric Mullins,TB,HR,0.5,1150,,W,"2 H, 5 TB, 1 HR, 1 R, 3 RBI",pregame,mlb_stats_api,boxscores/apr18/TB_PIT-823394.json
+2026-04-18,TB@PIT,Cedric Mullins,TB,2+ TB,1.5,290,,W,"2 H, 5 TB, 1 HR, 1 R, 3 RBI",pregame,mlb_stats_api,boxscores/apr18/TB_PIT-823394.json
+2026-04-18,TB@PIT,Richie Palacios,TB,HR,0.5,1600,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TB_PIT-823394.json
+2026-04-18,TB@PIT,Richie Palacios,TB,2+ TB,1.5,420,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TB_PIT-823394.json
+2026-04-18,TB@PIT,Hunter Feduccia,TB,HR,0.5,2000,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TB_PIT-823394.json
+2026-04-18,TB@PIT,Hunter Feduccia,TB,2+ TB,1.5,475,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TB_PIT-823394.json
+2026-04-18,TB@PIT,Taylor Walls,TB,HR,0.5,2700,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TB_PIT-823394.json
+2026-04-18,TB@PIT,Taylor Walls,TB,2+ TB,1.5,490,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TB_PIT-823394.json
+2026-04-18,TB@PIT,Oneil Cruz,PIT,HR,0.5,,,L,"1 H, 2 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/TB_PIT-823394.json
+2026-04-18,TB@PIT,Oneil Cruz,PIT,2+ TB,1.5,232,,W,"1 H, 2 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TB_PIT-823394.json
+2026-04-18,TB@PIT,Brandon Lowe,PIT,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI",,mlb_stats_api,boxscores/apr18/TB_PIT-823394.json
+2026-04-18,TB@PIT,Brandon Lowe,PIT,2+ TB,1.5,100,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TB_PIT-823394.json
+2026-04-18,TB@PIT,Bryan Reynolds,PIT,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI",,mlb_stats_api,boxscores/apr18/TB_PIT-823394.json
+2026-04-18,TB@PIT,Bryan Reynolds,PIT,2+ TB,1.5,420,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TB_PIT-823394.json
+2026-04-18,TB@PIT,Ryan O'Hearn,PIT,HR,0.5,,,W,"2 H, 5 TB, 1 HR, 2 R, 2 RBI",,mlb_stats_api,boxscores/apr18/TB_PIT-823394.json
+2026-04-18,TB@PIT,Ryan O'Hearn,PIT,2+ TB,1.5,150,,W,"2 H, 5 TB, 1 HR, 2 R, 2 RBI",pregame,mlb_stats_api,boxscores/apr18/TB_PIT-823394.json
+2026-04-18,TB@PIT,Marcell Ozuna,PIT,HR,0.5,,,W,"2 H, 5 TB, 1 HR, 1 R, 2 RBI",,mlb_stats_api,boxscores/apr18/TB_PIT-823394.json
+2026-04-18,TB@PIT,Marcell Ozuna,PIT,2+ TB,1.5,100,,W,"2 H, 5 TB, 1 HR, 1 R, 2 RBI",pregame,mlb_stats_api,boxscores/apr18/TB_PIT-823394.json
+2026-04-18,TB@PIT,Nick Yorke,PIT,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 1 R, 1 RBI",,mlb_stats_api,boxscores/apr18/TB_PIT-823394.json
+2026-04-18,TB@PIT,Nick Yorke,PIT,2+ TB,1.5,275,,L,"1 H, 1 TB, 0 HR, 1 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/TB_PIT-823394.json
+2026-04-18,TB@PIT,Spencer Horwitz,PIT,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/TB_PIT-823394.json
+2026-04-18,TB@PIT,Spencer Horwitz,PIT,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/TB_PIT-823394.json
+2026-04-18,TB@PIT,Konnor Griffin,PIT,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 2 RBI",,mlb_stats_api,boxscores/apr18/TB_PIT-823394.json
+2026-04-18,TB@PIT,Konnor Griffin,PIT,2+ TB,1.5,290,,L,"1 H, 1 TB, 0 HR, 0 R, 2 RBI",pregame,mlb_stats_api,boxscores/apr18/TB_PIT-823394.json
+2026-04-18,TB@PIT,Henry Davis,PIT,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/TB_PIT-823394.json
+2026-04-18,TB@PIT,Henry Davis,PIT,2+ TB,1.5,100,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TB_PIT-823394.json
+2026-04-18,SF@WSH,Willy Adames,SF,HR,0.5,800,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/SF_WSH-822751.json
+2026-04-18,SF@WSH,Willy Adames,SF,2+ TB,1.5,225,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/SF_WSH-822751.json
+2026-04-18,SF@WSH,Luis Arraez,SF,HR,0.5,2100,,L,"2 H, 2 TB, 0 HR, 2 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/SF_WSH-822751.json
+2026-04-18,SF@WSH,Luis Arraez,SF,2+ TB,1.5,230,,W,"2 H, 2 TB, 0 HR, 2 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/SF_WSH-822751.json
+2026-04-18,SF@WSH,Matt Chapman,SF,HR,0.5,825,,L,"2 H, 2 TB, 0 HR, 1 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/SF_WSH-822751.json
+2026-04-18,SF@WSH,Matt Chapman,SF,2+ TB,1.5,-111,,W,"2 H, 2 TB, 0 HR, 1 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/SF_WSH-822751.json
+2026-04-18,SF@WSH,Rafael Devers,SF,HR,0.5,700,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/SF_WSH-822751.json
+2026-04-18,SF@WSH,Rafael Devers,SF,2+ TB,1.5,-110,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/SF_WSH-822751.json
+2026-04-18,SF@WSH,Casey Schmitt,SF,HR,0.5,1200,,L,"2 H, 3 TB, 0 HR, 0 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/SF_WSH-822751.json
+2026-04-18,SF@WSH,Casey Schmitt,SF,2+ TB,1.5,312,,W,"2 H, 3 TB, 0 HR, 0 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/SF_WSH-822751.json
+2026-04-18,SF@WSH,Jung Hoo Lee,SF,HR,0.5,1300,,L,"2 H, 2 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/SF_WSH-822751.json
+2026-04-18,SF@WSH,Jung Hoo Lee,SF,2+ TB,1.5,170,,W,"2 H, 2 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/SF_WSH-822751.json
+2026-04-18,SF@WSH,Heliot Ramos,SF,HR,0.5,850,,W,"3 H, 7 TB, 1 HR, 2 R, 2 RBI",pregame,mlb_stats_api,boxscores/apr18/SF_WSH-822751.json
+2026-04-18,SF@WSH,Heliot Ramos,SF,2+ TB,1.5,192,,W,"3 H, 7 TB, 1 HR, 2 R, 2 RBI",pregame,mlb_stats_api,boxscores/apr18/SF_WSH-822751.json
+2026-04-18,SF@WSH,Drew Gilbert,SF,HR,0.5,1400,,L,"2 H, 2 TB, 0 HR, 0 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/SF_WSH-822751.json
+2026-04-18,SF@WSH,Drew Gilbert,SF,2+ TB,1.5,-2,,W,"2 H, 2 TB, 0 HR, 0 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/SF_WSH-822751.json
+2026-04-18,SF@WSH,Patrick Bailey,SF,HR,0.5,1300,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/SF_WSH-822751.json
+2026-04-18,SF@WSH,Patrick Bailey,SF,2+ TB,1.5,275,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/SF_WSH-822751.json
+2026-04-18,SF@WSH,James Wood,WSH,HR,0.5,,,W,"1 H, 4 TB, 1 HR, 3 R, 2 RBI",,mlb_stats_api,boxscores/apr18/SF_WSH-822751.json
+2026-04-18,SF@WSH,James Wood,WSH,2+ TB,1.5,150,,W,"1 H, 4 TB, 1 HR, 3 R, 2 RBI",pregame,mlb_stats_api,boxscores/apr18/SF_WSH-822751.json
+2026-04-18,SF@WSH,Luis García Jr.,WSH,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 2 RBI",,mlb_stats_api,boxscores/apr18/SF_WSH-822751.json
+2026-04-18,SF@WSH,Luis García Jr.,WSH,2+ TB,1.5,255,,L,"1 H, 1 TB, 0 HR, 0 R, 2 RBI",pregame,mlb_stats_api,boxscores/apr18/SF_WSH-822751.json
+2026-04-18,SF@WSH,José Tena,WSH,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI",,mlb_stats_api,boxscores/apr18/SF_WSH-822751.json
+2026-04-18,SF@WSH,José Tena,WSH,2+ TB,1.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI",,mlb_stats_api,boxscores/apr18/SF_WSH-822751.json
+2026-04-18,SF@WSH,CJ Abrams,WSH,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/SF_WSH-822751.json
+2026-04-18,SF@WSH,CJ Abrams,WSH,2+ TB,1.5,202,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/SF_WSH-822751.json
+2026-04-18,SF@WSH,Jacob Young,WSH,HR,0.5,,,L,"2 H, 2 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/SF_WSH-822751.json
+2026-04-18,SF@WSH,Jacob Young,WSH,2+ TB,1.5,-115,,W,"2 H, 2 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/SF_WSH-822751.json
+2026-04-18,SF@WSH,Daylen Lile,WSH,HR,0.5,,,L,"2 H, 3 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/SF_WSH-822751.json
+2026-04-18,SF@WSH,Daylen Lile,WSH,2+ TB,1.5,150,,W,"2 H, 3 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/SF_WSH-822751.json
+2026-04-18,SF@WSH,Nasim Nuñez,WSH,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI",,mlb_stats_api,boxscores/apr18/SF_WSH-822751.json
+2026-04-18,SF@WSH,Nasim Nuñez,WSH,2+ TB,1.5,325,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/SF_WSH-822751.json
+2026-04-18,SF@WSH,Jorbit Vivas,WSH,HR,0.5,,,L,"1 H, 2 TB, 0 HR, 1 R, 0 RBI",,mlb_stats_api,boxscores/apr18/SF_WSH-822751.json
+2026-04-18,SF@WSH,Jorbit Vivas,WSH,2+ TB,1.5,100,,W,"1 H, 2 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/SF_WSH-822751.json
+2026-04-18,SF@WSH,Drew Millas,WSH,HR,0.5,,,L,"1 H, 2 TB, 0 HR, 1 R, 0 RBI",,mlb_stats_api,boxscores/apr18/SF_WSH-822751.json
+2026-04-18,SF@WSH,Drew Millas,WSH,2+ TB,1.5,,,W,"1 H, 2 TB, 0 HR, 1 R, 0 RBI",,mlb_stats_api,boxscores/apr18/SF_WSH-822751.json
+2026-04-18,CWS@ATH,Andrew Benintendi,CWS,HR,0.5,,,W,"1 H, 4 TB, 1 HR, 1 R, 3 RBI",,mlb_stats_api,boxscores/apr18/CWS_ATH-825020.json
+2026-04-18,CWS@ATH,Andrew Benintendi,CWS,2+ TB,1.5,,,W,"1 H, 4 TB, 1 HR, 1 R, 3 RBI",,mlb_stats_api,boxscores/apr18/CWS_ATH-825020.json
+2026-04-18,CWS@ATH,Munetaka Murakami,CWS,HR,0.5,372,,W,"1 H, 4 TB, 1 HR, 1 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/CWS_ATH-825020.json
+2026-04-18,CWS@ATH,Munetaka Murakami,CWS,2+ TB,1.5,124,,W,"1 H, 4 TB, 1 HR, 1 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/CWS_ATH-825020.json
+2026-04-18,CWS@ATH,Miguel Vargas,CWS,HR,0.5,562,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/CWS_ATH-825020.json
+2026-04-18,CWS@ATH,Miguel Vargas,CWS,2+ TB,1.5,127,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/CWS_ATH-825020.json
+2026-04-18,CWS@ATH,Colson Montgomery,CWS,HR,0.5,418,,W,"1 H, 4 TB, 1 HR, 1 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/CWS_ATH-825020.json
+2026-04-18,CWS@ATH,Colson Montgomery,CWS,2+ TB,1.5,126,,W,"1 H, 4 TB, 1 HR, 1 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/CWS_ATH-825020.json
+2026-04-18,CWS@ATH,Everson Pereira,CWS,HR,0.5,665,,L,"2 H, 4 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/CWS_ATH-825020.json
+2026-04-18,CWS@ATH,Everson Pereira,CWS,2+ TB,1.5,150,,W,"2 H, 4 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/CWS_ATH-825020.json
+2026-04-18,CWS@ATH,Sam Antonacci,CWS,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/CWS_ATH-825020.json
+2026-04-18,CWS@ATH,Sam Antonacci,CWS,2+ TB,1.5,100,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/CWS_ATH-825020.json
+2026-04-18,CWS@ATH,Chase Meidroth,CWS,HR,0.5,975,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/CWS_ATH-825020.json
+2026-04-18,CWS@ATH,Chase Meidroth,CWS,2+ TB,1.5,128,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/CWS_ATH-825020.json
+2026-04-18,CWS@ATH,Tristan Peters,CWS,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI",,mlb_stats_api,boxscores/apr18/CWS_ATH-825020.json
+2026-04-18,CWS@ATH,Tristan Peters,CWS,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI",,mlb_stats_api,boxscores/apr18/CWS_ATH-825020.json
+2026-04-18,CWS@ATH,Reese McGuire,CWS,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 1 R, 1 RBI",,mlb_stats_api,boxscores/apr18/CWS_ATH-825020.json
+2026-04-18,CWS@ATH,Reese McGuire,CWS,2+ TB,1.5,,,L,"1 H, 1 TB, 0 HR, 1 R, 1 RBI",,mlb_stats_api,boxscores/apr18/CWS_ATH-825020.json
+2026-04-18,CWS@ATH,Jeff McNeil,ATH,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 1 RBI",,mlb_stats_api,boxscores/apr18/CWS_ATH-825020.json
+2026-04-18,CWS@ATH,Jeff McNeil,ATH,2+ TB,1.5,50,,L,"0 H, 0 TB, 0 HR, 0 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/CWS_ATH-825020.json
+2026-04-18,CWS@ATH,Shea Langeliers,ATH,HR,0.5,,,L,"2 H, 2 TB, 0 HR, 1 R, 0 RBI",,mlb_stats_api,boxscores/apr18/CWS_ATH-825020.json
+2026-04-18,CWS@ATH,Shea Langeliers,ATH,2+ TB,1.5,-116,,W,"2 H, 2 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/CWS_ATH-825020.json
+2026-04-18,CWS@ATH,Nick Kurtz,ATH,HR,0.5,,,W,"2 H, 5 TB, 1 HR, 1 R, 2 RBI",,mlb_stats_api,boxscores/apr18/CWS_ATH-825020.json
+2026-04-18,CWS@ATH,Nick Kurtz,ATH,2+ TB,1.5,127,,W,"2 H, 5 TB, 1 HR, 1 R, 2 RBI",pregame,mlb_stats_api,boxscores/apr18/CWS_ATH-825020.json
+2026-04-18,CWS@ATH,Tyler Soderstrom,ATH,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI",,mlb_stats_api,boxscores/apr18/CWS_ATH-825020.json
+2026-04-18,CWS@ATH,Tyler Soderstrom,ATH,2+ TB,1.5,135,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/CWS_ATH-825020.json
+2026-04-18,CWS@ATH,Jacob Wilson,ATH,HR,0.5,,,W,"2 H, 5 TB, 1 HR, 2 R, 1 RBI",,mlb_stats_api,boxscores/apr18/CWS_ATH-825020.json
+2026-04-18,CWS@ATH,Jacob Wilson,ATH,2+ TB,1.5,-110,,W,"2 H, 5 TB, 1 HR, 2 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/CWS_ATH-825020.json
+2026-04-18,CWS@ATH,Carlos Cortes,ATH,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/CWS_ATH-825020.json
+2026-04-18,CWS@ATH,Carlos Cortes,ATH,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/CWS_ATH-825020.json
+2026-04-18,CWS@ATH,Max Muncy,ATH,HR,0.5,,,L,"1 H, 3 TB, 0 HR, 1 R, 1 RBI",,mlb_stats_api,boxscores/apr18/CWS_ATH-825020.json
+2026-04-18,CWS@ATH,Max Muncy,ATH,2+ TB,1.5,127,,W,"1 H, 3 TB, 0 HR, 1 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/CWS_ATH-825020.json
+2026-04-18,CWS@ATH,Lawrence Butler,ATH,HR,0.5,,,L,"1 H, 2 TB, 0 HR, 1 R, 1 RBI",,mlb_stats_api,boxscores/apr18/CWS_ATH-825020.json
+2026-04-18,CWS@ATH,Lawrence Butler,ATH,2+ TB,1.5,,,W,"1 H, 2 TB, 0 HR, 1 R, 1 RBI",,mlb_stats_api,boxscores/apr18/CWS_ATH-825020.json
+2026-04-18,CWS@ATH,Austin Wynns,ATH,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI",,mlb_stats_api,boxscores/apr18/CWS_ATH-825020.json
+2026-04-18,CWS@ATH,Austin Wynns,ATH,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI",,mlb_stats_api,boxscores/apr18/CWS_ATH-825020.json
+2026-04-18,DET@BOS,Kevin McGonigle,DET,HR,0.5,,,L,"2 H, 2 TB, 0 HR, 1 R, 1 RBI",,mlb_stats_api,boxscores/apr18/DET_BOS-824775.json
+2026-04-18,DET@BOS,Kevin McGonigle,DET,2+ TB,1.5,150,,W,"2 H, 2 TB, 0 HR, 1 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/DET_BOS-824775.json
+2026-04-18,DET@BOS,Gleyber Torres,DET,HR,0.5,800,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/DET_BOS-824775.json
+2026-04-18,DET@BOS,Gleyber Torres,DET,2+ TB,1.5,154,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/DET_BOS-824775.json
+2026-04-18,DET@BOS,Colt Keith,DET,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/DET_BOS-824775.json
+2026-04-18,DET@BOS,Colt Keith,DET,2+ TB,1.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/DET_BOS-824775.json
+2026-04-18,DET@BOS,Riley Greene,DET,HR,0.5,1000,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/DET_BOS-824775.json
+2026-04-18,DET@BOS,Riley Greene,DET,2+ TB,1.5,198,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/DET_BOS-824775.json
+2026-04-18,DET@BOS,Spencer Torkelson,DET,HR,0.5,700,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/DET_BOS-824775.json
+2026-04-18,DET@BOS,Spencer Torkelson,DET,2+ TB,1.5,185,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/DET_BOS-824775.json
+2026-04-18,DET@BOS,Kerry Carpenter,DET,HR,0.5,,,W,"2 H, 5 TB, 1 HR, 1 R, 2 RBI",,mlb_stats_api,boxscores/apr18/DET_BOS-824775.json
+2026-04-18,DET@BOS,Kerry Carpenter,DET,2+ TB,1.5,,,W,"2 H, 5 TB, 1 HR, 1 R, 2 RBI",,mlb_stats_api,boxscores/apr18/DET_BOS-824775.json
+2026-04-18,DET@BOS,Wenceel Pérez,DET,HR,0.5,710,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/DET_BOS-824775.json
+2026-04-18,DET@BOS,Wenceel Pérez,DET,2+ TB,1.5,166,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/DET_BOS-824775.json
+2026-04-18,DET@BOS,Javier Báez,DET,HR,0.5,1070,,L,"1 H, 2 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/DET_BOS-824775.json
+2026-04-18,DET@BOS,Javier Báez,DET,2+ TB,1.5,200,,W,"1 H, 2 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/DET_BOS-824775.json
+2026-04-18,DET@BOS,Jake Rogers,DET,HR,0.5,,,L,"1 H, 2 TB, 0 HR, 0 R, 1 RBI",,mlb_stats_api,boxscores/apr18/DET_BOS-824775.json
+2026-04-18,DET@BOS,Jake Rogers,DET,2+ TB,1.5,,,W,"1 H, 2 TB, 0 HR, 0 R, 1 RBI",,mlb_stats_api,boxscores/apr18/DET_BOS-824775.json
+2026-04-18,DET@BOS,Roman Anthony,BOS,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/DET_BOS-824775.json
+2026-04-18,DET@BOS,Roman Anthony,BOS,2+ TB,1.5,164,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/DET_BOS-824775.json
+2026-04-18,DET@BOS,Andruw Monasterio,BOS,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/DET_BOS-824775.json
+2026-04-18,DET@BOS,Andruw Monasterio,BOS,2+ TB,1.5,153,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/DET_BOS-824775.json
+2026-04-18,DET@BOS,Willson Contreras,BOS,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/DET_BOS-824775.json
+2026-04-18,DET@BOS,Willson Contreras,BOS,2+ TB,1.5,147,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/DET_BOS-824775.json
+2026-04-18,DET@BOS,Trevor Story,BOS,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/DET_BOS-824775.json
+2026-04-18,DET@BOS,Trevor Story,BOS,2+ TB,1.5,132,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/DET_BOS-824775.json
+2026-04-18,DET@BOS,Wilyer Abreu,BOS,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI",,mlb_stats_api,boxscores/apr18/DET_BOS-824775.json
+2026-04-18,DET@BOS,Wilyer Abreu,BOS,2+ TB,1.5,135,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/DET_BOS-824775.json
+2026-04-18,DET@BOS,Ceddanne Rafaela,BOS,HR,0.5,,,L,"1 H, 2 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/DET_BOS-824775.json
+2026-04-18,DET@BOS,Ceddanne Rafaela,BOS,2+ TB,1.5,150,,W,"1 H, 2 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/DET_BOS-824775.json
+2026-04-18,DET@BOS,Caleb Durbin,BOS,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/DET_BOS-824775.json
+2026-04-18,DET@BOS,Caleb Durbin,BOS,2+ TB,1.5,195,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/DET_BOS-824775.json
+2026-04-18,DET@BOS,Connor Wong,BOS,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/DET_BOS-824775.json
+2026-04-18,DET@BOS,Connor Wong,BOS,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/DET_BOS-824775.json
+2026-04-18,DET@BOS,Isiah Kiner-Falefa,BOS,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/DET_BOS-824775.json
+2026-04-18,DET@BOS,Isiah Kiner-Falefa,BOS,2+ TB,1.5,202,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/DET_BOS-824775.json
+2026-04-18,MIL@MIA,Sal Frelick,MIL,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI",,mlb_stats_api,boxscores/apr18/MIL_MIA-823882.json
+2026-04-18,MIL@MIA,Sal Frelick,MIL,2+ TB,1.5,150,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/MIL_MIA-823882.json
+2026-04-18,MIL@MIA,William Contreras,MIL,HR,0.5,,,L,"1 H, 2 TB, 0 HR, 1 R, 0 RBI",,mlb_stats_api,boxscores/apr18/MIL_MIA-823882.json
+2026-04-18,MIL@MIA,William Contreras,MIL,2+ TB,1.5,150,,W,"1 H, 2 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/MIL_MIA-823882.json
+2026-04-18,MIL@MIA,Brice Turang,MIL,HR,0.5,1300,,W,"2 H, 5 TB, 1 HR, 1 R, 3 RBI",pregame,mlb_stats_api,boxscores/apr18/MIL_MIA-823882.json
+2026-04-18,MIL@MIA,Brice Turang,MIL,2+ TB,1.5,230,,W,"2 H, 5 TB, 1 HR, 1 R, 3 RBI",pregame,mlb_stats_api,boxscores/apr18/MIL_MIA-823882.json
+2026-04-18,MIL@MIA,Gary Sánchez,MIL,HR,0.5,650,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/MIL_MIA-823882.json
+2026-04-18,MIL@MIA,Gary Sánchez,MIL,2+ TB,1.5,280,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/MIL_MIA-823882.json
+2026-04-18,MIL@MIA,Jake Bauers,MIL,HR,0.5,700,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/MIL_MIA-823882.json
+2026-04-18,MIL@MIA,Jake Bauers,MIL,2+ TB,1.5,300,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/MIL_MIA-823882.json
+2026-04-18,MIL@MIA,Luis Rengifo,MIL,HR,0.5,1300,,L,"1 H, 2 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/MIL_MIA-823882.json
+2026-04-18,MIL@MIA,Luis Rengifo,MIL,2+ TB,1.5,-120,,W,"1 H, 2 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/MIL_MIA-823882.json
+2026-04-18,MIL@MIA,Garrett Mitchell,MIL,HR,0.5,1000,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/MIL_MIA-823882.json
+2026-04-18,MIL@MIA,Garrett Mitchell,MIL,2+ TB,1.5,260,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/MIL_MIA-823882.json
+2026-04-18,MIL@MIA,Brandon Lockridge,MIL,HR,0.5,2200,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/MIL_MIA-823882.json
+2026-04-18,MIL@MIA,Brandon Lockridge,MIL,2+ TB,1.5,360,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/MIL_MIA-823882.json
+2026-04-18,MIL@MIA,Joey Ortiz,MIL,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI",,mlb_stats_api,boxscores/apr18/MIL_MIA-823882.json
+2026-04-18,MIL@MIA,Joey Ortiz,MIL,2+ TB,1.5,100,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/MIL_MIA-823882.json
+2026-04-18,MIL@MIA,Jakob Marsee,MIA,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/MIL_MIA-823882.json
+2026-04-18,MIL@MIA,Jakob Marsee,MIA,2+ TB,1.5,150,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/MIL_MIA-823882.json
+2026-04-18,MIL@MIA,Xavier Edwards,MIA,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/MIL_MIA-823882.json
+2026-04-18,MIL@MIA,Xavier Edwards,MIA,2+ TB,1.5,150,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/MIL_MIA-823882.json
+2026-04-18,MIL@MIA,Agustín Ramírez,MIA,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/MIL_MIA-823882.json
+2026-04-18,MIL@MIA,Agustín Ramírez,MIA,2+ TB,1.5,240,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/MIL_MIA-823882.json
+2026-04-18,MIL@MIA,Liam Hicks,MIA,HR,0.5,,,L,"2 H, 2 TB, 0 HR, 1 R, 0 RBI",,mlb_stats_api,boxscores/apr18/MIL_MIA-823882.json
+2026-04-18,MIL@MIA,Liam Hicks,MIA,2+ TB,1.5,-110,,W,"2 H, 2 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/MIL_MIA-823882.json
+2026-04-18,MIL@MIA,Otto Lopez,MIA,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI",,mlb_stats_api,boxscores/apr18/MIL_MIA-823882.json
+2026-04-18,MIL@MIA,Otto Lopez,MIA,2+ TB,1.5,180,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/MIL_MIA-823882.json
+2026-04-18,MIL@MIA,Connor Norby,MIA,HR,0.5,,,L,"2 H, 2 TB, 0 HR, 0 R, 1 RBI",,mlb_stats_api,boxscores/apr18/MIL_MIA-823882.json
+2026-04-18,MIL@MIA,Connor Norby,MIA,2+ TB,1.5,250,,W,"2 H, 2 TB, 0 HR, 0 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/MIL_MIA-823882.json
+2026-04-18,MIL@MIA,Owen Caissie,MIA,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/MIL_MIA-823882.json
+2026-04-18,MIL@MIA,Owen Caissie,MIA,2+ TB,1.5,360,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/MIL_MIA-823882.json
+2026-04-18,MIL@MIA,Heriberto Hernández,MIA,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 1 RBI",,mlb_stats_api,boxscores/apr18/MIL_MIA-823882.json
+2026-04-18,MIL@MIA,Heriberto Hernández,MIA,2+ TB,1.5,100,,L,"0 H, 0 TB, 0 HR, 0 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/MIL_MIA-823882.json
+2026-04-18,MIL@MIA,Javier Sanoja,MIA,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/MIL_MIA-823882.json
+2026-04-18,MIL@MIA,Javier Sanoja,MIA,2+ TB,1.5,150,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/MIL_MIA-823882.json
+2026-04-18,BAL@CLE,Gunnar Henderson,BAL,HR,0.5,900,,W,"2 H, 5 TB, 1 HR, 1 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/BAL_CLE-824451.json
+2026-04-18,BAL@CLE,Gunnar Henderson,BAL,2+ TB,1.5,150,,W,"2 H, 5 TB, 1 HR, 1 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/BAL_CLE-824451.json
+2026-04-18,BAL@CLE,Taylor Ward,BAL,HR,0.5,1050,,L,"1 H, 2 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/BAL_CLE-824451.json
+2026-04-18,BAL@CLE,Taylor Ward,BAL,2+ TB,1.5,150,,W,"1 H, 2 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/BAL_CLE-824451.json
+2026-04-18,BAL@CLE,Pete Alonso,BAL,HR,0.5,850,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/BAL_CLE-824451.json
+2026-04-18,BAL@CLE,Pete Alonso,BAL,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI; market line 0.5 excluded from 2+ TB ROI",,mlb_stats_api,boxscores/apr18/BAL_CLE-824451.json
+2026-04-18,BAL@CLE,Dylan Beavers,BAL,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/BAL_CLE-824451.json
+2026-04-18,BAL@CLE,Dylan Beavers,BAL,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/BAL_CLE-824451.json
+2026-04-18,BAL@CLE,Colton Cowser,BAL,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/BAL_CLE-824451.json
+2026-04-18,BAL@CLE,Colton Cowser,BAL,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/BAL_CLE-824451.json
+2026-04-18,BAL@CLE,Leody Taveras,BAL,HR,0.5,,,W,"1 H, 4 TB, 1 HR, 1 R, 1 RBI",,mlb_stats_api,boxscores/apr18/BAL_CLE-824451.json
+2026-04-18,BAL@CLE,Leody Taveras,BAL,2+ TB,1.5,150,,W,"1 H, 4 TB, 1 HR, 1 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/BAL_CLE-824451.json
+2026-04-18,BAL@CLE,Samuel Basallo,BAL,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/BAL_CLE-824451.json
+2026-04-18,BAL@CLE,Samuel Basallo,BAL,2+ TB,1.5,150,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/BAL_CLE-824451.json
+2026-04-18,BAL@CLE,Coby Mayo,BAL,HR,0.5,850,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/BAL_CLE-824451.json
+2026-04-18,BAL@CLE,Coby Mayo,BAL,2+ TB,1.5,325,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/BAL_CLE-824451.json
+2026-04-18,BAL@CLE,Jeremiah Jackson,BAL,HR,0.5,800,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/BAL_CLE-824451.json
+2026-04-18,BAL@CLE,Jeremiah Jackson,BAL,2+ TB,1.5,150,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/BAL_CLE-824451.json
+2026-04-18,BAL@CLE,Steven Kwan,CLE,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/BAL_CLE-824451.json
+2026-04-18,BAL@CLE,Steven Kwan,CLE,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI; market line 0.5 excluded from 2+ TB ROI",,mlb_stats_api,boxscores/apr18/BAL_CLE-824451.json
+2026-04-18,BAL@CLE,Chase DeLauter,CLE,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/BAL_CLE-824451.json
+2026-04-18,BAL@CLE,Chase DeLauter,CLE,2+ TB,1.5,50,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/BAL_CLE-824451.json
+2026-04-18,BAL@CLE,José Ramírez,CLE,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/BAL_CLE-824451.json
+2026-04-18,BAL@CLE,José Ramírez,CLE,2+ TB,1.5,175,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/BAL_CLE-824451.json
+2026-04-18,BAL@CLE,Kyle Manzardo,CLE,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/BAL_CLE-824451.json
+2026-04-18,BAL@CLE,Kyle Manzardo,CLE,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/BAL_CLE-824451.json
+2026-04-18,BAL@CLE,George Valera,CLE,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/BAL_CLE-824451.json
+2026-04-18,BAL@CLE,George Valera,CLE,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/BAL_CLE-824451.json
+2026-04-18,BAL@CLE,Rhys Hoskins,CLE,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI",,mlb_stats_api,boxscores/apr18/BAL_CLE-824451.json
+2026-04-18,BAL@CLE,Rhys Hoskins,CLE,2+ TB,1.5,275,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/BAL_CLE-824451.json
+2026-04-18,BAL@CLE,Daniel Schneemann,CLE,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI",,mlb_stats_api,boxscores/apr18/BAL_CLE-824451.json
+2026-04-18,BAL@CLE,Daniel Schneemann,CLE,2+ TB,1.5,400,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/BAL_CLE-824451.json
+2026-04-18,BAL@CLE,Bo Naylor,CLE,HR,0.5,,,W,"1 H, 4 TB, 1 HR, 1 R, 1 RBI",,mlb_stats_api,boxscores/apr18/BAL_CLE-824451.json
+2026-04-18,BAL@CLE,Bo Naylor,CLE,2+ TB,1.5,,,W,"1 H, 4 TB, 1 HR, 1 R, 1 RBI",,mlb_stats_api,boxscores/apr18/BAL_CLE-824451.json
+2026-04-18,BAL@CLE,Brayan Rocchio,CLE,HR,0.5,,,W,"1 H, 4 TB, 1 HR, 1 R, 3 RBI",,mlb_stats_api,boxscores/apr18/BAL_CLE-824451.json
+2026-04-18,BAL@CLE,Brayan Rocchio,CLE,2+ TB,1.5,135,,W,"1 H, 4 TB, 1 HR, 1 R, 3 RBI",pregame,mlb_stats_api,boxscores/apr18/BAL_CLE-824451.json
+2026-04-18,STL@HOU,JJ Wetherholt,STL,HR,0.5,800,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/STL_HOU-824206.json
+2026-04-18,STL@HOU,JJ Wetherholt,STL,2+ TB,1.5,185,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/STL_HOU-824206.json
+2026-04-18,STL@HOU,Iván Herrera,STL,HR,0.5,750,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/STL_HOU-824206.json
+2026-04-18,STL@HOU,Iván Herrera,STL,2+ TB,1.5,180,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/STL_HOU-824206.json
+2026-04-18,STL@HOU,Alec Burleson,STL,HR,0.5,600,,W,"2 H, 6 TB, 1 HR, 1 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/STL_HOU-824206.json
+2026-04-18,STL@HOU,Alec Burleson,STL,2+ TB,1.5,180,,W,"2 H, 6 TB, 1 HR, 1 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/STL_HOU-824206.json
+2026-04-18,STL@HOU,Jordan Walker,STL,HR,0.5,700,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/STL_HOU-824206.json
+2026-04-18,STL@HOU,Jordan Walker,STL,2+ TB,1.5,180,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/STL_HOU-824206.json
+2026-04-18,STL@HOU,Nolan Gorman,STL,HR,0.5,600,,L,"2 H, 2 TB, 0 HR, 1 R, 2 RBI",pregame,mlb_stats_api,boxscores/apr18/STL_HOU-824206.json
+2026-04-18,STL@HOU,Nolan Gorman,STL,2+ TB,1.5,275,,W,"2 H, 2 TB, 0 HR, 1 R, 2 RBI",pregame,mlb_stats_api,boxscores/apr18/STL_HOU-824206.json
+2026-04-18,STL@HOU,Masyn Winn,STL,HR,0.5,1100,,W,"1 H, 4 TB, 1 HR, 1 R, 2 RBI",pregame,mlb_stats_api,boxscores/apr18/STL_HOU-824206.json
+2026-04-18,STL@HOU,Masyn Winn,STL,2+ TB,1.5,250,,W,"1 H, 4 TB, 1 HR, 1 R, 2 RBI",pregame,mlb_stats_api,boxscores/apr18/STL_HOU-824206.json
+2026-04-18,STL@HOU,Ramón Urías,STL,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI",,mlb_stats_api,boxscores/apr18/STL_HOU-824206.json
+2026-04-18,STL@HOU,Ramón Urías,STL,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI",,mlb_stats_api,boxscores/apr18/STL_HOU-824206.json
+2026-04-18,STL@HOU,Nathan Church,STL,HR,0.5,850,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/STL_HOU-824206.json
+2026-04-18,STL@HOU,Nathan Church,STL,2+ TB,1.5,195,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/STL_HOU-824206.json
+2026-04-18,STL@HOU,José Fermín,STL,HR,0.5,,,W,"1 H, 4 TB, 1 HR, 1 R, 1 RBI",,mlb_stats_api,boxscores/apr18/STL_HOU-824206.json
+2026-04-18,STL@HOU,José Fermín,STL,2+ TB,1.5,,,W,"1 H, 4 TB, 1 HR, 1 R, 1 RBI",,mlb_stats_api,boxscores/apr18/STL_HOU-824206.json
+2026-04-18,STL@HOU,Jose Altuve,HOU,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI",,mlb_stats_api,boxscores/apr18/STL_HOU-824206.json
+2026-04-18,STL@HOU,Jose Altuve,HOU,2+ TB,1.5,190,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/STL_HOU-824206.json
+2026-04-18,STL@HOU,Yordan Alvarez,HOU,HR,0.5,,,W,"2 H, 6 TB, 1 HR, 1 R, 1 RBI",,mlb_stats_api,boxscores/apr18/STL_HOU-824206.json
+2026-04-18,STL@HOU,Yordan Alvarez,HOU,2+ TB,1.5,155,,W,"2 H, 6 TB, 1 HR, 1 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/STL_HOU-824206.json
+2026-04-18,STL@HOU,Carlos Correa,HOU,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/STL_HOU-824206.json
+2026-04-18,STL@HOU,Carlos Correa,HOU,2+ TB,1.5,168,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/STL_HOU-824206.json
+2026-04-18,STL@HOU,Christian Walker,HOU,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/STL_HOU-824206.json
+2026-04-18,STL@HOU,Christian Walker,HOU,2+ TB,1.5,125,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/STL_HOU-824206.json
+2026-04-18,STL@HOU,Isaac Paredes,HOU,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/STL_HOU-824206.json
+2026-04-18,STL@HOU,Isaac Paredes,HOU,2+ TB,1.5,162,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/STL_HOU-824206.json
+2026-04-18,STL@HOU,Taylor Trammell,HOU,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/STL_HOU-824206.json
+2026-04-18,STL@HOU,Taylor Trammell,HOU,2+ TB,1.5,275,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/STL_HOU-824206.json
+2026-04-18,STL@HOU,Cam Smith,HOU,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI",,mlb_stats_api,boxscores/apr18/STL_HOU-824206.json
+2026-04-18,STL@HOU,Cam Smith,HOU,2+ TB,1.5,165,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/STL_HOU-824206.json
+2026-04-18,STL@HOU,Christian Vázquez,HOU,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI",,mlb_stats_api,boxscores/apr18/STL_HOU-824206.json
+2026-04-18,STL@HOU,Christian Vázquez,HOU,2+ TB,1.5,150,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/STL_HOU-824206.json
+2026-04-18,STL@HOU,Shay Whitcomb,HOU,HR,0.5,,,W,"1 H, 4 TB, 1 HR, 1 R, 3 RBI",,mlb_stats_api,boxscores/apr18/STL_HOU-824206.json
+2026-04-18,STL@HOU,Shay Whitcomb,HOU,2+ TB,1.5,200,,W,"1 H, 4 TB, 1 HR, 1 R, 3 RBI",pregame,mlb_stats_api,boxscores/apr18/STL_HOU-824206.json
+2026-04-18,TEX@SEA,Brandon Nimmo,TEX,HR,0.5,562,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TEX_SEA-823151.json
+2026-04-18,TEX@SEA,Brandon Nimmo,TEX,2+ TB,1.5,145,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TEX_SEA-823151.json
+2026-04-18,TEX@SEA,Corey Seager,TEX,HR,0.5,360,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TEX_SEA-823151.json
+2026-04-18,TEX@SEA,Corey Seager,TEX,2+ TB,1.5,130,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TEX_SEA-823151.json
+2026-04-18,TEX@SEA,Wyatt Langford,TEX,HR,0.5,628,,L,"3 H, 4 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TEX_SEA-823151.json
+2026-04-18,TEX@SEA,Wyatt Langford,TEX,2+ TB,1.5,157,,W,"3 H, 4 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TEX_SEA-823151.json
+2026-04-18,TEX@SEA,Jake Burger,TEX,HR,0.5,475,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TEX_SEA-823151.json
+2026-04-18,TEX@SEA,Jake Burger,TEX,2+ TB,1.5,152,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TEX_SEA-823151.json
+2026-04-18,TEX@SEA,Joc Pederson,TEX,HR,0.5,550,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TEX_SEA-823151.json
+2026-04-18,TEX@SEA,Joc Pederson,TEX,2+ TB,1.5,200,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TEX_SEA-823151.json
+2026-04-18,TEX@SEA,Josh Jung,TEX,HR,0.5,895,,W,"2 H, 5 TB, 1 HR, 1 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/TEX_SEA-823151.json
+2026-04-18,TEX@SEA,Josh Jung,TEX,2+ TB,1.5,195,,W,"2 H, 5 TB, 1 HR, 1 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/TEX_SEA-823151.json
+2026-04-18,TEX@SEA,Evan Carter,TEX,HR,0.5,805,,L,"0 H, 0 TB, 0 HR, 0 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/TEX_SEA-823151.json
+2026-04-18,TEX@SEA,Evan Carter,TEX,2+ TB,1.5,202,,L,"0 H, 0 TB, 0 HR, 0 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/TEX_SEA-823151.json
+2026-04-18,TEX@SEA,Ezequiel Duran,TEX,HR,0.5,,,L,"3 H, 4 TB, 0 HR, 0 R, 1 RBI",,mlb_stats_api,boxscores/apr18/TEX_SEA-823151.json
+2026-04-18,TEX@SEA,Ezequiel Duran,TEX,2+ TB,1.5,,,W,"3 H, 4 TB, 0 HR, 0 R, 1 RBI",,mlb_stats_api,boxscores/apr18/TEX_SEA-823151.json
+2026-04-18,TEX@SEA,Kyle Higashioka,TEX,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/TEX_SEA-823151.json
+2026-04-18,TEX@SEA,Kyle Higashioka,TEX,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/TEX_SEA-823151.json
+2026-04-18,TEX@SEA,J.P. Crawford,SEA,HR,0.5,,,L,"2 H, 4 TB, 0 HR, 1 R, 0 RBI",,mlb_stats_api,boxscores/apr18/TEX_SEA-823151.json
+2026-04-18,TEX@SEA,J.P. Crawford,SEA,2+ TB,1.5,227,,W,"2 H, 4 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TEX_SEA-823151.json
+2026-04-18,TEX@SEA,Cal Raleigh,SEA,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/TEX_SEA-823151.json
+2026-04-18,TEX@SEA,Cal Raleigh,SEA,2+ TB,1.5,146,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TEX_SEA-823151.json
+2026-04-18,TEX@SEA,Julio Rodríguez,SEA,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI",,mlb_stats_api,boxscores/apr18/TEX_SEA-823151.json
+2026-04-18,TEX@SEA,Julio Rodríguez,SEA,2+ TB,1.5,140,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/TEX_SEA-823151.json
+2026-04-18,TEX@SEA,Josh Naylor,SEA,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/TEX_SEA-823151.json
+2026-04-18,TEX@SEA,Josh Naylor,SEA,2+ TB,1.5,100,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TEX_SEA-823151.json
+2026-04-18,TEX@SEA,Randy Arozarena,SEA,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI",,mlb_stats_api,boxscores/apr18/TEX_SEA-823151.json
+2026-04-18,TEX@SEA,Randy Arozarena,SEA,2+ TB,1.5,182,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TEX_SEA-823151.json
+2026-04-18,TEX@SEA,Luke Raley,SEA,HR,0.5,,,W,"1 H, 4 TB, 1 HR, 3 R, 1 RBI",,mlb_stats_api,boxscores/apr18/TEX_SEA-823151.json
+2026-04-18,TEX@SEA,Luke Raley,SEA,2+ TB,1.5,,,W,"1 H, 4 TB, 1 HR, 3 R, 1 RBI",,mlb_stats_api,boxscores/apr18/TEX_SEA-823151.json
+2026-04-18,TEX@SEA,Dominic Canzone,SEA,HR,0.5,,,L,"3 H, 4 TB, 0 HR, 1 R, 2 RBI",,mlb_stats_api,boxscores/apr18/TEX_SEA-823151.json
+2026-04-18,TEX@SEA,Dominic Canzone,SEA,2+ TB,1.5,,,W,"3 H, 4 TB, 0 HR, 1 R, 2 RBI",,mlb_stats_api,boxscores/apr18/TEX_SEA-823151.json
+2026-04-18,TEX@SEA,Cole Young,SEA,HR,0.5,,,L,"2 H, 2 TB, 0 HR, 1 R, 2 RBI",,mlb_stats_api,boxscores/apr18/TEX_SEA-823151.json
+2026-04-18,TEX@SEA,Cole Young,SEA,2+ TB,1.5,256,,W,"2 H, 2 TB, 0 HR, 1 R, 2 RBI",pregame,mlb_stats_api,boxscores/apr18/TEX_SEA-823151.json
+2026-04-18,TEX@SEA,Leo Rivas,SEA,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 1 RBI",,mlb_stats_api,boxscores/apr18/TEX_SEA-823151.json
+2026-04-18,TEX@SEA,Leo Rivas,SEA,2+ TB,1.5,295,,L,"0 H, 0 TB, 0 HR, 0 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/TEX_SEA-823151.json
+2026-04-18,ATL@PHI,Ronald Acuña Jr.,ATL,HR,0.5,415,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/ATL_PHI-823474.json
+2026-04-18,ATL@PHI,Ronald Acuña Jr.,ATL,2+ TB,1.5,100,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/ATL_PHI-823474.json
+2026-04-18,ATL@PHI,Drake Baldwin,ATL,HR,0.5,550,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/ATL_PHI-823474.json
+2026-04-18,ATL@PHI,Drake Baldwin,ATL,2+ TB,1.5,130,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/ATL_PHI-823474.json
+2026-04-18,ATL@PHI,Ozzie Albies,ATL,HR,0.5,770,,L,"2 H, 3 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/ATL_PHI-823474.json
+2026-04-18,ATL@PHI,Ozzie Albies,ATL,2+ TB,1.5,150,,W,"2 H, 3 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/ATL_PHI-823474.json
+2026-04-18,ATL@PHI,Matt Olson,ATL,HR,0.5,410,,L,"1 H, 2 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/ATL_PHI-823474.json
+2026-04-18,ATL@PHI,Matt Olson,ATL,2+ TB,1.5,130,,W,"1 H, 2 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/ATL_PHI-823474.json
+2026-04-18,ATL@PHI,Austin Riley,ATL,HR,0.5,510,,L,"2 H, 2 TB, 0 HR, 0 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/ATL_PHI-823474.json
+2026-04-18,ATL@PHI,Austin Riley,ATL,2+ TB,1.5,130,,W,"2 H, 2 TB, 0 HR, 0 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/ATL_PHI-823474.json
+2026-04-18,ATL@PHI,Mauricio Dubón,ATL,HR,0.5,1075,,L,"1 H, 1 TB, 0 HR, 0 R, 2 RBI",pregame,mlb_stats_api,boxscores/apr18/ATL_PHI-823474.json
+2026-04-18,ATL@PHI,Mauricio Dubón,ATL,2+ TB,1.5,190,,L,"1 H, 1 TB, 0 HR, 0 R, 2 RBI",pregame,mlb_stats_api,boxscores/apr18/ATL_PHI-823474.json
+2026-04-18,ATL@PHI,Eli White,ATL,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/ATL_PHI-823474.json
+2026-04-18,ATL@PHI,Eli White,ATL,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/ATL_PHI-823474.json
+2026-04-18,ATL@PHI,Jonah Heim,ATL,HR,0.5,,,L,"2 H, 3 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/ATL_PHI-823474.json
+2026-04-18,ATL@PHI,Jonah Heim,ATL,2+ TB,1.5,,,W,"2 H, 3 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/ATL_PHI-823474.json
+2026-04-18,ATL@PHI,Jorge Mateo,ATL,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/ATL_PHI-823474.json
+2026-04-18,ATL@PHI,Jorge Mateo,ATL,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/ATL_PHI-823474.json
+2026-04-18,ATL@PHI,Trea Turner,PHI,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/ATL_PHI-823474.json
+2026-04-18,ATL@PHI,Trea Turner,PHI,2+ TB,1.5,118,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/ATL_PHI-823474.json
+2026-04-18,ATL@PHI,Kyle Schwarber,PHI,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/ATL_PHI-823474.json
+2026-04-18,ATL@PHI,Kyle Schwarber,PHI,2+ TB,1.5,155,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/ATL_PHI-823474.json
+2026-04-18,ATL@PHI,Bryce Harper,PHI,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/ATL_PHI-823474.json
+2026-04-18,ATL@PHI,Bryce Harper,PHI,2+ TB,1.5,125,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/ATL_PHI-823474.json
+2026-04-18,ATL@PHI,Adolis García,PHI,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/ATL_PHI-823474.json
+2026-04-18,ATL@PHI,Adolis García,PHI,2+ TB,1.5,145,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/ATL_PHI-823474.json
+2026-04-18,ATL@PHI,J.T. Realmuto,PHI,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/ATL_PHI-823474.json
+2026-04-18,ATL@PHI,J.T. Realmuto,PHI,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/ATL_PHI-823474.json
+2026-04-18,ATL@PHI,Alec Bohm,PHI,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/ATL_PHI-823474.json
+2026-04-18,ATL@PHI,Alec Bohm,PHI,2+ TB,1.5,150,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/ATL_PHI-823474.json
+2026-04-18,ATL@PHI,Felix Reyes,PHI,HR,0.5,,,W,"1 H, 4 TB, 1 HR, 1 R, 1 RBI",,mlb_stats_api,boxscores/apr18/ATL_PHI-823474.json
+2026-04-18,ATL@PHI,Felix Reyes,PHI,2+ TB,1.5,,,W,"1 H, 4 TB, 1 HR, 1 R, 1 RBI",,mlb_stats_api,boxscores/apr18/ATL_PHI-823474.json
+2026-04-18,ATL@PHI,Edmundo Sosa,PHI,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/ATL_PHI-823474.json
+2026-04-18,ATL@PHI,Edmundo Sosa,PHI,2+ TB,1.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/ATL_PHI-823474.json
+2026-04-18,ATL@PHI,Brandon Marsh,PHI,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/ATL_PHI-823474.json
+2026-04-18,ATL@PHI,Brandon Marsh,PHI,2+ TB,1.5,172,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/ATL_PHI-823474.json
+2026-04-18,LAD@COL,Shohei Ohtani,LAD,HR,0.5,194,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/LAD_COL-824372.json
+2026-04-18,LAD@COL,Shohei Ohtani,LAD,2+ TB,1.5,,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI; market line 2.5 excluded from 2+ TB ROI",,mlb_stats_api,boxscores/apr18/LAD_COL-824372.json
+2026-04-18,LAD@COL,Kyle Tucker,LAD,HR,0.5,410,,W,"3 H, 6 TB, 1 HR, 1 R, 2 RBI",pregame,mlb_stats_api,boxscores/apr18/LAD_COL-824372.json
+2026-04-18,LAD@COL,Kyle Tucker,LAD,2+ TB,1.5,-132,,W,"3 H, 6 TB, 1 HR, 1 R, 2 RBI",pregame,mlb_stats_api,boxscores/apr18/LAD_COL-824372.json
+2026-04-18,LAD@COL,Andy Pages,LAD,HR,0.5,480,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/LAD_COL-824372.json
+2026-04-18,LAD@COL,Andy Pages,LAD,2+ TB,1.5,-148,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/LAD_COL-824372.json
+2026-04-18,LAD@COL,Freddie Freeman,LAD,HR,0.5,,,L,"2 H, 4 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/LAD_COL-824372.json
+2026-04-18,LAD@COL,Freddie Freeman,LAD,2+ TB,1.5,150,,W,"2 H, 4 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/LAD_COL-824372.json
+2026-04-18,LAD@COL,Teoscar Hernández,LAD,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/LAD_COL-824372.json
+2026-04-18,LAD@COL,Teoscar Hernández,LAD,2+ TB,1.5,150,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/LAD_COL-824372.json
+2026-04-18,LAD@COL,Max Muncy,LAD,HR,0.5,300,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/LAD_COL-824372.json
+2026-04-18,LAD@COL,Max Muncy,LAD,2+ TB,1.5,-110,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/LAD_COL-824372.json
+2026-04-18,LAD@COL,Dalton Rushing,LAD,HR,0.5,,,W,"1 H, 4 TB, 1 HR, 1 R, 1 RBI",,mlb_stats_api,boxscores/apr18/LAD_COL-824372.json
+2026-04-18,LAD@COL,Dalton Rushing,LAD,2+ TB,1.5,150,,W,"1 H, 4 TB, 1 HR, 1 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/LAD_COL-824372.json
+2026-04-18,LAD@COL,Alex Freeland,LAD,HR,0.5,775,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/LAD_COL-824372.json
+2026-04-18,LAD@COL,Alex Freeland,LAD,2+ TB,1.5,133,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/LAD_COL-824372.json
+2026-04-18,LAD@COL,Miguel Rojas,LAD,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/LAD_COL-824372.json
+2026-04-18,LAD@COL,Miguel Rojas,LAD,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/LAD_COL-824372.json
+2026-04-18,LAD@COL,Edouard Julien,COL,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/LAD_COL-824372.json
+2026-04-18,LAD@COL,Edouard Julien,COL,2+ TB,1.5,167,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/LAD_COL-824372.json
+2026-04-18,LAD@COL,Mickey Moniak,COL,HR,0.5,,,L,"1 H, 2 TB, 0 HR, 1 R, 0 RBI",,mlb_stats_api,boxscores/apr18/LAD_COL-824372.json
+2026-04-18,LAD@COL,Mickey Moniak,COL,2+ TB,1.5,110,,W,"1 H, 2 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/LAD_COL-824372.json
+2026-04-18,LAD@COL,TJ Rumfield,COL,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI",,mlb_stats_api,boxscores/apr18/LAD_COL-824372.json
+2026-04-18,LAD@COL,TJ Rumfield,COL,2+ TB,1.5,134,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/LAD_COL-824372.json
+2026-04-18,LAD@COL,Hunter Goodman,COL,HR,0.5,,,L,"1 H, 2 TB, 0 HR, 1 R, 0 RBI",,mlb_stats_api,boxscores/apr18/LAD_COL-824372.json
+2026-04-18,LAD@COL,Hunter Goodman,COL,2+ TB,1.5,113,,W,"1 H, 2 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/LAD_COL-824372.json
+2026-04-18,LAD@COL,Ezequiel Tovar,COL,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI",,mlb_stats_api,boxscores/apr18/LAD_COL-824372.json
+2026-04-18,LAD@COL,Ezequiel Tovar,COL,2+ TB,1.5,150,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/LAD_COL-824372.json
+2026-04-18,LAD@COL,Troy Johnston,COL,HR,0.5,,,L,"3 H, 5 TB, 0 HR, 1 R, 2 RBI",,mlb_stats_api,boxscores/apr18/LAD_COL-824372.json
+2026-04-18,LAD@COL,Troy Johnston,COL,2+ TB,1.5,138,,W,"3 H, 5 TB, 0 HR, 1 R, 2 RBI",pregame,mlb_stats_api,boxscores/apr18/LAD_COL-824372.json
+2026-04-18,LAD@COL,Brenton Doyle,COL,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/LAD_COL-824372.json
+2026-04-18,LAD@COL,Brenton Doyle,COL,2+ TB,1.5,150,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/LAD_COL-824372.json
+2026-04-18,LAD@COL,Kyle Karros,COL,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 1 RBI",,mlb_stats_api,boxscores/apr18/LAD_COL-824372.json
+2026-04-18,LAD@COL,Kyle Karros,COL,2+ TB,1.5,186,,L,"0 H, 0 TB, 0 HR, 0 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/LAD_COL-824372.json
+2026-04-18,LAD@COL,Jordan Beck,COL,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/LAD_COL-824372.json
+2026-04-18,LAD@COL,Jordan Beck,COL,2+ TB,1.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/LAD_COL-824372.json
+2026-04-18,TOR@AZ,Nathan Lukes,TOR,HR,0.5,950,,L,"3 H, 3 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TOR_AZ-825098.json
+2026-04-18,TOR@AZ,Nathan Lukes,TOR,2+ TB,1.5,114,,W,"3 H, 3 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TOR_AZ-825098.json
+2026-04-18,TOR@AZ,Ernie Clement,TOR,HR,0.5,1060,,L,"2 H, 3 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TOR_AZ-825098.json
+2026-04-18,TOR@AZ,Ernie Clement,TOR,2+ TB,1.5,100,,W,"2 H, 3 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TOR_AZ-825098.json
+2026-04-18,TOR@AZ,Vladimir Guerrero Jr.,TOR,HR,0.5,425,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TOR_AZ-825098.json
+2026-04-18,TOR@AZ,Vladimir Guerrero Jr.,TOR,2+ TB,1.5,-109,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TOR_AZ-825098.json
+2026-04-18,TOR@AZ,Jesús Sánchez,TOR,HR,0.5,510,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/TOR_AZ-825098.json
+2026-04-18,TOR@AZ,Jesús Sánchez,TOR,2+ TB,1.5,130,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/TOR_AZ-825098.json
+2026-04-18,TOR@AZ,Eloy Jiménez,TOR,HR,0.5,500,,L,"2 H, 2 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TOR_AZ-825098.json
+2026-04-18,TOR@AZ,Eloy Jiménez,TOR,2+ TB,1.5,128,,W,"2 H, 2 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TOR_AZ-825098.json
+2026-04-18,TOR@AZ,Andrés Giménez,TOR,HR,0.5,1000,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TOR_AZ-825098.json
+2026-04-18,TOR@AZ,Andrés Giménez,TOR,2+ TB,1.5,150,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TOR_AZ-825098.json
+2026-04-18,TOR@AZ,Kazuma Okamoto,TOR,HR,0.5,650,,L,"2 H, 2 TB, 0 HR, 0 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/TOR_AZ-825098.json
+2026-04-18,TOR@AZ,Kazuma Okamoto,TOR,2+ TB,1.5,167,,W,"2 H, 2 TB, 0 HR, 0 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/TOR_AZ-825098.json
+2026-04-18,TOR@AZ,Myles Straw,TOR,HR,0.5,1200,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TOR_AZ-825098.json
+2026-04-18,TOR@AZ,Myles Straw,TOR,2+ TB,1.5,206,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TOR_AZ-825098.json
+2026-04-18,TOR@AZ,Tyler Heineman,TOR,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/TOR_AZ-825098.json
+2026-04-18,TOR@AZ,Tyler Heineman,TOR,2+ TB,1.5,350,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TOR_AZ-825098.json
+2026-04-18,TOR@AZ,Ketel Marte,AZ,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI",,mlb_stats_api,boxscores/apr18/TOR_AZ-825098.json
+2026-04-18,TOR@AZ,Ketel Marte,AZ,2+ TB,1.5,118,,L,"0 H, 0 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TOR_AZ-825098.json
+2026-04-18,TOR@AZ,Corbin Carroll,AZ,HR,0.5,,,W,"1 H, 4 TB, 1 HR, 2 R, 4 RBI",,mlb_stats_api,boxscores/apr18/TOR_AZ-825098.json
+2026-04-18,TOR@AZ,Corbin Carroll,AZ,2+ TB,1.5,120,,W,"1 H, 4 TB, 1 HR, 2 R, 4 RBI",pregame,mlb_stats_api,boxscores/apr18/TOR_AZ-825098.json
+2026-04-18,TOR@AZ,Geraldo Perdomo,AZ,HR,0.5,,,L,"3 H, 3 TB, 0 HR, 0 R, 1 RBI",,mlb_stats_api,boxscores/apr18/TOR_AZ-825098.json
+2026-04-18,TOR@AZ,Geraldo Perdomo,AZ,2+ TB,1.5,150,,W,"3 H, 3 TB, 0 HR, 0 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/TOR_AZ-825098.json
+2026-04-18,TOR@AZ,Lourdes Gurriel Jr.,AZ,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/TOR_AZ-825098.json
+2026-04-18,TOR@AZ,Lourdes Gurriel Jr.,AZ,2+ TB,1.5,115,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TOR_AZ-825098.json
+2026-04-18,TOR@AZ,Adrian Del Castillo,AZ,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/TOR_AZ-825098.json
+2026-04-18,TOR@AZ,Adrian Del Castillo,AZ,2+ TB,1.5,170,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TOR_AZ-825098.json
+2026-04-18,TOR@AZ,Jose Fernandez,AZ,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI",,mlb_stats_api,boxscores/apr18/TOR_AZ-825098.json
+2026-04-18,TOR@AZ,Jose Fernandez,AZ,2+ TB,1.5,152,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TOR_AZ-825098.json
+2026-04-18,TOR@AZ,Nolan Arenado,AZ,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/TOR_AZ-825098.json
+2026-04-18,TOR@AZ,Nolan Arenado,AZ,2+ TB,1.5,166,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TOR_AZ-825098.json
+2026-04-18,TOR@AZ,Ildemaro Vargas,AZ,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI",,mlb_stats_api,boxscores/apr18/TOR_AZ-825098.json
+2026-04-18,TOR@AZ,Ildemaro Vargas,AZ,2+ TB,1.5,168,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/TOR_AZ-825098.json
+2026-04-18,TOR@AZ,Alek Thomas,AZ,HR,0.5,,,L,"2 H, 3 TB, 0 HR, 1 R, 1 RBI",,mlb_stats_api,boxscores/apr18/TOR_AZ-825098.json
+2026-04-18,TOR@AZ,Alek Thomas,AZ,2+ TB,1.5,196,,W,"2 H, 3 TB, 0 HR, 1 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/TOR_AZ-825098.json
+2026-04-18,SD@LAA,Ramón Laureano,SD,HR,0.5,438,,L,"1 H, 1 TB, 0 HR, 0 R, 2 RBI",pregame,mlb_stats_api,boxscores/apr18/SD_LAA-824049.json
+2026-04-18,SD@LAA,Ramón Laureano,SD,2+ TB,1.5,-104,,L,"1 H, 1 TB, 0 HR, 0 R, 2 RBI",pregame,mlb_stats_api,boxscores/apr18/SD_LAA-824049.json
+2026-04-18,SD@LAA,Fernando Tatis Jr.,SD,HR,0.5,405,,L,"2 H, 2 TB, 0 HR, 0 R, 2 RBI",pregame,mlb_stats_api,boxscores/apr18/SD_LAA-824049.json
+2026-04-18,SD@LAA,Fernando Tatis Jr.,SD,2+ TB,1.5,110,,W,"2 H, 2 TB, 0 HR, 0 R, 2 RBI",pregame,mlb_stats_api,boxscores/apr18/SD_LAA-824049.json
+2026-04-18,SD@LAA,Jackson Merrill,SD,HR,0.5,400,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/SD_LAA-824049.json
+2026-04-18,SD@LAA,Jackson Merrill,SD,2+ TB,1.5,-2,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/SD_LAA-824049.json
+2026-04-18,SD@LAA,Manny Machado,SD,HR,0.5,475,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/SD_LAA-824049.json
+2026-04-18,SD@LAA,Manny Machado,SD,2+ TB,1.5,126,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/SD_LAA-824049.json
+2026-04-18,SD@LAA,Xander Bogaerts,SD,HR,0.5,900,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/SD_LAA-824049.json
+2026-04-18,SD@LAA,Xander Bogaerts,SD,2+ TB,1.5,135,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/SD_LAA-824049.json
+2026-04-18,SD@LAA,Miguel Andujar,SD,HR,0.5,990,,L,"2 H, 3 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/SD_LAA-824049.json
+2026-04-18,SD@LAA,Miguel Andujar,SD,2+ TB,1.5,138,,W,"2 H, 3 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/SD_LAA-824049.json
+2026-04-18,SD@LAA,Ty France,SD,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/SD_LAA-824049.json
+2026-04-18,SD@LAA,Ty France,SD,2+ TB,1.5,150,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/SD_LAA-824049.json
+2026-04-18,SD@LAA,Freddy Fermin,SD,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 2 R, 0 RBI",,mlb_stats_api,boxscores/apr18/SD_LAA-824049.json
+2026-04-18,SD@LAA,Freddy Fermin,SD,2+ TB,1.5,100,,L,"1 H, 1 TB, 0 HR, 2 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/SD_LAA-824049.json
+2026-04-18,SD@LAA,Jake Cronenworth,SD,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI",,mlb_stats_api,boxscores/apr18/SD_LAA-824049.json
+2026-04-18,SD@LAA,Jake Cronenworth,SD,2+ TB,1.5,150,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/SD_LAA-824049.json
+2026-04-18,SD@LAA,Zach Neto,LAA,HR,0.5,,,L,"1 H, 2 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/SD_LAA-824049.json
+2026-04-18,SD@LAA,Zach Neto,LAA,2+ TB,1.5,130,,W,"1 H, 2 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/SD_LAA-824049.json
+2026-04-18,SD@LAA,Mike Trout,LAA,HR,0.5,,,L,"1 H, 2 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/SD_LAA-824049.json
+2026-04-18,SD@LAA,Mike Trout,LAA,2+ TB,1.5,118,,W,"1 H, 2 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/SD_LAA-824049.json
+2026-04-18,SD@LAA,Nolan Schanuel,LAA,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI",,mlb_stats_api,boxscores/apr18/SD_LAA-824049.json
+2026-04-18,SD@LAA,Nolan Schanuel,LAA,2+ TB,1.5,150,,L,"1 H, 1 TB, 0 HR, 0 R, 1 RBI",pregame,mlb_stats_api,boxscores/apr18/SD_LAA-824049.json
+2026-04-18,SD@LAA,Jo Adell,LAA,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/SD_LAA-824049.json
+2026-04-18,SD@LAA,Jo Adell,LAA,2+ TB,1.5,140,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/SD_LAA-824049.json
+2026-04-18,SD@LAA,Yoán Moncada,LAA,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/SD_LAA-824049.json
+2026-04-18,SD@LAA,Yoán Moncada,LAA,2+ TB,1.5,185,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/SD_LAA-824049.json
+2026-04-18,SD@LAA,Oswald Peraza,LAA,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/SD_LAA-824049.json
+2026-04-18,SD@LAA,Oswald Peraza,LAA,2+ TB,1.5,50,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/SD_LAA-824049.json
+2026-04-18,SD@LAA,Josh Lowe,LAA,HR,0.5,,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/SD_LAA-824049.json
+2026-04-18,SD@LAA,Josh Lowe,LAA,2+ TB,1.5,188,,L,"0 H, 0 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/SD_LAA-824049.json
+2026-04-18,SD@LAA,Logan O'Hoppe,LAA,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI",,mlb_stats_api,boxscores/apr18/SD_LAA-824049.json
+2026-04-18,SD@LAA,Logan O'Hoppe,LAA,2+ TB,1.5,150,,L,"1 H, 1 TB, 0 HR, 1 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/SD_LAA-824049.json
+2026-04-18,SD@LAA,Adam Frazier,LAA,HR,0.5,,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",,mlb_stats_api,boxscores/apr18/SD_LAA-824049.json
+2026-04-18,SD@LAA,Adam Frazier,LAA,2+ TB,1.5,232,,L,"1 H, 1 TB, 0 HR, 0 R, 0 RBI",pregame,mlb_stats_api,boxscores/apr18/SD_LAA-824049.json

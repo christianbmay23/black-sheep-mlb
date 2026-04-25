@@ -30,7 +30,7 @@ from live_mlb_data import (  # noqa: E402
     reset_runtime_diagnostics,
 )
 from models.game_model import (  # noqa: E402
-    DEFAULT_MARKET_BLEND_ALPHA,
+    DEFAULT_MODEL_WEIGHT_ALPHA,
     american_to_implied,
     blended_win_probabilities,
     devig_two_way,
@@ -81,6 +81,7 @@ from pipeline.markets import (  # noqa: E402
     summarize_prop_market_coverage as _summarize_prop_market_coverage_pure,
 )
 from pipeline.snapshots import (  # noqa: E402
+    SCORING_STATUS_DATA_BLOCKED,
     SCORING_STATUS_NOT_SCORED,
     SCORING_STATUS_SCORED,
     scoring_status_for_bucket,
@@ -129,6 +130,22 @@ def _make_sp_profile_unbound(_x: float) -> list[list[str]]:
 make_sp_profile: Callable[[float], list[list[str]]] = _make_sp_profile_unbound
 
 SNAPSHOT_ROOT = ROOT / "canvases" / "exports" / "snapshots"
+
+GAME_ACTIONABILITY_BLOCKERS = {
+    "lineup_not_posted_api",
+    "lineup_verification_missing",
+    "lineup_verification_failed",
+    "starter_missing",
+    "starter_verification_missing",
+    "starter_verification_failed",
+    "weather_live_missing",
+    "weather_geocode_failed",
+    "weather_provider_exception",
+    "market_moneyline_missing",
+    "market_total_missing",
+    "recent_form_missing",
+    "bullpen_missing",
+}
 
 
 def _classify_weather_exception(exc: Exception) -> str:
@@ -186,6 +203,11 @@ def _fallback_weather_snapshot(
     )
 
 
+def _roof_weather_can_use_neutral_fallback(roof_type: str) -> bool:
+    roof = str(roof_type or "").strip().lower()
+    return "dome" in roof or "closed" in roof or "fixed" in roof
+
+
 def resolve_weather_with_fallback(schedule_game: dict[str, Any]) -> tuple[WeatherSnapshot, list[str], dict[str, Any]]:
     venue_name = str(schedule_game.get("venue_name") or "")
     roof_type = str(schedule_game.get("roof_type") or "Open")
@@ -204,6 +226,12 @@ def resolve_weather_with_fallback(schedule_game: dict[str, Any]) -> tuple[Weathe
         }
     except Exception as exc:
         issue_code = _classify_weather_exception(exc)
+        if _roof_weather_can_use_neutral_fallback(roof_type):
+            return _fallback_weather_snapshot(venue_name, roof_type, game_time_utc), [], {
+                "provider_path": ["open_meteo", "roof_weather_neutral"],
+                "resolution_source": "roof_weather_neutral",
+                "resolution_detail": f"{roof_type} venue; neutral weather used after provider failure: {exc}",
+            }
         return _fallback_weather_snapshot(venue_name, roof_type, game_time_utc), [
             "weather_live_missing",
             issue_code,
@@ -213,6 +241,37 @@ def resolve_weather_with_fallback(schedule_game: dict[str, Any]) -> tuple[Weathe
             "resolution_source": "fallback_neutral",
             "resolution_detail": str(exc),
         }
+
+
+def strict_game_actionability(
+    *,
+    game_status_bucket: str,
+    issues: list[str],
+    odds: GameOdds | None,
+    away_moneyline: int | None,
+    home_moneyline: int | None,
+    away_recent_score: float | None,
+    home_recent_score: float | None,
+    away_bullpen_score: float | None,
+    home_bullpen_score: float | None,
+) -> tuple[str, list[str]]:
+    bucket = str(game_status_bucket or "").strip().lower()
+    if bucket != "pregame":
+        return SCORING_STATUS_NOT_SCORED, []
+
+    blockers = set(issue for issue in issues if issue in GAME_ACTIONABILITY_BLOCKERS)
+    if odds is None or away_moneyline is None or home_moneyline is None:
+        blockers.add("market_moneyline_missing")
+    if odds is None or odds.total_line is None or odds.over_price is None or odds.under_price is None:
+        blockers.add("market_total_missing")
+    if away_recent_score is None or home_recent_score is None:
+        blockers.add("recent_form_missing")
+    if away_bullpen_score is None or home_bullpen_score is None:
+        blockers.add("bullpen_missing")
+
+    if blockers:
+        return SCORING_STATUS_DATA_BLOCKED, sorted(blockers)
+    return SCORING_STATUS_SCORED, []
 
 
 def parse_canvas_games(source: str) -> dict[str, dict[str, Any]]:
@@ -249,7 +308,7 @@ def write_run_snapshot(
         path,
         snapshot_root=SNAPSHOT_ROOT,
         report_date=REPORT_DATE,
-        market_blend_alpha=DEFAULT_MARKET_BLEND_ALPHA,
+        market_blend_alpha=DEFAULT_MODEL_WEIGHT_ALPHA,
         allow_partial=allow_partial,
         lineup_context=lineup_context,
         games_rows=games_rows,
@@ -279,16 +338,22 @@ def bind_slate_inputs(slug: str) -> None:
     CANVAS = inputs.canvas_path
 
 
-def run_slate_pipeline(slug: str, canvas_path: Path | None = None, *, allow_partial: bool = False) -> None:
+def run_slate_pipeline(
+    slug: str,
+    canvas_path: Path | None = None,
+    *,
+    allow_partial: bool = False,
+    include_bvp: bool = False,
+) -> None:
     bind_slate_inputs(slug)
-    _run_model_pipeline(canvas_path, allow_partial=allow_partial)
+    _run_model_pipeline(canvas_path, allow_partial=allow_partial, include_bvp=include_bvp)
 
 
-def run_apr16_pipeline(canvas_path: Path | None = None, *, allow_partial: bool = False) -> None:
-    run_slate_pipeline("apr16", canvas_path, allow_partial=allow_partial)
+def run_apr16_pipeline(canvas_path: Path | None = None, *, allow_partial: bool = False, include_bvp: bool = False) -> None:
+    run_slate_pipeline("apr16", canvas_path, allow_partial=allow_partial, include_bvp=include_bvp)
 
 
-def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool = False) -> None:
+def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool = False, include_bvp: bool = False) -> None:
     path = canvas_path or CANVAS
     if not path.is_file():
         raise FileNotFoundError(path)
@@ -312,13 +377,12 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
     rosters = fetch_team_rosters(team_ids, season)
 
     lineup_context: dict[str, dict[str, Any]] = {}
-    blocking_issues: list[str] = []
 
     for spec in GAME_SPECS:
         game_key = f"{spec['away']}@{spec['home']}"
         schedule_game = api.get(game_key)
         if schedule_game is None:
-            blocking_issues.append(f"{game_key}: missing from MLB schedule")
+            print(f"Data warning [schedule_missing]: {game_key} missing from MLB schedule")
             continue
         is_pregame = str(schedule_game.get("game_status_bucket") or "pregame") == "pregame"
         rotowire_game = rotowire_games.get(game_key)
@@ -367,9 +431,6 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
 
         weather_snapshot, weather_issue_codes, weather_provenance = resolve_weather_with_fallback(schedule_game)
         issues.extend(weather_issue_codes)
-        if is_pregame and not allow_partial and weather_issue_codes:
-            blocking_issues.append(f"{game_key}: live weather unavailable ({weather_provenance['resolution_detail']})")
-
         odds = live_game_odds.get(game_key)
         away_moneyline = odds.away_moneyline if odds and odds.away_moneyline is not None else parse_int(spec["away_a"])
         home_moneyline = odds.home_moneyline if odds and odds.home_moneyline is not None else parse_int(spec["home_a"])
@@ -377,28 +438,12 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
             if allow_partial:
                 issues.append("approx_market_ml")
             else:
-                blocking_issues.append(f"{game_key}: live moneyline odds unavailable")
+                issues.append("market_moneyline_missing")
         if is_pregame and (odds is None or odds.total_line is None or odds.over_price is None or odds.under_price is None):
             if allow_partial:
                 issues.append("market_total_missing")
             else:
-                blocking_issues.append(f"{game_key}: live totals market unavailable")
-
-        if not allow_partial and is_pregame:
-            critical = {
-                "lineup_not_posted_api",
-                "starter_missing",
-                "lineup_verification_missing",
-                "lineup_verification_failed",
-                "starter_verification_missing",
-                "starter_verification_failed",
-                "weather_live_missing",
-                "approx_market_ml",
-                "market_total_missing",
-            }
-            hard = [issue for issue in issues if issue in critical]
-            if hard:
-                blocking_issues.append(f"{game_key}: {';'.join(sorted(set(hard)))}")
+                issues.append("market_total_missing")
 
         lineup_context[game_key] = {
             "away_players": away_players,
@@ -430,9 +475,6 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
             "away_score": schedule_game.get("away_score"),
             "home_score": schedule_game.get("home_score"),
         }
-
-    if blocking_issues and not allow_partial:
-        raise LiveDataError("Full-data requirements not satisfied:\n- " + "\n- ".join(blocking_issues))
 
     batter_ids: set[int] = set()
     pitcher_ids: set[int] = set()
@@ -469,7 +511,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
     batter_statcast = fetch_savant_statcast("batter", season)
     pitcher_expected = fetch_savant_expected_stats("pitcher", season)
     pitcher_statcast = fetch_savant_statcast("pitcher", season)
-    vs_pitcher_stats = fetch_vs_pitcher_stats(matchup_pairs)
+    vs_pitcher_stats = fetch_vs_pitcher_stats(matchup_pairs) if include_bvp else {}
 
     batter_features = {
         pid: summarize_hitter_features(
@@ -652,7 +694,6 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
 
     computed_games: list[dict[str, Any]] = []
     prop_arrays: dict[str, dict[str, list[dict[str, Any]]]] = {}
-    late_blocking_issues: list[str] = []
     game_feature_rows: list[dict[str, Any]] = []
     prop_feature_rows: list[dict[str, Any]] = []
 
@@ -660,8 +701,6 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
         key = f"{spec['away']}@{spec['home']}"
         ctx = lineup_context[key]
         game_status_bucket = str(ctx.get("game_status_bucket") or "")
-        scoring_status = scoring_status_for_bucket(game_status_bucket)
-        is_scored = scoring_status == SCORING_STATUS_SCORED
         away_pitcher = ctx["away_pitcher"]
         home_pitcher = ctx["home_pitcher"]
         away_pitch_feats = pitcher_features.get(int(away_pitcher["id"])) if away_pitcher.get("id") else None
@@ -672,16 +711,6 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
         home_recent_score = team_recent_form_score(ctx["home_players"], batter_features)
         away_bullpen_score = team_bullpen_scores.get(str(spec["away"]), {}).get("score")
         home_bullpen_score = team_bullpen_scores.get(str(spec["home"]), {}).get("score")
-        if not allow_partial and is_pregame:
-            if away_recent_score is None:
-                late_blocking_issues.append(f"{key}: away recent form unavailable")
-            if home_recent_score is None:
-                late_blocking_issues.append(f"{key}: home recent form unavailable")
-            if away_bullpen_score is None:
-                late_blocking_issues.append(f"{key}: away bullpen unavailable")
-            if home_bullpen_score is None:
-                late_blocking_issues.append(f"{key}: home bullpen unavailable")
-
         away_prof = make_sp_profile(float((away_pitch_feats or {}).get("xera") or spec["away_xera"]))
         home_prof = make_sp_profile(float((home_pitch_feats or {}).get("xera") or spec["home_xera"]))
         away_lu = build_model_lineup(ctx["away_players"], batter_features)
@@ -694,6 +723,18 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
         else:
             ia, ih = 0.5, 0.5
         imp_a, imp_h = ia * 100, ih * 100
+        scoring_status, actionability_blockers = strict_game_actionability(
+            game_status_bucket=game_status_bucket,
+            issues=list(ctx["issues"]),
+            odds=odds if isinstance(odds, GameOdds) else None,
+            away_moneyline=away_moneyline,
+            home_moneyline=home_moneyline,
+            away_recent_score=away_recent_score,
+            home_recent_score=home_recent_score,
+            away_bullpen_score=away_bullpen_score,
+            home_bullpen_score=home_bullpen_score,
+        )
+        is_scored = scoring_status == SCORING_STATUS_SCORED
         raw_ma: float | None = None
         raw_mh: float | None = None
         ma: float | None = None
@@ -701,9 +742,9 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
         ea: float | None = None
         eh: float | None = None
         edge_pick: float | None = None
-        pred = ""
-        tier = "not_scored"
-        mconf = ""
+        pred = "PASS" if scoring_status == SCORING_STATUS_DATA_BLOCKED else ""
+        tier = "data_blocked" if scoring_status == SCORING_STATUS_DATA_BLOCKED else "not_scored"
+        mconf = "data_blocked" if scoring_status == SCORING_STATUS_DATA_BLOCKED else ""
         miss: list[str] = []
         if is_scored:
             p_away, p_home, mconf, miss = win_probability_model(
@@ -725,16 +766,16 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                 p_home,
                 ia,
                 ih,
-                alpha=DEFAULT_MARKET_BLEND_ALPHA,
+                alpha=DEFAULT_MODEL_WEIGHT_ALPHA,
             )
             ma, mh = final_away * 100, final_home * 100
             ea, eh = ma - imp_a, mh - imp_h
             pred = spec["away"] if final_away > final_home else spec["home"]
             edge_pick = ea if pred == spec["away"] else eh
             tier = tier_from_edge(edge_pick)
-        issues = list(ctx["issues"]) + miss
+        issues = list(ctx["issues"]) + miss + actionability_blockers
         flags = ";".join(sorted(set(filter(None, issues))))
-        verification_status = "Verified" if not ctx["issues"] else "Partial"
+        verification_status = "Verified" if not issues else "Partial"
 
         odds = ctx.get("odds")
         games_rows.append(
@@ -765,14 +806,14 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                 "" if ctx.get("away_score") is None else str(ctx.get("away_score")),
                 "" if ctx.get("home_score") is None else str(ctx.get("home_score")),
                 verification_status,
-                "|".join(sorted(set(ctx["issues"]))),
+                "|".join(sorted(set(filter(None, issues)))),
                 f"{imp_a:.2f}",
                 f"{imp_h:.2f}",
                 round_or_blank(raw_ma, 2),
                 round_or_blank(raw_mh, 2),
                 round_or_blank(ma, 2),
                 round_or_blank(mh, 2),
-                f"{DEFAULT_MARKET_BLEND_ALPHA:.2f}" if is_scored else "",
+                f"{DEFAULT_MODEL_WEIGHT_ALPHA:.2f}" if is_scored else "",
                 round_or_blank(ma, 2),
                 round_or_blank(mh, 2),
                 round_or_blank(ea, 2),
@@ -780,7 +821,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                 pred,
                 tier,
                 round_or_blank(edge_pick, 2),
-                mconf if is_scored else "not_scored",
+                mconf if is_scored or scoring_status == SCORING_STATUS_DATA_BLOCKED else "not_scored",
                 flags,
                 str(spec["analyst_confidence"]),
                 str(spec["rationale"]).replace("\n", " "),
@@ -796,11 +837,13 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                 "modelHomePct": mh if mh is not None else 0.0,
                 "edgeAwayPct": ea if ea is not None else 0.0,
                 "edgeHomePct": eh if eh is not None else 0.0,
-                "prediction": pred if is_scored else "Not Scored",
-                "decisionTier": tier if is_scored else "Not Scored",
+                "prediction": "PASS" if scoring_status == SCORING_STATUS_DATA_BLOCKED else pred if is_scored else "Not Scored",
+                "decisionTier": "data_blocked" if scoring_status == SCORING_STATUS_DATA_BLOCKED else tier if is_scored else "Not Scored",
                 "edgeOnPickPct": edge_pick if edge_pick is not None else 0.0,
-                "modelConfidence": mconf if is_scored else "Not Scored",
-                "flags": flags if is_scored else ";".join(filter(None, [flags, "not_scored_non_pregame"])),
+                "modelConfidence": "data_blocked" if scoring_status == SCORING_STATUS_DATA_BLOCKED else mconf if is_scored else "Not Scored",
+                "flags": flags
+                if is_scored or scoring_status == SCORING_STATUS_DATA_BLOCKED
+                else ";".join(filter(None, [flags, "not_scored_non_pregame"])),
                 "scoringStatus": scoring_status,
             }
         )
@@ -819,7 +862,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                 "home_recent_form_score": home_recent_score,
                 "weather": serialize_weather(weather_snapshot if isinstance(weather_snapshot, WeatherSnapshot) else None),
                 "odds": serialize_game_odds(odds if isinstance(odds, GameOdds) else None),
-                "market_blend_alpha": DEFAULT_MARKET_BLEND_ALPHA if is_scored else None,
+                "market_blend_alpha": DEFAULT_MODEL_WEIGHT_ALPHA if is_scored else None,
                 "raw_model_away_win_pct": raw_ma,
                 "raw_model_home_win_pct": raw_mh,
                 "final_away_win_pct": ma,
@@ -893,6 +936,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                 recommended_tier = ""
                 display_tier = ""
                 hr_display_tier = ""
+                prop_scoring_status = scoring_status
                 should_render_prop_projection = game_status_bucket != "final"
                 if should_render_prop_projection:
                     hr, tb2, fair_hr, fair_2tb, hr_tier, tb2_tier, pconf = batter_hr_two_tb(
@@ -928,6 +972,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                         vs_pitcher_hits=(vs_pitcher or {}).get("hits"),
                         vs_pitcher_hr=(vs_pitcher or {}).get("home_runs"),
                         vs_pitcher_total_bases=(vs_pitcher or {}).get("total_bases"),
+                        include_bvp=include_bvp,
                     )
                     edge_hr_pct = (
                         (hr * 100) - (american_to_implied(hr_market.over_price) * 100)
@@ -966,18 +1011,12 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                     if recommended_prop == "HR" and recommended_tier:
                         recommended_tier = hr_display_tier
                     display_tier = recommended_tier or stronger_tier(hr_display_tier or hr_tier, tb2_tier)
-                if not allow_partial and is_pregame:
-                    if not hr_market_priced:
-                        coverage_notes = list(coverage_by_game.get(key, {}).get("notes") or [])
-                        reason = _hr_missing_market_reason(team_is_away, coverage_notes)
-                        late_blocking_issues.append(f"{key}: missing HR market for {player['name']}{reason}")
-                    if tb_market is None or tb_market.over_price is None:
-                        late_blocking_issues.append(f"{key}: missing TB market for {player['name']}")
-                    elif not tb_market_aligned:
-                        point_label = f"{tb_market.point:g}" if tb_market.point is not None else "unknown"
-                        late_blocking_issues.append(
-                            f"{key}: TB market not 1.5 for {player['name']} (got {point_label})"
-                        )
+                    if is_scored and market_status == "none":
+                        prop_scoring_status = SCORING_STATUS_DATA_BLOCKED
+                    if is_scored and hr_market_integrity in {"partial", "degraded"} and recommended_prop == "HR":
+                        recommended_prop = ""
+                        recommended_tier = ""
+                        display_tier = stronger_tier(hr_display_tier or hr_tier, tb2_tier)
                 if is_scored:
                     note = build_prop_note(
                         feats,
@@ -996,7 +1035,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                         note = f"{note}; HR market degraded, HR output projection only"
                     elif hr_market_integrity == "partial":
                         note = f"{note}; HR market partial via {hr_provider_path}, HR tier downgraded"
-                    dc = build_data_confidence(pconf, lineup_label, market_status)
+                    dc = build_data_confidence(pconf, lineup_label, market_status, include_bvp=include_bvp)
                     if hr_market_integrity == "degraded":
                         dc = f"{dc} — HR market degraded"
                     elif hr_market_integrity == "partial":
@@ -1055,7 +1094,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                         tb2_market_status,
                         dc,
                         market_status,
-                        scoring_status,
+                        prop_scoring_status,
                     ]
                 )
                 prop_feature_rows.append(
@@ -1068,6 +1107,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                         "batter_features": feats,
                         "pitcher_features": opp_pitch_feats,
                         "vs_pitcher": vs_pitcher,
+                        "bvp_mode": "included" if include_bvp else "disabled_not_asof_safe",
                         "weather": serialize_weather(weather_snapshot if isinstance(weather_snapshot, WeatherSnapshot) else None),
                         "opp_bullpen_score": opp_bullpen,
                         "game_status_bucket": ctx.get("game_status_bucket"),
@@ -1083,7 +1123,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                         "tier": display_tier,
                         "hr_tier": hr_tier,
                         "tb2_tier": tb2_tier,
-                        "scoring_status": scoring_status,
+                        "scoring_status": prop_scoring_status,
                         "recommended_prop": recommended_prop,
                         "recommended_tier": recommended_tier,
                         "edge_hr_pct": edge_hr_pct,
@@ -1112,9 +1152,6 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                     }
                 )
         prop_arrays[key] = {"away": away_props, "home": home_props}
-
-    if late_blocking_issues and not allow_partial:
-        raise LiveDataError("Full-data requirements not satisfied:\n- " + "\n- ".join(sorted(set(late_blocking_issues))))
 
     gcsv = csv_block(games_rows)
     bcsv = csv_block(batter_rows)
