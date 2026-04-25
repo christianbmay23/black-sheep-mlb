@@ -1,0 +1,120 @@
+"""Auto-generated Apr 25, 2026 slate scaffold from live schedule + odds."""
+
+from __future__ import annotations
+
+REPORT_DATE = "2026-04-25"
+CANVAS_SLUG = "apr25"
+
+
+def make_sp_profile(xera: float) -> list[list[str]]:
+    """Minimal Baseball Savant-style table; xERA is parsed by game_model.parse_xera."""
+    return [
+        ["ERA / xERA", f"4.60 / {xera:.2f}"],
+        ["xwOBA allowed", ".335"],
+        ["K%tile", "52"],
+        ["Whiff%tile", "48"],
+        ["Chase%tile", "52"],
+        ["Top pitch", "Mix / multi"],
+    ]
+
+
+GAME_SPECS: list[dict] = [
+    {
+        "away": "ATH",
+        "home": "TEX",
+        "time_et": "7:05 PM",
+        "away_a": 109,
+        "home_a": -130,
+        "weather": "Live weather via compute",
+        "run_env": "Medium",
+        "away_xera": 4.15,
+        "home_xera": 4.15,
+        "analyst_confidence": "Medium",
+        "rationale": "Auto-generated live scaffold from MLB schedule + market odds: Jeffrey Springs vs MacKenzie Gore. Run compute to refresh lineups, weather, and model outputs before staking.",
+        "extra_flags": ["auto_scaffold_live_odds"],
+    },
+    {
+        "away": "LAA",
+        "home": "KC",
+        "time_et": "7:10 PM",
+        "away_a": 122,
+        "home_a": -145,
+        "weather": "Live weather via compute",
+        "run_env": "Medium",
+        "away_xera": 4.15,
+        "home_xera": 4.15,
+        "analyst_confidence": "Medium",
+        "rationale": "Auto-generated live scaffold from MLB schedule + market odds: Walbert Urena vs Cole Ragans. Run compute to refresh lineups, weather, and model outputs before staking.",
+        "extra_flags": ["auto_scaffold_live_odds"],
+    },
+    {
+        "away": "NYY",
+        "home": "HOU",
+        "time_et": "7:10 PM",
+        "away_a": -155,
+        "home_a": 130,
+        "weather": "Live weather via compute",
+        "run_env": "Medium",
+        "away_xera": 4.15,
+        "home_xera": 4.15,
+        "analyst_confidence": "Medium",
+        "rationale": "Auto-generated live scaffold from MLB schedule + market odds: Ryan Weathers vs Mike Burrows. Run compute to refresh lineups, weather, and model outputs before staking.",
+        "extra_flags": ["auto_scaffold_live_odds"],
+    },
+    {
+        "away": "PIT",
+        "home": "MIL",
+        "time_et": "7:10 PM",
+        "away_a": 118,
+        "home_a": -140,
+        "weather": "Live weather via compute",
+        "run_env": "Medium",
+        "away_xera": 4.15,
+        "home_xera": 4.15,
+        "analyst_confidence": "Medium",
+        "rationale": "Auto-generated live scaffold from MLB schedule + market odds: Mitch Keller vs Jacob Misiorowski. Run compute to refresh lineups, weather, and model outputs before staking.",
+        "extra_flags": ["auto_scaffold_live_odds"],
+    },
+    {
+        "away": "DET",
+        "home": "CIN",
+        "time_et": "7:15 PM",
+        "away_a": -110,
+        "home_a": -110,
+        "weather": "Live weather via compute",
+        "run_env": "Medium",
+        "away_xera": 4.15,
+        "home_xera": 4.15,
+        "analyst_confidence": "Medium",
+        "rationale": "Auto-generated live scaffold from MLB schedule + market odds: Jack Flaherty vs Brady Singer. Run compute to refresh lineups, weather, and model outputs before staking.",
+        "extra_flags": ["auto_scaffold_live_odds"],
+    },
+    {
+        "away": "CHC",
+        "home": "LAD",
+        "time_et": "7:15 PM",
+        "away_a": 109,
+        "home_a": -126,
+        "weather": "Live weather via compute",
+        "run_env": "Medium",
+        "away_xera": 4.15,
+        "home_xera": 4.15,
+        "analyst_confidence": "Medium",
+        "rationale": "Auto-generated live scaffold from MLB schedule + market odds: Colin Rea vs Roki Sasaki. Run compute to refresh lineups, weather, and model outputs before staking.",
+        "extra_flags": ["auto_scaffold_live_odds"],
+    },
+    {
+        "away": "PHI",
+        "home": "ATL",
+        "time_et": "7:15 PM",
+        "away_a": 115,
+        "home_a": -134,
+        "weather": "Live weather via compute",
+        "run_env": "Medium",
+        "away_xera": 4.15,
+        "home_xera": 4.15,
+        "analyst_confidence": "Medium",
+        "rationale": "Auto-generated live scaffold from MLB schedule + market odds: Zack Wheeler vs Bryce Elder. Run compute to refresh lineups, weather, and model outputs before staking.",
+        "extra_flags": ["auto_scaffold_live_odds"],
+    },
+]
