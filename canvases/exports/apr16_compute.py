@@ -31,8 +31,10 @@ from live_mlb_data import (  # noqa: E402
 )
 from models.game_model import (  # noqa: E402
     DEFAULT_MODEL_WEIGHT_ALPHA,
+    MARKET_DISAGREEMENT_CAPPED_FLAG,
     american_to_implied,
     blended_win_probabilities,
+    decision_confidence,
     devig_two_way,
     tier_from_edge,
     win_probability_model,
@@ -746,6 +748,9 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
         tier = "data_blocked" if scoring_status == SCORING_STATUS_DATA_BLOCKED else "not_scored"
         mconf = "data_blocked" if scoring_status == SCORING_STATUS_DATA_BLOCKED else ""
         miss: list[str] = []
+        downgrade_flag = False
+        model_favorite = ""
+        market_favorite = ""
         if is_scored:
             p_away, p_home, mconf, miss = win_probability_model(
                 away_lu,
@@ -761,6 +766,12 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                 weather_factor=weather_snapshot.run_factor if weather_snapshot else None,
             )
             raw_ma, raw_mh = p_away * 100, p_home * 100
+            mconf, downgrade_flag, model_favorite, market_favorite = decision_confidence(
+                p_away,
+                p_home,
+                ia,
+                ih,
+            )
             final_away, final_home = blended_win_probabilities(
                 p_away,
                 p_home,
@@ -771,11 +782,14 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
             ma, mh = final_away * 100, final_home * 100
             ea, eh = ma - imp_a, mh - imp_h
             pred = spec["away"] if final_away > final_home else spec["home"]
+            if downgrade_flag:
+                pred = spec["home"] if market_favorite == "home" else spec["away"]
             edge_pick = ea if pred == spec["away"] else eh
             tier = tier_from_edge(edge_pick)
-        issues = list(ctx["issues"]) + miss + actionability_blockers
-        flags = ";".join(sorted(set(filter(None, issues))))
-        verification_status = "Verified" if not issues else "Partial"
+        data_issues = list(ctx["issues"]) + miss + actionability_blockers
+        decision_notes = [MARKET_DISAGREEMENT_CAPPED_FLAG] if downgrade_flag else []
+        flags = ";".join(sorted(set(filter(None, data_issues + decision_notes))))
+        verification_status = "Verified" if not data_issues else "Partial"
 
         odds = ctx.get("odds")
         games_rows.append(
@@ -806,7 +820,7 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                 "" if ctx.get("away_score") is None else str(ctx.get("away_score")),
                 "" if ctx.get("home_score") is None else str(ctx.get("home_score")),
                 verification_status,
-                "|".join(sorted(set(filter(None, issues)))),
+                "|".join(sorted(set(filter(None, data_issues)))),
                 f"{imp_a:.2f}",
                 f"{imp_h:.2f}",
                 round_or_blank(raw_ma, 2),
@@ -889,6 +903,9 @@ def _run_model_pipeline(canvas_path: Path | None = None, *, allow_partial: bool 
                 "hr_provider_path": ctx.get("hr_provider_path"),
                 "issues": sorted(set(ctx["issues"])),
                 "missing_data_flags": flags,
+                "decision_notes": decision_notes,
+                "model_favorite": model_favorite or None,
+                "market_favorite": market_favorite or None,
                 "scoring_status": scoring_status,
                 "prediction": pred,
                 "decision_tier": tier,

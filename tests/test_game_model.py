@@ -20,6 +20,64 @@ def _lineup(rows: int = 5) -> list[list[str]]:
 
 
 class WinProbabilityModelTests(unittest.TestCase):
+    def test_default_market_blend_alpha_is_ten_percent_model_weight(self):
+        self.assertEqual(game_model.DEFAULT_MODEL_WEIGHT_ALPHA, 0.10)
+        away, home = game_model.blended_win_probabilities(
+            0.75,
+            0.25,
+            0.46,
+            0.54,
+            alpha=game_model.DEFAULT_MODEL_WEIGHT_ALPHA,
+        )
+        self.assertAlmostEqual(away + home, 1.0, places=6)
+        self.assertGreater(home, away)
+
+    def test_decision_confidence_high_when_model_agrees_with_market(self):
+        confidence, downgrade, model_favorite, market_favorite = game_model.decision_confidence(
+            raw_away=0.38,
+            raw_home=0.62,
+            market_away=0.45,
+            market_home=0.55,
+        )
+        self.assertEqual(confidence, "High")
+        self.assertFalse(downgrade)
+        self.assertEqual(model_favorite, "home")
+        self.assertEqual(market_favorite, "home")
+
+    def test_decision_confidence_forces_low_on_capped_disagreement(self):
+        confidence, downgrade, model_favorite, market_favorite = game_model.decision_confidence(
+            raw_away=0.75,
+            raw_home=0.25,
+            market_away=0.45,
+            market_home=0.55,
+        )
+        self.assertEqual(confidence, "Low")
+        self.assertTrue(downgrade)
+        self.assertEqual(model_favorite, "away")
+        self.assertEqual(market_favorite, "home")
+
+    def test_decision_confidence_low_on_small_edge(self):
+        confidence, downgrade, _, _ = game_model.decision_confidence(
+            raw_away=0.47,
+            raw_home=0.53,
+            market_away=0.50,
+            market_home=0.50,
+        )
+        self.assertEqual(confidence, "Low")
+        self.assertFalse(downgrade)
+
+    def test_decision_confidence_medium_on_mid_sized_edge(self):
+        confidence, downgrade, model_favorite, market_favorite = game_model.decision_confidence(
+            raw_away=0.56,
+            raw_home=0.44,
+            market_away=0.52,
+            market_home=0.48,
+        )
+        self.assertEqual(confidence, "Medium")
+        self.assertFalse(downgrade)
+        self.assertEqual(model_favorite, "away")
+        self.assertEqual(market_favorite, "away")
+
     def test_strong_sp_mismatch_increases_win_pct_for_better_sp(self):
         """Away SP much stronger (lower xERA) => away win prob meaningfully above 0.5."""
         lu = _lineup()

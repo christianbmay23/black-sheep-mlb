@@ -8,11 +8,13 @@ from typing import Literal
 
 ModelConf = Literal["Low", "Medium", "High"]
 DecisionTier = Literal["A+", "A", "B", "C", "D"]
+Side = Literal["away", "home"]
 
 Profile = list[list[str]]
-DEFAULT_MODEL_WEIGHT_ALPHA = 0.25  # 0.25 = model gets 25% weight; market gets 75% weight.
+DEFAULT_MODEL_WEIGHT_ALPHA = 0.10  # 0.10 = model gets 10% weight; market gets 90% weight.
 DEFAULT_MARKET_BLEND_ALPHA = DEFAULT_MODEL_WEIGHT_ALPHA
 WIN_PROB_SHRINKAGE_FACTOR = 1.0
+MARKET_DISAGREEMENT_CAPPED_FLAG = "model_market_disagreement_capped"
 
 
 def clamp(n: float, lo: float, hi: float) -> float:
@@ -68,6 +70,40 @@ def blended_win_probabilities(
     if total <= 0:
         return 0.5, 0.5
     return away / total, home / total
+
+
+def favorite_side(away_prob: float, home_prob: float) -> Side:
+    return "home" if home_prob > away_prob else "away"
+
+
+def decision_confidence(
+    raw_away: float,
+    raw_home: float,
+    market_away: float,
+    market_home: float,
+) -> tuple[ModelConf, bool, Side, Side]:
+    """Post-model decision confidence from raw-vs-market agreement.
+
+    This intentionally does not change model probability math. It only labels
+    decision trust and identifies capped raw-model disagreements with the market.
+    """
+    model_favorite = favorite_side(raw_away, raw_home)
+    market_favorite = favorite_side(market_away, market_home)
+    raw_prob = max(raw_home, raw_away)
+    is_capped_edge = raw_prob >= 0.74 or raw_prob <= 0.26
+    downgrade_flag = model_favorite != market_favorite and is_capped_edge
+    edge = abs(raw_home - market_home)
+    edge_for_threshold = edge + 1e-12
+
+    if edge_for_threshold >= 0.06 and model_favorite == market_favorite:
+        confidence: ModelConf = "High"
+    elif edge_for_threshold >= 0.04:
+        confidence = "Medium"
+    else:
+        confidence = "Low"
+    if downgrade_flag:
+        confidence = "Low"
+    return confidence, downgrade_flag, model_favorite, market_favorite
 
 
 def parse_xera(profile: Profile) -> float | None:
