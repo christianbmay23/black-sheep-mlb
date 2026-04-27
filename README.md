@@ -112,6 +112,19 @@ Every `--compute` run also writes a dated snapshot under:
 
 Snapshots capture the exported rows plus the game-side and prop-side feature inputs that produced them.
 
+## Local artifact dashboard
+
+The Streamlit dashboard is a read-only layer over generated slate artifacts. It does not run compute, call providers, or change model / prediction / CLI behavior.
+
+Install Streamlit if needed, then run:
+
+```bash
+pip install streamlit
+streamlit run dashboard/app.py
+```
+
+The app auto-detects the newest `canvases/exports/snapshots/<slug>/<slug>-latest.json` file and falls back to the newest `canvases/exports/mlb-pregame-intel-<slug>-games.csv` when a snapshot is unavailable. Use the sidebar dropdown to switch between slugs such as `apr25`, `apr26`, or future runs.
+
 ### Apr 16: model-driven refresh (strict by default)
 
 For [`mlb-pregame-intel-apr16.canvas.tsx`](canvases/mlb-pregame-intel-apr16.canvas.tsx) only:
