@@ -1,4 +1,5 @@
 """Provider-agnostic market infrastructure."""
+from .cache import FileMarketSnapshotCache, snapshot_from_dict, snapshot_to_dict
 from .health import (
     ProviderAvailability,
     ProviderDiagnostic,
@@ -29,6 +30,7 @@ from .status import (
 
 __all__ = [
     "GameMarket",
+    "FileMarketSnapshotCache",
     "MANUAL_MARKET_CSV_COLUMNS",
     "MarketBackedStatus",
     "MarketCoverageStatus",
@@ -49,4 +51,6 @@ __all__ = [
     "classify_market_backing",
     "game_markets_from_legacy_game_odds",
     "player_prop_market_from_legacy_line",
+    "snapshot_from_dict",
+    "snapshot_to_dict",
 ]
