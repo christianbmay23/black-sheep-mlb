@@ -4,9 +4,12 @@ import json
 import tempfile
 import unittest
 from datetime import datetime, timezone
+from io import StringIO
 from pathlib import Path
+from contextlib import redirect_stdout
 from unittest.mock import patch
 
+from black_sheep_mlb.pipelines import check_sportsgameodds
 from black_sheep_mlb.data_sources.sportsgameodds_provider import SportsGameOddsProvider
 from black_sheep_mlb.markets.health import ProviderAvailability, ProviderIssueCode
 from black_sheep_mlb.markets.schema import (
@@ -250,6 +253,163 @@ class SportsGameOddsProviderTests(unittest.TestCase):
         self.assertEqual(len(loaded.player_prop_markets), 2)
         self.assertEqual(loaded.player_prop_markets[0].player_id, "sgo_player_rgreene")
 
+    def test_live_dry_run_url_is_tiny_and_does_not_include_api_key(self):
+        provider = SportsGameOddsProvider(api_key="secret", enable_live=True)
+
+        url = provider.build_live_events_url(max_events=1)
+
+        self.assertIn("/v2/events?", url)
+        self.assertIn("leagueID=MLB", url)
+        self.assertIn("oddsAvailable=true", url)
+        self.assertIn("limit=1", url)
+        self.assertIn("oddID=points-home-game-ml-home", url)
+        self.assertIn("bookmakerID=fanduel%2Cdraftkings", url)
+        self.assertNotIn("secret", url)
+        self.assertNotIn("apiKey", url)
+
+    def test_live_dry_run_requires_explicit_enable_live_and_key(self):
+        with self.assertRaisesRegex(RuntimeError, "enable_live=True"):
+            SportsGameOddsProvider(api_key="secret").fetch_live_events_dry_run()
+
+        with patch.dict("os.environ", {}, clear=True):
+            with self.assertRaisesRegex(RuntimeError, "SPORTSGAMEODDS_API_KEY"):
+                SportsGameOddsProvider(api_key=None, enable_live=True).fetch_live_events_dry_run()
+
+    def test_live_dry_run_enforces_single_request_and_object_budget(self):
+        provider = SportsGameOddsProvider(api_key="secret", enable_live=True)
+
+        with self.assertRaisesRegex(ValueError, "capped at one live request"):
+            provider.fetch_live_events_dry_run(max_requests=2)
+
+        with self.assertRaisesRegex(ValueError, "max_events cannot exceed max_objects"):
+            provider.fetch_live_events_dry_run(max_events=2, max_objects=1)
+
+    def test_live_dry_run_uses_mocked_response_only_and_redacts_key(self):
+        provider = SportsGameOddsProvider(api_key="secret", enable_live=True, timeout=7)
+        response = _FakeHTTPResponse(
+            {
+                "success": True,
+                "data": [
+                    {
+                        "eventID": "sgo_evt_1",
+                        "gameKey": "DET@BOS",
+                    }
+                ],
+            }
+        )
+
+        with patch("urllib.request.urlopen", return_value=response) as urlopen:
+            result = provider.fetch_live_events_dry_run(max_events=1, max_requests=1, max_objects=1)
+
+        request = urlopen.call_args.args[0]
+        self.assertEqual(urlopen.call_args.kwargs["timeout"], 7)
+        self.assertEqual(request.headers["X-api-key"], "secret")
+        self.assertNotIn("secret", request.full_url)
+        self.assertNotIn("secret", result["url"])
+        self.assertEqual(result["object_count"], 1)
+        self.assertEqual(result["request_count"], 1)
+
+
+class SportsGameOddsCLITests(unittest.TestCase):
+    def test_cli_without_live_makes_zero_requests_and_does_not_require_key(self):
+        out = StringIO()
+        with patch.dict("os.environ", {}, clear=True):
+            with patch("urllib.request.urlopen", side_effect=AssertionError("network call attempted")):
+                with redirect_stdout(out):
+                    status = check_sportsgameodds.main(["--date", "2026-04-30"])
+
+        payload = json.loads(out.getvalue())
+        self.assertEqual(status, 0)
+        self.assertEqual(payload["requests_planned"], 0)
+        self.assertEqual(payload["status"], "not_run_live_flag_required")
+
+    def test_cli_live_refuses_missing_key_before_network(self):
+        out = StringIO()
+        with patch.dict("os.environ", {}, clear=True):
+            with patch("urllib.request.urlopen", side_effect=AssertionError("network call attempted")):
+                with redirect_stdout(out):
+                    status = check_sportsgameodds.main(["--date", "2026-04-30", "--live"])
+
+        payload = json.loads(out.getvalue())
+        self.assertEqual(status, 2)
+        self.assertEqual(payload["status"], "blocked_missing_sportsgameodds_api_key")
+
+    def test_cli_live_refuses_request_budget_above_one_before_network(self):
+        out = StringIO()
+        with patch.dict("os.environ", {"SPORTSGAMEODDS_API_KEY": "secret"}, clear=True):
+            with patch("urllib.request.urlopen", side_effect=AssertionError("network call attempted")):
+                with redirect_stdout(out):
+                    status = check_sportsgameodds.main(
+                        ["--date", "2026-04-30", "--live", "--max-requests", "2"]
+                    )
+
+        payload = json.loads(out.getvalue())
+        self.assertEqual(status, 2)
+        self.assertEqual(payload["status"], "blocked_request_budget_exceeds_phase4_cap")
+
+    def test_cli_live_prints_warning_and_budget_before_mocked_call_without_key_leak(self):
+        response = _FakeHTTPResponse({"success": True, "data": [{"eventID": "sgo_evt_1"}]})
+        out = StringIO()
+
+        with patch.dict("os.environ", {"SPORTSGAMEODDS_API_KEY": "secret"}, clear=True):
+            with patch("urllib.request.urlopen", return_value=response) as urlopen:
+                with redirect_stdout(out):
+                    status = check_sportsgameodds.main(["--date", "2026-04-30", "--live"])
+
+        text = out.getvalue()
+        self.assertEqual(status, 0)
+        self.assertEqual(urlopen.call_args.kwargs["timeout"], 10)
+        self.assertIn("2.5k objects/month", text)
+        self.assertIn("10 requests/minute", text)
+        self.assertIn("10 minutes; do not poll", text)
+        self.assertIn('"requests_planned": 1', text)
+        self.assertIn('"max_events": 1', text)
+        self.assertIn('"max_objects": 25', text)
+        self.assertIn('"timeout_seconds": 10', text)
+        self.assertIn('"status": "dry_run_completed"', text)
+        self.assertNotIn("secret", text)
+
+    def test_cli_accepts_timeout_and_passes_it_to_mocked_live_request(self):
+        response = _FakeHTTPResponse({"success": True, "data": []})
+        out = StringIO()
+
+        with patch.dict("os.environ", {"SPORTSGAMEODDS_API_KEY": "secret"}, clear=True):
+            with patch("urllib.request.urlopen", return_value=response) as urlopen:
+                with redirect_stdout(out):
+                    status = check_sportsgameodds.main(
+                        [
+                            "--date",
+                            "2026-04-30",
+                            "--live",
+                            "--max-events",
+                            "1",
+                            "--max-requests",
+                            "1",
+                            "--max-objects",
+                            "25",
+                            "--timeout",
+                            "10",
+                        ]
+                    )
+
+        text = out.getvalue()
+        self.assertEqual(status, 0)
+        self.assertEqual(urlopen.call_args.kwargs["timeout"], 10)
+        self.assertIn('"timeout_seconds": 10', text)
+        self.assertNotIn("secret", text)
+
+    def test_cli_rejects_invalid_timeout_before_network(self):
+        out = StringIO()
+        with patch.dict("os.environ", {"SPORTSGAMEODDS_API_KEY": "secret"}, clear=True):
+            with patch("urllib.request.urlopen", side_effect=AssertionError("network call attempted")):
+                with redirect_stdout(out):
+                    with self.assertRaises(SystemExit) as exc:
+                        check_sportsgameodds.main(
+                            ["--date", "2026-04-30", "--live", "--timeout", "0"]
+                        )
+
+        self.assertEqual(exc.exception.code, 2)
+
 
 def _fixture(name: str):
     return json.loads((FIXTURE_DIR / name).read_text(encoding="utf-8"))
@@ -261,6 +421,22 @@ def _provider() -> SportsGameOddsProvider:
 
 def _now():
     return datetime(2026, 4, 30, 13, 0, tzinfo=timezone.utc)
+
+
+class _FakeHTTPResponse:
+    status = 200
+
+    def __init__(self, payload):
+        self.payload = payload
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc, tb):
+        return False
+
+    def read(self):
+        return json.dumps(self.payload).encode("utf-8")
 
 
 if __name__ == "__main__":

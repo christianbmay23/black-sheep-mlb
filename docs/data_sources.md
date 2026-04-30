@@ -12,7 +12,7 @@ The daily provider pipeline uses free MLB/baseball data first and treats odds as
 
 The Odds API is used only for market comparison and EV detection. Missing API keys, exhausted credits, rate limits, and provider errors return empty odds with warnings; predictions still write.
 
-SportsGameOdds has an offline-only adapter scaffold for future trial work. It normalizes fixture payloads into the provider-agnostic market schema and does not make live requests, require `SPORTSGAMEODDS_API_KEY`, or participate in strict compute/provider selection.
+SportsGameOdds has a guarded adapter scaffold for future trial work. It normalizes fixture payloads into the provider-agnostic market schema and does not participate in strict compute/provider selection. The optional live dry-run command is disabled unless `--live` is passed, requires `SPORTSGAMEODDS_API_KEY`, caps Phase 4 to one tiny request by default, and prints the planned request/object budget before any live call.
 
 Supported settings:
 
@@ -51,6 +51,18 @@ Run with selective odds fetch:
 
 ```bash
 python -m black_sheep_mlb.pipelines.run_daily_predictions --date YYYY-MM-DD --odds-provider oddsapi --odds-max-games 6 --markets h2h,spreads,totals
+```
+
+Plan a zero-request SportsGameOdds dry run:
+
+```bash
+python -m black_sheep_mlb.pipelines.check_sportsgameodds --date YYYY-MM-DD
+```
+
+Explicitly allow one tiny SportsGameOdds live dry run:
+
+```bash
+SPORTSGAMEODDS_API_KEY=... python -m black_sheep_mlb.pipelines.check_sportsgameodds --date YYYY-MM-DD --live --max-events 1 --max-requests 1 --max-objects 25 --timeout 10
 ```
 
 Manual odds CSV path:

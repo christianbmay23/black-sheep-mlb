@@ -8,6 +8,10 @@ compute.
 from __future__ import annotations
 
 import os
+import json
+import urllib.error
+import urllib.parse
+import urllib.request
 from datetime import datetime, timezone
 from typing import Any
 
@@ -38,6 +42,12 @@ from black_sheep_mlb.markets.status import classify_coverage, classify_market_ba
 
 SUPPORTED_GAME_MARKETS = {MarketType.MONEYLINE, MarketType.SPREAD, MarketType.TOTAL}
 SUPPORTED_PROP_MARKETS = {MarketType.BATTER_HOME_RUNS, MarketType.BATTER_TOTAL_BASES}
+DEFAULT_DRY_RUN_ODD_IDS = ("points-home-game-ml-home",)
+DEFAULT_DRY_RUN_BOOKMAKERS = ("fanduel", "draftkings")
+DEFAULT_MAX_EVENTS = 1
+DEFAULT_MAX_REQUESTS = 1
+DEFAULT_MAX_OBJECTS = 25
+DEFAULT_TIMEOUT_SECONDS = 10
 
 
 class SportsGameOddsProvider:
@@ -53,12 +63,14 @@ class SportsGameOddsProvider:
         enable_live: bool = False,
         stale_minutes: int | None = 45,
         now_utc: datetime | None = None,
+        timeout: int | float = DEFAULT_TIMEOUT_SECONDS,
     ):
         self.api_key = api_key if api_key is not None else os.environ.get("SPORTSGAMEODDS_API_KEY")
         self.base_url = base_url.rstrip("/")
         self.enable_live = enable_live
         self.stale_minutes = stale_minutes
         self.now_utc = now_utc
+        self.timeout = timeout
 
     def get_game_markets(self, date: str, game_keys: list[str] | None = None) -> list[GameMarket]:
         """Provider-registry contract.
@@ -80,6 +92,77 @@ class SportsGameOddsProvider:
         if not self.enable_live:
             return []
         raise NotImplementedError("SportsGameOdds live fetch is not implemented")
+
+    def build_live_events_url(
+        self,
+        *,
+        max_events: int = DEFAULT_MAX_EVENTS,
+        odd_ids: list[str] | tuple[str, ...] | None = None,
+        bookmakers: list[str] | tuple[str, ...] | None = None,
+    ) -> str:
+        """Build a tightly scoped live events URL without including the API key."""
+        _validate_live_budget(max_events=max_events, max_requests=1, max_objects=max_events)
+        params = {
+            "oddsAvailable": "true",
+            "leagueID": "MLB",
+            "limit": str(max_events),
+            "includeOpposingOdds": "true",
+        }
+        selected_odd_ids = [str(item).strip() for item in (odd_ids or DEFAULT_DRY_RUN_ODD_IDS) if str(item).strip()]
+        selected_books = [str(item).strip() for item in (bookmakers or DEFAULT_DRY_RUN_BOOKMAKERS) if str(item).strip()]
+        if selected_odd_ids:
+            params["oddID"] = ",".join(selected_odd_ids)
+        if selected_books:
+            params["bookmakerID"] = ",".join(selected_books)
+        return f"{self.base_url}/v2/events?{urllib.parse.urlencode(params)}"
+
+    def fetch_live_events_dry_run(
+        self,
+        *,
+        max_events: int = DEFAULT_MAX_EVENTS,
+        max_requests: int = DEFAULT_MAX_REQUESTS,
+        max_objects: int = DEFAULT_MAX_OBJECTS,
+        odd_ids: list[str] | tuple[str, ...] | None = None,
+        bookmakers: list[str] | tuple[str, ...] | None = None,
+    ) -> dict[str, Any]:
+        """Perform one explicitly enabled, quota-budgeted dry-run request."""
+        if not self.enable_live:
+            raise RuntimeError("SportsGameOdds live dry-run requires enable_live=True")
+        if not self.api_key:
+            raise RuntimeError("SPORTSGAMEODDS_API_KEY is required for SportsGameOdds live dry-run")
+        _validate_live_budget(max_events=max_events, max_requests=max_requests, max_objects=max_objects)
+        url = self.build_live_events_url(max_events=max_events, odd_ids=odd_ids, bookmakers=bookmakers)
+        request = urllib.request.Request(
+            url,
+            headers={
+                "User-Agent": "black-sheep-mlb/1.0",
+                "X-Api-Key": self.api_key,
+            },
+        )
+        try:
+            with urllib.request.urlopen(request, timeout=self.timeout) as response:
+                payload = json.loads(response.read().decode("utf-8"))
+                status = int(getattr(response, "status", 200) or 200)
+        except urllib.error.HTTPError as exc:
+            raw_body = exc.read().decode("utf-8", errors="replace") if hasattr(exc, "read") else ""
+            try:
+                payload = json.loads(raw_body) if raw_body else {"success": False, "status": exc.code}
+            except json.JSONDecodeError:
+                payload = {"success": False, "status": exc.code, "message": raw_body}
+            status = int(exc.code)
+        data = payload.get("data") if isinstance(payload, dict) else []
+        object_count = len(data) if isinstance(data, list) else int(bool(data))
+        if object_count > max_objects:
+            raise RuntimeError(
+                f"SportsGameOdds dry-run returned {object_count} objects, exceeding max_objects={max_objects}"
+            )
+        return {
+            "status": status,
+            "url": _redact_url(url),
+            "object_count": object_count,
+            "request_count": 1,
+            "payload": payload,
+        }
 
     def get_market_snapshot_from_payloads(
         self,
@@ -563,3 +646,25 @@ def _diagnostic_to_dict(diagnostic: ProviderDiagnostic) -> dict[str, Any]:
         "severity": diagnostic.severity,
         "context": dict(diagnostic.context),
     }
+
+
+def _validate_live_budget(*, max_events: int, max_requests: int, max_objects: int) -> None:
+    if max_requests < 1:
+        raise ValueError("max_requests must be at least 1 for a live dry-run")
+    if max_requests > DEFAULT_MAX_REQUESTS:
+        raise ValueError("Phase 4 SportsGameOdds dry-run is capped at one live request")
+    if max_events < 1:
+        raise ValueError("max_events must be at least 1")
+    if max_objects < 1:
+        raise ValueError("max_objects must be at least 1")
+    if max_events > max_objects:
+        raise ValueError("max_events cannot exceed max_objects")
+
+
+def _redact_url(url: str) -> str:
+    parsed = urllib.parse.urlsplit(url)
+    pairs = urllib.parse.parse_qsl(parsed.query, keep_blank_values=True)
+    redacted = [(key, "REDACTED" if key.lower() == "apikey" else value) for key, value in pairs]
+    return urllib.parse.urlunsplit(
+        (parsed.scheme, parsed.netloc, parsed.path, urllib.parse.urlencode(redacted), parsed.fragment)
+    )
