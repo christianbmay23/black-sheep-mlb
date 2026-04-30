@@ -1,0 +1,38 @@
+{
+  "data": [
+    {
+      "eventID": "sgo_evt_det_bos_20260430",
+      "gameKey": "DET@BOS",
+      "sportsbooks": [
+        {
+          "bookmaker": "fanduel",
+          "lastUpdated": "2026-04-30T12:44:00+00:00",
+          "markets": [
+            {
+              "type": "batter_home_runs",
+              "outcomes": [
+                {
+                  "player": {"id": "sgo_player_rgreene", "name": "Riley Greene", "team": "DET"},
+                  "side": "over",
+                  "line": 0.5,
+                  "price": 550
+                }
+              ]
+            },
+            {
+              "type": "2+ TB",
+              "outcomes": [
+                {
+                  "player": {"id": "sgo_player_rgreene", "name": "Riley Greene", "team": "DET"},
+                  "side": "over",
+                  "line": 1.5,
+                  "price": 145
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

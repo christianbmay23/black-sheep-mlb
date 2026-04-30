@@ -1,0 +1,29 @@
+{
+  "available": {"status": 200, "checkedAt": "2026-04-30T12:40:00+00:00"},
+  "auth_failure": {
+    "status": 401,
+    "checkedAt": "2026-04-30T12:40:00+00:00",
+    "error": {"code": "authentication_failure", "message": "invalid API key"}
+  },
+  "quota": {
+    "status": 402,
+    "checkedAt": "2026-04-30T12:40:00+00:00",
+    "error": {"code": "quota_exhausted", "message": "trial quota exhausted"}
+  },
+  "rate_limit": {
+    "status": 429,
+    "checkedAt": "2026-04-30T12:40:00+00:00",
+    "error": {"code": "rate_limited", "message": "too many requests"}
+  },
+  "unsupported_market": {
+    "status": 422,
+    "checkedAt": "2026-04-30T12:40:00+00:00",
+    "error": {"code": "unsupported_market", "message": "market is unsupported"}
+  },
+  "partial_coverage": {
+    "status": 200,
+    "checkedAt": "2026-04-30T12:40:00+00:00",
+    "partial_coverage": true,
+    "message": "some requested markets missing"
+  }
+}

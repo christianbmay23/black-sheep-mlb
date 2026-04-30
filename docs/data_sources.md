@@ -12,6 +12,8 @@ The daily provider pipeline uses free MLB/baseball data first and treats odds as
 
 The Odds API is used only for market comparison and EV detection. Missing API keys, exhausted credits, rate limits, and provider errors return empty odds with warnings; predictions still write.
 
+SportsGameOdds has an offline-only adapter scaffold for future trial work. It normalizes fixture payloads into the provider-agnostic market schema and does not make live requests, require `SPORTSGAMEODDS_API_KEY`, or participate in strict compute/provider selection.
+
 Supported settings:
 
 - `ODDS_API_KEY` optional

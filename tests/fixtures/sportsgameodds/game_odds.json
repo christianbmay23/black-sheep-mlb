@@ -1,0 +1,40 @@
+{
+  "data": [
+    {
+      "eventID": "sgo_evt_det_bos_20260430",
+      "gameKey": "DET@BOS",
+      "awayTeam": "DET",
+      "homeTeam": "BOS",
+      "startTime": "2026-04-30T18:10:00+00:00",
+      "sportsbooks": [
+        {
+          "bookmaker": "draftkings",
+          "lastUpdated": "2026-04-30T12:45:00+00:00",
+          "markets": [
+            {
+              "type": "moneyline",
+              "outcomes": [
+                {"side": "away", "participant": "DET", "price": -110},
+                {"side": "home", "participant": "BOS", "price": 100}
+              ]
+            },
+            {
+              "type": "run_line",
+              "outcomes": [
+                {"side": "away", "participant": "DET", "line": 1.5, "price": -145},
+                {"side": "home", "participant": "BOS", "line": -1.5, "price": 125}
+              ]
+            },
+            {
+              "type": "total",
+              "outcomes": [
+                {"side": "over", "line": 8.5, "price": -105},
+                {"side": "under", "line": 8.5, "price": -115}
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
