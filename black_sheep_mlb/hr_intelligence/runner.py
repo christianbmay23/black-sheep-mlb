@@ -14,6 +14,7 @@ from black_sheep_mlb.hr_intelligence.config import (
     OUTPUT_FILENAMES,
     SCORING_WEIGHTS,
 )
+from black_sheep_mlb.hr_intelligence.data_sources import build_hybrid_rows
 from black_sheep_mlb.hr_intelligence.fixtures import default_fixture_path, load_fixture_rows
 from black_sheep_mlb.hr_intelligence.market import (
     american_odds_to_implied_probability,
@@ -61,15 +62,21 @@ def run_daily_hr_pipeline(
     *,
     date: str,
     fixture: bool = False,
+    mode: str | None = None,
     fixture_file: Path | None = None,
     output_dir: Path | None = None,
     root: Path | None = None,
 ) -> dict[str, Any]:
     repo_root = root or Path.cwd()
-    if not fixture:
-        raise ValueError("EchoIQ HR Intelligence v1 currently supports fixture/demo mode only. Pass --fixture.")
+    run_mode = mode or ("fixture" if fixture else "fixture")
+    if run_mode not in {"fixture", "hybrid"}:
+        raise ValueError("EchoIQ HR Intelligence v1 mode must be 'fixture' or 'hybrid'.")
     input_path = fixture_file or default_fixture_path(repo_root)
     rows, fixture_metadata = load_fixture_rows(input_path, date=date)
+    if run_mode == "hybrid":
+        hybrid = build_hybrid_rows(date, fixture_rows=rows)
+        rows = hybrid.rows
+        fixture_metadata = {**fixture_metadata, "hybrid": hybrid.metadata}
     board = build_board(rows)
     target_dir = output_dir or repo_root / DEFAULT_OUTPUT_DIR
     target_dir.mkdir(parents=True, exist_ok=True)
@@ -84,11 +91,11 @@ def run_daily_hr_pipeline(
     _write_csv(final_card_path, [item.to_csv_row() for item in board if item.action in {"BET", "LEAN"}])
     _write_csv(lottery_card_path, [item.to_csv_row() for item in board if item.action == "LOTTERY"])
     _write_csv(watchlist_path, [item.to_csv_row() for item in board if item.action == "WATCHLIST"])
-    _write_audit_log(audit_path, date, board, fixture_metadata)
+    _write_audit_log(audit_path, date, board, fixture_metadata, mode=run_mode)
 
     return {
         "date": date,
-        "mode": "fixture",
+        "mode": run_mode,
         "hitters_scored": len(board),
         "actions": _count_actions(board),
         "top_10": [item.to_csv_row() for item in board[:10]],
@@ -110,12 +117,19 @@ def _write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
         writer.writerows(rows)
 
 
-def _write_audit_log(path: Path, date: str, board: list[BoardRow], fixture_metadata: dict[str, Any]) -> None:
+def _write_audit_log(
+    path: Path,
+    date: str,
+    board: list[BoardRow],
+    fixture_metadata: dict[str, Any],
+    *,
+    mode: str,
+) -> None:
     payload = {
         "date": date,
         "created_at": datetime.now(timezone.utc).isoformat(),
-        "mode": "fixture",
-        "source_status": "fixture_only",
+        "mode": mode,
+        "source_status": mode if mode == "hybrid" else "fixture_only",
         "fixture_metadata": fixture_metadata,
         "strategy_context": {
             "documents_used_as_context_only": [
