@@ -11,6 +11,7 @@ from black_sheep_mlb.hr_intelligence.runner import run_daily_hr_pipeline
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Build EchoIQ HR Intelligence v1 boards.")
     parser.add_argument("--date", required=True)
+    parser.add_argument("--mode", choices=["fixture", "hybrid"], default=None)
     parser.add_argument("--fixture", action="store_true", help="Run fixture/demo mode. No live APIs are called.")
     parser.add_argument("--fixture-file", default=None)
     parser.add_argument("--output-dir", default=None)
@@ -19,6 +20,7 @@ def main(argv: list[str] | None = None) -> int:
     summary = run_daily_hr_pipeline(
         date=args.date,
         fixture=args.fixture,
+        mode=args.mode,
         fixture_file=Path(args.fixture_file) if args.fixture_file else None,
         output_dir=Path(args.output_dir) if args.output_dir else None,
     )
