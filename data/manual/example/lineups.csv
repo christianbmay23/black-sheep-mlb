@@ -1,0 +1,3 @@
+date,game_id,away_team,home_team,team,player,batting_order,position,handedness,lineup_status,source,source_url,timestamp,confidence
+2026-04-24,824529,Detroit Tigers,Cincinnati Reds,Detroit Tigers,Example Tigers Batter,2,RF,R,confirmed,manual example,https://example.com/lineups,2026-04-24T10:00:00Z,High
+2026-04-24,824529,Detroit Tigers,Cincinnati Reds,Cincinnati Reds,Example Reds Starter,,P,R,confirmed,manual example,https://example.com/lineups,2026-04-24T10:00:00Z,High

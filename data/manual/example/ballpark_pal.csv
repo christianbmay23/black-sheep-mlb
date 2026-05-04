@@ -1,0 +1,2 @@
+date,game_id,away_team,home_team,venue,run_factor,hr_factor,weather_factor,air_density,carry_grade,rh_hr_factor,lh_hr_factor,notes,source,source_url,timestamp,confidence
+2026-04-24,824529,Detroit Tigers,Cincinnati Reds,Great American Ball Park,1.07,1.12,1.06,low,A,1.14,1.08,Ballpark Pal HR factor boosts RH power,manual example,https://example.com/ballpark-pal,2026-04-24T10:00:00Z,High

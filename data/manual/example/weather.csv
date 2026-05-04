@@ -1,0 +1,2 @@
+date,game_id,away_team,home_team,venue,temperature,wind_speed,wind_direction,wind_effect,humidity,dew_point,precipitation_risk,roof_status,delay_risk,source,source_url,timestamp,confidence
+2026-04-24,824529,Detroit Tigers,Cincinnati Reds,Great American Ball Park,78,9,out to LF,boost out,55,60,5,open-air,low,manual example,https://example.com/weather,2026-04-24T10:00:00Z,High

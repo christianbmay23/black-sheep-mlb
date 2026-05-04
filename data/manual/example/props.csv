@@ -1,0 +1,4 @@
+date,game_id,away_team,home_team,player,team,opponent,prop_type,line,over_price,under_price,sportsbook,consensus_price,best_price,raw_probability,fair_price,reason,source,source_url,timestamp,confidence
+2026-04-24,824529,Detroit Tigers,Cincinnati Reds,Example Tigers Batter,Detroit Tigers,Cincinnati Reds,total_bases,1.5,+130,-150,manual,+125,+130,0.62,,manual Statcast and role edge,manual example,https://example.com/props,2026-04-24T10:00:00Z,High
+2026-04-24,824529,Detroit Tigers,Cincinnati Reds,Example Tigers Batter,Detroit Tigers,Cincinnati Reds,home_runs,0.5,+420,-600,manual,+400,+420,0.23,,manual HR edge,manual example,https://example.com/props,2026-04-24T10:00:00Z,High
+2026-04-24,824529,Detroit Tigers,Cincinnati Reds,Example Reds Starter,Cincinnati Reds,Detroit Tigers,pitcher_strikeouts,5.5,+105,-125,manual,+100,+105,0.54,,manual K projection,manual example,https://example.com/props,2026-04-24T10:00:00Z,High

@@ -1,0 +1,3 @@
+date,game_id,away_team,home_team,selection,market_type,sportsbook,consensus_price,best_price,opening_price,current_price,line,model_probability,source,source_url,timestamp,confidence
+2026-04-24,824529,Detroit Tigers,Cincinnati Reds,Detroit Tigers,moneyline,manual,+120,+125,+115,+125,,0.56,manual example,https://example.com/odds,2026-04-24T10:00:00Z,High
+2026-04-24,824529,Detroit Tigers,Cincinnati Reds,game total,full_game_total,manual,-110,-108,-110,-108,8.5,,manual example,https://example.com/odds,2026-04-24T10:00:00Z,High
