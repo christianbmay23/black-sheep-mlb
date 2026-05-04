@@ -1,0 +1,106 @@
+{
+  "slate_date": "2026-05-01",
+  "audit_timestamp": "2026-05-01T18:03:29Z",
+  "sources": [
+    {
+      "source_name": "MLB.com schedule page",
+      "url": "https://www.mlb.com/schedule/2026-05-01",
+      "accessed_at": "2026-05-01T18:03:29Z",
+      "data_used": "official slate/time verification",
+      "reliability": "high",
+      "access_status": "ok",
+      "notes": ""
+    },
+    {
+      "source_name": "MLB Stats API schedule",
+      "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&date=2026-05-01&hydrate=probablePitcher%2Cteam%2Cvenue%2Clinescore",
+      "accessed_at": "2026-05-01T18:03:29Z",
+      "data_used": "gamePk, schedule, venues, MLB probable pitchers, status",
+      "reliability": "high",
+      "access_status": "ok",
+      "notes": ""
+    },
+    {
+      "source_name": "MLB Stats API live game feeds",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/{gamePk}/feed/live",
+      "accessed_at": "2026-05-01T18:03:29Z",
+      "data_used": "official lineups where posted, umpires, roster/player/team stats",
+      "reliability": "high",
+      "access_status": "ok",
+      "notes": ""
+    },
+    {
+      "source_name": "RotoWire daily lineups",
+      "url": "https://www.rotowire.com/baseball/daily-lineups.php?date=2026-05-01",
+      "accessed_at": "2026-05-01T18:03:29Z",
+      "data_used": "secondary projected/confirmed lineups and starter cross-check",
+      "reliability": "medium",
+      "access_status": "ok",
+      "notes": ""
+    },
+    {
+      "source_name": "The Odds API",
+      "url": "https://the-odds-api.com/",
+      "accessed_at": "2026-05-01T18:03:29Z",
+      "data_used": "current h2h, run line, totals median market prices through repo env key",
+      "reliability": "high",
+      "access_status": "ok",
+      "notes": "No API key stored."
+    },
+    {
+      "source_name": "RotoWire player props",
+      "url": "https://www.rotowire.com/betting/mlb/player-props.php?date=2026-05-01",
+      "accessed_at": "2026-05-01T18:03:29Z",
+      "data_used": "HR/TB prop prices where parsed",
+      "reliability": "medium",
+      "access_status": "ok",
+      "notes": ""
+    },
+    {
+      "source_name": "DraftKings sportsbook content API",
+      "url": "https://sportsbook-nash.draftkings.com/",
+      "accessed_at": "2026-05-01T18:03:29Z",
+      "data_used": "public HR prop prices where parsed",
+      "reliability": "medium",
+      "access_status": "ok",
+      "notes": ""
+    },
+    {
+      "source_name": "Open-Meteo Forecast API",
+      "url": "https://open-meteo.com/",
+      "accessed_at": "2026-05-01T18:03:29Z",
+      "data_used": "hourly stadium weather forecast",
+      "reliability": "medium",
+      "access_status": "ok",
+      "notes": ""
+    },
+    {
+      "source_name": "FanDuel Research HR props article",
+      "url": "https://www.fanduel.com/research/mlb-home-run-prop-odds-5-1-2026",
+      "accessed_at": "2026-05-01T18:03:29Z",
+      "data_used": "secondary HR odds context",
+      "reliability": "medium",
+      "access_status": "ok",
+      "notes": ""
+    },
+    {
+      "source_name": "FantasyPros MLB lineups/weather",
+      "url": "https://www.fantasypros.com/mlb/lineups/2026-05-01/",
+      "accessed_at": "2026-05-01T18:03:29Z",
+      "data_used": "secondary lineup/weather context",
+      "reliability": "medium",
+      "access_status": "ok",
+      "notes": ""
+    },
+    {
+      "source_name": "FanGraphs via pybaseball",
+      "url": "https://www.fangraphs.com/leaders-legacy.aspx",
+      "accessed_at": "2026-05-01T18:03:29Z",
+      "data_used": "attempted advanced enrichment",
+      "reliability": "medium",
+      "access_status": "blocked",
+      "notes": "HTTP 403; advanced fields unavailable."
+    }
+  ],
+  "runtime_diagnostics": []
+}

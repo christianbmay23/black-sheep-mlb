@@ -1,0 +1,56 @@
+rank,game_id,game,market_type,team_or_player,side,sportsbook,consensus_price,best_price,opening_price,current_price,line,implied_probability,no_vig_probability,model_probability,fair_price,edge,playable_price,pass_price,market_status,raw_prediction_label,value_label,final_recommendation,risk_flags
+1,824284,Texas Rangers@Detroit Tigers,moneyline,Detroit Tigers,,FanDuel/StatMuse,-132,-132,,-132.0,,0.569,0.569,0.65,-200,0.081,+100,+100,available,RAW_TOP,WATCHLIST,WATCHLIST,low_source_confidence
+2,823067,Los Angeles Dodgers@St. Louis Cardinals,moneyline,St. Louis Cardinals,,FanDuel/StatMuse consensus cross-check,+120,+123,,120.0,,0.4545,0.4545,0.512,-105,0.0575,+100,-120,available,WATCHLIST,GOOD_VALUE,GOOD_VALUE,
+3,,Atlanta Braves@Colorado Rockies,pitcher_strikeouts,Chris Sale,over,manual,,106.0,,106.0,7.5,0.4854,0.4854,0.535,-115,0.0496,,,available,GOOD_VALUE,GOOD_VALUE,GOOD_VALUE,
+4,822988,San Francisco Giants@Tampa Bay Rays,moneyline,San Francisco Giants,,FanDuel/StatMuse,-116,-116,,-116.0,,0.537,0.537,0.583,-140,0.046,-125,,available,RAW_TOP,GOOD_VALUE,GOOD_VALUE,
+5,,Atlanta Braves@Colorado Rockies,home_runs,Matt Olson,over,manual,,260.0,,260.0,,0.2778,0.2778,0.12,+200,-0.1578,,,available,WATCHLIST,PASS_PRICE,PASS_PRICE,
+6,,Los Angeles Dodgers@St. Louis Cardinals,home_runs,Shohei Ohtani,over,manual,,265.0,,265.0,,0.274,0.274,0.08,+1150,-0.194,,,available,WATCHLIST,PASS_PRICE,PASS_PRICE,
+7,823554,Baltimore Orioles vs New York Yankees,moneyline,Baltimore Orioles,away,unavailable,,,,,,,,0.5,-100,,,,unavailable,WATCHLIST,PASS_UNCERTAINTY,PASS_UNCERTAINTY,odds_unavailable
+8,823554,New York Yankees vs Baltimore Orioles,moneyline,New York Yankees,home,unavailable,,,,,,,,0.5,-100,,,,unavailable,WATCHLIST,PASS_UNCERTAINTY,PASS_UNCERTAINTY,odds_unavailable
+9,823715,Toronto Blue Jays vs Minnesota Twins,moneyline,Toronto Blue Jays,away,unavailable,,,,,,,,0.5,-100,,,,unavailable,WATCHLIST,PASS_UNCERTAINTY,PASS_UNCERTAINTY,odds_unavailable
+10,823715,Minnesota Twins vs Toronto Blue Jays,moneyline,Minnesota Twins,home,unavailable,,,,,,,,0.5,-100,,,,unavailable,WATCHLIST,PASS_UNCERTAINTY,PASS_UNCERTAINTY,odds_unavailable
+11,824685,Arizona Diamondbacks vs Chicago Cubs,moneyline,Arizona Diamondbacks,away,unavailable,,,,,,,,0.5,-100,,,,unavailable,WATCHLIST,PASS_UNCERTAINTY,PASS_UNCERTAINTY,odds_unavailable
+12,824685,Chicago Cubs vs Arizona Diamondbacks,moneyline,Chicago Cubs,home,unavailable,,,,,,,,0.5,-100,,,,unavailable,WATCHLIST,PASS_UNCERTAINTY,PASS_UNCERTAINTY,odds_unavailable
+13,825014,Cleveland Guardians vs Athletics,moneyline,Cleveland Guardians,away,unavailable,,,,,,,,0.5,-100,,,,unavailable,WATCHLIST,PASS_UNCERTAINTY,PASS_UNCERTAINTY,odds_unavailable
+14,825014,Athletics vs Cleveland Guardians,moneyline,Athletics,home,unavailable,,,,,,,,0.5,-100,,,,unavailable,WATCHLIST,PASS_UNCERTAINTY,PASS_UNCERTAINTY,odds_unavailable
+15,823388,Cincinnati Reds vs Pittsburgh Pirates,moneyline,Cincinnati Reds,away,unavailable,,,,,,,,0.5,-100,,,,unavailable,WATCHLIST,PASS_UNCERTAINTY,PASS_UNCERTAINTY,odds_unavailable
+16,823388,Pittsburgh Pirates vs Cincinnati Reds,moneyline,Pittsburgh Pirates,home,unavailable,,,,,,,,0.5,-100,,,,unavailable,WATCHLIST,PASS_UNCERTAINTY,PASS_UNCERTAINTY,odds_unavailable
+17,822746,Milwaukee Brewers vs Washington Nationals,moneyline,Milwaukee Brewers,away,unavailable,,,,,,,,0.5,-100,,,,unavailable,WATCHLIST,PASS_UNCERTAINTY,PASS_UNCERTAINTY,odds_unavailable
+18,822746,Washington Nationals vs Milwaukee Brewers,moneyline,Washington Nationals,home,unavailable,,,,,,,,0.5,-100,,,,unavailable,WATCHLIST,PASS_UNCERTAINTY,PASS_UNCERTAINTY,odds_unavailable
+19,824771,Houston Astros vs Boston Red Sox,moneyline,Houston Astros,away,unavailable,,,,,,,,0.5,-100,,,,unavailable,WATCHLIST,PASS_UNCERTAINTY,PASS_UNCERTAINTY,odds_unavailable
+20,824771,Boston Red Sox vs Houston Astros,moneyline,Boston Red Sox,home,unavailable,,,,,,,,0.5,-100,,,,unavailable,WATCHLIST,PASS_UNCERTAINTY,PASS_UNCERTAINTY,odds_unavailable
+21,823876,Philadelphia Phillies vs Miami Marlins,moneyline,Philadelphia Phillies,away,unavailable,,,,,,,,0.5,-100,,,,unavailable,WATCHLIST,PASS_UNCERTAINTY,PASS_UNCERTAINTY,odds_unavailable
+22,823876,Miami Marlins vs Philadelphia Phillies,moneyline,Miami Marlins,home,unavailable,,,,,,,,0.5,-100,,,,unavailable,WATCHLIST,PASS_UNCERTAINTY,PASS_UNCERTAINTY,odds_unavailable
+23,822988,San Francisco Giants vs Tampa Bay Rays,moneyline,San Francisco Giants,away,unavailable,,,,,,,,0.5,-100,,,,unavailable,WATCHLIST,PASS_UNCERTAINTY,PASS_UNCERTAINTY,odds_unavailable
+24,822988,Tampa Bay Rays vs San Francisco Giants,moneyline,Tampa Bay Rays,home,unavailable,,,,,,,,0.5,-100,,,,unavailable,WATCHLIST,PASS_UNCERTAINTY,PASS_UNCERTAINTY,odds_unavailable
+25,823067,Los Angeles Dodgers vs St. Louis Cardinals,moneyline,Los Angeles Dodgers,away,unavailable,,,,,,,,0.5,-100,,,,unavailable,WATCHLIST,PASS_UNCERTAINTY,PASS_UNCERTAINTY,odds_unavailable
+26,823067,St. Louis Cardinals vs Los Angeles Dodgers,moneyline,St. Louis Cardinals,home,unavailable,,,,,,,,0.5,-100,,,,unavailable,WATCHLIST,PASS_UNCERTAINTY,PASS_UNCERTAINTY,odds_unavailable
+27,824284,Texas Rangers vs Detroit Tigers,moneyline,Texas Rangers,away,unavailable,,,,,,,,0.5,-100,,,,unavailable,WATCHLIST,PASS_UNCERTAINTY,PASS_UNCERTAINTY,odds_unavailable
+28,824284,Detroit Tigers vs Texas Rangers,moneyline,Detroit Tigers,home,unavailable,,,,,,,,0.5,-100,,,,unavailable,WATCHLIST,PASS_UNCERTAINTY,PASS_UNCERTAINTY,odds_unavailable
+29,824365,Atlanta Braves vs Colorado Rockies,moneyline,Atlanta Braves,away,unavailable,,,,,,,,0.5,-100,,,,unavailable,WATCHLIST,PASS_UNCERTAINTY,PASS_UNCERTAINTY,odds_unavailable
+30,824365,Colorado Rockies vs Atlanta Braves,moneyline,Colorado Rockies,home,unavailable,,,,,,,,0.5,-100,,,,unavailable,WATCHLIST,PASS_UNCERTAINTY,PASS_UNCERTAINTY,odds_unavailable
+31,823308,Chicago White Sox vs San Diego Padres,moneyline,Chicago White Sox,away,unavailable,,,,,,,,0.5,-100,,,,unavailable,WATCHLIST,PASS_UNCERTAINTY,PASS_UNCERTAINTY,odds_unavailable
+32,823308,San Diego Padres vs Chicago White Sox,moneyline,San Diego Padres,home,unavailable,,,,,,,,0.5,-100,,,,unavailable,WATCHLIST,PASS_UNCERTAINTY,PASS_UNCERTAINTY,odds_unavailable
+33,824042,New York Mets vs Los Angeles Angels,moneyline,New York Mets,away,unavailable,,,,,,,,0.5,-100,,,,unavailable,WATCHLIST,PASS_UNCERTAINTY,PASS_UNCERTAINTY,odds_unavailable
+34,824042,Los Angeles Angels vs New York Mets,moneyline,Los Angeles Angels,home,unavailable,,,,,,,,0.5,-100,,,,unavailable,WATCHLIST,PASS_UNCERTAINTY,PASS_UNCERTAINTY,odds_unavailable
+35,823144,Kansas City Royals vs Seattle Mariners,moneyline,Kansas City Royals,away,unavailable,,,,,,,,0.5,-100,,,,unavailable,WATCHLIST,PASS_UNCERTAINTY,PASS_UNCERTAINTY,odds_unavailable
+36,823144,Seattle Mariners vs Kansas City Royals,moneyline,Seattle Mariners,home,unavailable,,,,,,,,0.5,-100,,,,unavailable,WATCHLIST,PASS_UNCERTAINTY,PASS_UNCERTAINTY,odds_unavailable
+37,823388,Cincinnati Reds@Pittsburgh Pirates,moneyline,Cincinnati Reds,,unavailable,,,,,,,,0.5,+100,,+105,-110,unavailable,WATCHLIST,PASS_UNCERTAINTY,PASS_UNCERTAINTY,"price_missing,low_source_confidence"
+38,825014,Cleveland Guardians@Athletics,full_game_total,Over,,unavailable,,,,,9,,,0.55,9.5,,8.5,10.5,unavailable,STRONG_MATCHUP,PASS_UNCERTAINTY,PASS_UNCERTAINTY,"price_missing,low_source_confidence"
+39,824365,Atlanta Braves@Colorado Rockies,moneyline,Atlanta Braves,,FanDuel/BetMGM/StatMuse,-230,-225,,-230.0,,0.697,0.697,,,,-180,-228,available,PASS_UNCERTAINTY,PASS_UNCERTAINTY,PASS_UNCERTAINTY,model_probability_missing
+40,823308,Chicago White Sox@San Diego Padres,full_game_total,Under,,StatMuse/BetMGM/FanDuel,-105,-105,,-105.0,7.5,0.5122,0.5122,,,,,,available,PASS_UNCERTAINTY,PASS_UNCERTAINTY,PASS_UNCERTAINTY,model_probability_missing
+41,824284,Texas Rangers@Detroit Tigers,full_game_total,Over,,FanDuel/StatMuse,+100,+100,,100.0,8.5,0.5,0.5,,,,8/-110,-130,available,PASS_UNCERTAINTY,PASS_UNCERTAINTY,PASS_UNCERTAINTY,"model_probability_missing,low_source_confidence"
+42,823876,Philadelphia Phillies@Miami Marlins,moneyline,Miami Marlins,,unavailable,,,,,,,,0.65,-200,,,,unavailable,RAW_TOP,PASS_UNCERTAINTY,PASS_UNCERTAINTY,"price_missing,low_source_confidence"
+43,823144,Kansas City Royals@Seattle Mariners,moneyline,Seattle Mariners,,unavailable,,,,,,,,,,,,,unavailable,PASS_UNCERTAINTY,PASS_UNCERTAINTY,PASS_UNCERTAINTY,"price_missing,model_probability_missing,low_source_confidence"
+44,,Texas Rangers@Detroit Tigers,total_bases,Spencer Torkelson,over,manual,,,,,3.5,,,,,,,,unavailable,PASS_UNCERTAINTY,PASS_UNCERTAINTY,PASS_UNCERTAINTY,"price_missing,raw_probability_missing"
+45,,Texas Rangers@Detroit Tigers,total_bases,Riley Greene,over,manual,,,,,2.5,,,,,,,,unavailable,PASS_UNCERTAINTY,PASS_UNCERTAINTY,PASS_UNCERTAINTY,"price_missing,raw_probability_missing"
+46,,Atlanta Braves@Colorado Rockies,total_bases,Matt Olson,over,manual,,,,,,,,,,,,,unavailable,PASS_UNCERTAINTY,PASS_UNCERTAINTY,PASS_UNCERTAINTY,"price_missing,raw_probability_missing"
+47,,Houston Astros@Boston Red Sox,home_runs,Yordan Alvarez,over,manual,,,,,,,,0.1,+900,,,,unavailable,LOTTERY,PASS_UNCERTAINTY,PASS_UNCERTAINTY,
+48,,Baltimore Orioles@New York Yankees,home_runs,Aaron Judge,over,manual,,,,,,,,0.1,+900,,,,unavailable,LOTTERY,PASS_UNCERTAINTY,PASS_UNCERTAINTY,
+49,,Texas Rangers@Detroit Tigers,home_runs,Spencer Torkelson,over,manual,,,,,,,,0.1,+900,,,,unavailable,LOTTERY,PASS_UNCERTAINTY,PASS_UNCERTAINTY,
+50,,Milwaukee Brewers@Washington Nationals,home_runs,James Wood,over,manual,,,,,,,,0.07,+1329,,,,unavailable,LOTTERY,PASS_UNCERTAINTY,PASS_UNCERTAINTY,
+51,,Cincinnati Reds@Pittsburgh Pirates,home_runs,Elly De La Cruz,over,manual,,,,,,,,0.07,+1329,,,,unavailable,LOTTERY,PASS_UNCERTAINTY,PASS_UNCERTAINTY,
+52,,Toronto Blue Jays@Minnesota Twins,pitcher_strikeouts,Dylan Cease,over,manual,,,,,6.5,,,0.512,-105,,,,unavailable,WATCHLIST,PASS_UNCERTAINTY,PASS_UNCERTAINTY,"price_missing,low_source_confidence"
+53,,Kansas City Royals@Seattle Mariners,pitcher_strikeouts,Seth Lugo,over,manual,,,,,6.5,,,,,,,,unavailable,PASS_UNCERTAINTY,PASS_UNCERTAINTY,PASS_UNCERTAINTY,"price_missing,raw_probability_missing,low_source_confidence"
+54,,Los Angeles Dodgers@St. Louis Cardinals,pitcher_strikeouts,Michael McGreevy,over,manual,,,,,3.5,,,,,,,,unavailable,PASS_UNCERTAINTY,PASS_UNCERTAINTY,PASS_UNCERTAINTY,"price_missing,raw_probability_missing,low_source_confidence"
+55,,Texas Rangers@Detroit Tigers,pitcher_strikeouts,Kumar Rocker,over,manual,,,,,3.5,,,,,,,,unavailable,PASS_UNCERTAINTY,PASS_UNCERTAINTY,PASS_UNCERTAINTY,"price_missing,raw_probability_missing,low_source_confidence"

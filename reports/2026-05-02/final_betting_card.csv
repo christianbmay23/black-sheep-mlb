@@ -1,0 +1,3 @@
+rank,market_type,selection,game,current_price,line,model_probability,edge,recommendation,unit_size,reason,risk_flags
+1,moneyline,St. Louis Cardinals,Los Angeles Dodgers@St. Louis Cardinals,120.0,,0.512,0.0575,GOOD_VALUE,0.25,Positive model-vs-market edge from optional manual/free input overlay.,
+2,pitcher_strikeouts,Chris Sale,Atlanta Braves@Colorado Rockies,106.0,7.5,0.535,0.0496,GOOD_VALUE,0.25,Positive model-vs-market edge from optional manual/free input overlay.,
