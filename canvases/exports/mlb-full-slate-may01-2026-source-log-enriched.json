@@ -1,0 +1,1034 @@
+{
+  "audit_timestamp": "2026-05-01T20:52:22Z",
+  "slate_date": "2026-05-01",
+  "sources": [
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "Read local prior artifact as hypothesis/baseline, not source truth.",
+      "fields": [
+        "games",
+        "projections",
+        "odds",
+        "hr_candidates",
+        "batter_props"
+      ],
+      "name": "Existing Codex May 1 audit bundle",
+      "row_count": null,
+      "status": "ok",
+      "url": "/Users/christianmay/Projects/black-sheep-mlb/canvases/exports/mlb-full-slate-may01-2026-audit.json"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "official slate/time verification"
+      ],
+      "name": "Prior artifact source: MLB.com schedule page",
+      "row_count": null,
+      "status": "prior_artifact_not_refetched",
+      "url": "https://www.mlb.com/schedule/2026-05-01"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "gamePk, schedule, venues, MLB probable pitchers, status"
+      ],
+      "name": "Prior artifact source: MLB Stats API schedule",
+      "row_count": null,
+      "status": "prior_artifact_not_refetched",
+      "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&date=2026-05-01&hydrate=probablePitcher%2Cteam%2Cvenue%2Clinescore"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "official lineups where posted, umpires, roster/player/team stats"
+      ],
+      "name": "Prior artifact source: MLB Stats API live game feeds",
+      "row_count": null,
+      "status": "prior_artifact_not_refetched",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/{gamePk}/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "secondary projected/confirmed lineups and starter cross-check"
+      ],
+      "name": "Prior artifact source: RotoWire daily lineups",
+      "row_count": null,
+      "status": "prior_artifact_not_refetched",
+      "url": "https://www.rotowire.com/baseball/daily-lineups.php?date=2026-05-01"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "No API key stored.",
+      "fields": [
+        "current h2h, run line, totals median market prices through repo env key"
+      ],
+      "name": "Prior artifact source: The Odds API",
+      "row_count": null,
+      "status": "prior_artifact_not_refetched",
+      "url": "https://the-odds-api.com/"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "HR/TB prop prices where parsed"
+      ],
+      "name": "Prior artifact source: RotoWire player props",
+      "row_count": null,
+      "status": "prior_artifact_not_refetched",
+      "url": "https://www.rotowire.com/betting/mlb/player-props.php?date=2026-05-01"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "public HR prop prices where parsed"
+      ],
+      "name": "Prior artifact source: DraftKings sportsbook content API",
+      "row_count": null,
+      "status": "prior_artifact_not_refetched",
+      "url": "https://sportsbook-nash.draftkings.com/"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "hourly stadium weather forecast"
+      ],
+      "name": "Prior artifact source: Open-Meteo Forecast API",
+      "row_count": null,
+      "status": "prior_artifact_not_refetched",
+      "url": "https://open-meteo.com/"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "secondary HR odds context"
+      ],
+      "name": "Prior artifact source: FanDuel Research HR props article",
+      "row_count": null,
+      "status": "prior_artifact_not_refetched",
+      "url": "https://www.fanduel.com/research/mlb-home-run-prop-odds-5-1-2026"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "secondary lineup/weather context"
+      ],
+      "name": "Prior artifact source: FantasyPros MLB lineups/weather",
+      "row_count": null,
+      "status": "prior_artifact_not_refetched",
+      "url": "https://www.fantasypros.com/mlb/lineups/2026-05-01/"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "HTTP 403; advanced fields unavailable.",
+      "fields": [
+        "attempted advanced enrichment"
+      ],
+      "name": "Prior artifact source: FanGraphs via pybaseball",
+      "row_count": null,
+      "status": "prior_artifact_not_refetched",
+      "url": "https://www.fangraphs.com/leaders-legacy.aspx"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "gamePk",
+        "status",
+        "probablePitcher",
+        "lineups",
+        "venue",
+        "linescore"
+      ],
+      "name": "MLB Stats API schedule",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&date=2026-05-01&hydrate=probablePitcher%2Clineups%2Cteam%2Cvenue%2Clinescore"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "boxscore",
+        "officials",
+        "probablePitchers",
+        "gameData.players"
+      ],
+      "name": "MLB Stats API live game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/824686/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "boxscore",
+        "officials",
+        "probablePitchers",
+        "gameData.players"
+      ],
+      "name": "MLB Stats API live game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/824287/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "boxscore",
+        "officials",
+        "probablePitchers",
+        "gameData.players"
+      ],
+      "name": "MLB Stats API live game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/823389/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "boxscore",
+        "officials",
+        "probablePitchers",
+        "gameData.players"
+      ],
+      "name": "MLB Stats API live game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/822744/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "boxscore",
+        "officials",
+        "probablePitchers",
+        "gameData.players"
+      ],
+      "name": "MLB Stats API live game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/823557/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "boxscore",
+        "officials",
+        "probablePitchers",
+        "gameData.players"
+      ],
+      "name": "MLB Stats API live game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/824772/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "boxscore",
+        "officials",
+        "probablePitchers",
+        "gameData.players"
+      ],
+      "name": "MLB Stats API live game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/822990/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "boxscore",
+        "officials",
+        "probablePitchers",
+        "gameData.players"
+      ],
+      "name": "MLB Stats API live game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/823877/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "boxscore",
+        "officials",
+        "probablePitchers",
+        "gameData.players"
+      ],
+      "name": "MLB Stats API live game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/823713/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "boxscore",
+        "officials",
+        "probablePitchers",
+        "gameData.players"
+      ],
+      "name": "MLB Stats API live game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/823066/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "boxscore",
+        "officials",
+        "probablePitchers",
+        "gameData.players"
+      ],
+      "name": "MLB Stats API live game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/824366/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "boxscore",
+        "officials",
+        "probablePitchers",
+        "gameData.players"
+      ],
+      "name": "MLB Stats API live game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/824041/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "boxscore",
+        "officials",
+        "probablePitchers",
+        "gameData.players"
+      ],
+      "name": "MLB Stats API live game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/825012/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "boxscore",
+        "officials",
+        "probablePitchers",
+        "gameData.players"
+      ],
+      "name": "MLB Stats API live game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/823309/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "boxscore",
+        "officials",
+        "probablePitchers",
+        "gameData.players"
+      ],
+      "name": "MLB Stats API live game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/823146/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "person",
+        "hitting season",
+        "pitching season",
+        "gameLog"
+      ],
+      "name": "MLB Stats API people/stats",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1/people?personIds=500743%2C500779%2C502671%2C514888%2C518692%2C542303%2C543807%2C545121%2C547180%2C554430%2C571448%2C571578%2C571970%2C572233%2C575929%2C592450%2C592626%2C592662%2C596115%2C605137%2C605170%2C606192%2C607043%2C607067%2C608324%2C608348%2C608369%2C608566%2C621020%2C621043%2C621439%2C621493%2C621566%2C622761%2C623168%2C624413%2C624641%2C641343%2C641355%2C641487&hydrate=stats%28group%3D%5Bhitting%2Cpitching%5D%2Ctype%3D%5Bseason%2CgameLog%5D%2Cseason%3D2026%29"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "person",
+        "hitting season",
+        "pitching season",
+        "gameLog"
+      ],
+      "name": "MLB Stats API people/stats",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1/people?personIds=641584%2C641598%2C641680%2C642201%2C642708%2C642715%2C643289%2C643376%2C645277%2C646240%2C647304%2C650333%2C650402%2C650489%2C650490%2C650859%2C656305%2C656427%2C656550%2C656582%2C656605%2C656811%2C656941%2C660271%2C660670%2C660821%2C660844%2C661388%2C662139%2C663330%2C663368%2C663538%2C663556%2C663586%2C663623%2C663647%2C663656%2C663728%2C663743%2C663757&hydrate=stats%28group%3D%5Bhitting%2Cpitching%5D%2Ctype%3D%5Bseason%2CgameLog%5D%2Cseason%3D2026%29"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "person",
+        "hitting season",
+        "pitching season",
+        "gameLog"
+      ],
+      "name": "MLB Stats API people/stats",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1/people?personIds=663837%2C663886%2C663903%2C663993%2C664023%2C664040%2C664761%2C664983%2C665489%2C665561%2C665750%2C665833%2C665862%2C665926%2C665966%2C666142%2C666152%2C666160%2C666397%2C666464%2C666624%2C666969%2C668227%2C668678%2C668709%2C668715%2C668723%2C668804%2C668885%2C668904%2C668930%2C668939%2C669003%2C669016%2C669022%2C669065%2C669224%2C669257%2C669289%2C669357&hydrate=stats%28group%3D%5Bhitting%2Cpitching%5D%2Ctype%3D%5Bseason%2CgameLog%5D%2Cseason%3D2026%29"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "person",
+        "hitting season",
+        "pitching season",
+        "gameLog"
+      ],
+      "name": "MLB Stats API people/stats",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1/people?personIds=669364%2C669372%2C669394%2C669461%2C669477%2C670541%2C670623%2C670764%2C670770%2C671056%2C671218%2C671277%2C671289%2C672012%2C672275%2C672515%2C672640%2C672695%2C672761%2C672820%2C672960%2C673237%2C673548%2C673962%2C676282%2C676356%2C676475%2C676609%2C677594%2C677649%2C677800%2C677942%2C677950%2C678391%2C678489%2C678554%2C678662%2C678882%2C679529%2C680573&hydrate=stats%28group%3D%5Bhitting%2Cpitching%5D%2Ctype%3D%5Bseason%2CgameLog%5D%2Cseason%3D2026%29"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "person",
+        "hitting season",
+        "pitching season",
+        "gameLog"
+      ],
+      "name": "MLB Stats API people/stats",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1/people?personIds=680574%2C680728%2C680776%2C680777%2C680779%2C681035%2C681082%2C681198%2C681347%2C681546%2C681624%2C682663%2C682818%2C682829%2C682928%2C682985%2C682998%2C683002%2C683357%2C683737%2C686217%2C686218%2C686452%2C686780%2C686797%2C686948%2C687363%2C687462%2C687562%2C687637%2C687859%2C687957%2C689414%2C691023%2C691026%2C691406%2C691587%2C691594%2C691718%2C691723&hydrate=stats%28group%3D%5Bhitting%2Cpitching%5D%2Ctype%3D%5Bseason%2CgameLog%5D%2Cseason%3D2026%29"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "person",
+        "hitting season",
+        "pitching season",
+        "gameLog"
+      ],
+      "name": "MLB Stats API people/stats",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1/people?personIds=691781%2C691785%2C693304%2C693307%2C693433%2C694208%2C694212%2C694497%2C694728%2C694819%2C695578%2C695734%2C696030%2C696100%2C696285%2C699912%2C700249%2C700250%2C700712%2C701350%2C701358%2C701398%2C701542%2C701675%2C701678%2C702222%2C702273%2C702284%2C702332%2C802139%2C802415%2C804606%2C805300%2C805808%2C807712%2C808982%2C810938&hydrate=stats%28group%3D%5Bhitting%2Cpitching%5D%2Ctype%3D%5Bseason%2CgameLog%5D%2Cseason%3D2026%29"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "Statcast leaderboards"
+      ],
+      "name": "Baseball Savant batter_expected",
+      "row_count": 269,
+      "status": "ok",
+      "url": "https://baseballsavant.mlb.com/leaderboard/expected_statistics?type=batter&year=2026&csv=true"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "Statcast leaderboards"
+      ],
+      "name": "Baseball Savant pitcher_expected",
+      "row_count": 379,
+      "status": "ok",
+      "url": "https://baseballsavant.mlb.com/leaderboard/expected_statistics?type=pitcher&year=2026&csv=true"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "Statcast leaderboards"
+      ],
+      "name": "Baseball Savant batter_statcast",
+      "row_count": 269,
+      "status": "ok",
+      "url": "https://baseballsavant.mlb.com/leaderboard/statcast?type=batter&year=2026&csv=true"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "Statcast leaderboards"
+      ],
+      "name": "Baseball Savant pitcher_statcast",
+      "row_count": 379,
+      "status": "ok",
+      "url": "https://baseballsavant.mlb.com/leaderboard/statcast?type=pitcher&year=2026&csv=true"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "Statcast leaderboards"
+      ],
+      "name": "Baseball Savant batter_pitch_arsenal",
+      "row_count": 3501,
+      "status": "ok",
+      "url": "https://baseballsavant.mlb.com/leaderboard/pitch-arsenal-stats?type=batter&year=2026&team=&min=1&minPitches=1&pitchType=&sort=4&sortDir=desc&csv=true"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "Statcast leaderboards"
+      ],
+      "name": "Baseball Savant pitcher_pitch_arsenal",
+      "row_count": 2281,
+      "status": "ok",
+      "url": "https://baseballsavant.mlb.com/leaderboard/pitch-arsenal-stats?type=pitcher&year=2026&team=&min=1&minPitches=1&pitchType=&sort=4&sortDir=desc&csv=true"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "Statcast leaderboards"
+      ],
+      "name": "Baseball Savant pitch_speeds",
+      "row_count": 531,
+      "status": "ok",
+      "url": "https://baseballsavant.mlb.com/pitch-arsenals?year=2026&min=1&csv=true"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "team recent form",
+        "bullpen usage game list"
+      ],
+      "name": "MLB Stats API historical schedule",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&startDate=2026-04-01&endDate=2026-04-30&hydrate=team%2Clinescore%2CprobablePitcher"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/824447/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/824849/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/824526/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/823390/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/823473/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/822823/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/823636/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/824931/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/823716/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/824610/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/823798/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/822908/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/825017/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/823310/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/823956/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/824445/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/824608/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/823717/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/822907/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/822821/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/823958/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/823312/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/824525/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/823392/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/823633/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/824930/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/823796/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/825015/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/824929/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/824848/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/824850/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/823391/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/823472/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/823471/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/824524/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/823634/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/823795/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/825016/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "bullpen usage",
+        "boxscore pitching lines"
+      ],
+      "name": "MLB Stats API prior game feed",
+      "row_count": null,
+      "status": "ok",
+      "url": "https://statsapi.mlb.com/api/v1.1/game/823714/feed/live"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "moneyline",
+        "total",
+        "bookmaker median"
+      ],
+      "name": "RotoWire public game odds table",
+      "row_count": 14,
+      "status": "ok",
+      "url": "https://www.rotowire.com/betting/mlb/tables/mlb-games.php?date=2026-05-01"
+    },
+    {
+      "accessed_at": "2026-05-01T20:52:22Z",
+      "detail": "",
+      "fields": [
+        "HR odds",
+        "total bases odds"
+      ],
+      "name": "RotoWire public player props",
+      "row_count": 424,
+      "status": "ok",
+      "url": "https://www.rotowire.com/betting/mlb/player-props.php?date=2026-05-01"
+    }
+  ]
+}

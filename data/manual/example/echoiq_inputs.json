@@ -1,0 +1,23 @@
+{
+  "props": [
+    {
+      "date": "2026-04-24",
+      "game_id": "824529",
+      "away_team": "Detroit Tigers",
+      "home_team": "Cincinnati Reds",
+      "player": "Example Tigers Batter",
+      "team": "Detroit Tigers",
+      "opponent": "Cincinnati Reds",
+      "prop_type": "total_bases",
+      "line": "1.5",
+      "over_price": "+130",
+      "under_price": "-150",
+      "sportsbook": "manual",
+      "raw_probability": "0.62",
+      "source": "manual JSON example",
+      "source_url": "https://example.com/props",
+      "timestamp": "2026-04-24T10:00:00Z",
+      "confidence": "High"
+    }
+  ]
+}

@@ -1,0 +1,3119 @@
+{
+  "audit_timestamp": "2026-05-01T20:52:22Z",
+  "gaps": [
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "AZ@CHC",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Geraldo Perdomo"
+    },
+    {
+      "category": "market_odds_quality",
+      "fields": [
+        "total_bases_odds"
+      ],
+      "game": "AZ@CHC",
+      "impact": "Outlier total-bases price +550 at line 1.5; requires manual verification and is excluded from edge math.",
+      "player": "Geraldo Perdomo"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "AZ@CHC",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Ildemaro Vargas"
+    },
+    {
+      "category": "market_odds_quality",
+      "fields": [
+        "total_bases_odds"
+      ],
+      "game": "AZ@CHC",
+      "impact": "Outlier total-bases price +450 at line 1.5; requires manual verification and is excluded from edge math.",
+      "player": "Ildemaro Vargas"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "AZ@CHC",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Corbin Carroll"
+    },
+    {
+      "category": "market_odds_quality",
+      "fields": [
+        "total_bases_odds"
+      ],
+      "game": "AZ@CHC",
+      "impact": "Outlier total-bases price +750 at line 1.5; requires manual verification and is excluded from edge math.",
+      "player": "Corbin Carroll"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "AZ@CHC",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Adrian Del Castillo"
+    },
+    {
+      "category": "market_odds_quality",
+      "fields": [
+        "total_bases_odds"
+      ],
+      "game": "AZ@CHC",
+      "impact": "Outlier total-bases price +462 at line 1.5; requires manual verification and is excluded from edge math.",
+      "player": "Adrian Del Castillo"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "AZ@CHC",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Gabriel Moreno"
+    },
+    {
+      "category": "market_odds_quality",
+      "fields": [
+        "total_bases_odds"
+      ],
+      "game": "AZ@CHC",
+      "impact": "Invalid American odds 50; preserved for audit and excluded from edge math.",
+      "player": "Gabriel Moreno"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "AZ@CHC",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Jose Fernandez"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "AZ@CHC",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Nolan Arenado"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "AZ@CHC",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Alek Thomas"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "AZ@CHC",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Jorge Barrosa"
+    },
+    {
+      "category": "market_odds_quality",
+      "fields": [
+        "total_bases_odds"
+      ],
+      "game": "AZ@CHC",
+      "impact": "Outlier total-bases price +350 at line 1.5; requires manual verification and is excluded from edge math.",
+      "player": "Jorge Barrosa"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "AZ@CHC",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Nico Hoerner"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "AZ@CHC",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Mois\u00e9s Ballesteros"
+    },
+    {
+      "category": "market_odds_quality",
+      "fields": [
+        "total_bases_odds"
+      ],
+      "game": "AZ@CHC",
+      "impact": "Outlier total-bases price +525 at line 0.5; requires manual verification and is excluded from edge math.",
+      "player": "Mois\u00e9s Ballesteros"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "AZ@CHC",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Alex Bregman"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "AZ@CHC",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Ian Happ"
+    },
+    {
+      "category": "market_odds_quality",
+      "fields": [
+        "total_bases_odds"
+      ],
+      "game": "AZ@CHC",
+      "impact": "Outlier total-bases price +500 at line 1.5; requires manual verification and is excluded from edge math.",
+      "player": "Ian Happ"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "AZ@CHC",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Seiya Suzuki"
+    },
+    {
+      "category": "market_odds_quality",
+      "fields": [
+        "total_bases_odds"
+      ],
+      "game": "AZ@CHC",
+      "impact": "Outlier total-bases price +500 at line 1.5; requires manual verification and is excluded from edge math.",
+      "player": "Seiya Suzuki"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "AZ@CHC",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Michael Busch"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "AZ@CHC",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Carson Kelly"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "AZ@CHC",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Pete Crow-Armstrong"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "AZ@CHC",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Dansby Swanson"
+    },
+    {
+      "category": "market_odds_quality",
+      "fields": [
+        "total_bases_odds"
+      ],
+      "game": "AZ@CHC",
+      "impact": "Outlier total-bases price +310 at line 1.5; requires manual verification and is excluded from edge math.",
+      "player": "Dansby Swanson"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "TEX@DET",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Brandon Nimmo"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "TEX@DET",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Evan Carter"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "TEX@DET",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Corey Seager"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "TEX@DET",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Josh Jung"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "TEX@DET",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Joc Pederson"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "TEX@DET",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Jake Burger"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "TEX@DET",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Alejandro Osuna"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "TEX@DET",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Ezequiel Duran"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "TEX@DET",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Danny Jansen"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "TEX@DET",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Gleyber Torres"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "TEX@DET",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Kevin McGonigle"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "TEX@DET",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Jahmai Jones"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "TEX@DET",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Dillon Dingler"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "TEX@DET",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Riley Greene"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "TEX@DET",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Matt Vierling"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "TEX@DET",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Spencer Torkelson"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "TEX@DET",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Wenceel P\u00e9rez"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "TEX@DET",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Hao-Yu  Lee"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CIN@PIT",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "TJ Friedl"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CIN@PIT",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Matt McLain"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CIN@PIT",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Elly De La Cruz"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CIN@PIT",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Sal Stewart"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CIN@PIT",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Nathaniel Lowe"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CIN@PIT",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Spencer Steer"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CIN@PIT",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "JJ Bleday"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CIN@PIT",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Tyler Stephenson"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CIN@PIT",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Ke'Bryan Hayes"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CIN@PIT",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Oneil Cruz"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CIN@PIT",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Brandon Lowe"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CIN@PIT",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Bryan Reynolds"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CIN@PIT",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Ryan O'Hearn"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CIN@PIT",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Nick Gonzales"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CIN@PIT",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Marcell Ozuna"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CIN@PIT",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Spencer Horwitz"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CIN@PIT",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Konnor Griffin"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CIN@PIT",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Henry Davis"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "MIL@WSH",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Garrett Mitchell"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "MIL@WSH",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Brice Turang"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "MIL@WSH",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "William Contreras"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "MIL@WSH",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Jake Bauers"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "MIL@WSH",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Luis Rengifo"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "MIL@WSH",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Tyler Black"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "MIL@WSH",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Sal Frelick"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "MIL@WSH",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Blake Perkins"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "MIL@WSH",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "David Hamilton"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "MIL@WSH",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "James Wood"
+    },
+    {
+      "category": "prop_market_gap",
+      "fields": [
+        "hr_odds"
+      ],
+      "game": "MIL@WSH",
+      "impact": "HR row capped at WATCHLIST/PASS if no price",
+      "player": "James Wood"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "MIL@WSH",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Luis Garc\u00eda Jr."
+    },
+    {
+      "category": "prop_market_gap",
+      "fields": [
+        "hr_odds"
+      ],
+      "game": "MIL@WSH",
+      "impact": "HR row capped at WATCHLIST/PASS if no price",
+      "player": "Luis Garc\u00eda Jr."
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "MIL@WSH",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Curtis Mead"
+    },
+    {
+      "category": "prop_market_gap",
+      "fields": [
+        "hr_odds"
+      ],
+      "game": "MIL@WSH",
+      "impact": "HR row capped at WATCHLIST/PASS if no price",
+      "player": "Curtis Mead"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "MIL@WSH",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "CJ Abrams"
+    },
+    {
+      "category": "prop_market_gap",
+      "fields": [
+        "hr_odds"
+      ],
+      "game": "MIL@WSH",
+      "impact": "HR row capped at WATCHLIST/PASS if no price",
+      "player": "CJ Abrams"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "MIL@WSH",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Daylen Lile"
+    },
+    {
+      "category": "prop_market_gap",
+      "fields": [
+        "hr_odds"
+      ],
+      "game": "MIL@WSH",
+      "impact": "HR row capped at WATCHLIST/PASS if no price",
+      "player": "Daylen Lile"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "MIL@WSH",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Brady House"
+    },
+    {
+      "category": "prop_market_gap",
+      "fields": [
+        "hr_odds"
+      ],
+      "game": "MIL@WSH",
+      "impact": "HR row capped at WATCHLIST/PASS if no price",
+      "player": "Brady House"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "MIL@WSH",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Jorbit Vivas"
+    },
+    {
+      "category": "prop_market_gap",
+      "fields": [
+        "hr_odds"
+      ],
+      "game": "MIL@WSH",
+      "impact": "HR row capped at WATCHLIST/PASS if no price",
+      "player": "Jorbit Vivas"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "MIL@WSH",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Drew Millas"
+    },
+    {
+      "category": "prop_market_gap",
+      "fields": [
+        "hr_odds"
+      ],
+      "game": "MIL@WSH",
+      "impact": "HR row capped at WATCHLIST/PASS if no price",
+      "player": "Drew Millas"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "MIL@WSH",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Jacob Young"
+    },
+    {
+      "category": "prop_market_gap",
+      "fields": [
+        "hr_odds"
+      ],
+      "game": "MIL@WSH",
+      "impact": "HR row capped at WATCHLIST/PASS if no price",
+      "player": "Jacob Young"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "BAL@NYY",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Gunnar Henderson"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "BAL@NYY",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Taylor Ward"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "BAL@NYY",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Adley Rutschman"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "BAL@NYY",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Pete Alonso"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "BAL@NYY",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Samuel Basallo"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "BAL@NYY",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Dylan Beavers"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "BAL@NYY",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Leody Taveras"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "BAL@NYY",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Coby Mayo"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "BAL@NYY",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Blaze Alexander"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "BAL@NYY",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Paul Goldschmidt"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "BAL@NYY",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Ben Rice"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "BAL@NYY",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Aaron Judge"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "BAL@NYY",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Cody Bellinger"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "BAL@NYY",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Amed Rosario"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "BAL@NYY",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Jazz Chisholm Jr."
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "BAL@NYY",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Jos\u00e9 Caballero"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "BAL@NYY",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Austin Wells"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "BAL@NYY",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Trent Grisham"
+    },
+    {
+      "category": "prop_market_gap",
+      "fields": [
+        "hr_odds"
+      ],
+      "game": "BAL@NYY",
+      "impact": "HR row capped at WATCHLIST/PASS if no price",
+      "player": "Trent Grisham"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "HOU@BOS",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Carlos Correa"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "HOU@BOS",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Yordan Alvarez"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "HOU@BOS",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Isaac Paredes"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "HOU@BOS",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Christian Walker"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "HOU@BOS",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Jose Altuve"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "HOU@BOS",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Yainer Diaz"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "HOU@BOS",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Cam Smith"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "HOU@BOS",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Brice Matthews"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "HOU@BOS",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Dustin Harris"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "HOU@BOS",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Jarren Duran"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "HOU@BOS",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Willson Contreras"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "HOU@BOS",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Roman Anthony"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "HOU@BOS",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Wilyer Abreu"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "HOU@BOS",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Trevor Story"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "HOU@BOS",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Marcelo Mayer"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "HOU@BOS",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Ceddanne Rafaela"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "HOU@BOS",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Carlos Narv\u00e1ez"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "HOU@BOS",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Caleb Durbin"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "SF@TB",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Heliot Ramos"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "SF@TB",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Matt Chapman"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "SF@TB",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Luis Arraez"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "SF@TB",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Casey Schmitt"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "SF@TB",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Rafael Devers"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "SF@TB",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Willy Adames"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "SF@TB",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Jung Hoo Lee"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "SF@TB",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Jerar Encarnacion"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "SF@TB",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Patrick Bailey"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "SF@TB",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Chandler Simpson"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "SF@TB",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Junior Caminero"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "SF@TB",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Ryan Vilade"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "SF@TB",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Yandy D\u00edaz"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "SF@TB",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Ben Williamson"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "SF@TB",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Jonny DeLuca"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "SF@TB",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Jake Fraley"
+    },
+    {
+      "category": "prop_market_gap",
+      "fields": [
+        "hr_odds"
+      ],
+      "game": "SF@TB",
+      "impact": "HR row capped at WATCHLIST/PASS if no price",
+      "player": "Jake Fraley"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "SF@TB",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Nick Fortes"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "SF@TB",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Taylor Walls"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "PHI@MIA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Kyle Schwarber"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "PHI@MIA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Bryce Harper"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "PHI@MIA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Adolis Garc\u00eda"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "PHI@MIA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Brandon Marsh"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "PHI@MIA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Edmundo Sosa"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "PHI@MIA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Bryson Stott"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "PHI@MIA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Alec Bohm"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "PHI@MIA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Justin Crawford"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "PHI@MIA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Rafael March\u00e1n"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "PHI@MIA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Jakob Marsee"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "PHI@MIA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Kyle Stowers"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "PHI@MIA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Otto Lopez"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "PHI@MIA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Xavier Edwards"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "PHI@MIA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Liam Hicks"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "PHI@MIA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Agust\u00edn Ram\u00edrez"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "PHI@MIA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Owen Caissie"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "PHI@MIA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Christopher Morel"
+    },
+    {
+      "category": "prop_market_gap",
+      "fields": [
+        "hr_odds"
+      ],
+      "game": "PHI@MIA",
+      "impact": "HR row capped at WATCHLIST/PASS if no price",
+      "player": "Christopher Morel"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "PHI@MIA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Javier Sanoja"
+    },
+    {
+      "category": "prop_market_gap",
+      "fields": [
+        "hr_odds"
+      ],
+      "game": "PHI@MIA",
+      "impact": "HR row capped at WATCHLIST/PASS if no price",
+      "player": "Javier Sanoja"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "TOR@MIN",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "George Springer"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "TOR@MIN",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Jes\u00fas S\u00e1nchez"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "TOR@MIN",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Vladimir Guerrero Jr."
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "TOR@MIN",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Kazuma Okamoto"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "TOR@MIN",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Daulton Varsho"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "TOR@MIN",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Lenyn Sosa"
+    },
+    {
+      "category": "prop_market_gap",
+      "fields": [
+        "hr_odds"
+      ],
+      "game": "TOR@MIN",
+      "impact": "HR row capped at WATCHLIST/PASS if no price",
+      "player": "Lenyn Sosa"
+    },
+    {
+      "category": "prop_market_gap",
+      "fields": [
+        "total_bases_odds"
+      ],
+      "game": "TOR@MIN",
+      "impact": "TB row capped at WATCHLIST/PASS if no price",
+      "player": "Lenyn Sosa"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "TOR@MIN",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Yohendrick Pinango"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "TOR@MIN",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Andr\u00e9s Gim\u00e9nez"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "TOR@MIN",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Tyler Heineman"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "TOR@MIN",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Byron Buxton"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "TOR@MIN",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Austin Martin"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "TOR@MIN",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Ryan Jeffers"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "TOR@MIN",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Josh Bell"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "TOR@MIN",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Victor Caratini"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "TOR@MIN",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Luke Keaschall"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "TOR@MIN",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Royce Lewis"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "TOR@MIN",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Brooks Lee"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "TOR@MIN",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "James Outman"
+    },
+    {
+      "category": "prop_market_gap",
+      "fields": [
+        "hr_odds"
+      ],
+      "game": "TOR@MIN",
+      "impact": "HR row capped at WATCHLIST/PASS if no price",
+      "player": "James Outman"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "LAD@STL",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Shohei Ohtani"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "LAD@STL",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Freddie Freeman"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "LAD@STL",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Will Smith"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "LAD@STL",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Teoscar Hern\u00e1ndez"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "LAD@STL",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Kyle Tucker"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "LAD@STL",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Andy Pages"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "LAD@STL",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Max Muncy"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "LAD@STL",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Miguel Rojas"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "LAD@STL",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Santiago Espinal"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "LAD@STL",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "JJ Wetherholt"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "LAD@STL",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Iv\u00e1n Herrera"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "LAD@STL",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Alec Burleson"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "LAD@STL",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Jordan Walker"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "LAD@STL",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Nolan Gorman"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "LAD@STL",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Masyn Winn"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "LAD@STL",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Nathan Church"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "LAD@STL",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Pedro Pag\u00e9s"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "LAD@STL",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Victor Scott II"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "ATL@COL",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Ronald Acu\u00f1a Jr."
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "ATL@COL",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Drake Baldwin"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "ATL@COL",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Ozzie Albies"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "ATL@COL",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Matt Olson"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "ATL@COL",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Mauricio Dub\u00f3n"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "ATL@COL",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Austin Riley"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "ATL@COL",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Eli White"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "ATL@COL",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Jonah Heim"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "ATL@COL",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Jorge Mateo"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "ATL@COL",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Edouard Julien"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "ATL@COL",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Mickey Moniak"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "ATL@COL",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Hunter Goodman"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "ATL@COL",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "TJ Rumfield"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "ATL@COL",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Tyler Freeman"
+    },
+    {
+      "category": "prop_market_gap",
+      "fields": [
+        "hr_odds"
+      ],
+      "game": "ATL@COL",
+      "impact": "HR row capped at WATCHLIST/PASS if no price",
+      "player": "Tyler Freeman"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "ATL@COL",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Troy Johnston"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "ATL@COL",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Willi Castro"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "ATL@COL",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Ezequiel Tovar"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "ATL@COL",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Jake McCarthy"
+    },
+    {
+      "category": "game_integrity",
+      "fields": [
+        "away_official_lineup_missing",
+        "home_official_lineup_missing"
+      ],
+      "game": "NYM@LAA",
+      "impact": "confidence capped; no automatic BET label"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "NYM@LAA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Bo Bichette"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "NYM@LAA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Juan Soto"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "NYM@LAA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "MJ Melendez"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "NYM@LAA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Francisco Alvarez"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "NYM@LAA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Brett Baty"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "NYM@LAA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Tyrone Taylor"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "NYM@LAA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Carson Benge"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "NYM@LAA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Marcus Semien"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "NYM@LAA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Ronny Mauricio"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "NYM@LAA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Zach Neto"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "NYM@LAA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Mike Trout"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "NYM@LAA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Yoan Moncada"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "NYM@LAA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Jorge Soler"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "NYM@LAA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Nolan Schanuel"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "NYM@LAA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Jo Adell"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "NYM@LAA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Josh Lowe"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "NYM@LAA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Travis d'Arnaud"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "NYM@LAA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Adam Frazier"
+    },
+    {
+      "category": "game_integrity",
+      "fields": [
+        "away_official_lineup_missing",
+        "home_official_lineup_missing"
+      ],
+      "game": "CLE@ATH",
+      "impact": "confidence capped; no automatic BET label"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CLE@ATH",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Steven Kwan"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CLE@ATH",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Chase DeLauter"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CLE@ATH",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Jose Ramirez"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CLE@ATH",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Kyle Manzardo"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CLE@ATH",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Daniel Schneemann"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CLE@ATH",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Angel Martinez"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CLE@ATH",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Travis Bazzana"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CLE@ATH",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Bo Naylor"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CLE@ATH",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Brayan Rocchio"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CLE@ATH",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Jacob Wilson"
+    },
+    {
+      "category": "prop_market_gap",
+      "fields": [
+        "hr_odds"
+      ],
+      "game": "CLE@ATH",
+      "impact": "HR row capped at WATCHLIST/PASS if no price",
+      "player": "Jacob Wilson"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CLE@ATH",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Shea Langeliers"
+    },
+    {
+      "category": "prop_market_gap",
+      "fields": [
+        "hr_odds"
+      ],
+      "game": "CLE@ATH",
+      "impact": "HR row capped at WATCHLIST/PASS if no price",
+      "player": "Shea Langeliers"
+    },
+    {
+      "category": "market_odds_quality",
+      "fields": [
+        "total_bases_odds"
+      ],
+      "game": "CLE@ATH",
+      "impact": "Invalid American odds -2; preserved for audit and excluded from edge math.",
+      "player": "Shea Langeliers"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CLE@ATH",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Nick Kurtz"
+    },
+    {
+      "category": "prop_market_gap",
+      "fields": [
+        "hr_odds"
+      ],
+      "game": "CLE@ATH",
+      "impact": "HR row capped at WATCHLIST/PASS if no price",
+      "player": "Nick Kurtz"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CLE@ATH",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Brent Rooker"
+    },
+    {
+      "category": "prop_market_gap",
+      "fields": [
+        "hr_odds"
+      ],
+      "game": "CLE@ATH",
+      "impact": "HR row capped at WATCHLIST/PASS if no price",
+      "player": "Brent Rooker"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CLE@ATH",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Colby Thomas"
+    },
+    {
+      "category": "prop_market_gap",
+      "fields": [
+        "hr_odds"
+      ],
+      "game": "CLE@ATH",
+      "impact": "HR row capped at WATCHLIST/PASS if no price",
+      "player": "Colby Thomas"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CLE@ATH",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Tyler Soderstrom"
+    },
+    {
+      "category": "prop_market_gap",
+      "fields": [
+        "hr_odds"
+      ],
+      "game": "CLE@ATH",
+      "impact": "HR row capped at WATCHLIST/PASS if no price",
+      "player": "Tyler Soderstrom"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CLE@ATH",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Zack Gelof"
+    },
+    {
+      "category": "prop_market_gap",
+      "fields": [
+        "hr_odds"
+      ],
+      "game": "CLE@ATH",
+      "impact": "HR row capped at WATCHLIST/PASS if no price",
+      "player": "Zack Gelof"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CLE@ATH",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Darell Hernaiz"
+    },
+    {
+      "category": "prop_market_gap",
+      "fields": [
+        "hr_odds"
+      ],
+      "game": "CLE@ATH",
+      "impact": "HR row capped at WATCHLIST/PASS if no price",
+      "player": "Darell Hernaiz"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CLE@ATH",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Jeff McNeil"
+    },
+    {
+      "category": "prop_market_gap",
+      "fields": [
+        "hr_odds"
+      ],
+      "game": "CLE@ATH",
+      "impact": "HR row capped at WATCHLIST/PASS if no price",
+      "player": "Jeff McNeil"
+    },
+    {
+      "category": "game_integrity",
+      "fields": [
+        "away_official_lineup_missing",
+        "home_official_lineup_missing"
+      ],
+      "game": "CWS@SD",
+      "impact": "confidence capped; no automatic BET label"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CWS@SD",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Andrew Benintendi"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CWS@SD",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Munetaka Murakami"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CWS@SD",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Miguel Vargas"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CWS@SD",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Colson Montgomery"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CWS@SD",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Austin Hays"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CWS@SD",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Sam Antonacci"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CWS@SD",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Chase Meidroth"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CWS@SD",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Tristan Peters"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CWS@SD",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Edgar Quero"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CWS@SD",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Ramon Laureano"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CWS@SD",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Fernando Tatis"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CWS@SD",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Jackson Merrill"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CWS@SD",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Manny Machado"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CWS@SD",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Miguel Andujar"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CWS@SD",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Xander Bogaerts"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CWS@SD",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Nick Castellanos"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CWS@SD",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Ty France"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "CWS@SD",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Luis Campusano"
+    },
+    {
+      "category": "prop_market_gap",
+      "fields": [
+        "hr_odds"
+      ],
+      "game": "CWS@SD",
+      "impact": "HR row capped at WATCHLIST/PASS if no price",
+      "player": "Luis Campusano"
+    },
+    {
+      "category": "prop_market_gap",
+      "fields": [
+        "total_bases_odds"
+      ],
+      "game": "CWS@SD",
+      "impact": "TB row capped at WATCHLIST/PASS if no price",
+      "player": "Luis Campusano"
+    },
+    {
+      "category": "game_integrity",
+      "fields": [
+        "away_official_lineup_missing"
+      ],
+      "game": "KC@SEA",
+      "impact": "confidence capped; no automatic BET label"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "KC@SEA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Maikel Garcia"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "KC@SEA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Bobby Witt"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "KC@SEA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Vinnie Pasquantino"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "KC@SEA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Salvador Perez"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "KC@SEA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Carter Jensen"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "KC@SEA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Michael Massey"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "KC@SEA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Jac Caglianone"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "KC@SEA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Isaac Collins"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "KC@SEA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Kyle Isbel"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "KC@SEA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "J.P. Crawford"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "KC@SEA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Cal Raleigh"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "KC@SEA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Julio Rodr\u00edguez"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "KC@SEA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Josh Naylor"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "KC@SEA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Randy Arozarena"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "KC@SEA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Mitch Garver"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "KC@SEA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Cole Young"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "KC@SEA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Connor Joe"
+    },
+    {
+      "category": "prop_market_gap",
+      "fields": [
+        "hr_odds"
+      ],
+      "game": "KC@SEA",
+      "impact": "HR row capped at WATCHLIST/PASS if no price",
+      "player": "Connor Joe"
+    },
+    {
+      "category": "prop_market_gap",
+      "fields": [
+        "total_bases_odds"
+      ],
+      "game": "KC@SEA",
+      "impact": "TB row capped at WATCHLIST/PASS if no price",
+      "player": "Connor Joe"
+    },
+    {
+      "category": "player_metric_gap",
+      "fields": [
+        "bat_speed",
+        "squared_up_rate"
+      ],
+      "game": "KC@SEA",
+      "impact": "not provided by selected public Savant CSV endpoints",
+      "player": "Leo Rivas"
+    },
+    {
+      "category": "market_odds_quality",
+      "fields": [
+        "total_bases_odds"
+      ],
+      "game": "KC@SEA",
+      "impact": "Outlier total-bases price +306 at line 1.5; requires manual verification and is excluded from edge math.",
+      "player": "Leo Rivas"
+    }
+  ],
+  "slate_date": "2026-05-01"
+}

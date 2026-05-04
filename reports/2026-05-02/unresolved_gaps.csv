@@ -1,0 +1,40 @@
+game,missing_data_type,impact,severity,recommendation
+Baltimore Orioles@New York Yankees,ballpark_pal,Ballpark Pal factors unavailable; run/HR environment factors are not adjusted.,low,Add ballpark_pal.csv when available.
+Baltimore Orioles@New York Yankees,odds,Final-card betting value cannot be verified without prices.,critical,Add manual odds/prop prices.
+Toronto Blue Jays@Minnesota Twins,ballpark_pal,Ballpark Pal factors unavailable; run/HR environment factors are not adjusted.,low,Add ballpark_pal.csv when available.
+Toronto Blue Jays@Minnesota Twins,odds,Final-card betting value cannot be verified without prices.,critical,Add manual odds/prop prices.
+Arizona Diamondbacks@Chicago Cubs,props,Prop boards cannot populate for this game.,critical,Add verified prop rows.
+Arizona Diamondbacks@Chicago Cubs,odds,Final-card betting value cannot be verified without prices.,critical,Add manual odds/prop prices.
+Cleveland Guardians@Athletics,props,Prop boards cannot populate for this game.,critical,Add verified prop rows.
+Milwaukee Brewers@Washington Nationals,ballpark_pal,Ballpark Pal factors unavailable; run/HR environment factors are not adjusted.,low,Add ballpark_pal.csv when available.
+Milwaukee Brewers@Washington Nationals,odds,Final-card betting value cannot be verified without prices.,critical,Add manual odds/prop prices.
+Houston Astros@Boston Red Sox,odds,Final-card betting value cannot be verified without prices.,critical,Add manual odds/prop prices.
+Philadelphia Phillies@Miami Marlins,ballpark_pal,Ballpark Pal factors unavailable; run/HR environment factors are not adjusted.,low,Add ballpark_pal.csv when available.
+Philadelphia Phillies@Miami Marlins,props,Prop boards cannot populate for this game.,critical,Add verified prop rows.
+San Francisco Giants@Tampa Bay Rays,props,Prop boards cannot populate for this game.,critical,Add verified prop rows.
+Chicago White Sox@San Diego Padres,props,Prop boards cannot populate for this game.,critical,Add verified prop rows.
+New York Mets@Los Angeles Angels,lineups,Manual lineups missing; player role/volume confidence remains low.,medium,Add lineups.csv or JSON lineups.
+New York Mets@Los Angeles Angels,ballpark_pal,Ballpark Pal factors unavailable; run/HR environment factors are not adjusted.,low,Add ballpark_pal.csv when available.
+New York Mets@Los Angeles Angels,props,Prop boards cannot populate for this game.,critical,Add verified prop rows.
+New York Mets@Los Angeles Angels,odds,Final-card betting value cannot be verified without prices.,critical,Add manual odds/prop prices.
+Kansas City Royals@Seattle Mariners,lineups,Manual lineups missing; player role/volume confidence remains low.,medium,Add lineups.csv or JSON lineups.
+Kansas City Royals@Seattle Mariners,ballpark_pal,Ballpark Pal factors unavailable; run/HR environment factors are not adjusted.,low,Add ballpark_pal.csv when available.
+Baltimore Orioles@New York Yankees,live_or_closed_status,Official MLB late refresh showed this game final; any prior report prop/odds prices are unavailable for pregame final-card use.,critical,Do not promote any BAL/NYY candidate from this package.
+Toronto Blue Jays@Minnesota Twins,live_or_closed_status,Official MLB late refresh showed this game no longer pregame; Dylan Cease O6.5 K was cut from current-market eligibility.,critical,Do not promote Cease from this package.
+Arizona Diamondbacks@Chicago Cubs,live_or_closed_status,Official MLB late refresh showed this game no longer pregame.,critical,Do not promote any ARI/CHC candidate from this package.
+Cleveland Guardians@Athletics,live_status,Official MLB late refresh showed CLE/OAK live; the Opus Over around 9 was cut from current-market eligibility.,critical,Do not promote CLE/OAK total from this package.
+Cincinnati Reds@Pittsburgh Pirates,live_status,Official MLB late refresh showed CIN/PIT live; CIN ML was cut from current-market eligibility.,critical,Do not promote CIN ML from this package.
+Milwaukee Brewers@Washington Nationals,live_status,Official MLB late refresh showed MIL/WSH live; James Wood HR was cut from current-market eligibility.,critical,Do not promote James Wood HR from this package.
+Houston Astros@Boston Red Sox,live_status,Official MLB late refresh showed HOU/BOS live; Yordan Alvarez HR was cut from current-market eligibility.,critical,Do not promote Yordan Alvarez HR from this package.
+Philadelphia Phillies@Miami Marlins,live_status,Official MLB late refresh showed PHI/MIA live; Marlins ML was cut from current-market eligibility.,critical,Do not promote Marlins ML from this package.
+Atlanta Braves@Colorado Rockies,starter_context_conflict,"MLB Stats API and FanDuel Olson page list Brennan Bernardino, while some preview/odds pages still list TBA or Chase Dollander.",medium,Verify official starters again before placing ATL/COL props.
+Atlanta Braves@Colorado Rockies,prop_price_variance,Chris Sale O7.5 K was refreshed at FanDuel +106; other free pages showed plus-money but not identical prices.,medium,Use the actual book price available before bet placement; pass if it falls below playable threshold.
+Atlanta Braves@Colorado Rockies,hr_price_variance,"Matt Olson HR was refreshed at FanDuel +260, while other free pages varied; model/manual probability did not support GOOD_VALUE.",medium,Keep Olson HR lottery/watchlist only unless a verified price and probability edge improve.
+Los Angeles Dodgers@St. Louis Cardinals,price_variance,STL ML was refreshed at FanDuel +120 with StatMuse +123 cross-check; older report/PDF prices differed materially.,medium,Confirm the exact current book price before bet placement.
+Texas Rangers@Detroit Tigers,line_price_conflict,TEX/DET Over refreshed sources differed: FanDuel 8.5 +100 versus StatMuse 8.0 -118; report model was for a different line.,critical,Do not promote TEX/DET Over without a line-specific model probability.
+Texas Rangers@Detroit Tigers,odds_conflict,"DET ML refreshed as favorite, not the GPT +115 underdog/value price; GPT final-card claim is stale/conflicted.",medium,Keep DET ML watchlist only unless independently modeled against current favorite price.
+Kansas City Royals@Seattle Mariners,market_price_missing,No current verified free Seattle ML or Seth Lugo K price was found in the late refresh.,critical,Do not promote SEA ML or Lugo K from this package.
+New York Mets@Los Angeles Angels,lineups,Official MLB feed did not return confirmed lineups at refresh time.,medium,Refresh MLB feed/live before considering any NYM/LAA player props.
+Kansas City Royals@Seattle Mariners,lineups,Official MLB feed did not return confirmed lineups at refresh time.,medium,Refresh MLB feed/live before considering any KC/SEA player props.
+manual package,ballpark_pal_timestamp,Ballpark Pal run/HR factors were not refreshed from a current verified Ballpark Pal source.,medium,Refresh Ballpark Pal factors manually if exact current factors are needed.
+manual package,sportsbook_variance,Free sportsbook/aggregator pages disagreed on several prices; one verified source was selected per manual row and conflicts remain auditable.,medium,"Before betting, compare the actual sportsbook account price to playable/pass thresholds."

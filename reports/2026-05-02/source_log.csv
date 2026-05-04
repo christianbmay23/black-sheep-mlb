@@ -1,0 +1,40 @@
+data_type,source,source_url,timestamp,confidence,rows_used,notes
+odds,FanDuel Research late odds page; StatMuse consensus cross-check,https://www.fanduel.com/research/mlb-betting-odds-05-2-2026,2026-05-02T20:49:06Z,Medium,1,manual/free input rows used
+odds,Official MLB Stats API late status check; prior report price unavailable live/closed,"https://statsapi.mlb.com/api/v1/schedule?sportId=1&date=2026-05-02&hydrate=probablePitcher,team,linescore,venue,status",2026-05-02T20:49:06Z,Low,3,manual/free input rows used
+odds,FanDuel Research Giants/Rays odds; StatMuse cross-check,https://www.fanduel.com/research/giants-vs-rays-mlb-odds-prediction-point-spread-over-under-and-betting-trends-for-5-2-2026,2026-05-02T20:49:06Z,Medium,1,manual/free input rows used
+odds,FanDuel Research Braves/Rockies odds; BetMGM/StatMuse cross-check,https://www.fanduel.com/research/braves-vs-rockies-mlb-odds-prediction-point-spread-over-under-and-betting-trends-for-5-2-2026,2026-05-02T20:49:06Z,Medium,1,manual/free input rows used
+odds,StatMuse CWS/SD consensus; BetMGM/FanDuel cross-check,https://www.statmuse.com/mlb/game/5-2-2026-white-sox-at-padres-234616,2026-05-02T20:49:06Z,Medium,1,manual/free input rows used
+odds,FanDuel Tigers/Rangers odds; StatMuse line conflict noted,https://www.fanduel.com/research/tigers-vs-rangers-mlb-odds-prediction-point-spread-over-under-and-betting-trends-for-5-2-2026,2026-05-02T20:49:06Z,Low,1,manual/free input rows used
+odds,FanDuel Tigers/Rangers odds; StatMuse cross-check,https://www.fanduel.com/research/tigers-vs-rangers-mlb-odds-prediction-point-spread-over-under-and-betting-trends-for-5-2-2026,2026-05-02T20:49:06Z,Low,1,manual/free input rows used
+odds,Late refresh: no current verified free SEA ML source found,,2026-05-02T20:49:06Z,Low,1,manual/free input rows used
+props,FanDuel Research Chris Sale player prop; Covers/EVAnalytics cross-check remained plus-money,https://www.fanduel.com/research/mlb/player-news/game-updates/chris-sale-and-braves-play-rockies-on-may-2,2026-05-02T20:49:06Z,High,1,manual/free input rows used
+props,Official MLB Stats API late status check; prior report prop unavailable live/closed,"https://statsapi.mlb.com/api/v1/schedule?sportId=1&date=2026-05-02&hydrate=probablePitcher,team,linescore,venue,status",2026-05-02T20:49:06Z,Low,5,manual/free input rows used
+props,FanDuel Research Matt Olson HR prop; BetMGM/PokerStars cross-check varied higher/lower,https://www.fanduel.com/research/mlb/player-news/game-updates/matt-olson-and-braves-play-rockies-on-may-2,2026-05-02T20:49:06Z,Medium,1,manual/free input rows used
+props,FanDuel Research Shohei Ohtani HR prop,https://www.fanduel.com/research/mlb/player-news/game-updates/shohei-ohtani-and-dodgers-play-cardinals-on-may-2,2026-05-02T20:49:06Z,Medium,1,manual/free input rows used
+props,Late refresh: current free prop price not verified,,2026-05-02T20:49:06Z,Low,3,manual/free input rows used
+props,GPT updated PDF,/Users/christianmay/Downloads/EchoIQ MLB Slate Prediction + Betting Intelligence Report.pdf,2026-05-02T18:00:00Z,Medium,3,manual/free input rows used
+props,Opus Part 1 + Part 2,/Users/christianmay/Library/Mobile Documents/com~apple~CloudDocs/Deep Research MLB/EchoIQ_May2_2026_Part1.md,2026-05-02T18:00:00Z,Medium,1,manual/free input rows used
+weather,Opus Part 2 + GPT updated PDF,/Users/christianmay/Library/Mobile Documents/com~apple~CloudDocs/Deep Research MLB/EchoIQ_May2_2026_Part2.md,2026-05-02T18:00:00Z,Low,1,manual/free input rows used
+weather,Opus Part 2,/Users/christianmay/Library/Mobile Documents/com~apple~CloudDocs/Deep Research MLB/EchoIQ_May2_2026_Part2.md,2026-05-02T18:00:00Z,Low,6,manual/free input rows used
+weather,GPT updated PDF,/Users/christianmay/Downloads/EchoIQ MLB Slate Prediction + Betting Intelligence Report.pdf,2026-05-02T18:00:00Z,Low,1,manual/free input rows used
+weather,Parlay Savant MLB weather late refresh,https://www.parlaysavant.com/weather?date=2026-05-02&sport=mlb,2026-05-02T20:49:06Z,High,2,manual/free input rows used
+weather,Parlay Savant MLB weather late refresh,https://www.parlaysavant.com/weather?date=2026-05-02&sport=mlb,2026-05-02T20:49:06Z,Medium,5,manual/free input rows used
+ballpark_pal,Opus Part 1 + Part 2; official MLB venue check,/Users/christianmay/Library/Mobile Documents/com~apple~CloudDocs/Deep Research MLB/EchoIQ_May2_2026_Part2.md,2026-05-02T18:00:00Z,Medium,1,manual/free input rows used
+ballpark_pal,Opus Part 2,/Users/christianmay/Library/Mobile Documents/com~apple~CloudDocs/Deep Research MLB/EchoIQ_May2_2026_Part2.md,2026-05-02T18:00:00Z,Medium,2,manual/free input rows used
+ballpark_pal,Opus Part 2,/Users/christianmay/Library/Mobile Documents/com~apple~CloudDocs/Deep Research MLB/EchoIQ_May2_2026_Part2.md,2026-05-02T18:00:00Z,Low,1,manual/free input rows used
+ballpark_pal,GPT updated PDF + Opus Part 2,/Users/christianmay/Downloads/EchoIQ MLB Slate Prediction + Betting Intelligence Report.pdf,2026-05-02T18:00:00Z,Medium,2,manual/free input rows used
+ballpark_pal,Opus Part 1 + Part 2,/Users/christianmay/Library/Mobile Documents/com~apple~CloudDocs/Deep Research MLB/EchoIQ_May2_2026_Part2.md,2026-05-02T18:00:00Z,Low,1,manual/free input rows used
+ballpark_pal,GPT updated PDF + Opus Part 2,/Users/christianmay/Downloads/EchoIQ MLB Slate Prediction + Betting Intelligence Report.pdf,2026-05-02T18:00:00Z,Low,2,manual/free input rows used
+lineups,Official MLB Stats API feed/live,https://statsapi.mlb.com/api/v1.1/game/823554/feed/live,2026-05-02T18:10:00Z,High,18,manual/free input rows used
+lineups,Official MLB Stats API feed/live,https://statsapi.mlb.com/api/v1.1/game/823715/feed/live,2026-05-02T18:10:00Z,High,18,manual/free input rows used
+lineups,Official MLB Stats API feed/live,https://statsapi.mlb.com/api/v1.1/game/824685/feed/live,2026-05-02T18:10:00Z,High,18,manual/free input rows used
+lineups,Official MLB Stats API feed/live,https://statsapi.mlb.com/api/v1.1/game/825014/feed/live,2026-05-02T18:10:00Z,High,18,manual/free input rows used
+lineups,Official MLB Stats API feed/live,https://statsapi.mlb.com/api/v1.1/game/823388/feed/live,2026-05-02T18:10:00Z,High,18,manual/free input rows used
+lineups,Official MLB Stats API feed/live,https://statsapi.mlb.com/api/v1.1/game/822746/feed/live,2026-05-02T18:10:00Z,High,18,manual/free input rows used
+lineups,Official MLB Stats API feed/live,https://statsapi.mlb.com/api/v1.1/game/824771/feed/live,2026-05-02T18:10:00Z,High,18,manual/free input rows used
+lineups,Official MLB Stats API feed/live,https://statsapi.mlb.com/api/v1.1/game/823876/feed/live,2026-05-02T18:10:00Z,High,18,manual/free input rows used
+lineups,Official MLB Stats API feed/live,https://statsapi.mlb.com/api/v1.1/game/822988/feed/live,2026-05-02T18:10:00Z,High,18,manual/free input rows used
+lineups,Official MLB Stats API feed/live,https://statsapi.mlb.com/api/v1.1/game/823067/feed/live,2026-05-02T18:10:00Z,High,18,manual/free input rows used
+lineups,Official MLB Stats API feed/live,https://statsapi.mlb.com/api/v1.1/game/824284/feed/live,2026-05-02T18:10:00Z,High,18,manual/free input rows used
+lineups,Official MLB Stats API feed/live,https://statsapi.mlb.com/api/v1.1/game/824365/feed/live,2026-05-02T18:10:00Z,High,18,manual/free input rows used
+lineups,Official MLB Stats API feed/live late refresh,https://statsapi.mlb.com/api/v1.1/game/823308/feed/live,2026-05-02T20:49:06Z,High,18,manual/free input rows used

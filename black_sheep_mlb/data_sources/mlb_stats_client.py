@@ -63,22 +63,22 @@ class MLBStatsClient:
                 home_team = home.get("team") or {}
                 away_pp = away.get("probablePitcher") or {}
                 home_pp = home.get("probablePitcher") or {}
-                games.append(
-                    MLBGame(
-                        game_pk=int(raw_game.get("gamePk")),
-                        game_date=game_date,
-                        game_datetime=raw_game.get("gameDate"),
-                        away_team=str(away_team.get("name") or away_team.get("abbreviation") or ""),
-                        home_team=str(home_team.get("name") or home_team.get("abbreviation") or ""),
-                        away_team_id=away_team.get("id"),
-                        home_team_id=home_team.get("id"),
-                        away_probable_pitcher=away_pp.get("fullName"),
-                        home_probable_pitcher=home_pp.get("fullName"),
-                        away_probable_pitcher_id=away_pp.get("id"),
-                        home_probable_pitcher_id=home_pp.get("id"),
-                        status=(raw_game.get("status") or {}).get("detailedState"),
-                    )
+                game = MLBGame(
+                    game_pk=int(raw_game.get("gamePk")),
+                    game_date=game_date,
+                    game_datetime=raw_game.get("gameDate"),
+                    away_team=str(away_team.get("name") or away_team.get("abbreviation") or ""),
+                    home_team=str(home_team.get("name") or home_team.get("abbreviation") or ""),
+                    away_team_id=away_team.get("id"),
+                    home_team_id=home_team.get("id"),
+                    away_probable_pitcher=away_pp.get("fullName"),
+                    home_probable_pitcher=home_pp.get("fullName"),
+                    away_probable_pitcher_id=away_pp.get("id"),
+                    home_probable_pitcher_id=home_pp.get("id"),
+                    status=(raw_game.get("status") or {}).get("detailedState"),
                 )
+                game.venue = (raw_game.get("venue") or {}).get("name")
+                games.append(game)
         return games
 
     def get_game_feed(self, game_pk: int) -> dict[str, Any]:
