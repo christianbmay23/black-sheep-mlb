@@ -5,10 +5,17 @@ client. It does not call keyed odds, weather, Statcast, or sportsbook APIs.
 """
 from __future__ import annotations
 
+import csv
+import os
 from dataclasses import dataclass, field
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any
 
 from black_sheep_mlb.data_sources.mlb_stats_client import MLBGame, MLBStatsClient
+from black_sheep_mlb.data_sources.manual_market_provider import ManualMarketCSVProvider, normalize_market_type
 from black_sheep_mlb.hr_intelligence.schema import HitterInput
+from black_sheep_mlb.markets.schema import MarketSide, MarketType, PlayerPropMarket
 
 
 VERIFIED = "verified"
@@ -57,6 +64,31 @@ class LineupEntry:
 
 
 @dataclass(frozen=True)
+class HROdds:
+    date: str
+    game_id: str
+    game: str
+    player_name: str
+    player_id: str
+    team: str
+    opponent: str
+    sportsbook: str
+    market_name: str
+    american_odds: int
+    retrieved_at: str
+    source_status: str
+    provider: str
+    source_notes: str = ""
+
+
+@dataclass(frozen=True)
+class HROddsResult:
+    odds: list[HROdds]
+    warnings: list[str] = field(default_factory=list)
+    sources_checked: list[str] = field(default_factory=list)
+
+
+@dataclass(frozen=True)
 class HybridRows:
     rows: list[HitterInput]
     metadata: dict[str, object]
@@ -102,6 +134,22 @@ def load_lineups(
     return lineups
 
 
+def load_hr_odds(
+    date: str,
+    *,
+    game_keys: list[str] | None = None,
+    provider: Any | None = None,
+    root: Path | None = None,
+) -> list[HROdds]:
+    """Load verified hitter-level HR odds from existing repo market sources.
+
+    This adapter does not scrape sportsbooks or make paid API calls. If a
+    keyed provider is not already implemented for player props, it returns an
+    empty list and leaves the pipeline non-actionable.
+    """
+    return _load_hr_odds_result(date, game_keys=game_keys, provider=provider, root=root).odds
+
+
 def build_hybrid_rows(
     date: str,
     *,
@@ -132,6 +180,9 @@ def build_hybrid_rows(
     except Exception as exc:
         lineups = []
         warnings.append(f"MLB lineups unavailable: {exc}")
+    odds_result = _load_hr_odds_result(date, game_keys=[game.game for game in schedule])
+    warnings.extend(odds_result.warnings)
+    odds_index = _index_best_hr_odds(odds_result.odds)
 
     if not lineups:
         return HybridRows(
@@ -141,6 +192,8 @@ def build_hybrid_rows(
                 "schedule_games": len(schedule),
                 "probable_pitchers": len(probables),
                 "lineup_entries": 0,
+                "hr_odds_rows": len(odds_result.odds),
+                "odds_sources_checked": odds_result.sources_checked,
                 "warnings": warnings + ["No verified MLB lineup entries were available; emitted non-actionable fixture diagnostics."],
             },
         )
@@ -155,7 +208,8 @@ def build_hybrid_rows(
             opponent=entry.opponent,
             opposing_pitcher=entry.opposing_pitcher,
         )
-        rows.append(_hybrid_row_from_lineup(entry, template, date))
+        odds = _best_odds_for_entry(entry, odds_index)
+        rows.append(_hybrid_row_from_lineup(entry, template, date, odds=odds))
 
     return HybridRows(
         rows=rows,
@@ -164,9 +218,180 @@ def build_hybrid_rows(
             "schedule_games": len(schedule),
             "probable_pitchers": len(probables),
             "lineup_entries": len(lineups),
+            "hr_odds_rows": len(odds_result.odds),
+            "odds_sources_checked": odds_result.sources_checked,
             "warnings": warnings,
         },
     )
+
+
+def _load_hr_odds_result(
+    date: str,
+    *,
+    game_keys: list[str] | None = None,
+    provider: Any | None = None,
+    root: Path | None = None,
+) -> HROddsResult:
+    repo_root = root or Path.cwd()
+    warnings: list[str] = []
+    sources_checked: list[str] = []
+    odds: list[HROdds] = []
+
+    if provider is not None:
+        sources_checked.append(str(getattr(provider, "provider_name", provider.__class__.__name__)))
+        try:
+            markets = provider.get_player_prop_markets(
+                date,
+                game_keys=game_keys or None,
+                markets=[MarketType.BATTER_HOME_RUNS.value],
+            )
+            odds.extend(_hr_odds_from_markets(date, markets))
+        except Exception as exc:
+            warnings.append(f"HR odds provider unavailable: {exc}")
+
+    manual_snapshot = repo_root / "data" / "manual" / "market_snapshot.csv"
+    if manual_snapshot.is_file():
+        sources_checked.append(str(manual_snapshot))
+        manual_provider = ManualMarketCSVProvider(manual_snapshot)
+        odds.extend(
+            _hr_odds_from_markets(
+                date,
+                manual_provider.get_player_prop_markets(
+                    date,
+                    game_keys=None,
+                    markets=[MarketType.BATTER_HOME_RUNS.value],
+                ),
+            )
+        )
+
+    dated_props = repo_root / "data" / "manual" / date / "props.csv"
+    if dated_props.is_file():
+        sources_checked.append(str(dated_props))
+        odds.extend(_hr_odds_from_dated_props_csv(date, dated_props))
+
+    if not odds:
+        if not os.environ.get("ODDS_API_KEY") and not os.environ.get("THE_ODDS_API_KEY"):
+            warnings.append("No ODDS_API_KEY is present; live HR odds remain missing.")
+        else:
+            warnings.append("ODDS_API_KEY is present, but the existing repo provider does not expose HR player props yet.")
+        if os.environ.get("SPORTSGAMEODDS_API_KEY"):
+            warnings.append("SPORTSGAMEODDS_API_KEY is present, but live player-prop fetch is not implemented in the repo scaffold.")
+        if not sources_checked:
+            warnings.append("No dated manual HR prop CSV was found for this date.")
+
+    return HROddsResult(odds=odds, warnings=warnings, sources_checked=sources_checked)
+
+
+def _hr_odds_from_markets(date: str, markets: list[PlayerPropMarket]) -> list[HROdds]:
+    rows: list[HROdds] = []
+    for market in markets:
+        market_type = getattr(market, "market_type", "")
+        if (
+            _market_type_value(market_type) != MarketType.BATTER_HOME_RUNS.value
+            and normalize_market_type(market_type) != MarketType.BATTER_HOME_RUNS
+        ):
+            continue
+        if not _is_yes_side(getattr(market, "side", "")):
+            continue
+        price = _parse_american_odds(getattr(market, "price", None))
+        if price is None:
+            continue
+        player_name = str(getattr(market, "player_name", "") or "")
+        if not player_name:
+            continue
+        rows.append(
+            HROdds(
+                date=date,
+                game_id=str(getattr(market, "provider_event_id", "") or ""),
+                game=str(getattr(market, "game_key", "") or ""),
+                player_name=player_name,
+                player_id=str(getattr(market, "player_id", "") or ""),
+                team=str(getattr(market, "team", "") or ""),
+                opponent="",
+                sportsbook=str(getattr(market, "sportsbook", "") or getattr(market, "provider", "") or ""),
+                market_name=MarketType.BATTER_HOME_RUNS.value,
+                american_odds=price,
+                retrieved_at=str(getattr(market, "timestamp", "") or _now_utc()),
+                source_status=f"odds={VERIFIED}",
+                provider=str(getattr(market, "provider", "") or ""),
+                source_notes=str(getattr(market, "source_confidence", "") or ""),
+            )
+        )
+    return rows
+
+
+def _hr_odds_from_dated_props_csv(date: str, path: Path) -> list[HROdds]:
+    rows: list[HROdds] = []
+    with path.open(newline="", encoding="utf-8") as handle:
+        for raw in csv.DictReader(handle):
+            if str(raw.get("date") or "").strip() != date:
+                continue
+            if normalize_market_type(raw.get("prop_type")) != MarketType.BATTER_HOME_RUNS:
+                continue
+            price = _best_price_from_manual_row(raw)
+            if price is None:
+                continue
+            player_name = str(raw.get("player") or raw.get("player_name") or "").strip()
+            if not player_name:
+                continue
+            away = str(raw.get("away_team") or "").strip()
+            home = str(raw.get("home_team") or "").strip()
+            rows.append(
+                HROdds(
+                    date=date,
+                    game_id=str(raw.get("game_id") or "").strip(),
+                    game=f"{away}@{home}" if away and home else "",
+                    player_name=player_name,
+                    player_id=str(raw.get("player_id") or "").strip(),
+                    team=str(raw.get("team") or "").strip(),
+                    opponent=str(raw.get("opponent") or "").strip(),
+                    sportsbook=str(raw.get("sportsbook") or raw.get("source") or "manual").strip(),
+                    market_name="home_runs",
+                    american_odds=price,
+                    retrieved_at=str(raw.get("timestamp") or "").strip() or _now_utc(),
+                    source_status=f"odds={VERIFIED}",
+                    provider=str(raw.get("source") or "manual_props_csv").strip(),
+                    source_notes=str(raw.get("reason") or raw.get("confidence") or "").strip(),
+                )
+            )
+    return rows
+
+
+def _best_price_from_manual_row(row: dict[str, str]) -> int | None:
+    for key in ("best_price", "over_price", "consensus_price"):
+        price = _parse_american_odds(row.get(key))
+        if price is not None:
+            return price
+    return None
+
+
+def _index_best_hr_odds(odds_rows: list[HROdds]) -> dict[str, dict[str, HROdds]]:
+    index: dict[str, dict[str, HROdds]] = {"player_id": {}, "player_team": {}, "player_game": {}}
+    for odds in odds_rows:
+        keys = {
+            "player_id": str(odds.player_id or ""),
+            "player_team": f"{_normalize_text(odds.player_name)}|{_normalize_text(odds.team)}",
+            "player_game": f"{_normalize_text(odds.player_name)}|{_normalize_game_key(odds.game)}",
+        }
+        for bucket, key in keys.items():
+            if not key.strip("|"):
+                continue
+            current = index[bucket].get(key)
+            if current is None or odds.american_odds > current.american_odds:
+                index[bucket][key] = odds
+    return index
+
+
+def _best_odds_for_entry(entry: LineupEntry, odds_index: dict[str, dict[str, HROdds]]) -> HROdds | None:
+    lookups = [
+        ("player_id", str(entry.player_id or "")),
+        ("player_team", f"{_normalize_text(entry.player_name)}|{_normalize_text(entry.team)}"),
+        ("player_game", f"{_normalize_text(entry.player_name)}|{_normalize_game_key(entry.game)}"),
+    ]
+    for bucket, key in lookups:
+        if key and key in odds_index.get(bucket, {}):
+            return odds_index[bucket][key]
+    return None
 
 
 def _schedule_game(game: MLBGame) -> ScheduleGame:
@@ -339,8 +564,19 @@ def _safe_int(value: str) -> int | None:
         return None
 
 
-def _hybrid_row_from_lineup(entry: LineupEntry, template: HitterInput, date: str) -> HitterInput:
-    source_status = _source_status(entry)
+def _hybrid_row_from_lineup(entry: LineupEntry, template: HitterInput, date: str, *, odds: HROdds | None) -> HitterInput:
+    source_status = _source_status(entry, odds=odds)
+    source_notes = (
+        "Hybrid v1: MLB Stats API schedule/probables/lineups; fixture contact and pitcher "
+        "features; weather/park and live Statcast feature adapters not yet connected."
+    )
+    if odds is None:
+        source_notes += " No verified HR odds were available for this hitter."
+    else:
+        source_notes += (
+            f" HR odds verified from {odds.sportsbook or odds.provider} at {odds.american_odds} "
+            f"retrieved_at={odds.retrieved_at}."
+        )
     return HitterInput(
         date=date,
         game=entry.game,
@@ -372,13 +608,10 @@ def _hybrid_row_from_lineup(entry: LineupEntry, template: HitterInput, date: str
         pitch_matchup_score=template.pitch_matchup_score,
         park_weather_hr_boost=None,
         pa_expectation=template.pa_expectation,
-        hr_odds=None,
+        hr_odds=odds.american_odds if odds else None,
         risk_score=template.risk_score,
         source_status=source_status,
-        source_notes=(
-            "Hybrid v1: MLB Stats API schedule/probables/lineups; fixture contact and pitcher "
-            "features; live HR odds, weather/park, and Statcast feature adapters not yet connected."
-        ),
+        source_notes=source_notes,
     )
 
 
@@ -397,7 +630,7 @@ def _diagnostic_fixture_rows(date: str, fixture_rows: list[HitterInput], *, sche
                         f"schedule={VERIFIED if schedule_available else MISSING};"
                         f"player={ESTIMATED};team={ESTIMATED};opponent={ESTIMATED};"
                         f"opposing_pitcher={ESTIMATED};lineup={MISSING};starter={MISSING};"
-                        f"stats=fixture_only;odds={MISSING};weather={MISSING}"
+                        f"stats=fixture_only;odds={MISSING};weather={MISSING};statcast={MISSING}"
                     ),
                     "source_notes": "Hybrid v1 could not load verified lineup rows; fixture diagnostics are non-actionable.",
                 }
@@ -406,7 +639,7 @@ def _diagnostic_fixture_rows(date: str, fixture_rows: list[HitterInput], *, sche
     return rows
 
 
-def _source_status(entry: LineupEntry) -> str:
+def _source_status(entry: LineupEntry, *, odds: HROdds | None) -> str:
     statuses = {
         "schedule": VERIFIED,
         "player": entry.field_status.get("player_name", MISSING),
@@ -419,7 +652,52 @@ def _source_status(entry: LineupEntry) -> str:
         "lineup_spot": entry.field_status.get("lineup_spot", MISSING),
         "starter": entry.field_status.get("starter_status", MISSING),
         "stats": ESTIMATED,
-        "odds": MISSING,
+        "odds": VERIFIED if odds else MISSING,
         "weather": MISSING,
+        "statcast": MISSING,
     }
     return ";".join(f"{key}={value}" for key, value in statuses.items())
+
+
+def _parse_american_odds(value: Any) -> int | None:
+    raw = str(value or "").strip().replace("+", "")
+    if not raw:
+        return None
+    try:
+        price = int(float(raw))
+    except (TypeError, ValueError):
+        return None
+    if price == 0:
+        return None
+    return price
+
+
+def _is_yes_side(value: Any) -> bool:
+    raw = getattr(value, "value", value)
+    return str(raw or "").strip().lower() in {
+        "",
+        "yes",
+        "over",
+        "participant",
+        "unknown",
+        str(MarketSide.YES.value),
+        str(MarketSide.OVER.value),
+        str(MarketSide.PARTICIPANT.value),
+    }
+
+
+def _market_type_value(value: Any) -> str:
+    raw = getattr(value, "value", value)
+    return str(raw or "").strip().lower()
+
+
+def _normalize_game_key(value: str) -> str:
+    return _normalize_text(value).replace(" @ ", "@")
+
+
+def _normalize_text(value: Any) -> str:
+    return " ".join(str(value or "").strip().lower().split())
+
+
+def _now_utc() -> str:
+    return datetime.now(timezone.utc).isoformat()
