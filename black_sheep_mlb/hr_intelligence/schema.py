@@ -68,6 +68,7 @@ class BoardRow:
     hr_threat_score: float
     tier: str
     action: str
+    action_confidence: str = ""
     kill_flags: list[str] = field(default_factory=list)
     missing_fields: list[str] = field(default_factory=list)
     short_reason: str = ""
@@ -114,6 +115,7 @@ class BoardRow:
             "hr_threat_score": _fmt(self.hr_threat_score),
             "tier": self.tier,
             "action": self.action,
+            "action_confidence": self.action_confidence,
             "kill_flags": "|".join(self.kill_flags),
             "missing_fields": "|".join(self.missing_fields),
             "short_reason": self.short_reason,

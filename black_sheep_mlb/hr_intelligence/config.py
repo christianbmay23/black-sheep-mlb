@@ -59,6 +59,7 @@ OUTPUT_COLUMNS = [
     "hr_threat_score",
     "tier",
     "action",
+    "action_confidence",
     "kill_flags",
     "missing_fields",
     "short_reason",

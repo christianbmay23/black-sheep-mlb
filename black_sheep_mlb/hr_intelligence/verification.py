@@ -84,7 +84,7 @@ def short_reason(score: float, edge_pct: float | None, flags: list[str], action:
         visible_flags = ", ".join(flags[:3]) if flags else "thin edge"
         return f"Profile is interesting, but verification or price is fragile: {visible_flags}."
     if "NO_HR_ODDS" in flags:
-        return "No verified HR price is available in this fixture row."
+        return "No verified HR price is available for this row."
     if "NEGATIVE_EDGE" in flags or "BAD_PRICE" in flags:
         return "Model fair probability is below the market implied probability."
     if "MISSING_CRITICAL_DATA" in flags:

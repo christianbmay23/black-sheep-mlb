@@ -39,6 +39,7 @@ def build_board(rows: list[HitterInput]) -> list[BoardRow]:
         edge_pct = calculate_edge(fair_probability, implied_probability)
         flags = kill_flags(row, edge_pct)
         action = assign_action(final_score, edge_pct, row, flags)
+        confidence = action_confidence(row, flags, action)
         board.append(
             BoardRow(
                 input=row,
@@ -49,6 +50,7 @@ def build_board(rows: list[HitterInput]) -> list[BoardRow]:
                 hr_threat_score=final_score,
                 tier=assign_tier(final_score),
                 action=action,
+                action_confidence=confidence,
                 kill_flags=flags,
                 missing_fields=missing_fields(row),
                 short_reason=short_reason(final_score, edge_pct, flags, action),
@@ -154,6 +156,7 @@ def _write_audit_log(
                 "hr_threat_score": item.hr_threat_score,
                 "tier": item.tier,
                 "action": item.action,
+                "action_confidence": item.action_confidence,
                 "kill_flags": item.kill_flags,
                 "missing_fields": item.missing_fields,
                 "short_reason": item.short_reason,
@@ -171,13 +174,68 @@ def _count_actions(board: list[BoardRow]) -> dict[str, int]:
     return counts
 
 
+def action_confidence(row: HitterInput, flags: list[str], action: str) -> str:
+    flag_set = set(flags)
+    blocking_flags = {
+        "NO_HR_ODDS",
+        "NEGATIVE_EDGE",
+        "BAD_PRICE",
+        "MISSING_CRITICAL_DATA",
+        "NOT_IN_LINEUP",
+        "LINEUP_UNCONFIRMED",
+        "STARTER_UNCONFIRMED",
+    }
+    if action == "PASS" or flag_set & blocking_flags:
+        return "not_actionable"
+
+    statuses = _source_status_map(row.source_status)
+    important_missing = [
+        key
+        for key in ("odds", "weather", "statcast")
+        if statuses.get(key) == "missing"
+    ]
+    if statuses.get("stats") == "estimated":
+        important_missing.append("stats")
+    if statuses.get("lineup") in {"missing", "unconfirmed"}:
+        important_missing.append("lineup")
+    if statuses.get("starter") in {"missing", "unconfirmed"}:
+        important_missing.append("starter")
+
+    if len(important_missing) > 1:
+        return "provisional_multiple_missing_inputs"
+    if statuses.get("weather") == "missing":
+        return "provisional_missing_weather"
+    if statuses.get("stats") == "estimated":
+        return "provisional_estimated_stats"
+    if statuses.get("statcast") == "missing":
+        return "provisional_missing_statcast"
+    if (
+        statuses.get("schedule") == "verified"
+        and statuses.get("starter") == "verified"
+        and statuses.get("lineup") == "verified"
+        and statuses.get("odds") == "verified"
+    ):
+        return "verified_core"
+    return "not_actionable"
+
+
+def _source_status_map(source_status: str) -> dict[str, str]:
+    statuses: dict[str, str] = {}
+    for item in str(source_status or "").split(";"):
+        if "=" not in item:
+            continue
+        key, value = item.split("=", 1)
+        statuses[key.strip()] = value.strip()
+    return statuses
+
+
 def _missing_data_warnings(board: list[BoardRow]) -> list[str]:
     warnings = []
     no_odds = sum(1 for item in board if "NO_HR_ODDS" in item.kill_flags)
     missing_critical = sum(1 for item in board if "MISSING_CRITICAL_DATA" in item.kill_flags)
     lineup_unconfirmed = sum(1 for item in board if "LINEUP_UNCONFIRMED" in item.kill_flags)
     if no_odds:
-        warnings.append(f"{no_odds} hitter rows have no fixture HR odds.")
+        warnings.append(f"{no_odds} hitter rows have no verified HR odds.")
     if missing_critical:
         warnings.append(f"{missing_critical} hitter rows are missing critical scoring fields.")
     if lineup_unconfirmed:
