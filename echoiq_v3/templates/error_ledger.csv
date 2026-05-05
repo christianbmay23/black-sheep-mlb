@@ -1,1 +1,1 @@
-slate_date,error,where_found,correction,error_type,severity,fix_for_next_slate,resolved
+slate_date,severity,source_file,row_number,label,player,market_type,error_type,message,suggested_fix
