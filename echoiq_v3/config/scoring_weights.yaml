@@ -1,0 +1,48 @@
+scoring:
+  projection_score:
+    min: 0
+    max: 20
+    description: "Base probability of the outcome"
+  matchup_score:
+    min: 0
+    max: 20
+    description: "Batter/pitcher or team matchup fit"
+  environment_score:
+    min: -10
+    max: 15
+    description: "Park, weather, wind, roof, game environment"
+  market_edge_score:
+    min: -10
+    max: 20
+    description: "Fair probability versus implied probability"
+  source_confidence_score:
+    min: 0
+    max: 15
+    description: "Verification quality"
+  volatility_risk:
+    min: 0
+    max: 15
+    description: "Fragility risk: command, injury, weather, bullpen, unknowns"
+  kill_switch_risk:
+    min: 0
+    max: 10
+    description: "How easily the play dies if assumptions change"
+
+label_thresholds:
+  BET_candidate_min_score: 70
+  LEAN_min_score: 60
+  WATCHLIST_min_score: 50
+  PASS_min_score: 40
+
+minimum_edges:
+  HR_A_tier: 0.05
+  HR_B_tier: 0.03
+  TB_HIT: 0.025
+  GAME: 0.02
+
+staking:
+  HR_A: "0.75u-1.0u"
+  HR_B: "0.25u-0.5u"
+  HR_LOTTERY: "0.10u-0.25u"
+  TB_HIT: "0.25u-1.0u"
+  GAME: "0.25u-1.0u"

@@ -116,3 +116,53 @@ Final updates should include:
 - Stage only intended files, using explicit paths.
 - For guidance-only changes, do not include generated slate artifacts, model outputs, snapshots, dashboards, `.env`, or provider cache files.
 - Use a focused docs commit message, for example `docs(codex): refine agent guidance`.
+
+## EchoIQ v3
+
+EchoIQ v3 lives under `echoiq_v3/` and is the durable source-of-truth workspace for a verification-first MLB prediction operating system. Its daily slate artifacts live under `slates/<YYYY-MM-DD>/`, with `slates/_template/` as the reusable folder skeleton. The operating philosophy is: research wide, verify hard, bet narrow, grade clean, improve continuously.
+
+### EchoIQ Labels
+
+Every EchoIQ prediction row must have exactly one label:
+
+- `BET`
+- `LEAN`
+- `CONDITIONAL`
+- `WATCHLIST`
+- `LOTTERY`
+- `PASS`
+- `AVOID`
+- `EXTERNAL`
+
+Hard label rules:
+
+- `BET` requires verified odds, implied probability, fair probability, edge, positive stake size, source confidence `A` or `B`, gates passed, and a kill switch.
+- `CONDITIONAL` requires explicit gate conditions and must not carry active stake units until those conditions clear.
+- `WATCHLIST` cannot have `stake_units > 0`.
+- `LOTTERY` must be graded separately from main-card ROI.
+- `EXTERNAL` rows are third-party/public predictions and cannot count toward EchoIQ official ROI.
+- `PASS` and `AVOID` must not count as bets.
+- A player-specific prop can only be graded `HIT` if that exact player achieved the required result.
+- Do not credit one player for another player's HR, hit, TB, RBI, run, or other result.
+- `VOID` requires an inactive player, failed gate, market void, or explicit no-action condition.
+- Estimated odds must be flagged and must not be mixed into exact ROI as verified prices.
+
+### Source Confidence
+
+- `A`: official lineup, starter, weather, odds, and Statcast/source data verified.
+- `B`: one minor source missing.
+- `C`: key source missing; max label is `LEAN` or `WATCHLIST`.
+- `D`: conflicting sources; max label is `WATCHLIST` or `PASS`.
+- `F`: unverifiable; must be `PASS`.
+
+### Validation Expectations
+
+- Use `python3 echoiq_v3/scripts/validate_prediction_rows.py <csv_file>` for rows that follow the EchoIQ v3 prediction-row schema.
+- Validate examples and templates locally before promoting them as reusable artifacts.
+- Preserve `source_compliance.csv`, unresolved gaps, and postgame grading records. Do not overwrite or collapse evidence when sources conflict.
+- Do not run live provider calls, paid APIs, odds scraping, model recompute, or backtest generation unless explicitly authorized for that task.
+- Keep secrets in the environment or ignored local files. Do not print, inspect, commit, or infer secrets unless the user explicitly asks for a secret-safe presence check.
+
+### Definition Of Done
+
+An EchoIQ slate setup is done only when the daily folder exists, official card/watchlist/pass-avoid/source-compliance/postgame artifacts are present or explicitly marked unavailable, validation has run where applicable, missing data is labeled honestly, and no picks are promoted without verified gates.

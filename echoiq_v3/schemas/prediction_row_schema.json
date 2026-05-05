@@ -1,0 +1,203 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EchoIQ v3 Prediction Row",
+  "type": "object",
+  "required": [
+    "slate_date",
+    "game",
+    "source",
+    "source_type",
+    "prediction_bucket",
+    "label",
+    "market_type",
+    "status"
+  ],
+  "properties": {
+    "slate_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "game_id": {
+      "type": "string"
+    },
+    "game": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    },
+    "source_type": {
+      "enum": [
+        "ECHOIQ",
+        "EXTERNAL",
+        "MODEL",
+        "MANUAL",
+        "POSTGAME"
+      ]
+    },
+    "prediction_bucket": {
+      "enum": [
+        "official_card",
+        "conditional_card",
+        "watchlist",
+        "lottery",
+        "external_public",
+        "pass_avoid",
+        "candidate",
+        "raw_research"
+      ]
+    },
+    "label": {
+      "enum": [
+        "BET",
+        "LEAN",
+        "CONDITIONAL",
+        "WATCHLIST",
+        "LOTTERY",
+        "PASS",
+        "AVOID",
+        "EXTERNAL"
+      ]
+    },
+    "market_type": {
+      "enum": [
+        "HR",
+        "TB",
+        "HIT",
+        "RBI",
+        "RUN",
+        "ML",
+        "RL",
+        "TOTAL",
+        "PITCHER_PROP"
+      ]
+    },
+    "team": {
+      "type": "string"
+    },
+    "player": {
+      "type": "string"
+    },
+    "opponent": {
+      "type": "string"
+    },
+    "pitcher": {
+      "type": "string"
+    },
+    "line": {
+      "type": [
+        "number",
+        "string"
+      ]
+    },
+    "odds": {
+      "type": [
+        "integer",
+        "string",
+        "null"
+      ]
+    },
+    "odds_estimated": {
+      "type": "boolean"
+    },
+    "implied_probability": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "fair_probability": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "edge": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "stake_units": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "confidence_tier": {
+      "type": "string"
+    },
+    "source_confidence": {
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "F",
+        ""
+      ]
+    },
+    "gates": {
+      "type": "object"
+    },
+    "gate_status": {
+      "enum": [
+        "PASSED",
+        "FAILED",
+        "PENDING",
+        "NOT_REQUIRED",
+        ""
+      ]
+    },
+    "gate_conditions": {
+      "type": "string"
+    },
+    "kill_switch": {
+      "type": "string"
+    },
+    "rationale_short": {
+      "type": "string"
+    },
+    "rationale_full": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "PREGAME",
+        "FINAL",
+        "GRADED",
+        "VOID",
+        "UNKNOWN"
+      ]
+    },
+    "result": {
+      "enum": [
+        "HIT",
+        "LOSS",
+        "PUSH",
+        "VOID",
+        "WATCHLIST_HIT",
+        "WATCHLIST_LOSS",
+        "EXTERNAL_HIT",
+        "EXTERNAL_LOSS",
+        "UNKNOWN",
+        ""
+      ]
+    },
+    "profit_units": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "grading_notes": {
+      "type": "string"
+    },
+    "source_urls": {
+      "type": "string"
+    },
+    "timestamp": {
+      "type": "string"
+    }
+  }
+}
