@@ -112,7 +112,20 @@
         "null"
       ]
     },
+    "fair_odds": {
+      "type": [
+        "integer",
+        "string",
+        "null"
+      ]
+    },
     "edge": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "edge_pct": {
       "type": [
         "number",
         "null"
@@ -152,7 +165,22 @@
     "gate_conditions": {
       "type": "string"
     },
+    "promotion_eligibility": {
+      "enum": [
+        "BET",
+        "LEAN",
+        "CONDITIONAL",
+        "WATCHLIST",
+        "LOTTERY",
+        "PASS",
+        "AVOID",
+        ""
+      ]
+    },
     "kill_switch": {
+      "type": "string"
+    },
+    "audit_ledger": {
       "type": "string"
     },
     "rationale_short": {
