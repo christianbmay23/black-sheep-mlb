@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run EchoIQ v3 Probability Framework v1 for supported prop markets."""
+"""Run EchoIQ v3 Probability Framework v1.1 for supported prop markets."""
 
 from __future__ import annotations
 
@@ -16,7 +16,7 @@ from echoiq_v3.probability_framework_v1 import evaluate_slate  # noqa: E402
 
 
 def parse_args(argv: list[str]) -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Evaluate EchoIQ v3 HIT/TB candidates with deterministic probability rules.")
+    parser = argparse.ArgumentParser(description="Evaluate EchoIQ v3 HIT/TB/HR candidates with deterministic probability rules.")
     parser.add_argument("slate_path", help="Slate folder, e.g. slates/2026-05-14")
     parser.add_argument("--write", action="store_true", help="Write probability fields back to candidate and verification boards.")
     parser.add_argument("--json", action="store_true", help="Print machine-readable summary.")
@@ -41,7 +41,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.json:
         print(json.dumps(payload, indent=2, sort_keys=True))
     else:
-        print("EchoIQ v3 Probability Framework v1")
+        print("EchoIQ v3 Probability Framework v1.1")
         print(f"Slate: {result.slate_path}")
         print(f"Evaluated rows: {result.evaluated_rows}")
         print(f"Skipped rows: {result.skipped_rows}")

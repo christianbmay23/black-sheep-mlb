@@ -46,6 +46,24 @@ class EchoIQV3ProbabilityFrameworkTests(unittest.TestCase):
         self.assertEqual(probability_module.fair_odds_from_probability(0.70), -233)
         self.assertEqual(probability_module.fair_odds_from_probability(0.40), 150)
 
+    def test_field_aware_adjustments_ignore_unrelated_row_text(self):
+        clean = _base_row(
+            market_type="HIT",
+            label="LEAN",
+            odds="-110",
+            rationale_full="This free-text note says lineup recheck, wind in, and stale odds.",
+            lineup_status="Confirmed No. 2",
+            supporting_factors="high-floor recent form",
+        )
+        control = dict(clean)
+        control["rationale_full"] = "No unrelated risk phrases here."
+
+        clean_result = probability_module.evaluate_row(clean, verification=dict(clean))
+        control_result = probability_module.evaluate_row(control, verification=dict(control))
+
+        self.assertEqual(clean_result.fair_probability, control_result.fair_probability)
+        self.assertEqual(clean_result.probability_risk_gates, ())
+
     def test_clean_hit_row_can_be_bet_eligible_without_mutating_label(self):
         candidate = _base_row(
             market_type="HIT",
@@ -56,7 +74,8 @@ class EchoIQV3ProbabilityFrameworkTests(unittest.TestCase):
             gate_status="PASSED",
             gates_passed="true",
             kill_switch="CLEAR",
-            rationale_full="Confirmed No. 2 hitter with high-floor recent form.",
+            lineup_status="Confirmed No. 2",
+            supporting_factors="high-floor recent form",
         )
 
         result = probability_module.evaluate_row(candidate, verification=dict(candidate))
@@ -68,25 +87,129 @@ class EchoIQV3ProbabilityFrameworkTests(unittest.TestCase):
         self.assertEqual(ledger[0]["component"], "baseline")
         self.assertEqual(ledger[-1]["value"], "BET")
 
-    def test_open_gate_and_source_c_cap_row_at_conditional(self):
-        candidate = _base_row(
+    def test_promotion_only_gate_caps_promotion_without_probability_penalty(self):
+        base = _base_row(
             market_type="TB",
-            label="CONDITIONAL",
+            label="LEAN",
             line="Over 1.5",
             odds="+145",
-            source_confidence="C",
-            gate_status="CONDITIONAL",
+            source_confidence="A",
+            gate_status="PASSED",
+            gate_conditions="fair probability not loaded; edge not loaded; missing final review",
+            kill_switch="CLEAR",
+        )
+        control = dict(base)
+        control["gate_conditions"] = ""
+
+        result = probability_module.evaluate_row(base, verification=dict(base))
+        control_result = probability_module.evaluate_row(control, verification=dict(control))
+
+        self.assertEqual(result.fair_probability, control_result.fair_probability)
+        self.assertEqual(result.probability_risk_gates, ())
+        self.assertIn("fair_probability_not_loaded", result.promotion_only_gates)
+        self.assertNotEqual(result.promotion_eligibility, "BET")
+        ledger = json.loads(result.audit_ledger)
+        self.assertTrue(any(item["component"] == "promotion_block_only" for item in ledger))
+        self.assertFalse(any(item["component"] == "probability_penalty" for item in ledger))
+
+    def test_probability_risk_gate_reduces_probability_and_caps_promotion(self):
+        candidate = _base_row(
+            market_type="TB",
+            label="LEAN",
+            line="Over 1.5",
+            odds="+145",
+            source_confidence="A",
+            gate_status="PASSED",
             gate_conditions="Delay resolution; lineup recheck",
-            kill_switch="NOT_CLEARED",
-            rationale_full="Delay risk and lineup recheck remain.",
+            kill_switch="CLEAR",
+        )
+        control = dict(candidate)
+        control["gate_conditions"] = ""
+
+        result = probability_module.evaluate_row(candidate, verification=dict(candidate))
+        control_result = probability_module.evaluate_row(control, verification=dict(control))
+
+        self.assertLess(result.fair_probability, control_result.fair_probability)
+        self.assertIn("weather_delay_restart_risk", result.probability_risk_gates)
+        self.assertIn("lineup_not_confirmed", result.probability_risk_gates)
+        self.assertNotEqual(result.promotion_eligibility, "BET")
+        self.assertEqual(result.gate_status, "CONDITIONAL")
+        ledger = json.loads(result.audit_ledger)
+        self.assertTrue(any(item["component"] == "probability_penalty" for item in ledger))
+
+    def test_ambiguous_odds_blocks_implied_probability_and_edge(self):
+        candidate = _base_row(
+            market_type="HIT",
+            label="LEAN",
+            odds="+165 to +190",
+            source_confidence="A",
+            gate_status="PASSED",
+            kill_switch="CLEAR",
         )
 
         result = probability_module.evaluate_row(candidate, verification=dict(candidate))
 
-        self.assertEqual(result.promotion_eligibility, "CONDITIONAL")
-        self.assertEqual(result.gate_status, "CONDITIONAL")
-        self.assertIn("OPEN_GATE_CONDITIONS", result.kill_flags)
-        self.assertIn("KILL_SWITCH_NOT_CLEARED", result.kill_flags)
+        self.assertIsNone(result.implied_probability)
+        self.assertIsNone(result.edge)
+        self.assertIn("ODDS_AMBIGUOUS", result.kill_flags)
+        self.assertNotEqual(result.promotion_eligibility, "BET")
+
+    def test_clean_hr_row_scores_but_needs_all_hr_gates_for_bet(self):
+        missing_gate = _base_row(
+            market_type="HR",
+            label="LEAN",
+            odds="+850",
+            source_confidence="A",
+            gate_status="PASSED",
+            kill_switch="CLEAR",
+            player_active="true",
+            lineup_confirmed="true",
+            starter_confirmed="true",
+            weather_confirmed="true",
+            lineup_status="Confirmed No. 2",
+            current_odds_status="",
+            supporting_factors="barrel support",
+            weather_status="favorable weather",
+        )
+        clean = dict(missing_gate)
+        clean["current_odds_status"] = "late_live"
+
+        missing_result = probability_module.evaluate_row(missing_gate, verification=dict(missing_gate))
+        clean_result = probability_module.evaluate_row(clean, verification=dict(clean))
+
+        self.assertEqual(missing_result.market_type, "HR")
+        self.assertGreater(missing_result.fair_probability, 0.0)
+        self.assertIn("stale_odds", missing_result.probability_risk_gates)
+        self.assertNotEqual(missing_result.promotion_eligibility, "BET")
+        self.assertEqual(clean_result.promotion_eligibility, "BET")
+
+    def test_stale_morning_hr_price_blocks_promotion(self):
+        candidate = _base_row(
+            market_type="HR",
+            label="LEAN",
+            odds="+850",
+            source_confidence="A",
+            gate_status="PASSED",
+            kill_switch="CLEAR",
+            player_active="true",
+            lineup_confirmed="true",
+            starter_confirmed="true",
+            weather_confirmed="true",
+            current_odds_status="morning-only",
+            supporting_factors="barrel support",
+            weather_status="favorable weather",
+        )
+
+        result = probability_module.evaluate_row(candidate, verification=dict(candidate))
+
+        self.assertIn("stale_odds", result.probability_risk_gates)
+        self.assertNotEqual(result.promotion_eligibility, "BET")
+
+    def test_hr_uses_higher_edge_threshold_than_hit_and_tb(self):
+        configs = probability_module.load_market_configs()
+
+        self.assertGreater(configs["HR"].edge_threshold, configs["HIT"].edge_threshold)
+        self.assertGreater(configs["HR"].edge_threshold, configs["TB"].edge_threshold)
 
     def test_slate_runner_writes_supported_markets_only(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -102,14 +225,23 @@ class EchoIQV3ProbabilityFrameworkTests(unittest.TestCase):
 
             run = probability_module.evaluate_slate(slate_dir, write=True)
 
-            self.assertEqual(run.evaluated_rows, 1)
-            self.assertEqual(run.skipped_rows, 1)
+            self.assertEqual(run.evaluated_rows, 2)
+            self.assertEqual(run.skipped_rows, 0)
             written_rows = _read_csv(candidate_path)
             self.assertEqual(written_rows[0]["market_type"], "HIT")
             self.assertNotEqual(written_rows[0]["fair_probability"], "")
             self.assertEqual(written_rows[0]["promotion_eligibility"], "BET")
             self.assertEqual(written_rows[1]["market_type"], "HR")
-            self.assertEqual(written_rows[1]["promotion_eligibility"], "")
+            self.assertNotEqual(written_rows[1]["fair_probability"], "")
+            self.assertNotEqual(written_rows[1]["promotion_eligibility"], "BET")
+
+    def test_may14_hr_examples_remain_below_bet_due_to_missing_gates(self):
+        run = probability_module.evaluate_slate(REPO_ROOT / "slates" / "2026-05-14", write=False)
+        hr_results = [result for result in run.results if result.market_type == "HR"]
+
+        self.assertGreaterEqual(len(hr_results), 1)
+        self.assertTrue(all(result.promotion_eligibility != "BET" for result in hr_results))
+        self.assertTrue(any(result.probability_risk_gates for result in hr_results))
 
 
 def _create_test_slate(tmp_root: Path) -> Path:
@@ -150,6 +282,17 @@ def _write_prediction_rows(path: Path, rows: list[dict[str, str]]) -> None:
         "gates_passed",
         "gate_status",
         "gate_conditions",
+        "missing_gates",
+        "risk_flags",
+        "supporting_factors",
+        "odds_is_estimated",
+        "current_odds_status",
+        "player_active",
+        "lineup_status",
+        "lineup_confirmed",
+        "starter_confirmed",
+        "weather_status",
+        "weather_confirmed",
         "promotion_eligibility",
         "kill_switch",
         "audit_ledger",
@@ -201,6 +344,17 @@ def _base_row(**overrides) -> dict[str, str]:
         "gates_passed": "true",
         "gate_status": "PASSED",
         "gate_conditions": "",
+        "missing_gates": "",
+        "risk_flags": "",
+        "supporting_factors": "",
+        "odds_is_estimated": "false",
+        "current_odds_status": "current",
+        "player_active": "",
+        "lineup_status": "",
+        "lineup_confirmed": "",
+        "starter_confirmed": "",
+        "weather_status": "",
+        "weather_confirmed": "",
         "promotion_eligibility": "",
         "kill_switch": "CLEAR",
         "audit_ledger": "",
