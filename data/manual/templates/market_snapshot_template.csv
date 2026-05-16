@@ -1,0 +1,3 @@
+slate_date,game_id,away_team,home_team,market_type,market,player_name,team,line,price,sportsbook,last_updated,source_name,source_url,notes
+2026-05-15,123456,AAA,BBB,game,moneyline,,AAA,,+150,ExampleBook,2026-05-15T18:00:00Z,operator_verified,https://example.test/odds,verified game market
+2026-05-15,123456,AAA,BBB,player_prop,home_run,Example Hitter,AAA,0.5,+425,ExampleBook,2026-05-15T18:00:00Z,operator_verified,https://example.test/props,verified prop market

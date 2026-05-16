@@ -1,0 +1,2 @@
+slate_date,game_id,away_team,home_team,venue,roof_status,temperature,wind_speed,wind_direction,humidity,precipitation_risk,weather_verified,weather_risk,source_name,source_url,last_updated,notes
+2026-05-15,123456,AAA,BBB,Example Park,OPEN,72,8,out to LF,44,low,true,LOW,operator_verified,https://example.test/weather,2026-05-15T18:00:00Z,verified weather and roof before refresh

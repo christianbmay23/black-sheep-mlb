@@ -1,0 +1,2 @@
+slate_date,game_id,player_name,player_id,team,opponent,market,line,price,sportsbook,available,last_updated,source_name,source_url,notes
+2026-05-15,123456,Example Hitter,999999,AAA,BBB,home_run,0.5,+425,ExampleBook,true,2026-05-15T18:00:00Z,operator_verified,https://example.test/props,exact player prop available

@@ -6,3 +6,20 @@ __pycache__/
 node_modules/
 canvases/exports/snapshots/
 .claude/
+
+# Python cache
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# EchoIQ runtime/cache artifacts
+data/cache/
+slates/*/
+!slates/.gitkeep
+
+# EchoIQ local manual operator inputs
+data/manual/*.csv
+!data/manual/templates/*.csv
+
+# EchoIQ local scratch artifacts
+slates/_scratch_*/
