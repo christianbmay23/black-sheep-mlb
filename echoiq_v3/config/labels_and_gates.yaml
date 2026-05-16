@@ -1,0 +1,73 @@
+labels:
+  - BET
+  - LEAN
+  - CONDITIONAL
+  - WATCHLIST
+  - LOTTERY
+  - PASS
+  - AVOID
+  - EXTERNAL
+
+source_confidence:
+  A:
+    meaning: "Official lineup, starter, odds, weather, and Statcast/data verified"
+    allowed_labels: [BET, LEAN, CONDITIONAL, WATCHLIST, LOTTERY, PASS, AVOID]
+  B:
+    meaning: "One minor non-core item missing"
+    allowed_labels: [BET, LEAN, CONDITIONAL, WATCHLIST, LOTTERY, PASS, AVOID]
+  C:
+    meaning: "Key item missing"
+    allowed_labels: [LEAN, WATCHLIST, PASS, AVOID]
+  D:
+    meaning: "Conflicting sources"
+    allowed_labels: [WATCHLIST, PASS, AVOID]
+  F:
+    meaning: "Unverifiable"
+    allowed_labels: [PASS, AVOID]
+
+bet_requirements:
+  required_fields:
+    - odds
+    - implied_probability
+    - fair_probability
+    - edge
+    - stake_units
+    - source_confidence
+    - gate_status
+    - kill_switch
+  allowed_source_confidence: [A, B]
+  gate_status_must_equal: PASSED
+
+conditional_requirements:
+  required_fields:
+    - gate_conditions
+    - kill_switch
+  stake_units_must_equal: 0
+
+watchlist_requirements:
+  stake_units_must_equal: 0
+
+external_requirements:
+  counts_for_echoiq_roi: false
+
+market_types:
+  - HR
+  - TB
+  - HIT
+  - RBI
+  - RUN
+  - ML
+  - RL
+  - TOTAL
+  - PITCHER_PROP
+
+results:
+  - HIT
+  - LOSS
+  - PUSH
+  - VOID
+  - WATCHLIST_HIT
+  - WATCHLIST_LOSS
+  - EXTERNAL_HIT
+  - EXTERNAL_LOSS
+  - UNKNOWN

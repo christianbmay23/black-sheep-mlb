@@ -13,6 +13,9 @@ logger = logging.getLogger(__name__)
 class PyBaseballClient:
     def __init__(self, cache_dir: str | Path = "data/cache/pybaseball"):
         self.cache_dir = Path(cache_dir)
+        self.last_cache_path: Path | None = None
+        self.last_cache_was_used = False
+        self.last_fetch_error: str | None = None
 
     def _pd(self) -> Any:
         import pandas as pd  # type: ignore
@@ -37,31 +40,39 @@ class PyBaseballClient:
         except Exception:
             frame.to_csv(csv_path, index=False)
 
-    def _cached_call(self, namespace: str, key: str, fetcher: Callable[[], Any]) -> Any:
+    def _cached_call(self, namespace: str, key: str, fetcher: Callable[[], Any], *, force_refresh: bool = False) -> Any:
         path = safe_cache_path(self.cache_dir, namespace, key, "csv")
-        cached = self._read_cache(path)
+        self.last_cache_path = path
+        self.last_cache_was_used = False
+        self.last_fetch_error = None
+        cached = None if force_refresh else self._read_cache(path)
         if cached is not None:
             logger.info("pybaseball cache hit: %s", path)
+            self.last_cache_was_used = True
             return cached
-        logger.info("pybaseball cache miss: %s", key)
+        logger.info("pybaseball cache %s: %s", "refresh" if force_refresh else "miss", key)
         try:
             frame = fetcher()
         except Exception as exc:
             logger.warning("pybaseball fetch failed for %s: %s", key, exc)
+            self.last_fetch_error = str(exc)
             cached = self._read_cache(path)
-            return cached if cached is not None else self._empty_frame()
+            if cached is not None:
+                self.last_cache_was_used = True
+                return cached
+            return self._empty_frame()
         if frame is None:
             frame = self._empty_frame()
         self._write_cache(frame, path)
         return frame
 
-    def get_statcast_window(self, start_date: str, end_date: str) -> Any:
+    def get_statcast_window(self, start_date: str, end_date: str, *, force_refresh: bool = False) -> Any:
         def fetch() -> Any:
             from pybaseball import statcast  # type: ignore
 
             return statcast(start_dt=start_date, end_dt=end_date)
 
-        return self._cached_call("statcast", f"{start_date}:{end_date}", fetch)
+        return self._cached_call("statcast", f"{start_date}:{end_date}", fetch, force_refresh=force_refresh)
 
     def get_batting_stats(self, season: int) -> Any:
         def fetch() -> Any:

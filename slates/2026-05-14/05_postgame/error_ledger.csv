@@ -1,0 +1,5 @@
+slate_date,severity,source_file,row_number,label,player,market_type,error_type,message,suggested_fix
+2026-05-14,WARNING,user_prompt_context,,,,ML,source_context_conflict,"Prompt context said Braves beat Cubs 4-1, but official May 14 sources show Cubs beat Braves 2-0; 4-1 appears to be May 13.",Grade by official May 14 gamePk 824926.
+2026-05-14,WARNING,user_prompt_context,,,,TOTAL,source_context_conflict,"Prompt context said Red Sox beat Phillies 3-1, but official May 14 sources show Phillies beat Red Sox 3-1; Red Sox 3-1 appears to be May 13.",Grade by official May 14 gamePk 824762.
+2026-05-14,INFO,04_final_card/official_card.csv,,,,,official_roi_empty_expected,official_card.csv is header-only; no official BET rows existed for this dry run.,Do not calculate official ROI for May 14 dry run.
+2026-05-14,INFO,slates/_scratch_2026-05-14_probability_v1/02_candidates/candidate_board.csv,,,,HIT,scratch_not_official,Scratch probability framework populated HIT/TB fair probabilities but did not create official final-card rows.,Use scratch output for process review only unless promoted pregame through official gates.

@@ -12,6 +12,19 @@ ODDS_API_KEY=your_key_here python -m black_sheep_mlb.pipelines.run_daily_predict
 
 See [`docs/data_sources.md`](docs/data_sources.md) for optional-odds settings, cache behavior, manual CSV format, and output files.
 
+EchoIQ Night Shift v4.2 also supports operator-provided pregame refresh CSVs for verified weather/roof, markets, player props, and news/scratch notes:
+
+```bash
+python -m echoiq_v3.daily_agent.run_daily_agent --date YYYY-MM-DD --preflight-manual-inputs
+python -m echoiq_v3.daily_agent.run_daily_agent --date YYYY-MM-DD --mode pregame-refresh
+python -m echoiq_v3.daily_agent.run_daily_agent --date YYYY-MM-DD --summarize-pregame-refresh
+python -m echoiq_v3.daily_agent.run_daily_agent --date YYYY-MM-DD --mode postgame-learning
+```
+
+Default manual files live at `data/manual/weather_roof.csv`, `data/manual/market_snapshot.csv`, `data/manual/player_props.csv`, and `data/manual/news_scratch.csv`; templates live under `data/manual/templates/`. Run preflight after editing CSVs and before pregame refresh. It is local-only, calls no APIs, creates no bets, and writes `04_pregame_refresh/manual_input_preflight.csv`. Manual rows are labeled `manual_operator_input`, validated into `04_pregame_refresh/manual_input_validation.csv`, and still cannot create official bets. Pregame refresh now prints a compact post-run terminal summary, and `--summarize-pregame-refresh` can read the existing local refresh artifacts without rerunning sources.
+
+Postgame learning is a model-learning and prediction-grading pass, not a betting-card generator. It writes `05_postgame_learning/prediction_grades.csv`, `game_grades.csv`, `hidden_winners.csv`, `signal_performance.json`, `postgame_learning_report.md`, and `next_slate_prompt_rules.md`, with process labels kept separate from final results.
+
 ## Repository layout
 
 | Path | Purpose |

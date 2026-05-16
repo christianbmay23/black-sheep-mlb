@@ -1,0 +1,2 @@
+slate_date,game_id,player_name,player_id,team,news_type,status,headline,summary,lineup_impact,prop_impact,source_name,source_url,published_at,notes
+2026-05-15,123456,Example Hitter,999999,AAA,scratch,out,Example Hitter scratched,Official lineup excludes player,kills_candidate,kills_candidate,operator_verified,https://example.test/news,2026-05-15T18:00:00Z,verified before refresh
