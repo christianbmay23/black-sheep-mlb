@@ -1,0 +1,150 @@
+{
+  "_meta": {
+    "version": "1.0",
+    "purpose": "Schema for prop price ingestion. Populate manually or via API. One entry per player-market-book combination.",
+    "status": "template — no live API integration yet",
+    "fields_required": ["player", "market", "sportsbook", "odds_american", "timestamp"],
+    "fields_computed": ["implied_probability", "no_vig_probability", "clv"],
+    "upgrade_path": "Connect to The Odds API or DraftKings/FanDuel feed for live population"
+  },
+
+  "schema": {
+    "player": {
+      "type": "string",
+      "example": "Mark Vientos",
+      "notes": "Last name, First name preferred for sorting"
+    },
+    "team": {
+      "type": "string",
+      "example": "NYM"
+    },
+    "market": {
+      "type": "string",
+      "enum": ["HR", "TB_1", "TB_2", "TB_3", "Hits_1", "Hits_2", "RBI_1", "Runs_1", "custom"],
+      "notes": "TB_1 = over 0.5 TB; TB_2 = over 1.5 TB; Hits_1 = 1+ hits"
+    },
+    "sportsbook": {
+      "type": "string",
+      "enum": ["FanDuel", "DraftKings", "BetMGM", "Caesars", "ESPN_Bet", "Outlier", "BetRivers", "Other"]
+    },
+    "odds_american": {
+      "type": "integer",
+      "example": 135,
+      "notes": "Positive = underdog price (e.g., +135). Negative = favorite price (e.g., -155). No '+' prefix in storage."
+    },
+    "odds_decimal": {
+      "type": "number",
+      "example": 2.35,
+      "notes": "Computed: positive odds = (odds/100)+1; negative odds = (100/abs(odds))+1"
+    },
+    "implied_probability": {
+      "type": "number",
+      "example": 0.4255,
+      "notes": "Computed: 1 / odds_decimal. Includes the vig."
+    },
+    "no_vig_probability": {
+      "type": "number",
+      "example": 0.4490,
+      "notes": "Computed after vig removal. For props with no listed 'other side', use standard 6% hold removal: implied_prob / 0.94"
+    },
+    "timestamp_pulled": {
+      "type": "string",
+      "format": "ISO8601",
+      "example": "2026-05-16T10:30:00-05:00",
+      "notes": "When this price was observed. Critical for CLV and stale-line detection."
+    },
+    "line_movement": {
+      "type": "object",
+      "properties": {
+        "open": {"type": "integer", "example": 120, "notes": "Opening line American odds"},
+        "current": {"type": "integer", "example": 105, "notes": "Current line"},
+        "direction": {"type": "string", "enum": ["shortening", "lengthening", "stable"]},
+        "movement_cents": {"type": "integer", "example": -15, "notes": "Current implied prob minus open implied prob in basis points"},
+        "sharp_flag": {"type": "boolean", "notes": "True if movement >15 cents in a single direction — potential sharp action"}
+      }
+    },
+    "closing_line": {
+      "type": "integer",
+      "example": 110,
+      "notes": "Fill in AFTER first pitch. American odds at market close. Used for CLV calculation."
+    },
+    "clv": {
+      "type": "number",
+      "example": 0.018,
+      "notes": "Computed post-game: no_vig_prob_at_bet - no_vig_prob_at_close. Positive = got better than close (good). Negative = got worse than close (bad)."
+    },
+    "best_available_flag": {
+      "type": "boolean",
+      "notes": "True if this is the best price across all books checked for this player-market combination"
+    },
+    "baseball_grade": {
+      "type": "string",
+      "enum": ["A", "B", "C", "D", "F"],
+      "notes": "From dual_grade_framework.md — assigned at analysis time"
+    },
+    "bet_grade": {
+      "type": "string",
+      "enum": ["1", "2", "3", "4", "PASS", "PENDING_PRICE"],
+      "notes": "Assigned after price pull and EV calculation"
+    },
+    "fair_probability": {
+      "type": "number",
+      "example": 0.155,
+      "notes": "Model-estimated true probability. From: base_rate x pitcher_factor x park_factor x weather_factor x form_factor"
+    },
+    "ev": {
+      "type": "number",
+      "example": 0.063,
+      "notes": "Expected value per unit: (fair_prob x odds_decimal) - 1. Positive = +EV. Negative = -EV."
+    },
+    "edge_dependence": {
+      "type": "string",
+      "enum": ["MATCHUP", "REGRESSION", "ENVIRONMENT", "STREAK", "COMPOSITE"]
+    },
+    "game_date": {
+      "type": "string",
+      "format": "YYYY-MM-DD",
+      "example": "2026-05-16"
+    },
+    "result": {
+      "type": "string",
+      "enum": ["WIN", "LOSS", "PUSH", "NO_ACTION", "PENDING"],
+      "notes": "Fill in post-game"
+    },
+    "actual_stat": {
+      "type": "string",
+      "example": "1 HR, 3 TB",
+      "notes": "Fill in post-game"
+    }
+  },
+
+  "sample_entry": {
+    "player": "Vientos, Mark",
+    "team": "NYM",
+    "market": "HR",
+    "sportsbook": "FanDuel",
+    "odds_american": 130,
+    "odds_decimal": 2.30,
+    "implied_probability": 0.4348,
+    "no_vig_probability": 0.4625,
+    "timestamp_pulled": "2026-05-16T11:15:00-05:00",
+    "line_movement": {
+      "open": 140,
+      "current": 130,
+      "direction": "shortening",
+      "movement_cents": -5,
+      "sharp_flag": false
+    },
+    "closing_line": null,
+    "clv": null,
+    "best_available_flag": true,
+    "baseball_grade": "A",
+    "bet_grade": "PENDING_PRICE",
+    "fair_probability": null,
+    "ev": null,
+    "edge_dependence": "COMPOSITE",
+    "game_date": "2026-05-16",
+    "result": "PENDING",
+    "actual_stat": null
+  }
+}
